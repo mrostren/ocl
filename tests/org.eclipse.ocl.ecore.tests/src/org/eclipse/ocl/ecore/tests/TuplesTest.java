@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ocl.OCLInput;
+import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.TupleType;
 import org.eclipse.ocl.expressions.OCLExpression;
 
@@ -249,13 +250,20 @@ public class TuplesTest
 		assertEquals("Roger", evaluate(expr));
 	}
 	
-	public void test_tupleWithLongIntegerProperty_349117() {
-        OCLExpression<EClassifier> expr = parse(
-            "package ocltest context Fruit " +
-            "inv: Tuple{first : Integer = 5000000000}.first " +
-            "endpackage");
-    
-		assertEquals(5000000000l, evaluate(expr));
-		
+	public void test_tupleWithLongIntegerProperty_349117() throws ParserException {
+		// tuples work fine with int / java.lang.Integer
+		helper.setContext(ecore.getEClassifier("EInt"));
+		OCLExpression<EClassifier> expr2 = helper.createQuery("Tuple{first : Integer = self}.first");
+		assertEquals(5000000, evaluate(expr2, Integer.valueOf(5000000)));
+
+		// we can compute with Long values
+		helper.setContext(ecore.getEClassifier("ELong"));
+		OCLExpression<EClassifier> expr3 = helper.createQuery("2*self");
+		assertEquals(10000000000l, evaluate(expr3, Long.valueOf(5000000000l)));
+
+		// we should be able to create the tuple based on a java.lang.Long as an OCL Integer
+		helper.setContext(ecore.getEClassifier("ELong"));
+		OCLExpression<EClassifier> expr4 = helper.createQuery("Tuple{first : Integer = self}.first");
+		assertEquals(5000000000l, evaluate(expr4, Long.valueOf(5000000000l)));
 	}
 }
