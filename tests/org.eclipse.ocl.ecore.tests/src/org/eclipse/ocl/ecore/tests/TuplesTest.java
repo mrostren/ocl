@@ -261,9 +261,14 @@ public class TuplesTest
 		OCLExpression<EClassifier> expr3 = helper.createQuery("2*self");
 		assertEquals(10000000000l, evaluate(expr3, Long.valueOf(5000000000l)));
 
+		// we should be able to create the tuple based on a value exceeding int, represented as long
+		helper.setContext(ecore.getEClassifier("EClass"));
+		OCLExpression<EClassifier> expr4 = helper.createQuery("Tuple{first : Integer = 1000*5000000}.first");
+		assertEquals(5000000000l, evaluate(expr4, ecore.getEPackage()));
+
 		// we should be able to create the tuple based on a java.lang.Long as an OCL Integer
 		helper.setContext(ecore.getEClassifier("ELong"));
-		OCLExpression<EClassifier> expr4 = helper.createQuery("Tuple{first : Integer = self}.first");
-		assertEquals(5000000000l, evaluate(expr4, Long.valueOf(5000000000l)));
+		OCLExpression<EClassifier> expr5 = helper.createQuery("Tuple{first : Integer = self}.first");
+		assertEquals(5000000000l, evaluate(expr5, Long.valueOf(5000000000l)));
 	}
 }
