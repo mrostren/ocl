@@ -3,20 +3,22 @@
 
 [template public generate(pkg : Package) ? (pkg.eContainer() <> null)]
 [comment @main /]
-[for (ownedType : Type | pkg.ownedType->sortedBy(moniker))]
-[file (ownedType.name + 'Operations.java', false, 'UTF-8')]
-package [pkg.name/];
+[for (type : Type | pkg.ownedType->sortedBy(moniker))]
+[file ('operations/' + type.name + 'Operations.java', false, 'UTF-8')]
+package [pkg.name/].operations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.ocl.examples.pivot.InvalidValueException;
 import org.eclipse.ocl.examples.pivot.values.*;
+import [pkg.name/].[type.name/];
 
 @SuppressWarnings("unused")
-public class [ownedType.name/]Operations
+public class [type.name/]Operations
 {
 	/**
 	 *	The model interaction API.
@@ -43,18 +45,31 @@ public class [ownedType.name/]Operations
 
 	public static void suppressThrowWarnings()  throws InvalidValueException {}
 
-[for (rule : Constraint | ownedType.ownedRule->sortedBy(name)) before ('\n') separator ('\n')]
-	[generateInvariant(ownedType, rule)/]
+[for (rule : Constraint | type.ownedRule->sortedBy(name)) before ('\n') separator ('\n')]
+	[generateInvariant(type, rule)/]
 [/for]
-[if (ownedType.oclIsKindOf(Class))]
-[for (operation : Operation | ownedType.oclAsType(Class).ownedOperation->sortedBy(moniker)) before ('\n') separator ('\n')]
+[if (type.oclIsKindOf(Class))]
+[for (operation : Operation | type.oclAsType(Class).ownedOperation->sortedBy(moniker)) before ('\n') separator ('\n')]
 [for (rule : Constraint | operation.ownedRule) separator ('\n')]
-	[generateFeatureConstraint(ownedType, operation, rule)/]
+[if (rule.stereotype = 'body')]
+	public static [operation.type.name/] [operation.name/]([type.name/] self[for (parameter : Parameter | operation.ownedParameter)], [parameter.type.name/] [parameter.name/][/for]) {
+		ValueFactory valueFactory = ValueFactory.INSTANCE;
+		CodeGenImplementation codeGen = [type.name + '_' + operation.name + '_' + rule.stereotype + '_' + rule.name/].INSTANCE;
+		try {
+			Value result = codeGen.evaluate(valueFactory, valueFactory.valueOf(self)[for (parameter : Parameter | operation.ownedParameter)], valueFactory.valueOf([parameter.name/])[/for]);
+			return ([operation.type.name/]) valueFactory.getEcoreValueOf(result);
+		} catch (InvalidValueException e) {
+			throw new WrappedException(e);
+		}
+	}
+
+[/if]
+	[generateFeatureConstraint(type, operation, rule)/]
 [/for]
 [/for]
-[for (property : Property | ownedType.oclAsType(Class).ownedAttribute->sortedBy(name)) before ('\n') separator ('\n')]
+[for (property : Property | type.oclAsType(Class).ownedAttribute->sortedBy(name)) before ('\n') separator ('\n')]
 [for (rule : Constraint | property.ownedRule) separator ('\n')]
-	[generateFeatureConstraint(ownedType, property, rule)/]
+	[generateFeatureConstraint(type, property, rule)/]
 [/for]
 [/for]
 [/if]
@@ -92,6 +107,8 @@ public static class [className/] extends CodeGenImplementation
 [template public generateSpecification(className : String, specification : ExpressionInOcl)]
 public static class [className/] extends CodeGenImplementation
 {
+	public static [className/] INSTANCE = new [className/]();
+
 	public Value evaluate(ValueFactory valueFactory, Value sourceValue, Value... argValues) throws InvalidValueException {
 		Value [getSymbolName(specification.contextVariable)/] = sourceValue;		// self
 [if specification.parameterVariable->notEmpty()]
