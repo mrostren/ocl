@@ -59,7 +59,7 @@ public interface PivotPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/ocl/3.1.0/Pivot"; //$NON-NLS-1$
+	String eNS_URI = "http://www.eclipse.org/ocl/3.2.0/Pivot"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

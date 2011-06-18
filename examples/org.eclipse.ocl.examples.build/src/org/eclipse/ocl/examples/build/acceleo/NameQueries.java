@@ -16,6 +16,13 @@
  */
 package org.eclipse.ocl.examples.build.acceleo;
 
+import java.util.List;
+
+import org.eclipse.ocl.examples.pivot.Operation;
+import org.eclipse.ocl.examples.pivot.OperationCallExp;
+import org.eclipse.ocl.examples.pivot.Parameter;
+import org.eclipse.ocl.examples.pivot.SelfType;
+
 public class NameQueries
 {
 	private static int counter = 1;
@@ -42,5 +49,20 @@ public class NameQueries
 	 */
 	public static String getSymbolName(Object eObject) {
 		return "symbol_" + counter++;
+	}
+	
+	public static Boolean isBinarySelf(OperationCallExp callExp) {
+		if (callExp == null) {
+			return false;
+		}
+		Operation operation = callExp.getReferredOperation();
+		if (operation == null) {
+			return false;
+		}
+		List<Parameter> parameters = operation.getOwnedParameters();
+		if (parameters.size() != 1) {
+			return false;
+		}
+		return parameters.get(0).getType() instanceof SelfType;
 	}
 }

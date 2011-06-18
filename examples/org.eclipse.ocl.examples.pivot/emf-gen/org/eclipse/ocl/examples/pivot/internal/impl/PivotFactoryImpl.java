@@ -119,7 +119,7 @@ public class PivotFactoryImpl
 	public static PivotFactory init() {
 		try
 		{
-			PivotFactory thePivotFactory = (PivotFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/ocl/3.1.0/Pivot"); //$NON-NLS-1$ 
+			PivotFactory thePivotFactory = (PivotFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/ocl/3.2.0/Pivot"); //$NON-NLS-1$ 
 			if (thePivotFactory != null)
 			{
 				return thePivotFactory;

@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module generateOCLstdlib('http://www.eclipse.org/ocl/3.1.0/Pivot','http://www.eclipse.org/emf/2002/Ecore')/]
+[module generateOCLstdlib('http://www.eclipse.org/ocl/3.2.0/Pivot','http://www.eclipse.org/emf/2002/Ecore')/]
 [import generateOclCommon/]
 
 [template public generate(pkg : Package, javaPackage : String, javaClass : String, sourceFile : String, uri : String) ? (pkg.eContainer() = null)]

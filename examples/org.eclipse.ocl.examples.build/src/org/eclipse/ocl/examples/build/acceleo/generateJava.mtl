@@ -1,0 +1,307 @@
+[comment encoding = UTF-8 /]
+[module generateJava('http://www.eclipse.org/ocl/3.2.0/Pivot','http://www.eclipse.org/emf/2002/Ecore')/]
+
+[template public generate(pkg : Package) ? (pkg.eContainer() <> null)]
+[comment @main /]
+[for (ownedType : Type | pkg.ownedType->sortedBy(moniker))]
+[file (ownedType.name + 'Operations.java', false, 'UTF-8')]
+package [pkg.name/];
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.ocl.examples.pivot.InvalidValueException;
+import org.eclipse.ocl.examples.pivot.values.*;
+
+@SuppressWarnings("unused")
+public class [ownedType.name/]Operations
+{
+	/**
+	 *	The model interaction API.
+     */
+	public abstract static class CodeGenImplementation 
+	{
+		public Value dispatch(Value source, String operationMoniker, Value... arguments) throws InvalidValueException {
+			return null;		// TODO implement me
+		}
+		public Value dispatch(Value source, String iterationMoniker, Value initial, CodeGenImplementation body) throws InvalidValueException {
+			return null;		// TODO implement me
+		}
+		public abstract Value evaluate(ValueFactory valueFactory, Value sourceValue, Value... argValues) throws InvalidValueException;
+		public Value navigate(Value source, String propertyMoniker) {
+			return null;		// TODO implement me
+		}
+		public Value tupleFor(String tupleMoniker, Map<String, Value> partMap) {
+			return null;		// TODO implement me
+		}
+		public Value typeOf(String typeMoniker) {
+			return null;		// TODO implement me
+		}
+	}
+
+	public static void suppressThrowWarnings()  throws InvalidValueException {}
+
+[for (rule : Constraint | ownedType.ownedRule->sortedBy(name)) before ('\n') separator ('\n')]
+	[generateInvariant(ownedType, rule)/]
+[/for]
+[if (ownedType.oclIsKindOf(Class))]
+[for (operation : Operation | ownedType.oclAsType(Class).ownedOperation->sortedBy(moniker)) before ('\n') separator ('\n')]
+[for (rule : Constraint | operation.ownedRule) separator ('\n')]
+	[generateFeatureConstraint(ownedType, operation, rule)/]
+[/for]
+[/for]
+[for (property : Property | ownedType.oclAsType(Class).ownedAttribute->sortedBy(name)) before ('\n') separator ('\n')]
+[for (rule : Constraint | property.ownedRule) separator ('\n')]
+	[generateFeatureConstraint(ownedType, property, rule)/]
+[/for]
+[/for]
+[/if]
+}
+[/file]
+[/for]
+[/template]
+
+[template public generateInvariant(type : Type, constraint : Constraint)]
+[let className : String = type.name + '_inv_' + constraint.name]
+/** 
+ * Implementation of the [type.name/] '[constraint.name/]' invariant.
+ *
+ * [constraint.specification.toString()/]
+ */
+[generateSpecification(className, constraint.specification)/][/let][/template]
+
+[template public generateFeatureConstraint(type : Type, feature : Feature, constraint : Constraint)]
+[let className : String = type.name + '_' + feature.name + '_' + constraint.stereotype + '_' + constraint.name]
+/** 
+ * Implementation of the [type.name/]::[feature.name/] '[constraint.name/]' <[constraint.stereotype/]>.
+ *
+ * [constraint.specification.toString()/]
+ */
+[generateSpecification(className, constraint.specification)/][/let][/template]
+
+[template public generateSpecification(className : String, specification : ValueSpecification)]
+public static class [className/] extends CodeGenImplementation
+{
+	public Value evaluate(ValueFactory valueFactory, Value sourceValue, Value... argValues) throws InvalidValueException {
+		return null;
+	}
+}[/template]
+
+[template public generateSpecification(className : String, specification : ExpressionInOcl)]
+public static class [className/] extends CodeGenImplementation
+{
+	public Value evaluate(ValueFactory valueFactory, Value sourceValue, Value... argValues) throws InvalidValueException {
+		Value [getSymbolName(specification.contextVariable)/] = sourceValue;		// self
+[if specification.parameterVariable->notEmpty()]
+[for (i : Integer | Sequence{1..specification.parameterVariable->size()})]
+		Value [getSymbolName(specification.parameterVariable->at(i))/] = argValues['[' + (i-1).toString() + ']'/];	// parameter: [specification.parameterVariable->at(i).name/]
+[/for]  
+[/if]  
+		[generateJava('Value result', specification.bodyExpression)/]
+		return result;
+	}
+}[/template]
+
+[template public generateJava(result : String, ast : BooleanLiteralExp)]
+[result/] = valueFactory.booleanValueOf([if (ast.booleanSymbol)]true[else]false[/if]);[/template]
+
+[template public generateJava(result : String, ast : CollectionLiteralExp)]
+[let listVarName : String = 'list_'+getSymbolName(ast)]
+[let resultVarName : String = 'result_'+getSymbolName(ast)]
+List<Value> [listVarName/] = new ArrayList<Value>(); 
+[for (part : CollectionLiteralPart | ast.part)]
+[generateJava(listVarName, part)/]
+[/for]
+[result/] = valueFactory.createCollectionValue([getCollectionKind(ast.kind.toString())/], [listVarName/]);[/let][/let][/template]
+
+[template public generateJava(result : String, item : CollectionItem)]
+[let itemVarName : String = 'item_'+getSymbolName(item)]
+[let itemVarDecl : String = 'Value '+itemVarName]
+[generateJava(itemVarDecl, item.item)/]
+[result/].add([itemVarName/]);[/let][/let][/template]
+
+[template public generateJava(result : String, range : CollectionRange)]
+[let firstVarName : String = 'first_'+getSymbolName(range)]
+[let lastVarName : String = 'last_'+getSymbolName(range)]
+[let startVarName : String = 'start_'+getSymbolName(range)]
+[let endVarName : String = 'end_'+getSymbolName(range)]
+[let deltaVarName : String = 'delta_'+getSymbolName(range)]
+[let firstVarDecl : String = 'IntegerValue '+firstVarName]
+[let lastVarDecl : String = 'IntegerValue '+lastVarName]
+[generateJava(firstVarDecl, range.first)/]
+[generateJava(lastVarDecl, range.last)/]
+int [startVarName/] = [firstVarName/].asInteger();
+int [endVarName/] = [lastVarName/].asInteger();
+int [deltaVarName/] = [startVarName/] > [endVarName/] ? -1 :1;
+[result/].add([firstVarName/]);
+for (int [getSymbolName(range)/] = [startVarName/]; [getSymbolName(range)/] != [endVarName/]; [getSymbolName(range)/] += [deltaVarName/]) {
+	[result/].add(valueFactory.integerValueOf([getSymbolName(range)/]));
+}[/let][/let][/let][/let][/let][/let][/let][/template]
+
+[template public generateJava(result : String, ast : Element)]
+[result/] = <[ast.eClass().name/]>;[/template]
+
+[template public generateJava(result : String, ast : IfExp)]
+[let condVarName : String = 'if_'+getSymbolName(ast)]
+[let resultVarName : String = 'result_'+getSymbolName(ast)]
+[let condVarDecl : String = 'Value '+condVarName]
+Value [resultVarName/];
+[generateJava(condVarDecl, ast.condition)/]
+if ([condVarName/].isTrue()) {
+	[generateJava(resultVarName, ast.thenExpression)/]
+}
+else if ([condVarName/].isFalse()) {
+	[generateJava(resultVarName, ast.elseExpression)/]
+}
+else if ([condVarName/].isNull()) {
+	[resultVarName/] = valueFactory.throwInvalidValueException("null if condition");
+}
+else {
+	[resultVarName/] = valueFactory.throwInvalidValueException("invalid if condition");
+}
+[result/] = [resultVarName/];[/let][/let][/let][/template]
+
+[template public generateJava(result : String, ast : IntegerLiteralExp)]
+[result/] = valueFactory.integerValueOf([ast.integerSymbol/]);[/template]
+
+[template public generateJava(result : String, ast : InvalidLiteralExp)]
+[result/] = valueFactory.throwInvalidValueException("invalid literal");[/template]
+
+[template public generateJava(result : String, ast : IterateExp)]
+[let leftVarName : String = getSymbolName(ast.source)]
+[let accVarName : String = getSymbolName(ast.result)]
+[let bodyName : String = 'body_'+getSymbolName(ast)]
+[let leftVarDecl : String = 'Value '+leftVarName]
+[let accVarDecl : String = 'Value '+accVarName]
+[generateJava(leftVarDecl, ast.source)/]
+[generateJava(accVarDecl, ast.result.initExpression)/]
+
+/** 
+ * Implementation of the iterate body.
+ *
+ * [ast._'body'.toString()/]
+ */
+CodeGenImplementation [bodyName/] = new CodeGenImplementation()
+{
+	public Value evaluate(ValueFactory valueFactory, Value sourceValue, Value... argValues) throws InvalidValueException {
+		Value [accVarName/] = sourceValue;	// accumulator: [ast.result.name/]
+[for (i : Integer | Sequence{1..ast.iterator->size()})]
+		Value [getSymbolName(ast.iterator->at(i))/] = argValues['[' + (i-1).toString() + ']'/];	// iterator: [ast.iterator->at(i).name/]
+[/for]  
+		[generateJava('Value result', ast._'body')/]
+		return result;
+	}
+};
+[result/] = dispatch([leftVarName/], "[ast.referredIteration.moniker/]", [accVarName/], [bodyName/]);[/let][/let][/let][/let][/let][/template]
+
+[template public generateJava(result : String, ast : IteratorExp)]
+[let leftVarName : String = getSymbolName(ast.source)]
+[let bodyVarName : String = 'body_'+getSymbolName(ast)]
+[let leftVarDecl : String = 'Value '+leftVarName]
+[generateJava(leftVarDecl, ast.source)/]
+
+/** 
+ * Implementation of the iterator body.
+ *
+ * [ast._'body'.toString()/]
+ */
+CodeGenImplementation [bodyVarName/] = new CodeGenImplementation()
+{
+	public Value evaluate(ValueFactory valueFactory, Value sourceValue, Value... argValues) throws InvalidValueException {
+[for (i : Integer | Sequence{1..ast.iterator->size()})]
+		Value [getSymbolName(ast.iterator->at(i))/] = argValues['[' + (i-1).toString() + ']'/];	// iterator: [ast.iterator->at(i).name/]
+[/for]  
+		[generateJava('Value result', ast._'body')/]
+		return result;
+	}
+};
+[result/] = dispatch([leftVarName/], "[ast.referredIteration.moniker/]", null, [bodyVarName/]);[/let][/let][/let][/template]
+
+[template public generateJava(result : String, ast : LetExp)]
+[let letVarName : String = getSymbolName(ast.variable)]
+[let letVarDecl : String = 'final Value '+letVarName]
+[generateJava(letVarDecl, ast.variable.initExpression)/]
+[generateJava(result, ast._in)/][/let][/let][/template]
+
+[template public generateJava(result : String, ast : NullLiteralExp)]
+[result/] = valueFactory.getNull();[/template]
+
+[template public generateJava(result : String, ast : OperationCallExp) ? ((ast.referredOperation.class.name = 'Boolean') and (ast.referredOperation.ownedParameter->size() = 1))]
+[let leftVarName : String = getSymbolName(ast.source)]
+[let rightVarName : String = getSymbolName(ast.argument->at(1))]
+Value [leftVarName/];
+try {
+	suppressThrowWarnings();
+	[generateJava(leftVarName, ast.source)/]
+} catch (InvalidValueException e) {
+	[leftVarName/] = valueFactory.getInvalid();
+}
+Value [rightVarName/];
+try {
+	suppressThrowWarnings();
+	[generateJava(rightVarName, ast.argument->at(1))/]
+} catch (InvalidValueException e) {
+	[rightVarName/] = valueFactory.getInvalid();
+}
+[result/] = dispatch([leftVarName/], "[ast.referredOperation.moniker/]", [rightVarName/]);[/let][/let][/template]
+
+[template public generateJava(result : String, ast : OperationCallExp) ? ((ast.referredOperation.class.name <> 'Boolean') or (ast.referredOperation.ownedParameter->size() <> 1))]
+[let leftVarName : String = getSymbolName(ast.source)]
+[let leftVarDecl : String = 'Value '+leftVarName]
+[generateJava(leftVarDecl, ast.source)/]
+[for (argument : OclExpression | ast.argument)]
+[let argVarDecl : String = 'Value '+getSymbolName(argument)]
+[generateJava(argVarDecl, argument)/]
+[/let]
+[/for]
+[result/] = dispatch([leftVarName/], "[ast.referredOperation.moniker/]"[for (argument : OclExpression | ast.argument) before (', ') separator (', ')][getSymbolName(argument)/][/for]);[/let][/let][/template]
+
+[template public generateJava(result : String, ast : PropertyCallExp)]
+[let leftVarName : String = getSymbolName(ast.source)]
+[let leftVarDecl : String = 'Value '+leftVarName]
+[generateJava(leftVarDecl, ast.source)/]
+[result/] = navigate([leftVarName/], "[ast.referredProperty.moniker/]");[/let][/let][/template]
+
+[template public generateJava(result : String, ast : RealLiteralExp)]
+[result/] = valueFactory.realValueOf([ast.realSymbol/]);[/template]
+
+[template public generateJava(result : String, ast : StringLiteralExp)]
+[result/] = valueFactory.stringValueOf("[javaString(ast.stringSymbol)/]");[/template]
+
+[template public generateJava(result : String, ast : TupleLiteralExp)]
+[let mapVarName : String = getSymbolName(ast)]
+Map<String, Value> [mapVarName/] = new HashMap<String, Value>();
+[for (part : TupleLiteralPart | ast.part)]
+[let partVarDecl : String = 'Value '+getSymbolName(part)]
+[generateJava(partVarDecl, part.initExpression)/]
+[mapVarName/].put("[javaString(part.name)/]", [getSymbolName(part)/]);
+[/let]
+[/for]
+[result/] = tupleFor("[ast.type.moniker/]", [mapVarName/]);[/let][/template]
+
+[template public generateJava(result : String, ast : TypeExp)]
+[result/] = typeOf("[ast.referredType.moniker/]");[/template]
+
+[template public generateJava(result : String, ast : UnlimitedNaturalLiteralExp)]
+[if ast.unlimitedNaturalSymbol >= 0][result/] = valueFactory.integerValueOf([ast.unlimitedNaturalSymbol/]);[else][result/] = valueFactory.getUnlimited();[/if][/template]
+
+[template public generateJava(result : String, ast : VariableExp)]
+[result/] = [getSymbolName(ast.referredVariable)/];[/template]
+
+[query public getCollectionKind(s : String) : String = 
+if s = 'Bag' then 'org.eclipse.ocl.examples.pivot.CollectionKind.BAG'
+else if s = 'OrderedSet' then 'org.eclipse.ocl.examples.pivot.CollectionKind.ORDERED_SET' 
+else if s = 'Sequence' then 'org.eclipse.ocl.examples.pivot.CollectionKind.SEQUENCE' 
+else if s = 'Set' then 'org.eclipse.ocl.examples.pivot.CollectionKind.SET' 
+else 'org.eclipse.ocl.examples.pivot.CollectionKind.COLLECTION' endif endif endif endif /]
+
+[query public getSymbolName(elem : Element) : String = 
+invoke('org.eclipse.ocl.examples.build.acceleo.NameQueries', 'getSymbolName(java.lang.Object)', Sequence{elem}) /]
+
+[query public isBinarySelf(callExp : OperationCallExp) : Boolean = 
+invoke('org.eclipse.ocl.examples.build.acceleo.NameQueries', 'isBinarySelf(org.eclipse.ocl.examples.pivot.OperationCallExp)', Sequence{callExp}) /]
+
+[query public javaString(rawString : String) : String = 
+invoke('org.eclipse.xtext.util.Strings', 'convertToJavaString(java.lang.String)', Sequence{rawString}) /]

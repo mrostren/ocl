@@ -102,7 +102,7 @@
     </xmi:Extension>
   </cmof:Package>
   <xmi:Extension extender="http://www.eclipse.org/uml2/3.0.0/UML">
-    <Ecore:EPackage xmi:id="_5mpFcIdyEd-N4tjuug6Vsw" base_Package="_0" nsPrefix="pivot" nsURI="http://www.eclipse.org/ocl/3.1.0/Pivot" basePackage=""/>
+    <Ecore:EPackage xmi:id="_5mpFcIdyEd-N4tjuug6Vsw" base_Package="_0" nsPrefix="pivot" nsURI="http://www.eclipse.org/ocl/3.2.0/Pivot" basePackage=""/>
   </xmi:Extension>
   <xmi:Extension extender="http://www.eclipse.org/uml2/3.0.0/UML">
     <Ecore:EPackage xmi:id="_TPVhdod0Ed-N4tjuug6Vsw" base_Package="_0" nsPrefix="uml" nsURI="http://www.omg.org/spec/UML/20090901"/>
@@ -150,11 +150,11 @@
     <Ecore:EAttribute xmi:id="_yqM3UL2iEd-nQufuYygZtQ" isTransient="true"/>
   </xmi:Extension>
   <xmi:Extension extender="http://www.eclipse.org/uml2/3.0.0/UML">
-    <Ecore:EPackage xmi:id="_hn2o4sinEd-sJIf4tYBt-g" base_Package="_0" nsPrefix="pivot" nsURI="http://www.eclipse.org/ocl/3.1.0/Pivot"/>
+    <Ecore:EPackage xmi:id="_hn2o4sinEd-sJIf4tYBt-g" base_Package="_0" nsPrefix="pivot" nsURI="http://www.eclipse.org/ocl/3.2.0/Pivot"/>
   </xmi:Extension>
   <xmi:Extension extender="http://www.eclipse.org/uml2/3.0.0/UML">
-    <Ecore:EPackage xmi:id="_6wkKcMknEd-bx742yyafXQ" base_Package="_0" nsPrefix="pivot" nsURI="http://www.eclipse.org/ocl/3.1.0/Pivot"/>
+    <Ecore:EPackage xmi:id="_6wkKcMknEd-bx742yyafXQ" base_Package="_0" nsPrefix="pivot" nsURI="http://www.eclipse.org/ocl/3.2.0/Pivot"/>
   </xmi:Extension>
   <cmof:Tag xmi:id="_19" name="org.omg.xmi.nsPrefix" value="pivot" element="_0"/>
-  <cmof:Tag xmi:id="_20" name="org.omg.xmi.nsURI" value="http://www.eclipse.org/ocl/3.1.0/Pivot" element="_0"/>
+  <cmof:Tag xmi:id="_20" name="org.omg.xmi.nsURI" value="http://www.eclipse.org/ocl/3.2.0/Pivot" element="_0"/>
 </xmi:XMI>
