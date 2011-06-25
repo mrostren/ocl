@@ -2,11 +2,11 @@ package org.eclipse.ocl.examples.pivot.evaluation;
 
 public abstract class EvaluationFragment
 {
-	final EvaluationClass classTable;
+	final EvaluationClass evaluationClass;
 	final EvaluationOperation[] operations;
 
-	protected EvaluationFragment(EvaluationClass classTable, EvaluationOperation[] operations) {
-		this.classTable = classTable;
+	protected EvaluationFragment(EvaluationClass evaluationClass, EvaluationOperation[] operations) {
+		this.evaluationClass = evaluationClass;
 		this.operations = operations;
 	}
 }

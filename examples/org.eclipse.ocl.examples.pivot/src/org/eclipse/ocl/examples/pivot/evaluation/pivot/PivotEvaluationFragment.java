@@ -6,8 +6,8 @@ public class PivotEvaluationFragment extends EvaluationFragment
 {
 	protected final org.eclipse.ocl.examples.pivot.Class pivotClass;
 
-	public PivotEvaluationFragment(PivotEvaluationClass classTable, PivotEvaluationOperation[] operations, org.eclipse.ocl.examples.pivot.Class pivotClass) {
-		super(classTable, operations);
+	public PivotEvaluationFragment(PivotEvaluationClass evaluationClass, PivotEvaluationOperation[] operations, org.eclipse.ocl.examples.pivot.Class pivotClass) {
+		super(evaluationClass, operations);
 		this.pivotClass = pivotClass;		
 	}
 	

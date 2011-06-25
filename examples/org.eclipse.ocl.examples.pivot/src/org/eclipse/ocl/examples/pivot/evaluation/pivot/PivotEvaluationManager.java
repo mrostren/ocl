@@ -3,6 +3,7 @@ package org.eclipse.ocl.examples.pivot.evaluation.pivot;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.ocl.examples.pivot.Iteration;
 import org.eclipse.ocl.examples.pivot.Operation;
 import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationManager;
@@ -48,11 +49,12 @@ public class PivotEvaluationManager extends EvaluationManager
 	}
 	
 	protected PivotEvaluationClass[] computeClasses(PivotEvaluationManager dispatcher, org.eclipse.ocl.examples.pivot.Package pivotPackage) {
+		PivotEvaluationPackage evaluationPackage = getEvaluationPackage(pivotPackage);
 		List<Type> ownedTypes = pivotPackage.getOwnedTypes();
 		PivotEvaluationClass[] classes = new PivotEvaluationClass[ownedTypes.size()];
 		for (int i = 0; i < classes.length; i++) {
 			org.eclipse.ocl.examples.pivot.Class pivotClass = (org.eclipse.ocl.examples.pivot.Class) ownedTypes.get(i);
-			classes[i] = new PivotEvaluationClass(computeFragments(pivotClass), pivotClass);
+			classes[i] = new PivotEvaluationClass(evaluationPackage, computeFragments(pivotClass), pivotClass);
 		}
 		return null;
 	}
@@ -68,23 +70,29 @@ public class PivotEvaluationManager extends EvaluationManager
 		numFragments = 0;
 		for (List<org.eclipse.ocl.examples.pivot.Class> equiDepthBases : bases) {
 			for (org.eclipse.ocl.examples.pivot.Class  base : equiDepthBases) {
-				fragments[numFragments++] = new PivotEvaluationFragment(getClassTable(base), computeOperations(base), base);
+				fragments[numFragments++] = new PivotEvaluationFragment(getEvaluationClass(base), computeOperations(base), base);
 			}
 		}
 		return fragments;
 	}
 
 	protected PivotEvaluationOperation[] computeOperations(org.eclipse.ocl.examples.pivot.Class pivotClass) {
+		PivotEvaluationClass evaluationClass = getEvaluationClass(pivotClass);
 		List<Operation> ownedOperations = pivotClass.getOwnedOperations();
 		PivotEvaluationOperation[] operations = new PivotEvaluationOperation[ownedOperations.size()];
-		for (int i = 0; i < ownedOperations.size(); i++) {
-			operations[i] = new PivotEvaluationOperation(ownedOperations.get(i));
+		for (int i = 0; i < ownedOperations.size(); i++) {			
+			Operation pivotOperation = ownedOperations.get(i);
+			operations[i] = new PivotEvaluationOperation(evaluationClass, i, pivotOperation);
 		}
 		return operations;
 	}
 
+	public PivotEvaluationClass getEvaluationClass(org.eclipse.ocl.examples.pivot.Class pivotClass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public PivotEvaluationClass getClassTable(org.eclipse.ocl.examples.pivot.Class pivotClass) {
+	public PivotEvaluationPackage getEvaluationPackage(org.eclipse.ocl.examples.pivot.Package pivotPackage) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -56,32 +56,12 @@ public abstract class EvaluationManager extends ValueFactoryImpl
 		EvaluationClass type = typeOf(value);
 		for (Value anotherValue : values) {
 			EvaluationClass anotherType = typeOf(anotherValue);
-			type = type.commonClassTable(anotherType);
+			type = type.commonEvaluationClass(anotherType);
 		}
 		return type;
 	}
 
-	public EvaluationIteration lookupIteration(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public EvaluationOperation0 lookupOperation0(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public EvaluationOperation1 lookupOperation1(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public EvaluationOperation2 lookupOperation2(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public EvaluationOperationN lookupOperationN(String string) {
+	public EvaluationOperation lookupOperation(String string) {
 		// TODO Auto-generated method stub
 		return null;
 	}

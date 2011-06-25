@@ -14,13 +14,15 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.ocl.examples.pivot.InvalidValueException;
+import org.eclipse.ocl.examples.pivot.evaluation.AbstractCallable;
+import org.eclipse.ocl.examples.pivot.evaluation.CallableIteration;
+import org.eclipse.ocl.examples.pivot.evaluation.CallableOperation0;
+import org.eclipse.ocl.examples.pivot.evaluation.CallableOperation1;
+import org.eclipse.ocl.examples.pivot.evaluation.CallableOperation2;
+import org.eclipse.ocl.examples.pivot.evaluation.CallableOperationN;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationClass;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationIteration;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationManager;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationOperation0;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationOperation1;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationOperation2;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationOperationN;
+import org.eclipse.ocl.examples.pivot.evaluation.EvaluationOperation;
 import org.eclipse.ocl.examples.pivot.evaluation.ecore.EcoreEvaluationManager;
 import org.eclipse.ocl.examples.pivot.values.*;
 import [pkg.name/].[type.name/];
@@ -39,7 +41,7 @@ public class [type.name/]Operations
 [if (rule.stereotype = 'body')]
 	public static [operation.type.name/] [operation.name/]([type.name/] self[for (parameter : Parameter | operation.ownedParameter)], [parameter.type.name/] [parameter.name/][/for]) {
 		EvaluationManager evaluationManager = EcoreEvaluationManager.INSTANCE;
-		EvaluationOperation[getAritySuffix(operation.ownedParameter->size())/] codeGen = [type.name + '_' + operation.name + '_' + rule.stereotype + '_' + rule.name/].INSTANCE;
+		CallableOperation[getAritySuffix(operation.ownedParameter->size())/] codeGen = [type.name + '_' + operation.name + '_' + rule.stereotype + '_' + rule.name/].INSTANCE;
 		try {
 			Value result = codeGen.evaluate(evaluationManager, evaluationManager.valueOf(self)[for (parameter : Parameter | operation.ownedParameter)], evaluationManager.valueOf([parameter.name/])[/for]);
 			return ([operation.type.name/]) evaluationManager.getEcoreValueOf(result);
@@ -91,7 +93,7 @@ public static class [className/] extends EvaluationOperation
 
 [template public generateSpecification(className : String, specification : ExpressionInOcl)]
 [let arity : Integer = specification.parameterVariable->size()]
-public static class [className/] extends EvaluationOperation[getAritySuffix(arity)/]
+public static class [className/] extends CallableOperation[getAritySuffix(arity)/]
 {
 	public static [className/] INSTANCE = new [className/]();
 
@@ -189,7 +191,7 @@ else {
  *
  * [ast._'body'.toString()/]
  */
-EvaluationOperation[getAritySuffix(arity)/] [bodyName/] = new EvaluationOperation[getAritySuffix(arity)/]()
+CallableOperation[getAritySuffix(arity)/] [bodyName/] = new CallableOperation[getAritySuffix(arity)/]()
 {
 	public Value evaluate(EvaluationManager evaluationManager, Value sourceValue[for (i : Integer | Sequence{1..arity})]
 , Value iterator[i/][/for]) throws InvalidValueException {
@@ -201,9 +203,9 @@ EvaluationOperation[getAritySuffix(arity)/] [bodyName/] = new EvaluationOperatio
 		return result;
 	}
 };
-EvaluationIteration static_[getSymbolName(ast.source)/] = evaluationManager.lookupIteration("[ast.referredIteration.moniker/]");
+EvaluationOperation static_[getSymbolName(ast.source)/] = evaluationManager.lookupOperation("[ast.referredIteration.moniker/]");
 EvaluationClass type_[getSymbolName(ast.source)/] = evaluationManager.typeOf([getSymbolName(ast.source)/]);
-EvaluationIteration dynamic_[getSymbolName(ast.source)/] = type_[getSymbolName(ast.source)/].lookupOperation(static_[getSymbolName(ast.source)/]);
+CallableIteration dynamic_[getSymbolName(ast.source)/] = (CallableIteration)type_[getSymbolName(ast.source)/].lookupImplementation(static_[getSymbolName(ast.source)/]);
 [result/] = dynamic_[getSymbolName(ast.source)/].evaluate(evaluationManager, [getSymbolName(ast.source)/], [accVarName/], [bodyName/]);[/let][/let][/let][/let][/let][/let][/template]
 
 [template public generateJava(result : String, ast : IteratorExp)]
@@ -218,7 +220,7 @@ EvaluationIteration dynamic_[getSymbolName(ast.source)/] = type_[getSymbolName(a
  *
  * [ast._'body'.toString()/]
  */
-EvaluationOperation[getAritySuffix(arity)/] [bodyVarName/] = new EvaluationOperation[getAritySuffix(arity)/]()
+CallableOperation[getAritySuffix(arity)/] [bodyVarName/] = new CallableOperation[getAritySuffix(arity)/]()
 {
 	public Value evaluate(EvaluationManager evaluationManager, Value sourceValue[for (i : Integer | Sequence{1..arity})]
 , Value iterator[i/][/for]) throws InvalidValueException {
@@ -229,9 +231,9 @@ EvaluationOperation[getAritySuffix(arity)/] [bodyVarName/] = new EvaluationOpera
 		return result;
 	}
 };
-EvaluationIteration static_[getSymbolName(ast.source)/] = evaluationManager.lookupIteration("[ast.referredIteration.moniker/]");
+EvaluationOperation static_[getSymbolName(ast.source)/] = evaluationManager.lookupOperation("[ast.referredIteration.moniker/]");
 EvaluationClass type_[getSymbolName(ast.source)/] = evaluationManager.typeOf([getSymbolName(ast.source)/]);
-EvaluationIteration dynamic_[getSymbolName(ast.source)/] = type_[getSymbolName(ast.source)/].lookupOperation(static_[getSymbolName(ast.source)/]);
+CallableIteration dynamic_[getSymbolName(ast.source)/] = (CallableIteration)type_[getSymbolName(ast.source)/].lookupImplementation(static_[getSymbolName(ast.source)/]);
 [result/] = dynamic_[getSymbolName(ast.source)/].evaluate(evaluationManager, [getSymbolName(ast.source)/], null, [bodyVarName/]);[/let][/let][/let][/let][/template]
 
 [template public generateJava(result : String, ast : LetExp)]
@@ -274,12 +276,12 @@ try {
 
 [template public generateCall(result : String, ast : OperationCallExp)]
 [let arity : Integer = ast.referredOperation.ownedParameter->size()]
-EvaluationOperation[getAritySuffix(arity)/] static_[getSymbolName(ast.source)/] = evaluationManager.lookupOperation[getAritySuffix(arity)/]("[ast.referredOperation.moniker/]");
+EvaluationOperation static_[getSymbolName(ast.source)/] = evaluationManager.lookupOperation("[ast.referredOperation.moniker/]");
 EvaluationClass type_[getSymbolName(ast.source)/] = evaluationManager.typeOf([getSymbolName(ast.source)/][if arity > 0]
 [for (index : Integer | Sequence{1..arity})]
 [if ast.referredOperation.ownedParameter->at(index).type.oclIsKindOf(SelfType)]
 , [getSymbolName(ast.argument->at(index))/][/if][/for][/if]);
-EvaluationOperation[getAritySuffix(arity)/] dynamic_[getSymbolName(ast.source)/] = type_[getSymbolName(ast.source)/].lookupOperation(static_[getSymbolName(ast.source)/]);
+CallableOperation[getAritySuffix(arity)/] dynamic_[getSymbolName(ast.source)/] = (CallableOperation[getAritySuffix(arity)/])type_[getSymbolName(ast.source)/].lookupImplementation(static_[getSymbolName(ast.source)/]);
 [result/] = dynamic_[getSymbolName(ast.source)/].evaluate(evaluationManager, [getSymbolName(ast.source)/][for (argument : OclExpression | ast.argument) before (', ') separator (', ')][getSymbolName(argument)/][/for]);[/let][/template]
 
 [template public generateJava(result : String, ast : PropertyCallExp)]
