@@ -19,6 +19,7 @@ package org.eclipse.ocl.examples.pivot;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.ocl.examples.common.plugin.OCLExamplesCommonPlugin;
+import org.eclipse.ocl.examples.domain.evaluation.EvaluationException;
 
 /**
  * Exception indicating a managed interruption of evaluation.
@@ -35,7 +36,6 @@ import org.eclipse.ocl.examples.common.plugin.OCLExamplesCommonPlugin;
  * </p>
  * 
  * @author radvorak
- * @since 1.3
  */
 public class EvaluationHaltedException extends EvaluationException
 {

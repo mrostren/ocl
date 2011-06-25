@@ -190,8 +190,6 @@ public interface OCLHelper {
      * @see #setContext(Object)
      * @see #setOperationContext(Object, Object)
      * @see #setAttributeContext(Object, Object)
-     * 
-     * @since 1.2
      */
     Environment getEnvironment();
     
@@ -309,22 +307,6 @@ public interface OCLHelper {
 	ExpressionInOcl createBodyCondition(String expression) throws ParserException;
 
 	/**
-	 * Creates a property initial value expression.  This is appropriate only
-	 * if my context is a property.
-	 * 
-	 * @param expression the initial value expression (without any context
-	 *    declaration).  This must conform to my context property type
-	 * 
-	 * @return the initial value expression
-	 * 
-	 * @throws ParserException if the <code>expression</code> fails to parse
-	 *    or is not valid for my context property
-	 * 
-	 * @see #setAttributeContext(Object, Object)
-	 */
-//	Constraint createInitialValueExpression(String expression) throws ParserException;
-
-	/**
 	 * Creates a property derived value expression.  This is appropriate only
 	 * if my context is a property.
 	 * 
@@ -339,46 +321,12 @@ public interface OCLHelper {
 	 * @see #setAttributeContext(Object, Object)
 	 */
 	ExpressionInOcl createDerivedValueExpression(String expression) throws ParserException;
-
-	/**
-	 * Defines an additional operation in the context classifier,
-	 * for use in formulating OCL queries and constraints.  This is a
-	 * "def expression", taking the form of:
-	 * <blockquote><pre>
-	 *     <i>operation-name</i>(<i>parameters?</i>) : <i>type</i> = <i>expr</i>
-	 * </pre></blockquote>
-	 * 
-	 * @param defExpression the definition expression (without any other context
-	 *    declaration).
-	 * @return the newly defined operation
-	 * 
-	 * @throws ParserException if the <code>expression</code> fails to parse
-	 */
-//	Operation defineOperation(String defExpression) throws ParserException;
-
-	/**
-	 * Defines an additional attribute in the context classifier,
-	 * for use in formulating OCL queries and constraints.  This is a
-	 * "def expression", taking the form of:
-	 * <blockquote><pre>
-	 *     <i>attribute-name</i> : <i>type</i> = <i>expr</i>
-	 * </pre></blockquote>
-	 * 
-	 * @param defExpression the definition expression (without any other context
-	 *    declaration).
-	 * @return the newly defined attribute
-	 * 
-	 * @throws ParserException if the <code>expression</code> fails to parse
-	 */
-//	Property defineAttribute(String defExpression) throws ParserException;
     
     /**
      * Obtains problems, if any, found in parsing the last OCL constraint or
      * query expression.
      * 
      * @return parsing problems or <code>null</code> if all was OK
-     * 
-     * @since 1.2
      */
     Diagnostic getProblems();
 }

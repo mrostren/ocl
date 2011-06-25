@@ -859,7 +859,7 @@ public interface PivotPackage
 	 * The meta object id for the '<em>Callable Implementation</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation
+	 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
 	 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getCallableImplementation()
 	 * @generated
 	 */
@@ -17265,11 +17265,11 @@ public interface PivotPackage
 	EReference getAssociationClass_UnownedAttribute();
 
 	/**
-	 * Returns the meta object for data type '{@link org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation <em>Callable Implementation</em>}'.
+	 * Returns the meta object for data type '{@link org.eclipse.ocl.examples.domain.library.LibraryFeature <em>Callable Implementation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Callable Implementation</em>'.
-	 * @see org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation
+	 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
 	 * @model instanceClass="org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation"
 	 * @generated
 	 */
@@ -19896,7 +19896,7 @@ public interface PivotPackage
 		 * The meta object literal for the '<em>Callable Implementation</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation
+		 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
 		 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getCallableImplementation()
 		 * @generated
 		 */

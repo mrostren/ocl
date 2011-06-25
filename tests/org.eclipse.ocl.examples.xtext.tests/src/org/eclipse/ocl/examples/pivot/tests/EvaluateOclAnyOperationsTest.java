@@ -589,7 +589,7 @@ public class EvaluateOclAnyOperationsTest extends PivotSimpleTestSuite
      */
     public void test_oclType_OclAny() {
     	ClassifierType classifierType = getClassifierType(typeManager.getOclAnyType());
-    	assertQueryEquals(null, classifierType, "null.oclAsType(OclAny).oclType()");
+    	assertQueryEquals(null, getClassifierType(typeManager.getOclVoidType()), "null.oclAsType(OclAny).oclType()");
 //    	assertQueryEquals(null, "OclAny", "null.oclAsType(OclAny).name");
 		assertQueryEquals(null, classifierType, "OclAny");
     	assertQueryEquals(null, "OclAny", "OclAny.name");
@@ -651,7 +651,7 @@ public class EvaluateOclAnyOperationsTest extends PivotSimpleTestSuite
      */
     public void test_oclType() {
 		assertQueryEquals(null, getClassifierType(typeManager.getStringType()), "'string'.oclType()");
-		assertQueryEquals(null, getClassifierType(typeManager.getOclAnyType()), "self.oclType()");
+		assertQueryEquals(null, getClassifierType(typeManager.getOclVoidType()), "self.oclType()");
     	assertQueryEquals(null, getClassifierType(getClassifierType(typeManager.getUnlimitedNaturalType())), "3.oclType().oclType()");
     	assertQueryEquals(null, getClassifierType(getClassifierType(getClassifierType(typeManager.getUnlimitedNaturalType()))), "3.oclType().oclType().oclType()");
     	assertQueryEquals(null, getClassifierType(getClassifierType(typeManager.getBooleanType())), "Boolean.oclType()");

@@ -129,8 +129,7 @@ public class UML2Pivot extends AbstractConversion implements External2Pivot, Piv
 	 * @param resourceSet to be initialized or null for global initialization
 	 * @return a failure reason, null if successful
 	 * 
-	 * @since 3.0
-	 */
+		 */
 	public static String initialize(ResourceSet resourceSet) {
 		String oclLocation = System.getProperty("org.eclipse.ocl.uml"); //$NON-NLS-1$
 		if (oclLocation == null)

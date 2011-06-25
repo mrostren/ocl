@@ -29,6 +29,7 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.ocl.examples.domain.library.LibraryFeature;
 import org.eclipse.ocl.examples.pivot.BooleanLiteralExp;
 import org.eclipse.ocl.examples.pivot.CallExp;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
@@ -77,7 +78,6 @@ import org.eclipse.ocl.examples.pivot.UnlimitedNaturalLiteralExp;
 import org.eclipse.ocl.examples.pivot.Variable;
 import org.eclipse.ocl.examples.pivot.VariableDeclaration;
 import org.eclipse.ocl.examples.pivot.VariableExp;
-import org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationContext;
 import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.ocl.examples.pivot.utilities.PivotConstants;
@@ -152,7 +152,7 @@ public class EssentialOCLLeft2RightVisitor
 
 	protected OclExpression checkImplementation(NamedExpCS csNavigatingExp,
 			Feature feature, CallExp callExp, OclExpression expression) {
-		CallableImplementation implementation;
+		LibraryFeature implementation;
 		try {
 			implementation = typeManager.getImplementation(feature);
 		} catch (Exception e) {
@@ -498,7 +498,7 @@ public class EssentialOCLLeft2RightVisitor
 				bodyType = ((CollectionType)bodyType).getElementType();
 			}
 			if (bodyType != null) {
-				iteratorExp.setType(typeManager.getCollectionType(feature.isOrdered(), feature.isUnique(), bodyType));
+				iteratorExp.setType(typeManager.getCollectionType(feature.isOrdered(), false, bodyType));
 			}
 			navigationExp = iteratorExp;
 		}

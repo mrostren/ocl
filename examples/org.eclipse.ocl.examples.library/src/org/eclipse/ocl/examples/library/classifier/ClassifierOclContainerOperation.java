@@ -17,28 +17,25 @@
 package org.eclipse.ocl.examples.library.classifier;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.ocl.examples.library.AbstractOperation;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.messages.EvaluatorMessages;
-import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.ObjectValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
+import org.eclipse.ocl.examples.domain.values.ObjectValue;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
 /**
  * ClassifierOclContainerOperation realises the Classifier::oclContainer() library operation.
  * 
- * @since 3.1
  */
-public class ClassifierOclContainerOperation extends AbstractOperation
+public class ClassifierOclContainerOperation extends AbstractUnaryOperation
 {
 	public static final ClassifierOclContainerOperation INSTANCE = new ClassifierOclContainerOperation();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) throws InvalidValueException {
-		TypeManager typeManager = evaluationVisitor.getTypeManager();
-		ValueFactory valueFactory = typeManager.getValueFactory();
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
 		ObjectValue objectVal = sourceVal.asObjectValue();
 		Object object = objectVal.getObject();
 		if (!(object instanceof EObject)) {
@@ -46,7 +43,7 @@ public class ClassifierOclContainerOperation extends AbstractOperation
 		}
 		EObject eContainer = ((EObject)object).eContainer();
 		if (eContainer != null) {
-			return valueFactory.createObjectValue(eContainer);
+			return valueFactory.valueOf(eContainer);
 		}
 		else {
 			return valueFactory.getNull();

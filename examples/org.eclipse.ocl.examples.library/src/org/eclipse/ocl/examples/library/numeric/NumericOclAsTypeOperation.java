@@ -16,42 +16,42 @@
  */
 package org.eclipse.ocl.examples.library.numeric;
 
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
+import org.eclipse.ocl.examples.domain.types.DomainType;
+import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
+import org.eclipse.ocl.examples.domain.values.IntegerValue;
+import org.eclipse.ocl.examples.domain.values.RealValue;
+import org.eclipse.ocl.examples.domain.values.TypeValue;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.library.oclany.OclAnyOclAsTypeOperation;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
-import org.eclipse.ocl.examples.pivot.Type;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.messages.EvaluatorMessages;
-import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.IntegerValue;
-import org.eclipse.ocl.examples.pivot.values.RealValue;
-import org.eclipse.ocl.examples.pivot.values.TypeValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
 
 /**
  * NumericOclAsTypeOperation realises the Real::oclAsType() library operation.
  * 
- * @since 3.1
  */
 public class NumericOclAsTypeOperation extends OclAnyOclAsTypeOperation
 {
 	public static final NumericOclAsTypeOperation INSTANCE = new NumericOclAsTypeOperation();
 
 	@Override
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) throws InvalidValueException {
-		TypeManager typeManager = evaluationVisitor.getTypeManager();
-		Type sourceType = sourceVal.getType(typeManager, operationCall.getSource().getType());
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal, Value argVal) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
+		DomainStandardLibrary standardLibrary = valueFactory.getStandardLibrary();
+		DomainType sourceType = sourceVal.getType();
 		if (sourceType == null) {
-			return evaluationVisitor.throwInvalidEvaluation(null, operationCall, sourceType, EvaluatorMessages.MissingSourceType);
+			return valueFactory.throwInvalidValueException(EvaluatorMessages.MissingSourceType);
 		}
-		Value argVal = evaluateArgument(evaluationVisitor, operationCall, 0);
 		TypeValue typeVal = argVal.asTypeValue();
-		Type argType = typeVal.getInstanceType();
-		if (typeManager.conformsTo(sourceType, argType, null)) {
-			if (sourceVal.isUnlimited() && ((argType == typeManager.getIntegerType()) || (argType == typeManager.getRealType()))) {
-				return evaluationVisitor.throwInvalidEvaluation(null, operationCall, sourceVal, EvaluatorMessages.NonFiniteIntegerValue);
+		DomainType argType = typeVal.getInstanceType();
+		if (valueFactory.conformsTo(sourceType, argType)) {
+			if (sourceVal.isUnlimited() && ((argType == standardLibrary.getIntegerType()) || (argType == standardLibrary.getRealType()))) {
+				return valueFactory.throwInvalidValueException(EvaluatorMessages.NonFiniteIntegerValue);
 			}
-			else if ((sourceVal instanceof IntegerValue) && (argType == typeManager.getRealType())) {
+			else if ((sourceVal instanceof IntegerValue) && (argType == standardLibrary.getRealType())) {
 				return ((IntegerValue)sourceVal).toRealValue();
 			}
 			else {
@@ -61,29 +61,29 @@ public class NumericOclAsTypeOperation extends OclAnyOclAsTypeOperation
 		else {
 			RealValue realValue = sourceVal.asRealValue();
 			if (realValue != null) {
-				if (argType == typeManager.getUnlimitedNaturalType()) {
+				if (argType == standardLibrary.getUnlimitedNaturalType()) {
 					if (realValue.signum() < 0) {
-						return evaluationVisitor.throwInvalidEvaluation(null, operationCall, sourceVal, EvaluatorMessages.NonPositiveUnlimitedNaturalValue);
+						return valueFactory.throwInvalidValueException(EvaluatorMessages.NonPositiveUnlimitedNaturalValue);
 					}
 					return realValue.toIntegerValue();
 				}
-				else if (argType == typeManager.getIntegerType()) {
+				else if (argType == standardLibrary.getIntegerType()) {
 					return realValue.toIntegerValue();
 				}
 				else {
-					return evaluationVisitor.throwInvalidEvaluation(null, operationCall, argType, EvaluatorMessages.IncompatibleArgumentType, argType);
+					return valueFactory.throwInvalidValueException(EvaluatorMessages.IncompatibleArgumentType, argType);
 				}
 			}
 			IntegerValue integerValue = sourceVal.asIntegerValue();
 			if (integerValue != null) {
-				if (argType == typeManager.getUnlimitedNaturalType()) {
+				if (argType == standardLibrary.getUnlimitedNaturalType()) {
 					if (integerValue.signum() < 0) {
-						return evaluationVisitor.throwInvalidEvaluation(null, operationCall, sourceVal, EvaluatorMessages.NonPositiveUnlimitedNaturalValue);
+						return valueFactory.throwInvalidValueException(EvaluatorMessages.NonPositiveUnlimitedNaturalValue);
 					}
 					return integerValue;
 				}
 			}
-			return evaluationVisitor.throwInvalidEvaluation(null, operationCall, sourceVal, EvaluatorMessages.UnknownSourceType);
+			return valueFactory.throwInvalidValueException(EvaluatorMessages.UnknownSourceType);
 		}
 	}
 }

@@ -21,33 +21,31 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.ocl.examples.pivot.CallExp;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.elements.DomainProperty;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractProperty;
+import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
 import org.eclipse.ocl.examples.pivot.EnumerationLiteral;
-import org.eclipse.ocl.examples.pivot.Property;
-import org.eclipse.ocl.examples.pivot.PropertyCallExp;
 import org.eclipse.ocl.examples.pivot.TemplateableElement;
 import org.eclipse.ocl.examples.pivot.Type;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.messages.EvaluatorMessages;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 
 /**
  * The static instance of ExplicitNavigationProperty supports evaluation of
  * a property call that navigates a relationship.
  */
-public class ExplicitNavigationProperty extends AbstractCallableImplementation
+public class ExplicitNavigationProperty extends AbstractProperty
 {
 	public static final ExplicitNavigationProperty INSTANCE = new ExplicitNavigationProperty();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceValue, CallExp callExp) {
-		ValueFactory valueFactory = evaluationVisitor.getValueFactory();
-		TypeManager typeManager = evaluationVisitor.getTypeManager();
-		PropertyCallExp propertyCall = (PropertyCallExp) callExp;
-		Property property = propertyCall.getReferredProperty();
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, DomainProperty property) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
 		Object object = sourceValue.asObject();
 		if ((object instanceof ClassifierType) && !(property.getClass_() instanceof ClassifierType)) {
 			object = ((ClassifierType)object).getInstanceType();	
@@ -68,7 +66,7 @@ public class ExplicitNavigationProperty extends AbstractCallableImplementation
 			if (eValue instanceof Enumerator) {
 				Enumerator eEnumerator = (Enumerator) eValue;
 				EClassifier eEnum = eFeature.getEType();
-				org.eclipse.ocl.examples.pivot.Enumeration pivotEnum = typeManager.getPivotOfEcore(org.eclipse.ocl.examples.pivot.Enumeration.class, eEnum);
+				org.eclipse.ocl.examples.pivot.Enumeration pivotEnum = ((TypeManager)valueFactory.getStandardLibrary()).getPivotOfEcore(org.eclipse.ocl.examples.pivot.Enumeration.class, eEnum);
 				EnumerationLiteral pivotEnumLiteral = PivotUtil.getNamedElement(pivotEnum.getOwnedLiterals(), eEnumerator.getName());
 				return valueFactory.createElementValue(pivotEnumLiteral);
 			}
@@ -77,7 +75,7 @@ public class ExplicitNavigationProperty extends AbstractCallableImplementation
 			}
 		}
 		else {
-			return evaluationVisitor.throwInvalidEvaluation(null, callExp, sourceValue, EvaluatorMessages.MissingSourceValue);
+			return valueFactory.throwInvalidValueException(EvaluatorMessages.MissingSourceValue);
 		}
 	}
 }

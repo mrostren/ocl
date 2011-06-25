@@ -16,21 +16,20 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.library.AbstractOperation;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.values.Value;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.library.AbstractOperation;
+import org.eclipse.ocl.examples.domain.values.Value;
 
 /**
  * OclIsUndefinedOperation realises the oclIsUndefined() library operation.
  * 
- * @since 3.1
  */
 public class OclAnyUnsupportedOperation extends AbstractOperation
 {
 	public static final OclAnyUnsupportedOperation INSTANCE = new OclAnyUnsupportedOperation();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) {
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value... argumentValues) {
 		throw new UnsupportedOperationException();
 	}
 }

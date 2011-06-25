@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.ocl.examples.domain.library.LibraryFeature;
 import org.eclipse.ocl.examples.pivot.Annotation;
 import org.eclipse.ocl.examples.pivot.AnyType;
 import org.eclipse.ocl.examples.pivot.AssociationClass;
@@ -119,7 +120,6 @@ import org.eclipse.ocl.examples.pivot.Variable;
 import org.eclipse.ocl.examples.pivot.VariableDeclaration;
 import org.eclipse.ocl.examples.pivot.VariableExp;
 import org.eclipse.ocl.examples.pivot.VoidType;
-import org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation;
 
 /**
  * <!-- begin-user-doc -->
@@ -502,7 +502,7 @@ public class PivotValidator
 			case PivotPackage.BOOLEAN:
 				return validateBoolean((Boolean)value, diagnostics, context);
 			case PivotPackage.CALLABLE_IMPLEMENTATION:
-				return validateCallableImplementation((CallableImplementation)value, diagnostics, context);
+				return validateCallableImplementation((LibraryFeature)value, diagnostics, context);
 			case PivotPackage.INT:
 				return validateInt((Integer)value, diagnostics, context);
 			case PivotPackage.INTEGER:
@@ -1176,7 +1176,7 @@ public class PivotValidator
 	 * @generated
 	 */
 	public boolean validateCallableImplementation(
-			CallableImplementation callableImplementation,
+			LibraryFeature callableImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}

@@ -16,9 +16,12 @@
  */
 package org.eclipse.ocl.examples.pivot;
 
+import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Variable Declaration</b></em>'.
+ * @implements org.eclipse.ocl.examples.domain.DomainVariableDeclaration
  * <!-- end-user-doc -->
  *
  *
@@ -27,5 +30,5 @@ package org.eclipse.ocl.examples.pivot;
  * @generated
  */
 public interface VariableDeclaration
-		extends TypedElement {
+		extends TypedElement, DomainVariableDeclaration {
 } // VariableDeclaration

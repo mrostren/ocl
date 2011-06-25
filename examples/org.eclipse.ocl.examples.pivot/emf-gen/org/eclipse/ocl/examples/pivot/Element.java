@@ -28,6 +28,7 @@ import org.eclipse.ocl.examples.pivot.utilities.PivotObject;
  *
  * <!-- begin-model-doc -->
  * An element is a constituent of a model.
+ * @implements org.eclipse.ocl.examples.domain.Element
  * <!-- end-model-doc -->
  *
  * <p>
@@ -43,7 +44,7 @@ import org.eclipse.ocl.examples.pivot.utilities.PivotObject;
  * @generated
  */
 public interface Element
-		extends PivotObject, Visitable {
+		extends PivotObject, Visitable, org.eclipse.ocl.examples.domain.elements.DomainElement {
 
 	/**
 	 * Returns the value of the '<em><b>Owned Comment</b></em>' containment reference list.

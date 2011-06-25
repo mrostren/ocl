@@ -30,6 +30,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
+import org.eclipse.ocl.examples.domain.values.BagValue;
+import org.eclipse.ocl.examples.domain.values.CollectionValue;
+import org.eclipse.ocl.examples.domain.values.OrderedSetValue;
+import org.eclipse.ocl.examples.domain.values.SequenceValue;
+import org.eclipse.ocl.examples.domain.values.SetValue;
+import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.pivot.Element;
 import org.eclipse.ocl.examples.pivot.Namespace;
 import org.eclipse.ocl.examples.pivot.Operation;
@@ -39,12 +47,6 @@ import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.ecore.Ecore2Pivot;
 import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.ocl.examples.pivot.utilities.PivotConstants;
-import org.eclipse.ocl.examples.pivot.values.BagValue;
-import org.eclipse.ocl.examples.pivot.values.CollectionValue;
-import org.eclipse.ocl.examples.pivot.values.OrderedSetValue;
-import org.eclipse.ocl.examples.pivot.values.SequenceValue;
-import org.eclipse.ocl.examples.pivot.values.SetValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
 
 /**
  * Tests for iterator expressions.
@@ -142,7 +144,7 @@ public class IteratorsTest extends PivotTestSuite
         // shortest form
         assertQueryEquals(pkg1, expected, "nestedPackage->reject(name = 'bob')");
 
-        expected = valueFactory.getEmptySetValue();
+        expected = valueFactory.createSetValue(expected.getCollectionType());
         assertQueryEquals(pkg1, expected, "nestedPackage->reject(true)");
     }
 
@@ -367,9 +369,11 @@ public class IteratorsTest extends PivotTestSuite
         assertQueryEquals(pkg1, expected3, "self->closure(nestedPackage->asBag())");
 
         // empty closure
-        assertQueryEquals(pkg1, valueFactory.getEmptySetValue(), "self->closure(nestingPackage)");
+        DomainCollectionType collectionType = expected1.getCollectionType();
+        DomainType elementType = collectionType.getElementType();
+		assertQueryEquals(pkg1, valueFactory.createSetValue(collectionType), "self->closure(nestingPackage)");
         // empty closure
-        assertQueryEquals(pkg1, valueFactory.getEmptyOrderedSetValue(), "self->asSequence()->closure(nestingPackage)");
+ 		assertQueryEquals(pkg1, valueFactory.createOrderedSetValue(typeManager.getOrderedSetType(elementType)), "self->asSequence()->closure(nestingPackage)");
     }
 
     /**

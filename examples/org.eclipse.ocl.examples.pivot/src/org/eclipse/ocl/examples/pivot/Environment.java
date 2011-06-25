@@ -20,6 +20,7 @@ package org.eclipse.ocl.examples.pivot;
 
 import java.util.List;
 
+import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
 import org.eclipse.ocl.examples.pivot.utilities.EnvironmentRegistryImpl;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 
@@ -156,7 +157,7 @@ public interface Environment {
      * 
      * @return the OCL Standard Library implementation for this environment
      */
-	StandardLibrary getOCLStandardLibrary();
+	DomainStandardLibrary getOCLStandardLibrary();
 
 	TypeManager getTypeManager();
 	
@@ -302,8 +303,6 @@ public interface Environment {
 	 * </p>
 	 * 
 	 * @author Christian W. Damus (cdamus)
-	 * 
-	 * @since 1.2
 	 */
 	interface Internal extends BasicEnvironment, Environment {
     
@@ -325,8 +324,6 @@ public interface Environment {
         /**
          * Disposes of any objects that I have created that should be cleaned
          * up.
-         * 
-         * @since 1.2
          */
         void dispose();
     }

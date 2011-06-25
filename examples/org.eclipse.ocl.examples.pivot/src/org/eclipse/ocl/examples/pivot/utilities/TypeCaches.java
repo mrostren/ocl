@@ -716,6 +716,8 @@ public abstract class TypeCaches extends PivotStandardLibrary
 		}
 		return map;
 	}
+	
+	public abstract boolean conformsTo(Type firstType, Type secondType, Map<TemplateParameter, ParameterableElement> bindings);
 
 	protected abstract Resource createOrphanage(URI uri);
 	

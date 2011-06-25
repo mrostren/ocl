@@ -27,30 +27,29 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.evaluation.DomainModelManager;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.Constraint;
 import org.eclipse.ocl.examples.pivot.Environment;
 import org.eclipse.ocl.examples.pivot.EnvironmentFactory;
 import org.eclipse.ocl.examples.pivot.ExpressionInOcl;
-import org.eclipse.ocl.examples.pivot.InvalidEvaluationException;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
 import org.eclipse.ocl.examples.pivot.NamedElement;
 import org.eclipse.ocl.examples.pivot.OclExpression;
 import org.eclipse.ocl.examples.pivot.Operation;
 import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationEnvironment;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.evaluation.ModelManager;
 import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 import org.eclipse.osgi.util.NLS;
 
 /**
  * An implementation of the dynamic validation delegate API, maintaining a cache
  * of compiled constraints and invariants.
  * 
- * @since 3.0
  */
 public class OCLValidationDelegate implements ValidationDelegate
 {	
@@ -79,7 +78,7 @@ public class OCLValidationDelegate implements ValidationDelegate
 //			if ((value != null) && !value.isUndefined()) {
 //				expression.getContextVariable().setValue(value);
 //			}
-		ModelManager extents = evaluationEnvironment.createModelManager(object);
+		DomainModelManager extents = evaluationEnvironment.createModelManager(object);
 
 		EvaluationVisitor evaluationVisitor = environmentFactory.createEvaluationVisitor(rootEnvironment, evaluationEnvironment, extents);
 		return evaluationVisitor;
@@ -178,7 +177,7 @@ public class OCLValidationDelegate implements ValidationDelegate
 			constraintName, source, code, query);
 	}
 	protected boolean check(EvaluationVisitor evaluationVisitor, String constraintName, ExpressionInOcl query) {
-		if (query.getType() != evaluationVisitor.getTypeManager().getBooleanType()) {
+		if (query.getType() != evaluationVisitor.getStandardLibrary().getBooleanType()) {
 			String message = NLS.bind(OCLMessages.ValidationConstraintIsNotBoolean_ERROR_, constraintName);
 			throw new OCLDelegateException(message);
 		}
@@ -201,7 +200,7 @@ public class OCLValidationDelegate implements ValidationDelegate
 	protected boolean validateExpressionInOcl(EClassifier eClassifier, Object value, DiagnosticChain diagnostics,
 			Map<Object, Object> context, String constraintName, String source, int code, ExpressionInOcl query) {
 		EvaluationVisitor evaluationVisitor = createEvaluationVisitor(value, query);
-		if (query.getType() != evaluationVisitor.getTypeManager().getBooleanType()) {
+		if (query.getType() != evaluationVisitor.getStandardLibrary().getBooleanType()) {
 			String message = NLS.bind(OCLMessages.ValidationConstraintIsNotBoolean_ERROR_, constraintName);
 			throw new OCLDelegateException(message);
 		}

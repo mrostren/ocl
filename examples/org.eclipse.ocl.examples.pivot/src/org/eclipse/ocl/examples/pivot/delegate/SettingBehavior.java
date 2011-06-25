@@ -28,7 +28,6 @@ import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * @since 3.0
  */
 public class SettingBehavior extends AbstractDelegatedBehavior<EStructuralFeature, SettingDelegate.Factory.Registry, SettingDelegate.Factory>
 {

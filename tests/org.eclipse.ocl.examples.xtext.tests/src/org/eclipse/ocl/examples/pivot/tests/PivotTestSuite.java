@@ -54,6 +54,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.ocl.examples.domain.evaluation.EvaluationException;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.values.BooleanValue;
+import org.eclipse.ocl.examples.domain.values.CollectionValue;
+import org.eclipse.ocl.examples.domain.values.OrderedSetValue;
+import org.eclipse.ocl.examples.domain.values.RealValue;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.library.oclstdlib.OCLstdlib;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
 import org.eclipse.ocl.examples.pivot.Comment;
@@ -62,9 +70,7 @@ import org.eclipse.ocl.examples.pivot.Enumeration;
 import org.eclipse.ocl.examples.pivot.EnumerationLiteral;
 import org.eclipse.ocl.examples.pivot.Environment;
 import org.eclipse.ocl.examples.pivot.EnvironmentFactory;
-import org.eclipse.ocl.examples.pivot.EvaluationException;
 import org.eclipse.ocl.examples.pivot.ExpressionInOcl;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
 import org.eclipse.ocl.examples.pivot.OCL;
 import org.eclipse.ocl.examples.pivot.Operation;
 import org.eclipse.ocl.examples.pivot.Parameter;
@@ -73,7 +79,6 @@ import org.eclipse.ocl.examples.pivot.PivotFactory;
 import org.eclipse.ocl.examples.pivot.PivotPackage;
 import org.eclipse.ocl.examples.pivot.Property;
 import org.eclipse.ocl.examples.pivot.SemanticException;
-import org.eclipse.ocl.examples.pivot.StandardLibrary;
 import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.Variable;
 import org.eclipse.ocl.examples.pivot.ecore.Ecore2Pivot;
@@ -81,16 +86,11 @@ import org.eclipse.ocl.examples.pivot.helper.OCLHelper;
 import org.eclipse.ocl.examples.pivot.util.Visitable;
 import org.eclipse.ocl.examples.pivot.utilities.PivotEnvironment;
 import org.eclipse.ocl.examples.pivot.utilities.PivotEnvironmentFactory;
+import org.eclipse.ocl.examples.pivot.utilities.PivotStandardLibrary;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManagerResourceAdapter;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManagerResourceSetAdapter;
-import org.eclipse.ocl.examples.pivot.values.BooleanValue;
-import org.eclipse.ocl.examples.pivot.values.CollectionValue;
-import org.eclipse.ocl.examples.pivot.values.OrderedSetValue;
-import org.eclipse.ocl.examples.pivot.values.RealValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 import org.eclipse.ocl.examples.xtext.essentialocl.EssentialOCLStandaloneSetup;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.xtext.diagnostics.ExceptionDiagnostic;
@@ -312,8 +312,6 @@ public abstract class PivotTestSuite
 	 * 
 	 * @param diagnostic a diagnostic
 	 * @param excType an exception that must not be indicated by the diagnostic
-	 * 
-	 * @since 1.2
 	 */
     protected void assertNoException(Resource.Diagnostic diagnostic, java.lang.Class<? extends Throwable> excType) {
     	if (diagnostic instanceof ExceptionDiagnostic) {
@@ -782,11 +780,8 @@ public abstract class PivotTestSuite
 	/**
 	 * Return an isOrdered,isUnique collection containing args.
 	 */
-	protected CollectionValue createCollection(boolean isOrdered, boolean isUnique, Value... args) {
-		if (isOrdered)
-			return isUnique ? valueFactory.createOrderedSetValue(args) : valueFactory.createSequenceValue(args);
-		else
-			return isUnique ? valueFactory.createSetValue(args) : valueFactory.createBagValue(args);
+	protected CollectionValue createCollection(boolean isOrdered, boolean isUnique, Type type, Value... args) {
+		return valueFactory.createCollectionValue(isOrdered, isUnique, type, args);
 	}
 
 	public Comment createComment() {
@@ -1106,6 +1101,22 @@ public abstract class PivotTestSuite
     	org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic = resource.getErrors().get(0);
 		return diagnostic;
     }
+
+    protected Value getEmptyBagValue() {
+		return valueFactory.createBagValue(typeManager.getBagType(typeManager.getOclVoidType()));
+	}
+
+	protected Value getEmptyOrderedSetValue() {
+		return valueFactory.createOrderedSetValue(typeManager.getOrderedSetType(typeManager.getOclVoidType()));
+	}
+
+	protected Value getEmptySequenceValue() {
+		return valueFactory.createSequenceValue(typeManager.getSequenceType(typeManager.getOclVoidType()));
+	}
+
+	protected Value getEmptySetValue() {
+		return valueFactory.createSetValue(typeManager.getSetType(typeManager.getOclVoidType()));
+	}
     
 	protected Type getMetaclass(String name) {
 		return typeManager.getRequiredLibraryType(name);
@@ -1115,8 +1126,8 @@ public abstract class PivotTestSuite
 		return valueFactory.getNull();
 	}
 	
-	protected StandardLibrary getOCLStandardLibrary() {
-		return ocl.getEnvironment().getOCLStandardLibrary();
+	protected PivotStandardLibrary getOCLStandardLibrary() {
+		return (PivotStandardLibrary) ocl.getEnvironment().getOCLStandardLibrary();
 	}
 	
 	public URI getTestModelURI(String localFileName) {

@@ -26,12 +26,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
 import org.eclipse.ocl.examples.pivot.AbstractEnvironment;
 import org.eclipse.ocl.examples.pivot.Constraint;
 import org.eclipse.ocl.examples.pivot.Environment;
 import org.eclipse.ocl.examples.pivot.EnvironmentFactory;
 import org.eclipse.ocl.examples.pivot.OCLFactory;
-import org.eclipse.ocl.examples.pivot.StandardLibrary;
 import org.eclipse.ocl.examples.pivot.State;
 import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.UMLReflection;
@@ -49,8 +49,6 @@ public class PivotEnvironment extends AbstractEnvironment {
 	
 	/**
 	 * The namespace URI of the Ecore representation of the OCL Standard Library.
-	 * 
-	 * @since 1.3
 	 */
 //	public static final String OCL_STANDARD_LIBRARY_NS_URI = "http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore"; //$NON-NLS-1$
 
@@ -117,7 +115,6 @@ public class PivotEnvironment extends AbstractEnvironment {
 	 *            a package registry
 	 * @param resource
 	 *            a resource, which may or may not already have content
-	 * @since 3.1
 	 */
 	protected PivotEnvironment(PivotEnvironmentFactory factory, Resource resource) {
 		this.factory = factory;
@@ -210,7 +207,7 @@ public class PivotEnvironment extends AbstractEnvironment {
     	return result;
 	}
 
-	public StandardLibrary getOCLStandardLibrary() {
+	public DomainStandardLibrary getOCLStandardLibrary() {
 		return typeManager;
 	}
 

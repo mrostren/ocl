@@ -16,30 +16,25 @@
  */
 package org.eclipse.ocl.examples.library.logical;
 
-import org.eclipse.ocl.examples.library.AbstractOperation;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.values.SetValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
 /**
  * BooleanAllInstancesOperation realises the Boolean::allInstances() library operation.
  * 
- * @since 3.1
  */
-public class BooleanAllInstancesOperation extends AbstractOperation
+public class BooleanAllInstancesOperation extends AbstractUnaryOperation
 {
 	public static final BooleanAllInstancesOperation INSTANCE = new BooleanAllInstancesOperation();
-
-	private static SetValue allInstances = null;
 	
-	public SetValue evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) {
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
 		// Boolean has two instances: false, true
-		if (allInstances == null) {
-			ValueFactory valueFactory = evaluationVisitor.getValueFactory();
-			allInstances = valueFactory.createSetValue(valueFactory.getFalse(), valueFactory.getTrue());
-		}
-		return allInstances;
+		return valueFactory.createSetValue((DomainCollectionType)callExp.getType(), valueFactory.getFalse(), valueFactory.getTrue());
 	}
 }
