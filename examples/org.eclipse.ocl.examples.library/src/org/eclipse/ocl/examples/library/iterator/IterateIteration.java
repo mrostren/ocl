@@ -16,35 +16,26 @@
  */
 package org.eclipse.ocl.examples.library.iterator;
 
-import org.eclipse.ocl.examples.library.AbstractIteration;
-import org.eclipse.ocl.examples.library.IterationManager;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
-import org.eclipse.ocl.examples.pivot.IterateExp;
-import org.eclipse.ocl.examples.pivot.LoopExp;
-import org.eclipse.ocl.examples.pivot.Variable;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.messages.EvaluatorMessages;
-import org.eclipse.ocl.examples.pivot.values.CollectionValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.elements.DomainExpression;
+import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractIterate;
+import org.eclipse.ocl.examples.domain.library.IterationManager;
+import org.eclipse.ocl.examples.domain.values.CollectionValue;
+import org.eclipse.ocl.examples.domain.values.Value;
 
 /**
  * IsUniqueIteration realizes the Collection::isUnique() library iteration.
  * 
- * @since 3.1
  */
-public class IterateIteration extends AbstractIteration<Value>
+public class IterateIteration extends AbstractIterate<Value>
 {
 	public static final IterateIteration INSTANCE = new IterateIteration();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, CollectionValue sourceVal, LoopExp iterateExp) throws InvalidValueException {
-		Variable accumulator = ((IterateExp)iterateExp).getResult();
-		Value initValue = accumulator.getInitExpression().accept(evaluationVisitor);
-		if (initValue.isUndefined()) {
-			return evaluationVisitor.throwInvalidEvaluation(null, iterateExp, initValue, EvaluatorMessages.UndefinedInitialiser);
-		}
-//		CollectionValue accumulatorValue = initValue.asCollectionValue();
-		return evaluateIteration(new IterationManager<Value>(evaluationVisitor,
-				iterateExp, sourceVal, initValue));
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, CollectionValue sourceVal, DomainVariableDeclaration accumulator, Value initValue, DomainExpression body, DomainVariableDeclaration... iterators) throws InvalidValueException {
+		return evaluateIteration(new IterationManager<Value>(evaluator, body, sourceVal, accumulator, initValue, iterators));
 	}
 
 	@Override

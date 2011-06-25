@@ -16,28 +16,27 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.library.AbstractOperation;
-import org.eclipse.ocl.examples.pivot.ClassifierType;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
-import org.eclipse.ocl.examples.pivot.Type;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.Value;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainClassifierType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
 /**
  * OclAnyOclTypeOperation realises the OclAny::oclType() library operation.
  * 
- * @since 3.1
  */
-public class OclAnyOclTypeOperation extends AbstractOperation
+public class OclAnyOclTypeOperation extends AbstractUnaryOperation
 {
 	public static final OclAnyOclTypeOperation INSTANCE = new OclAnyOclTypeOperation();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) {
-		TypeManager typeManager = evaluationVisitor.getTypeManager();
-		Type staticType = operationCall.getSource().getType();
-		Type sourceType = sourceVal.getType(typeManager, staticType);
-		ClassifierType classifierType = typeManager.getClassifierType(sourceType);
-		return evaluationVisitor.getValueFactory().createTypeValue(classifierType);
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
+		DomainType sourceType = sourceVal.getType();
+		DomainClassifierType classifierType = valueFactory.getStandardLibrary().getClassifierType(sourceType);
+		return valueFactory.createTypeValue(classifierType);
 	}
 }

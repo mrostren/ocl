@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.impl.ValidationDelegateRegistryImpl;
  * adopting the same Factory, Registry, Descriptor architecture as the
  * invocation and setting delegates.
  * 
- * @since 3.0
  */
 public interface ValidationDelegate extends ValidationDelegateExtension // waiting for Bug 337792
 {

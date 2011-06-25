@@ -50,7 +50,6 @@ import org.eclipse.ocl.examples.pivot.utilities.PivotConstants;
  * 		map-of-name-to-object);     // the external variable bindings
  * </pre>
  * 
- * @since 3.1
  */
 public class OCLQueryDelegateFactory extends AbstractOCLDelegateFactory
 		implements QueryDelegate.Factory {

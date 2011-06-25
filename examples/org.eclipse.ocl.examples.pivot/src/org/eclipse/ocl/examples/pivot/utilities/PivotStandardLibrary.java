@@ -21,6 +21,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
 import org.eclipse.ocl.examples.pivot.AnyType;
 import org.eclipse.ocl.examples.pivot.BagType;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
@@ -30,14 +32,13 @@ import org.eclipse.ocl.examples.pivot.OrderedSetType;
 import org.eclipse.ocl.examples.pivot.PrimitiveType;
 import org.eclipse.ocl.examples.pivot.SequenceType;
 import org.eclipse.ocl.examples.pivot.SetType;
-import org.eclipse.ocl.examples.pivot.StandardLibrary;
 import org.eclipse.ocl.examples.pivot.TupleType;
 import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.VoidType;
 import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.osgi.util.NLS;
 
-public abstract class PivotStandardLibrary implements StandardLibrary
+public abstract class PivotStandardLibrary implements DomainStandardLibrary
 {
 	private static final Logger logger = Logger.getLogger(PivotStandardLibrary.class);
 
@@ -357,7 +358,7 @@ public abstract class PivotStandardLibrary implements StandardLibrary
 		return unlimitedNaturalType;
 	}
 
-	public boolean isOrdered(Type sourceType) {
+	public boolean isOrdered(DomainCollectionType sourceType) {
 		if (sourceType instanceof OrderedSetType) {
 			return true;
 		}
@@ -367,7 +368,7 @@ public abstract class PivotStandardLibrary implements StandardLibrary
 		return false;
 	}
 
-	public boolean isUnique(Type sourceType) {
+	public boolean isUnique(DomainCollectionType sourceType) {
 		if (sourceType instanceof OrderedSetType) {
 			return true;
 		}

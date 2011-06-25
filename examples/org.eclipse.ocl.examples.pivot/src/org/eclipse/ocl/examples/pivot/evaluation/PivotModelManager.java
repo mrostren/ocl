@@ -42,7 +42,7 @@ public class PivotModelManager extends LazyModelManager
 
 	// implements the inherited specification
 	@Override
-	protected boolean isInstance(Type requiredType, EObject eObject) {
+	protected boolean isInstance(org.eclipse.ocl.examples.domain.types.DomainType requiredType, EObject eObject) {
 		EClass eClass = eObject.eClass();
 		EPackage ePackage = eClass.getEPackage();
 		Type objectType;
@@ -62,6 +62,6 @@ public class PivotModelManager extends LazyModelManager
 				objectType = ecoreConverter.getPivotType(eClass);
 			}
 		}
-	    return typeManager.conformsTo(objectType, requiredType, null);
+	    return typeManager.getValueFactory().conformsTo(objectType, requiredType);
 	}
 }

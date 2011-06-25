@@ -19,36 +19,35 @@ package org.eclipse.ocl.examples.library.classifier;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.ocl.examples.library.AbstractOperation;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.evaluation.ModelManager;
-import org.eclipse.ocl.examples.pivot.values.TypeValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.evaluation.DomainModelManager;
+import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.values.TypeValue;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
 /**
  * ClassifierAllInstancesOperation realises the Classifier::allInstances() library operation.
  * 
- * @since 3.1
  */
-public class ClassifierAllInstancesOperation extends AbstractOperation
+public class ClassifierAllInstancesOperation extends AbstractUnaryOperation
 {
 	public static final ClassifierAllInstancesOperation INSTANCE = new ClassifierAllInstancesOperation();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) throws InvalidValueException {
-		ValueFactory valueFactory = evaluationVisitor.getValueFactory();
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
 		TypeValue typeVal = sourceVal.asTypeValue();
-		ModelManager modelManager = evaluationVisitor.getModelManager();
+		DomainModelManager modelManager = evaluator.getModelManager();
 		Set<Value> results = new HashSet<Value>();
 		Set<?> instances = modelManager.get(typeVal.getInstanceType());
-		if (instances == null) {
-			return valueFactory.getEmptySetValue();
+		if (instances != null) {
+			for (Object instance : instances) {
+				results.add(valueFactory.valueOf(instance));	// FIXME Move to model manager
+			}
 		}
-		for (Object instance : instances) {
-			results.add(valueFactory.createObjectValue(instance));	// FIXME Move to model manager
-		}
-		return valueFactory.createSetValue(results);
+		return valueFactory.createSetValue((DomainCollectionType)callExp.getType(), results);
 	}
 }

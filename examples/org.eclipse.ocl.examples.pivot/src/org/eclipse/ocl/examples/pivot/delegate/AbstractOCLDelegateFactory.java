@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EPackage;
 
 /**
  * Partial implementation of a factory of OCL delegates for Ecore features.
- * 
- * @since 3.0
  */
 public abstract class AbstractOCLDelegateFactory
 {

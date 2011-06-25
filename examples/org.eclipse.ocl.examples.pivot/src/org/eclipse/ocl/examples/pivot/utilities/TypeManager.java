@@ -45,6 +45,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.ocl.examples.common.utils.ClassUtils;
+import org.eclipse.ocl.examples.domain.library.LibraryFeature;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.AnyType;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
 import org.eclipse.ocl.examples.pivot.CollectionType;
@@ -84,7 +86,6 @@ import org.eclipse.ocl.examples.pivot.UnspecifiedType;
 import org.eclipse.ocl.examples.pivot.ValueSpecification;
 import org.eclipse.ocl.examples.pivot.VoidType;
 import org.eclipse.ocl.examples.pivot.ecore.Ecore2Pivot;
-import org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation;
 import org.eclipse.ocl.examples.pivot.internal.impl.TypedElementImpl;
 import org.eclipse.ocl.examples.pivot.library.ConstrainedOperation;
 import org.eclipse.ocl.examples.pivot.library.ConstrainedProperty;
@@ -98,7 +99,6 @@ import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.ocl.examples.pivot.model.OclMetaModel;
 import org.eclipse.ocl.examples.pivot.uml.UML2Ecore2Pivot;
 import org.eclipse.ocl.examples.pivot.util.Nameable;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 import org.eclipse.osgi.util.NLS;
 
 /**
@@ -328,7 +328,9 @@ public class TypeManager extends TypeCaches implements Adapter
 	/**
 	 * Elements protected from garbage collection
 	 */
-	private Set<Element> lockedElements = new HashSet<Element>();;
+	private Set<Element> lockedElements = new HashSet<Element>();
+
+	private ValueFactory valueFactory;;
 	
 	public TypeManager() {
 		this(new ResourceSetImpl());
@@ -504,14 +506,14 @@ public class TypeManager extends TypeCaches implements Adapter
 		}
 	}
 
-	protected CallableImplementation computeOperationImplementation(Operation operation) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		CallableImplementation implementation = operation.getImplementation();
+	protected LibraryFeature computeOperationImplementation(Operation operation) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		LibraryFeature implementation = operation.getImplementation();
 		String implementationClassName = operation.getImplementationClass();
 		if (implementationClassName != null) {
 			if ((implementation == null) || !implementation.getClass().getName().equals(implementationClassName)) {
 				Class<?> theClass = Class.forName(implementationClassName);
 				Field field = theClass.getField("INSTANCE");
-				return (CallableImplementation) field.get(null);
+				return (LibraryFeature) field.get(null);
 			}
 		}
 		for (Constraint constraint : getLocalConstraints(operation)) {
@@ -545,14 +547,14 @@ public class TypeManager extends TypeCaches implements Adapter
 		return rootPackages;
 	}
 
-	protected CallableImplementation computePropertyImplementation(Property property) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		CallableImplementation implementation = property.getImplementation();
+	protected LibraryFeature computePropertyImplementation(Property property) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		LibraryFeature implementation = property.getImplementation();
 		String implementationClassName = property.getImplementationClass();
 		if (implementationClassName != null) {
 			if ((implementation == null) || !implementation.getClass().getName().equals(implementationClassName)) {
 				Class<?> theClass = Class.forName(implementationClassName);
 				Field field = theClass.getField("INSTANCE");
-				return (CallableImplementation) field.get(null);
+				return (LibraryFeature) field.get(null);
 			}
 		}
 		for (Constraint constraint : getLocalConstraints(property)) {
@@ -585,6 +587,7 @@ public class TypeManager extends TypeCaches implements Adapter
 		return conformsTo(firstType, secondType, null);
 	}
 
+	@Override
 	public boolean conformsTo(Type firstType, Type secondType, Map<TemplateParameter, ParameterableElement> bindings) {
 		if ((firstType == null) || (secondType == null)) {
 			return false;
@@ -857,6 +860,10 @@ public class TypeManager extends TypeCaches implements Adapter
 		addOrphanClass(unspecifiedType);
 		return unspecifiedType;
 	}
+
+	protected PivotValueFactory createValueFactory() {
+		return new PivotValueFactory(this);
+	}
 	
 	@Override
 	public void dispose() {
@@ -866,8 +873,12 @@ public class TypeManager extends TypeCaches implements Adapter
 //		}
 	}
 
-	public ClassifierType getClassifierType(Type type) {
-		return getLibraryType(getClassifierType(), Collections.singletonList(type), true);
+	public CollectionType getBagType(org.eclipse.ocl.examples.domain.types.DomainType elementType) {
+		return getLibraryType(getBagType(), Collections.singletonList((Type)elementType), true);
+	}
+
+	public ClassifierType getClassifierType(org.eclipse.ocl.examples.domain.types.DomainType type) {
+		return getLibraryType(getClassifierType(), Collections.singletonList((Type)type), true);
 	}
 
 	public CollectionType getCollectionType(boolean isOrdered, boolean isUnique) {
@@ -1073,28 +1084,28 @@ public class TypeManager extends TypeCaches implements Adapter
 	 * @throws IllegalAccessException if the implementation class is not accessible
 	 * @throws IllegalArgumentException if the implementation class is not accessible
 	 */
-	public CallableImplementation getImplementation(Feature feature) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		CallableImplementation implementation = feature.getImplementation();
+	public LibraryFeature getImplementation(Feature feature) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		LibraryFeature implementation = feature.getImplementation();
 		if (implementation == null) {
 			String implementationClassName = feature.getImplementationClass();
 			if (implementationClassName != null) {
 				Class<?> theClass = Class.forName(implementationClassName);
 				Field field = theClass.getField("INSTANCE");
-				implementation = (CallableImplementation) field.get(null);
+				implementation = (LibraryFeature) field.get(null);
 			}
 		}
 		return implementation;
 	}
-	public CallableImplementation getImplementation(Operation operation) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		CallableImplementation implementation = operation.getImplementation();
+	public LibraryFeature getImplementation(Operation operation) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		LibraryFeature implementation = operation.getImplementation();
 		if (implementation == null) {
 			implementation = computeOperationImplementation(operation);
 			operation.setImplementation(implementation);
 		}
 		return implementation;
 	}
-	public CallableImplementation getImplementation(Property property) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		CallableImplementation implementation = property.getImplementation();
+	public LibraryFeature getImplementation(Property property) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		LibraryFeature implementation = property.getImplementation();
 		if (implementation == null) {
 			implementation = computePropertyImplementation(property);
 			property.setImplementation(implementation);
@@ -1282,6 +1293,10 @@ public class TypeManager extends TypeCaches implements Adapter
 	public Set<? extends Element> getLockedElements() {
 		return lockedElements ;
 	}
+
+	public CollectionType getOrderedSetType(org.eclipse.ocl.examples.domain.types.DomainType elementType) {
+		return getLibraryType(getOrderedSetType(), Collections.singletonList((Type)elementType), true);
+	}
 	
 	public org.eclipse.ocl.examples.pivot.Package getPivotMetaModel() {
 		if (pivotMetaModel == null) {
@@ -1367,8 +1382,12 @@ public class TypeManager extends TypeCaches implements Adapter
 		return uri;
 	}
 
-	public CollectionType getSetType(Type elementType) {
-		return getLibraryType(getSetType(), Collections.singletonList(elementType), true);
+	public CollectionType getSequenceType(org.eclipse.ocl.examples.domain.types.DomainType elementType) {
+		return getLibraryType(getSequenceType(), Collections.singletonList((Type)elementType), true);
+	}
+
+	public CollectionType getSetType(org.eclipse.ocl.examples.domain.types.DomainType elementType) {
+		return getLibraryType(getSetType(), Collections.singletonList((Type)elementType), true);
 	}
 
 	protected String getSpecializedMoniker(Type libraryType, List<? extends ParameterableElement> templateArguments) {
@@ -1561,7 +1580,10 @@ public class TypeManager extends TypeCaches implements Adapter
 	}
 
 	public ValueFactory getValueFactory() {
-		return ValueFactory.INSTANCE;
+		if (valueFactory == null) {
+			valueFactory = createValueFactory();
+		}
+		return valueFactory;
 	}
 
 	protected void installLibrary(Library pivotLibrary) {

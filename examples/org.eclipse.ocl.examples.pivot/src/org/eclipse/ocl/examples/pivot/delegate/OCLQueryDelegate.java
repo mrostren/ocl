@@ -22,26 +22,25 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.QueryDelegate;
-import org.eclipse.ocl.examples.pivot.EvaluationException;
+import org.eclipse.ocl.examples.domain.evaluation.EvaluationException;
+import org.eclipse.ocl.examples.domain.types.DomainType;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.ExpressionInOcl;
 import org.eclipse.ocl.examples.pivot.OCL;
 import org.eclipse.ocl.examples.pivot.OclExpression;
 import org.eclipse.ocl.examples.pivot.ParserException;
-import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.Variable;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationEnvironment;
 import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 import org.eclipse.osgi.util.NLS;
 
 /**
  * An implementation of a query delegate for OCL expressions.
  * 
  * @see OCLQueryDelegateFactory
- * @since 3.1
  */
 public class OCLQueryDelegate implements QueryDelegate
 {
@@ -114,9 +113,9 @@ public class OCLQueryDelegate implements QueryDelegate
 			TypeManager typeManager = ocl.getTypeManager();
 			ValueFactory valueFactory = typeManager.getValueFactory();
 			Value targetValue = valueFactory.valueOf(target);
-			Type targetType = targetValue.getType(typeManager, null);
-			Type requiredType = specification.getContextVariable().getType();
-			if (!typeManager.conformsTo(targetType, requiredType, null)) {
+			DomainType targetType = targetValue.getType();
+			DomainType requiredType = specification.getContextVariable().getType();
+			if (!valueFactory.conformsTo(targetType, requiredType)) {
 				String message = NLS.bind(OCLMessages.WrongContextClassifier_ERROR_, targetType, requiredType);
 				throw new OCLDelegateException(message);
 			}
@@ -138,9 +137,9 @@ public class OCLQueryDelegate implements QueryDelegate
 					throw new OCLDelegateException(message);
 				}
 				Value value = valueFactory.valueOf(object);
-				targetType = value.getType(typeManager, null);
+				targetType = value.getType();
 				requiredType = parameterVariable.getType();
-				if (!typeManager.conformsTo(targetType, requiredType, null)) {
+				if (!valueFactory.conformsTo(targetType, requiredType)) {
 					String message = NLS.bind(OCLMessages.MismatchedArgumentType_ERROR_, new Object[]{name, targetType, requiredType});
 					throw new OCLDelegateException(message);
 				}

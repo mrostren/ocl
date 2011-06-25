@@ -17,15 +17,16 @@
 
 package org.eclipse.ocl.examples.pivot.evaluation;
 
+import org.eclipse.ocl.examples.domain.elements.DomainExpression;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluationVisitor;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.values.NullValue;
+import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.pivot.Environment;
-import org.eclipse.ocl.examples.pivot.InvalidEvaluationException;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
 import org.eclipse.ocl.examples.pivot.OclExpression;
 import org.eclipse.ocl.examples.pivot.util.Visitor;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.NullValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 
 /**
  * A specialized visitor that is used for evaluation an
@@ -38,7 +39,7 @@ import org.eclipse.ocl.examples.pivot.values.ValueFactory;
  * @author Tim Klinger (tklinger)
  * @author Christian W. Damus (cdamus)
  */
-public interface EvaluationVisitor extends Visitor<Value, Object> {
+public interface EvaluationVisitor extends Visitor<Value, Object>, DomainEvaluationVisitor {
 
 	EvaluationVisitor createNestedVisitor();
 	
@@ -58,16 +59,7 @@ public interface EvaluationVisitor extends Visitor<Value, Object> {
 	 */
 	public EvaluationEnvironment getEvaluationEnvironment();
 	
-	/**
-     * Obtains the mapping of model classes to their extents.
-     * 
-	 * @return the model manager
-	 */
-	public ModelManager getModelManager();
-
 	public TypeManager getTypeManager();
-
-	public ValueFactory getValueFactory();
     
     /**
      * Configures the specified decorated visitor to correctly handle the
@@ -85,5 +77,7 @@ public interface EvaluationVisitor extends Visitor<Value, Object> {
 
 	NullValue throwInvalidEvaluation(String message) throws InvalidEvaluationException;
 
-	NullValue throwInvalidEvaluation(Throwable e, OclExpression expression, Object value, String message, Object... bindings) throws InvalidEvaluationException;
+	NullValue throwInvalidEvaluation(Throwable e, DomainExpression expression, Object value, String message, Object... bindings) throws InvalidEvaluationException;
+
+//	Value evaluate(OclExpression body);
 }

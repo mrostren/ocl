@@ -21,21 +21,22 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.ocl.examples.domain.elements.DomainExpression;
+import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.values.NullValue;
+import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.pivot.Adaptable;
 import org.eclipse.ocl.examples.pivot.Customizable;
 import org.eclipse.ocl.examples.pivot.Environment;
-import org.eclipse.ocl.examples.pivot.InvalidEvaluationException;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
 import org.eclipse.ocl.examples.pivot.OCLUtil;
-import org.eclipse.ocl.examples.pivot.OclExpression;
 import org.eclipse.ocl.examples.pivot.Operation;
 import org.eclipse.ocl.examples.pivot.Variable;
 import org.eclipse.ocl.examples.pivot.VariableDeclaration;
 import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
 import org.eclipse.ocl.examples.pivot.options.Option;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.NullValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
 import org.eclipse.osgi.util.NLS;
 
 /**
@@ -60,7 +61,7 @@ public abstract class AbstractEvaluationEnvironment
     protected final TypeManager typeManager;
 
 	private final EvaluationEnvironment parent;
-    private final Map<VariableDeclaration, Value> variableValues = new HashMap<VariableDeclaration, Value>();
+    private final Map<DomainVariableDeclaration, Value> variableValues = new HashMap<DomainVariableDeclaration, Value>();
 
     private final Map<Option<?>, Object> options = new HashMap<Option<?>, Object>();
     
@@ -113,7 +114,7 @@ public abstract class AbstractEvaluationEnvironment
      * @param value
      *            the new value
      */
-    public void replace(VariableDeclaration referredVariable, Value value) {
+    public void replace(DomainVariableDeclaration referredVariable, Value value) {
     	if (referredVariable instanceof Variable) {
     		assert ((Variable)referredVariable).getRepresentedParameter() == null;
     	}
@@ -128,7 +129,7 @@ public abstract class AbstractEvaluationEnvironment
      * @param value
      *            the associated binding
      */
-    public void add(VariableDeclaration referredVariable, Value value) {
+    public void add(DomainVariableDeclaration referredVariable, Value value) {
     	if (referredVariable instanceof Variable) {
     		assert ((Variable)referredVariable).getRepresentedParameter() == null;
     	}
@@ -151,7 +152,7 @@ public abstract class AbstractEvaluationEnvironment
      * @return the value associated with the removed name
      */
     @Deprecated
-    public Value remove(VariableDeclaration referredVariable) {
+    public Value remove(DomainVariableDeclaration referredVariable) {
     	if (referredVariable instanceof Variable) {
     		assert ((Variable)referredVariable).getRepresentedParameter() == null;
     	}
@@ -395,15 +396,15 @@ public abstract class AbstractEvaluationEnvironment
 		throw new InvalidEvaluationException(this, message, null, null, null);
 	}
 
-	public NullValue throwInvalidEvaluation(String message, OclExpression expression) throws InvalidEvaluationException {
+	public NullValue throwInvalidEvaluation(String message, DomainExpression expression) throws InvalidEvaluationException {
 		throw new InvalidEvaluationException(this, message, null, expression, null);
 	}
 
-	public NullValue throwInvalidEvaluation(String message, OclExpression expression, Object context) throws InvalidEvaluationException {
+	public NullValue throwInvalidEvaluation(String message, DomainExpression expression, Object context) throws InvalidEvaluationException {
 		throw new InvalidEvaluationException(this, message, null, expression, context);
 	}
 
-	public NullValue throwInvalidEvaluation(Throwable e, OclExpression expression, Object context, String message, Object... bindings) throws InvalidEvaluationException {
+	public NullValue throwInvalidEvaluation(Throwable e, DomainExpression expression, Object context, String message, Object... bindings) throws InvalidEvaluationException {
 		String boundMessage = NLS.bind(message, bindings);
 		throw new InvalidEvaluationException(this, boundMessage, e, expression, context);
 	}

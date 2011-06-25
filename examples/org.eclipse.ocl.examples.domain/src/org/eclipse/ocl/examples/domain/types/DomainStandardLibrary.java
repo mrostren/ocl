@@ -1,0 +1,189 @@
+/**
+ * <copyright>
+ *
+ * Copyright (c) 2011 E.D.Willink and others.
+ * All rights reserved.   This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   E.D.Willlink - Initial API and implementation
+ *
+ * </copyright>
+ *
+ * $Id: Bag.java,v 1.2 2011/01/24 20:47:51 ewillink Exp $
+ */
+package org.eclipse.ocl.examples.domain.types;
+
+/**
+ * A representation of the OCL Standard Library, which is the set of singleton
+ * instances of the OCL-defined metatypes, including the generic collection
+ * types (e.g., <tt>Set(T)</tt>).
+ */
+public interface DomainStandardLibrary
+{
+    /**
+     * Obtains the generic instance of the {@link BagType} metatype, named
+     * <tt>Bag(T)</tt>.
+     * 
+     * @return the <tt>Bag(T)</tt> type (an instance of {@link BagType})
+     */
+	DomainType getBagType();
+
+	/**
+	 * Return the instance of the Bag metatype whose elements are of elementType.
+	 */
+	DomainCollectionType getBagType(DomainType elementType);
+	
+    /**
+     * Obtains the instance of the {@link PrimitiveType} metatype, named
+     * <tt>Boolean</tt>.
+     * 
+     * @return the <tt>Boolean</tt> type (an instance of {@link PrimitiveType})
+     */
+	DomainType getBooleanType();
+	
+    /**
+     * Obtains the single instance of the {@link DomainClassifierType} metatype, named
+     * <tt>Classifier</tt>.
+     * 
+     * @return the <tt>Classifier</tt> type (an instance of {@link Classifier})
+     */
+	DomainType getClassifierType();
+
+	/**
+	 * Return the instance of the Classifier metatype whose class is classType.
+	 */
+	DomainClassifierType getClassifierType(DomainType classType);
+	
+    /**
+     * Obtains the generic instance of the {@link CollectionType} metatype, named
+     * <tt>Collection(T)</tt>.
+     * 
+     * @return the <tt>Collection(T)</tt> type (an instance of {@link CollectionType})
+     */
+	DomainType getCollectionType();
+	
+    /**
+     * Obtains the single instance of the {@link EnumerationType} metatype, named
+     * <tt>Enumeration</tt>.
+     * 
+     * @return the <tt>Enumeration</tt> type (an instance of {@link Enumeration})
+     */
+	DomainType getEnumerationType();
+	
+    /**
+     * Obtains the instance of the {@link PrimitiveType} metatype, named
+     * <tt>Integer</tt>.
+     * 
+     * @return the <tt>Integer</tt> type (an instance of {@link PrimitiveType})
+     */
+	DomainType getIntegerType();
+	
+    /**
+     * Obtains the single instance of the {@link AnyType} metatype, named
+     * <tt>OclAny</tt>.
+     * 
+     * @return the <tt>OclAny</tt> type (an instance of {@link AnyType})
+     */
+	DomainType getOclAnyType();
+	
+    /**
+     * Obtains the single instance of the {@link InvalidType} metatype, named
+     * <tt>OclInvalid</tt>.
+     * 
+     * @return the <tt>OclInvalid</tt> type (an instance of {@link InvalidType})
+     */
+	DomainType getOclInvalidType();
+	
+    /**
+     * Obtains the generic instance of the {@link MessageType} metatype, named
+     * <tt>OclMessage</tt>.
+     * 
+     * @return the <tt>OclMessage</tt> type (an instance of {@link MessageType})
+     */
+	DomainType getOclMessageType();
+	
+    /**
+     * Obtains the single instance of the {@link VoidType} metatype, named
+     * <tt>OclVoid</tt>.
+     * 
+     * @return the <tt>OclVoid</tt> type (an instance of {@link VoidType})
+     */
+	DomainType getOclVoidType();
+	
+    /**
+     * Obtains the generic instance of the {@link OrderedSetType} metatype, named
+     * <tt>OrderedSet(T)</tt>.
+     * 
+     * @return the <tt>OrderedSet(T)</tt> type (an instance of {@link OrderedSetType})
+     */
+	DomainType getOrderedSetType();
+
+	/**
+	 * Return the instance of the OrderedSet metatype whose elements are of elementType.
+	 */
+	DomainCollectionType getOrderedSetType(DomainType elementType);
+	
+    /**
+     * Obtains the instance of the {@link PrimitiveType} metatype, named
+     * <tt>Real</tt>.
+     * 
+     * @return the <tt>Real</tt> type (an instance of {@link PrimitiveType})
+     */
+	DomainType getRealType();
+	
+    /**
+     * Obtains the generic instance of the {@link SequenceType} metatype, named
+     * <tt>Sequence(T)</tt>.
+     * 
+     * @return the <tt>Sequence(T)</tt> type (an instance of {@link SequenceType})
+     */
+	DomainType getSequenceType();
+
+	/**
+	 * Return the instance of the Sequence metatype whose elements are of elementType.
+	 */
+	DomainCollectionType getSequenceType(DomainType elementType);
+	
+    /**
+     * Obtains the generic instance of the {@link SetType} metatype, named
+     * <tt>Set(T)</tt>.
+     * 
+     * @return the <tt>Set(T)</tt> type (an instance of {@link SetType})
+     */
+	DomainType getSetType();
+
+	/**
+	 * Return the instance of the Set metatype whose elements are of elementType.
+	 */
+	DomainCollectionType getSetType(DomainType elementType);
+	
+    /**
+     * Obtains the instance of the {@link PrimitiveType} metatype, named
+     * <tt>String</tt>.
+     * 
+     * @return the <tt>String</tt> type (an instance of {@link PrimitiveType})
+     */
+	DomainType getStringType();
+    
+    /**
+     * Obtains the instance of the {@link PrimitiveType} metatype,
+     * named <tt>UnlimitedNatural</tt>.
+     * 
+     * @return the <tt>UnlimitedNatural</tt> type (an instance of
+     *     {@link PrimitiveType})
+     */
+	DomainType getUnlimitedNaturalType();
+	
+	/**
+	 * Returns true if collectionValueType is an ordered collection type (i.e. Sequence or OrderedSet).
+	 */
+	boolean isOrdered(DomainCollectionType collectionValueType);
+	
+	/**
+	 * Returns true if collectionValueType is a unique collection type (i.e. Set or OrderedSet).
+	 */
+	boolean isUnique(DomainCollectionType collectionValueType);
+}

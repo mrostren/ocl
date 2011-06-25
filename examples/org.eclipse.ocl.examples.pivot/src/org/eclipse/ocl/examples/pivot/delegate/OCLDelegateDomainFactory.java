@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EPackage;
 /**
  * Factory for OCL delegate domains.
  * 
- * @since 3.0
  */
 public class OCLDelegateDomainFactory implements DelegateDomain.Factory
 {	

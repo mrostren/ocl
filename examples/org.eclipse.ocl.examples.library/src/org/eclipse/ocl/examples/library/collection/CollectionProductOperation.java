@@ -18,34 +18,32 @@ package org.eclipse.ocl.examples.library.collection;
 
 import java.util.Set;
 
-import org.eclipse.ocl.examples.library.AbstractOperation;
-import org.eclipse.ocl.examples.pivot.CollectionType;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
-import org.eclipse.ocl.examples.pivot.OperationCallExp;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.values.CollectionValue;
+import org.eclipse.ocl.examples.domain.values.TupleValue;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.TupleType;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
-import org.eclipse.ocl.examples.pivot.values.CollectionValue;
-import org.eclipse.ocl.examples.pivot.values.TupleValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 
 /**
  * CollectionProductOperation realises the Collection::product() library operation.
  * 
- * @since 3.1
  */
-public class CollectionProductOperation extends AbstractOperation // FIXME Make this an AbstractBinaryOperation
+public class CollectionProductOperation extends AbstractBinaryOperation // FIXME Make this an AbstractBinaryOperation
 {
 	public static final CollectionProductOperation INSTANCE = new CollectionProductOperation();
 
-	public Value evaluate(EvaluationVisitor evaluationVisitor, Value sourceVal, OperationCallExp operationCall) throws InvalidValueException {
-		ValueFactory valueFactory = evaluationVisitor.getValueFactory();
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal, Value argVal) throws InvalidValueException {
+		ValueFactory valueFactory = evaluator.getValueFactory();
 		CollectionValue sourceValue = sourceVal.asCollectionValue();
-		Value argVal = evaluateArgument(evaluationVisitor, operationCall, 0);
 		CollectionValue argumentValue = argVal.asCollectionValue();
-		CollectionType collType = (CollectionType) operationCall.getType();
+		DomainCollectionType collType = (DomainCollectionType)callExp.getType();
 		TupleType tupleType = (TupleType) collType.getElementType();
 		Set<TupleValue> product = sourceValue.product(argumentValue, tupleType);
-        return valueFactory.createSetValue(product);
+        return valueFactory.createSetValue(collType, product);
 	}
 }

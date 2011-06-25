@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * for each package with a delegate annotation, when the resource is loaded and
  * unloaded.
  * 
- * @since 3.0
  */
 public class DelegateResourceAdapter extends AdapterImpl
 {

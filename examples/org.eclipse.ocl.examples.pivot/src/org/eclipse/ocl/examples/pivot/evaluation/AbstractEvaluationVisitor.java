@@ -20,20 +20,23 @@ package org.eclipse.ocl.examples.pivot.evaluation;
 
 import java.util.Set;
 
+import org.eclipse.ocl.examples.domain.elements.DomainExpression;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.evaluation.DomainModelManager;
+import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
+import org.eclipse.ocl.examples.domain.values.NullValue;
+import org.eclipse.ocl.examples.domain.values.Value;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.Constraint;
 import org.eclipse.ocl.examples.pivot.Environment;
 import org.eclipse.ocl.examples.pivot.ExpressionInOcl;
-import org.eclipse.ocl.examples.pivot.InvalidEvaluationException;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
 import org.eclipse.ocl.examples.pivot.OclExpression;
 import org.eclipse.ocl.examples.pivot.UMLReflection;
 import org.eclipse.ocl.examples.pivot.ValueSpecification;
 import org.eclipse.ocl.examples.pivot.util.AbstractExtendingVisitor;
 import org.eclipse.ocl.examples.pivot.util.Visitable;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
-import org.eclipse.ocl.examples.pivot.values.NullValue;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
 
 /**
  * An evaluation visitor implementation for OCL expressions.
@@ -58,7 +61,7 @@ public abstract class AbstractEvaluationVisitor
 	protected final EvaluationEnvironment evaluationEnvironment;
 	protected final Environment environment;
 	protected final TypeManager typeManager;	
-	protected final ModelManager modelManager;
+	protected final DomainModelManager modelManager;
 	protected final ValueFactory valueFactory;;
 
     private EvaluationVisitor undecoratedVisitor;
@@ -80,7 +83,7 @@ public abstract class AbstractEvaluationVisitor
 	protected AbstractEvaluationVisitor(
 			Environment env,
 			EvaluationEnvironment evalEnv,
-			ModelManager modelManager) {
+			DomainModelManager modelManager) {
         super(null);
         this.evaluationEnvironment = evalEnv;
         this.environment = env;
@@ -101,8 +104,12 @@ public abstract class AbstractEvaluationVisitor
 	}
 	
     // implements the interface method
-	public ModelManager getModelManager() {
+	public DomainModelManager getModelManager() {
 		return modelManager;
+	}
+
+	public DomainStandardLibrary getStandardLibrary() {
+		return typeManager;
 	}
 
 	public TypeManager getTypeManager() {
@@ -179,7 +186,7 @@ public abstract class AbstractEvaluationVisitor
 	}
 
 
-	public NullValue throwInvalidEvaluation(Throwable e, OclExpression expression, Object value, String message, Object... bindings) {
+	public NullValue throwInvalidEvaluation(Throwable e, DomainExpression expression, Object value, String message, Object... bindings) {
 		return evaluationEnvironment.throwInvalidEvaluation(e, expression, value, message, bindings);
 	}
 	

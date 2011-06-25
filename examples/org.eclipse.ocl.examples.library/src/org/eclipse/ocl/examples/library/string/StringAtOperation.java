@@ -16,21 +16,21 @@
  */
 package org.eclipse.ocl.examples.library.string;
 
-import org.eclipse.ocl.examples.library.AbstractBinaryOperation;
-import org.eclipse.ocl.examples.pivot.InvalidValueException;
-import org.eclipse.ocl.examples.pivot.values.Value;
-import org.eclipse.ocl.examples.pivot.values.ValueFactory;
+import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
+import org.eclipse.ocl.examples.domain.values.Value;
 
 /**
  * StringAtOperation realises the String::at() library operation.
  * 
- * @since 3.1
  */
 public class StringAtOperation extends AbstractBinaryOperation
 {
 	public static final StringAtOperation INSTANCE = new StringAtOperation();
 
-	public Value evaluate(ValueFactory valueFactory, Value left, Value right) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value left, Value right) throws InvalidValueException {
 		String leftString = left.asString();
 		Integer rightInteger = right.asInteger();
 		if ((leftString != null) && (rightInteger != null)) {
@@ -38,7 +38,7 @@ public class StringAtOperation extends AbstractBinaryOperation
 			int index = rightInteger.intValue();
 			if ((0 < index) && (index <= size)) {
 				char c = leftString.charAt(index-1);
-				return valueFactory.stringValueOf(String.valueOf(c));
+				return evaluator.getValueFactory().stringValueOf(String.valueOf(c));
 			}
 		}			
 		return null;

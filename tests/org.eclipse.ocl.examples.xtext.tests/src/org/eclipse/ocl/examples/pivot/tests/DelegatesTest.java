@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.QueryDelegate;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.pivot.ExpressionInOcl;
 import org.eclipse.ocl.examples.pivot.OCL;
 import org.eclipse.ocl.examples.pivot.Operation;
@@ -60,7 +61,6 @@ import org.eclipse.ocl.examples.pivot.OperationCallExp;
 import org.eclipse.ocl.examples.pivot.Package;
 import org.eclipse.ocl.examples.pivot.ParserException;
 import org.eclipse.ocl.examples.pivot.Property;
-import org.eclipse.ocl.examples.pivot.Type;
 import org.eclipse.ocl.examples.pivot.delegate.DelegateDomain;
 import org.eclipse.ocl.examples.pivot.delegate.DelegateEPackageAdapter;
 import org.eclipse.ocl.examples.pivot.delegate.DelegateResourceSetAdapter;
@@ -225,6 +225,7 @@ public class DelegatesTest extends PivotTestSuite
 		DelegateEPackageAdapter adapter = DelegateEPackageAdapter.getAdapter(ePackage);
 		DelegateDomain delegateDomain = adapter.getDelegateDomain(OCLDelegateDomain.OCL_DELEGATE_URI_PIVOT);
 		typeManager = ((OCLDelegateDomain)delegateDomain).getOCL().getTypeManager();
+		valueFactory = typeManager.getValueFactory();
 	}
 
 	protected void initModel(String testModelName) {
@@ -1125,8 +1126,8 @@ public class DelegatesTest extends PivotTestSuite
 		return null;
 	}
 
-	protected Type getType(EObject eObject) {
-		return valueFactory.valueOf(eObject).getType(typeManager, null);
+	protected DomainType getType(EObject eObject) {
+		return valueFactory.valueOf(eObject).getType();
 	}
 
 	public void getWithException(EObject eObject, String featureName, String expectedMessage) {

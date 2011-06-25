@@ -16,6 +16,8 @@
  */
 package org.eclipse.ocl.examples.pivot;
 
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Typed Element</b></em>'.
@@ -23,6 +25,7 @@ package org.eclipse.ocl.examples.pivot;
  *
  * <!-- begin-model-doc -->
  * A typed element is a kind of named element that represents an element with a type.
+ * @implements org.eclipse.ocl.examples.domain.TypedElement
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +40,7 @@ package org.eclipse.ocl.examples.pivot;
  * @generated
  */
 public interface TypedElement
-		extends NamedElement {
+		extends NamedElement, DomainTypedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
