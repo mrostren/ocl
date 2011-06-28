@@ -416,7 +416,20 @@ public class EcoreEvaluationEnvironment
 					// don't try to set null on a VoidType property; it's already null; trying to
 					// set it will cause an exception in the EMF setting delegate infrastructure
 					// because VoidType is neither an EClass nor an EDataType.
-					tuple.eSet(property, value);
+					if (property.getEType().getInstanceClass() == Long.class && value instanceof Integer) {
+						tuple.eSet(property, Long.valueOf((Integer) value));
+					} else if (property.getEType().getInstanceClass() == Integer.class && value instanceof Long) {
+						// coerce long to int if possible
+						long longValue = (Long) value;
+						if (longValue >= Integer.MIN_VALUE && longValue <= Integer.MAX_VALUE) {
+							value = (int) longValue;
+						} else {
+							throw new RuntimeException("Cannot coerce long value "+longValue+ //$NON-NLS-1$
+								" to int value because it exceeds the int type's range"); //$NON-NLS-1$
+						}
+					} else {
+						tuple.eSet(property, value);
+					}
 				}
 			}
 		}
