@@ -447,8 +447,8 @@ public class EcoreEvaluationEnvironment
 	public boolean isKindOf(Object object, EClassifier classifier) {
 		// special case for Integer/UnlimitedNatural and Real which
 		// are not related types in java but are in OCL
-		if ((object.getClass() == Integer.class)
-			&& (classifier.getInstanceClass() == Double.class)) {
+		if ((object.getClass() == Integer.class || object.getClass() == Long.class)
+			&& (classifier.getInstanceClass() == Double.class || classifier == OCLStandardLibraryImpl.INSTANCE.getInteger())) {
 			return Boolean.TRUE;
 		} else if (classifier instanceof AnyType) {
 			return Boolean.TRUE;
@@ -461,6 +461,9 @@ public class EcoreEvaluationEnvironment
 	public boolean isTypeOf(Object object, EClassifier classifier) {
 		if (classifier instanceof EClass && object instanceof EObject) {
 			return ((EObject) object).eClass() == classifier;
+		} else if ((object.getClass() == Long.class || object.getClass() == Integer.class)
+				&& classifier == OCLStandardLibraryImpl.INSTANCE.getInteger()) {
+			return Boolean.TRUE;
 		} else if (!(object instanceof EObject)
 			&& !(classifier instanceof EClass)) {
 			return object.getClass() == classifier.getInstanceClass();
