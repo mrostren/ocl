@@ -1115,15 +1115,15 @@ public class RegressionTest
 		// got as many product tuples as required (2 x 3)
 		assertEquals(6, product.size());
 		
-		Map<String, Set<Integer>> expectedTuples =
-			new java.util.HashMap<String, Set<Integer>>();
-		Set<Integer> values = new java.util.HashSet<Integer>();
-		values.add(1);
-		values.add(2);
-		values.add(3);
+		Map<String, Set<Long>> expectedTuples =
+			new java.util.HashMap<String, Set<Long>>();
+		Set<Long> values = new java.util.HashSet<Long>();
+		values.add(1l);
+		values.add(2l);
+		values.add(3l);
 		
-		expectedTuples.put("foo", new java.util.HashSet<Integer>(values));
-		expectedTuples.put("bar", new java.util.HashSet<Integer>(values));
+		expectedTuples.put("foo", new java.util.HashSet<Long>(values));
+		expectedTuples.put("bar", new java.util.HashSet<Long>(values));
 		
 		for (Tuple<EOperation, EStructuralFeature> tuple : product) {
 			values = expectedTuples.get(tuple.getValue("first"));
