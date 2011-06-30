@@ -91,7 +91,7 @@ public class TuplesTest
 			"endpackage")));
 		
 		// multiple parts
-		assertEquals(1l, evaluate(parse(
+		assertEquals(1, evaluate(parse(
 			"package ocltest context Fruit " +
 			"inv: Tuple{a = null, b=1}.b " +
 			"endpackage")));
@@ -254,7 +254,7 @@ public class TuplesTest
 		// tuples work fine with int / java.lang.Integer
 		helper.setContext(ecore.getEClassifier("EInt"));
 		OCLExpression<EClassifier> expr2 = helper.createQuery("Tuple{first : Integer = self}.first");
-		assertEquals(5000000l, evaluate(expr2, Integer.valueOf(5000000)));
+		assertEquals(5000000, evaluate(expr2, Integer.valueOf(5000000)));
 
 		// we can compute with Long values
 		helper.setContext(ecore.getEClassifier("ELong"));
