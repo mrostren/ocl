@@ -21,11 +21,11 @@ import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Typed Element</b></em>'.
+ * @extends org.eclipse.ocl.examples.domain.elements.DomainTypedElement
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A typed element is a kind of named element that represents an element with a type.
- * @implements org.eclipse.ocl.examples.domain.TypedElement
  * <!-- end-model-doc -->
  *
  * <p>

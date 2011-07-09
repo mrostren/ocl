@@ -16,12 +16,12 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
@@ -33,16 +33,16 @@ public class OclAnyOclAsSetOperation extends AbstractUnaryOperation
 {
 	public static final OclAnyOclAsSetOperation INSTANCE = new OclAnyOclAsSetOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		if (sourceVal.isInvalid()) {
 			return valueFactory.throwInvalidValueException(EvaluatorMessages.InvalidSource, "oclAsSet"); //$NON-NLS-1$
 		}
 		if (sourceVal.isNull()) {
-			return valueFactory.createSetValue((DomainCollectionType)callExp.getType());
+			return valueFactory.createSetValue((DomainCollectionType)returnType);
 		}
 		else {
-			return valueFactory.createSetValue((DomainCollectionType)callExp.getType(), sourceVal);
+			return valueFactory.createSetValue((DomainCollectionType)returnType, sourceVal);
 		}
 	}
 }

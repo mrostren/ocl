@@ -23,36 +23,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.elements.DomainExpression;
-import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractIteration;
 import org.eclipse.ocl.examples.domain.library.IterationManager;
-import org.eclipse.ocl.examples.domain.library.LibraryFeature;
 import org.eclipse.ocl.examples.domain.library.LibraryBinaryOperation;
+import org.eclipse.ocl.examples.domain.library.LibraryValidator;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
-import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
-import org.eclipse.ocl.examples.domain.validation.ValidationWarning;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.BooleanValue;
 import org.eclipse.ocl.examples.domain.values.CollectionValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.impl.AbstractValue;
-import org.eclipse.ocl.examples.pivot.LoopExp;
-import org.eclipse.ocl.examples.pivot.Operation;
-import org.eclipse.ocl.examples.pivot.ParameterableElement;
-import org.eclipse.ocl.examples.pivot.TemplateParameter;
-import org.eclipse.ocl.examples.pivot.TemplateableElement;
-import org.eclipse.ocl.examples.pivot.Type;
-import org.eclipse.ocl.examples.pivot.evaluation.EvaluationEnvironment;
-import org.eclipse.ocl.examples.pivot.messages.OCLMessages;
-import org.eclipse.ocl.examples.pivot.utilities.PivotConstants;
-import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
-import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 
 /**
  * SelectIteration realises the Collection::sortedBy() library iteration.
@@ -65,14 +51,14 @@ public class SortedByIteration extends AbstractIteration<SortedByIteration.Sorti
 		private final DomainEvaluator evaluator;
 		private final Map<Value, Value> content = new HashMap<Value, Value>();	// User object to sortedBy value
 		private final DomainType sourceType;
-		private final DomainCallExp callExp;
+		private final DomainType returnType;
 		private final LibraryBinaryOperation binaryImplementation;
 
-		public SortingValue(DomainEvaluator evaluator, Value sourceVal, DomainCallExp callExp, LibraryBinaryOperation binaryImplementation) {
-			super(evaluator.getValueFactory(), callExp.getType());
+		public SortingValue(DomainEvaluator evaluator, Value sourceVal, DomainType returnType, LibraryBinaryOperation binaryImplementation) {
+			super(evaluator.getValueFactory(), returnType);
 			this.evaluator = evaluator;
 			this.sourceType = sourceVal.getType();
-			this.callExp = callExp;
+			this.returnType = returnType;
 			this.binaryImplementation = binaryImplementation;
 		}
 
@@ -94,11 +80,11 @@ public class SortedByIteration extends AbstractIteration<SortedByIteration.Sorti
 				return 0;
 			}
 			try {
-				BooleanValue lessThan = binaryImplementation.evaluate(evaluator, callExp, v1, v2).asBooleanValue();
+				BooleanValue lessThan = binaryImplementation.evaluate(evaluator, returnType, v1, v2).asBooleanValue();
 				if (lessThan.isTrue()) {
 					return -1;
 				}
-				BooleanValue greaterThan = binaryImplementation.evaluate(evaluator, callExp, v2, v1).asBooleanValue();
+				BooleanValue greaterThan = binaryImplementation.evaluate(evaluator, returnType, v2, v1).asBooleanValue();
 				if (greaterThan.isTrue()) {
 					return 1;
 				}
@@ -138,11 +124,13 @@ public class SortedByIteration extends AbstractIteration<SortedByIteration.Sorti
 	}
 
 	public static final SortedByIteration INSTANCE = new SortedByIteration();
+	private static LibraryValidator validator = null; 
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, CollectionValue sourceVal, DomainExpression body, DomainVariableDeclaration... iterators) {
-		EvaluationEnvironment evaluationEnvironment = (EvaluationEnvironment) evaluator.getEvaluationEnvironment();
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, CollectionValue sourceVal, DomainExpression body, DomainTypedElement... iterators) {
+		throw new UnsupportedOperationException();		// WIP
+/*		EvaluationEnvironment evaluationEnvironment = (EvaluationEnvironment) evaluator.getEvaluationEnvironment();
 		TypeManager typeManager = evaluationEnvironment.getTypeManager();
-		Type staticValueType = PivotUtil.getBehavioralType((Type) body.getType());
+		DomainType staticValueType = PivotUtil.getBehavioralType((Type) body.getType());
 //		CompleteType completeStaticValueType = completeManager.getCompleteType(staticValueType);
 		Operation staticLessThanOperation = typeManager.resolveOperation(staticValueType, PivotConstants.LESS_THAN_OPERATOR, staticValueType);
 		if (staticLessThanOperation == null) {
@@ -165,12 +153,12 @@ public class SortedByIteration extends AbstractIteration<SortedByIteration.Sorti
 			evaluator.throwInvalidEvaluation(null, body, sourceVal, EvaluatorMessages.NonBinaryOperation, staticValueType, PivotConstants.LESS_THAN_OPERATOR);
 		}
 		LibraryBinaryOperation binaryImplementation = (LibraryBinaryOperation) implementation;
-		SortingValue accumulatorValue = new SortingValue(evaluator, sourceVal, callExp, binaryImplementation);
+		SortingValue accumulatorValue = new SortingValue(evaluator, sourceVal, returnType, binaryImplementation);
 //		IterationManager iterationManager = new IterationManager(evaluationVisitor, iteratorExp, (CollectionValue) sourceVal);
 //		return evaluateIteration(iterationManager, accumulatorValue);
 //		Accumulator accumulatorValue = createAccumulationValue(valueFactory, true, false);
 		return evaluateIteration(new IterationManager<SortingValue>(evaluator, body, sourceVal, accumulatorValue, iterators));
-	}
+*/	}
 	
 	@Override
 	protected Value resolveTerminalValue(IterationManager<SortingValue> iterationManager) {
@@ -192,33 +180,10 @@ public class SortedByIteration extends AbstractIteration<SortedByIteration.Sorti
 	}
 
 	@Override
-	public Diagnostic validate(DomainStandardLibrary standardLibrary, DomainCallExp callExp) {
-		TypeManager typeManager = (TypeManager)standardLibrary;
-		Type type = ((LoopExp)callExp).getBody().getType();
-		TemplateParameter templateParameter = type.getOwningTemplateParameter();
-		if (templateParameter != null) {
-			Map<TemplateParameter, ParameterableElement> templateParameterSubstitutions = PivotUtil.getAllTemplateParameterSubstitutions(null, (TemplateableElement) callExp.getSource().getType());
-//			templateParameterSubstitutions = PivotUtil.getAllTemplateParameterSubstitutions(templateParameterSubstitutions, callExp.getReferredOperation());
-			type = (Type) templateParameterSubstitutions.get(templateParameter);
+	public LibraryValidator getValidator(DomainStandardLibrary standardLibrary) {
+		if (validator == null) {
+			validator = getLibraryValidator(standardLibrary, "org.eclipse.ocl.examples.pivot.library.validators.ValidateSortedByIteration"); //$NON-NLS-1$
 		}
-		type = PivotUtil.getBehavioralType(type);			// FIXME make this a general facility
-		Operation operation = typeManager.resolveOperation(type, PivotConstants.LESS_THAN_OPERATOR, type);
-		if (operation == null) {
-			return new ValidationWarning(OCLMessages.UnresolvedOperation_ERROR_, PivotConstants.LESS_THAN_OPERATOR, String.valueOf(type));
-		}
-		try {
-			LibraryFeature implementation = typeManager.getImplementation(operation);
-			if (implementation == null) {
-				return new ValidationWarning(EvaluatorMessages.ImplementationClassLoadFailure, operation.getImplementationClass());
-			}
-			else if (!(implementation instanceof LibraryBinaryOperation)) {
-				return new ValidationWarning(EvaluatorMessages.NonBinaryOperation, type, PivotConstants.LESS_THAN_OPERATOR);
-			}
-			else {
-				return null;
-			}
-		} catch (Exception e) {
-			return new ValidationWarning(EvaluatorMessages.ImplementationClassLoadFailure, operation.getImplementationClass());  //, e);
-		}
+		return validator;
 	}
 }

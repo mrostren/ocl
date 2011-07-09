@@ -22,11 +22,10 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.elements.DomainProperty;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
-import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.evaluation.DomainModelManager;
+import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractProperty;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
 import org.eclipse.ocl.examples.domain.types.DomainType;
@@ -41,7 +40,7 @@ public class ImplicitNonCompositionProperty extends AbstractProperty
 {
 	public static final ImplicitNonCompositionProperty INSTANCE = new ImplicitNonCompositionProperty();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, DomainProperty thisProperty) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, DomainProperty thisProperty) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		DomainModelManager modelManager = evaluator.getModelManager();
 		DomainProperty thatProperty = thisProperty.getOpposite();
@@ -55,6 +54,6 @@ public class ImplicitNonCompositionProperty extends AbstractProperty
 				results.add(valueFactory.valueOf(eObject));
 			}
 		}
-		return valueFactory.createBagValue((DomainCollectionType)callExp.getType(), results);
+		return valueFactory.createBagValue((DomainCollectionType)returnType, results);
 	}
 }

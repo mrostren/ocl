@@ -1,4 +1,4 @@
-library ocl : ocl = 'http://www.eclipse.org/ocl/3.1.0/OCL.oclstdlib'
+library ocl : ocl = 'http://www.eclipse.org/ocl/3.2.0/OCL.oclstdlib'
 {
 precedence left:NAVIGATION left:UNARY left:MULTIPLICATIVE left:ADDITIVE left:RELATIONAL left:EQUALITY left:AND left:OR left:XOR left:IMPLIES;
 

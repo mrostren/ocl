@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.ocl.examples.domain.library.LibraryFeature;
+import org.eclipse.ocl.examples.domain.library.LibraryValidator;
 import org.eclipse.ocl.examples.pivot.BooleanLiteralExp;
 import org.eclipse.ocl.examples.pivot.CallExp;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
@@ -159,9 +160,12 @@ public class EssentialOCLLeft2RightVisitor
 			return context.addBadExpressionError(csNavigatingExp, "Failed to load '" + feature.getImplementationClass() + "': " + e);
 		}
 		if (implementation != null) {
-			Diagnostic diagnostic = implementation.validate(typeManager, callExp);
-			if (diagnostic != null) {
-				context.addDiagnostic(csNavigatingExp, diagnostic);
+			LibraryValidator validator = implementation.getValidator(typeManager);
+			if (validator != null) {
+				Diagnostic diagnostic = validator.validate(typeManager, callExp);
+				if (diagnostic != null) {
+					context.addDiagnostic(csNavigatingExp, diagnostic);
+				}
 			}
 		}
 		return expression;

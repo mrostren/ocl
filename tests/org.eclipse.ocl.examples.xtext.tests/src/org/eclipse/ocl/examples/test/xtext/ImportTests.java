@@ -28,9 +28,9 @@ import java.util.Set;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Bag;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -53,7 +53,7 @@ public class ImportTests extends XtextTestCase
 	{
 		public static final SpacedOut INSTANCE = new SpacedOut();
 
-		public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) {
+		public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) {
 			ValueFactory valueFactory = evaluator.getValueFactory();
 			String string = sourceVal == null?  Value.INVALID_NAME : sourceVal.oclToString();
 			return valueFactory.stringValueOf(string);

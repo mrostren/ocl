@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.logical;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.BooleanValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -37,7 +37,7 @@ public class BooleanImpliesOperation extends AbstractBinaryOperation
 		return true;
 	}
 
-	public BooleanValue evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value left, Value right) throws InvalidValueException {
+	public BooleanValue evaluate(DomainEvaluator evaluator, DomainType returnType, Value left, Value right) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		if (left.isFalse()) {
 			return valueFactory.getTrue();

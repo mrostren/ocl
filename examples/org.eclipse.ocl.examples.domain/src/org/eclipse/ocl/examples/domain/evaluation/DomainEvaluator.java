@@ -16,6 +16,7 @@
  */
 package org.eclipse.ocl.examples.domain.evaluation;
 
+import org.eclipse.ocl.examples.domain.elements.DomainElement;
 import org.eclipse.ocl.examples.domain.elements.DomainExpression;
 import org.eclipse.ocl.examples.domain.values.NullValue;
 import org.eclipse.ocl.examples.domain.values.Value;
@@ -24,19 +25,13 @@ import org.eclipse.ocl.examples.domain.values.ValueFactory;
 public interface DomainEvaluator
 {
 	DomainEvaluator createNestedEvaluator();
-	Value evaluate(DomainExpression body);
+	Value evaluate(DomainElement body);
 	DomainEvaluationEnvironment getEvaluationEnvironment();
 	DomainEvaluationVisitor getEvaluationVisitor();
 	DomainModelManager getModelManager();
 	ValueFactory getValueFactory();
 
 	NullValue throwInvalidEvaluation(InvalidValueException e) throws InvalidEvaluationException;
-
-//	NullValue throwInvalidEvaluation(String message) throws InvalidEvaluationException;
-
-//	NullValue throwInvalidEvaluation(String message, DomainExpression expression) throws InvalidEvaluationException;
-
-//	NullValue throwInvalidEvaluation(String message, DomainExpression expression, Object context) throws InvalidEvaluationException;
 
 	NullValue throwInvalidEvaluation(Throwable e, DomainExpression expression, Object context, String message, Object... bindings) throws InvalidEvaluationException;
 }

@@ -19,17 +19,16 @@ package org.eclipse.ocl.examples.library.enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
+import org.eclipse.ocl.examples.domain.elements.DomainElement;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainEnumeration;
 import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.TypeValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
-import org.eclipse.ocl.examples.pivot.Enumeration;
-import org.eclipse.ocl.examples.pivot.EnumerationLiteral;
 
 /**
  * EnumerationAllInstancesOperation realises the Enumeration::allInstances() library operation.
@@ -39,14 +38,14 @@ public class EnumerationAllInstancesOperation extends AbstractUnaryOperation
 {
 	public static final EnumerationAllInstancesOperation INSTANCE = new EnumerationAllInstancesOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		TypeValue sourceTypeValue = sourceVal.asTypeValue();
 		DomainType sourceType = sourceTypeValue.getInstanceType();
 		Set<Value> results = new HashSet<Value>();
-		for (EnumerationLiteral instance : ((Enumeration)sourceType).getOwnedLiterals()) {
+		for (DomainElement instance : ((DomainEnumeration)sourceType).getOwnedLiterals()) {
 			results.add(valueFactory.valueOf(instance));
 		}
-		return valueFactory.createSetValue((DomainCollectionType)callExp.getType(), results);
+		return valueFactory.createSetValue((DomainCollectionType)returnType, results);
 	}
 }

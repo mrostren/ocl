@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module generateOclMetaModel('http://www.eclipse.org/ocl/3.2.0/Pivot','http://www.eclipse.org/emf/2002/Ecore')/]
+[module generateOclMetaModel('http://www.eclipse.org/ocl/3.2.0/OCL','http://www.eclipse.org/emf/2002/Ecore')/]
 [import generateOclCommon/]
 
 [template public generate(pkg : Package, javaPackage : String, javaClass : String, sourceFile : String, uri : String)]
@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.ocl.examples.pivot.*;
 import org.eclipse.ocl.examples.pivot.Class;
 import org.eclipse.ocl.examples.pivot.Package;
+import org.eclipse.ocl.examples.pivot.utilities.PivotStandardLibrary;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 
 /**
@@ -55,7 +56,7 @@ public class [javaClass/] extends XMLResourceImpl
 	 */
 	public static final String PIVOT_URI = "[uri/]";
 
-	public [javaClass/](StandardLibrary standardLibrary) {
+	public [javaClass/](PivotStandardLibrary standardLibrary) {
 		super(URI.createURI(PIVOT_URI));
 		getContents().add(create(standardLibrary));
 	}
@@ -63,7 +64,7 @@ public class [javaClass/] extends XMLResourceImpl
 	/**
 	 *	Create and return a pivot model of the Pivot Model.
 	 */
-	public static Package create(StandardLibrary standardLibrary)
+	public static Package create(PivotStandardLibrary standardLibrary)
 	{
 		Package [pkg.getSymbolName()/] = PivotFactory.eINSTANCE.createPackage(); // [pkg.moniker/]
 		[for (ownedType : Type | pkg.ownedType->sortedBy(name))]

@@ -28,6 +28,6 @@ import org.eclipse.ocl.examples.domain.values.Value;
 public abstract class AbstractBinaryOperation extends AbstractOperation implements LibraryBinaryOperation
 {
 	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value... argumentValues) throws InvalidValueException {
-		return evaluate(evaluator, callExp, sourceValue, argumentValues[0]);
+		return evaluate(evaluator, callExp.getType(), sourceValue, argumentValues[0]);
 	}
 }

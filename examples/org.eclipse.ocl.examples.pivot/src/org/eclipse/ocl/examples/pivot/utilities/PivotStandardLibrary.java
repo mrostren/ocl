@@ -47,7 +47,7 @@ public abstract class PivotStandardLibrary implements DomainStandardLibrary
 	 * constant is repeated in GenersateOCLstdlibModel.mwe2 an in
 	 * org.eclipse.ocl.examples.library/plugin.xml.
 	 */
-	public static final String DEFAULT_OCL_STDLIB_URI = "http://www.eclipse.org/ocl/3.1.0/OCL.oclstdlib";
+	public static final String DEFAULT_OCL_STDLIB_URI = "http://www.eclipse.org/ocl/3.2.0/OCL.oclstdlib";
 
 	/**
 	 * The URI to provide the default Standard Library. This value may be

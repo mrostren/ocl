@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.collection;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 
 /**
@@ -30,7 +30,7 @@ public class CollectionAsBagOperation extends AbstractUnaryOperation
 {
 	public static final CollectionAsBagOperation INSTANCE = new CollectionAsBagOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value argument) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value argument) throws InvalidValueException {
 		return argument.asBagValue();
 	}
 }

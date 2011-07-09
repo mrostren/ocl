@@ -16,13 +16,13 @@
  */
 package org.eclipse.ocl.examples.library.iterator;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.elements.DomainExpression;
-import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.library.AbstractIteration;
 import org.eclipse.ocl.examples.domain.library.IterationManager;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.CollectionValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 
@@ -34,8 +34,8 @@ public class RejectIteration extends AbstractIteration<CollectionValue.Accumulat
 {
 	public static final RejectIteration INSTANCE = new RejectIteration();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, CollectionValue sourceVal, DomainExpression body, DomainVariableDeclaration... iterators) {
-		CollectionValue.Accumulator accumulatorValue = createAccumulationValue(evaluator, callExp.getType());
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, CollectionValue sourceVal, DomainExpression body, DomainTypedElement... iterators) {
+		CollectionValue.Accumulator accumulatorValue = createAccumulationValue(evaluator, returnType);
 		return evaluateIteration(new IterationManager<CollectionValue.Accumulator>(evaluator,
 				body, sourceVal, accumulatorValue, iterators));
 	}

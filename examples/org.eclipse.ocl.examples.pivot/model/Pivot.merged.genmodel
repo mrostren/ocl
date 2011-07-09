@@ -52,13 +52,13 @@
       <ecoreDataType href="pivot.ecore#//Boolean"/>
     </genDataTypes>
     <genDataTypes xsi:type="genmodel:GenDataType">
-      <ecoreDataType href="pivot.ecore#//CallableImplementation"/>
-    </genDataTypes>
-    <genDataTypes xsi:type="genmodel:GenDataType">
       <ecoreDataType href="pivot.ecore#//Int"/>
     </genDataTypes>
     <genDataTypes xsi:type="genmodel:GenDataType">
       <ecoreDataType href="pivot.ecore#//Integer"/>
+    </genDataTypes>
+    <genDataTypes xsi:type="genmodel:GenDataType">
+      <ecoreDataType href="pivot.ecore#//LibraryFeature"/>
     </genDataTypes>
     <genDataTypes xsi:type="genmodel:GenDataType">
       <ecoreDataType href="pivot.ecore#//Object"/>
@@ -192,7 +192,7 @@
         <ecoreFeature xsi:type="ecore:EReference" href="pivot.ecore#//TypedElement/type"/>
       </genFeatures>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false">
+    <genClasses xsi:type="genmodel:GenClass">
       <ecoreClass href="pivot.ecore#//Type"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false">
         <ecoreFeature xsi:type="ecore:EReference" href="pivot.ecore#//Type/package"/>
@@ -413,7 +413,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false">
         <ecoreFeature xsi:type="ecore:EAttribute" href="pivot.ecore#//Class/isInterface"/>
       </genFeatures>
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false" propertySortChoices="true">
         <ecoreFeature xsi:type="ecore:EReference" href="pivot.ecore#//Class/subClass"/>
       </genFeatures>
     </genClasses>
@@ -716,7 +716,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true" createChild="true">
         <ecoreFeature xsi:type="ecore:EReference" href="pivot.ecore#//ExpressionInOcl/parameterVariable"/>
       </genFeatures>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false" propertySortChoices="true">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true" createChild="true">
         <ecoreFeature xsi:type="ecore:EReference" href="pivot.ecore#//ExpressionInOcl/messageExpression"/>
       </genFeatures>
     </genClasses>

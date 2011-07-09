@@ -22,14 +22,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.LibraryBinaryOperation;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
-import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.BagValue;
 import org.eclipse.ocl.examples.domain.values.BooleanValue;
 import org.eclipse.ocl.examples.domain.values.CollectionValue;
@@ -230,14 +229,14 @@ public abstract class AbstractCollectionValue<C extends Collection<Value>>
 		return elements != null ? elements.iterator() : Collections.<Value>emptyList().iterator();
 	}
 
-	public Value maxMin(DomainEvaluator evaluator, DomainCallExp callExp, LibraryBinaryOperation binaryOperation) throws InvalidValueException {
+	public Value maxMin(DomainEvaluator evaluator, DomainType returnType, LibraryBinaryOperation binaryOperation) throws InvalidValueException {
 		Value result = null;
         for (Value element : elements) {
         	if (result == null) {
         		result = element;
         	}
         	else {
-        		result = binaryOperation.evaluate(evaluator, callExp, result, element);
+        		result = binaryOperation.evaluate(evaluator, returnType, result, element);
         		if (result == null) {
                 	valueFactory.throwInvalidValueException(EvaluatorMessages.MissingResult, "max/min");
         		}
@@ -302,10 +301,10 @@ public abstract class AbstractCollectionValue<C extends Collection<Value>>
         }
 	} */
 
-	public Value sum(DomainEvaluator evaluator, DomainCallExp callExp, LibraryBinaryOperation binaryOperation, Value zero) throws InvalidValueException {
+	public Value sum(DomainEvaluator evaluator, DomainType returnType, LibraryBinaryOperation binaryOperation, Value zero) throws InvalidValueException {
 		Value result = zero;
         for (Value element : elements) {
-        	result = binaryOperation.evaluate(evaluator, callExp, result, element);
+        	result = binaryOperation.evaluate(evaluator, returnType, result, element);
         }
         return result;
     }

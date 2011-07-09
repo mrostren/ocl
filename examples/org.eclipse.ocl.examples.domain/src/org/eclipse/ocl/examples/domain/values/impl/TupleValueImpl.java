@@ -20,7 +20,6 @@ package org.eclipse.ocl.examples.domain.values.impl;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.ocl.examples.domain.elements.DomainProperty;
 import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.types.DomainTupleType;
 import org.eclipse.ocl.examples.domain.values.TupleValue;
@@ -88,7 +87,7 @@ public class TupleValueImpl extends AbstractValue implements TupleValue
     }
 
     // implements the inherited specification
-    public Value getValue(DomainProperty part) {
+    public Value getValue(DomainTypedElement part) {
         return getValue(part.getName());
     }
 
@@ -123,10 +122,10 @@ public class TupleValueImpl extends AbstractValue implements TupleValue
         StringBuilder result = new StringBuilder();
         result.append("Tuple{"); //$NON-NLS-1$
         
-        for (Iterator<? extends DomainProperty> iter =  getTupleType().getOwnedAttributes().iterator();
+        for (Iterator<? extends DomainTypedElement> iter =  getTupleType().getOwnedAttributes().iterator();
                 iter.hasNext();) {
             
-            DomainProperty p = iter.next();
+        	DomainTypedElement p = iter.next();
             
             result.append(p.getName());
             result.append(" = "); //$NON-NLS-1$

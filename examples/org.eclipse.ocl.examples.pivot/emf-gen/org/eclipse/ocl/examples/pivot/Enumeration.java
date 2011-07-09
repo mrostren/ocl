@@ -17,10 +17,12 @@
 package org.eclipse.ocl.examples.pivot;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.ocl.examples.domain.types.DomainEnumeration;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Enumeration</b></em>'.
+ * @implements org.eclipse.ocl.examples.domain.types.DomainEnumeration
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
@@ -39,7 +41,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Enumeration
-		extends DataType {
+		extends DataType, DomainEnumeration {
 
 	/**
 	 * Returns the value of the '<em><b>Owned Literal</b></em>' containment reference list.

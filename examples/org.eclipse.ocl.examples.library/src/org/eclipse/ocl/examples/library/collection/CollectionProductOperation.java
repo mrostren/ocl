@@ -18,16 +18,16 @@ package org.eclipse.ocl.examples.library.collection;
 
 import java.util.Set;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainTupleType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.CollectionValue;
 import org.eclipse.ocl.examples.domain.values.TupleValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
-import org.eclipse.ocl.examples.pivot.TupleType;
 
 /**
  * CollectionProductOperation realises the Collection::product() library operation.
@@ -37,12 +37,12 @@ public class CollectionProductOperation extends AbstractBinaryOperation // FIXME
 {
 	public static final CollectionProductOperation INSTANCE = new CollectionProductOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal, Value argVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal, Value argVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		CollectionValue sourceValue = sourceVal.asCollectionValue();
 		CollectionValue argumentValue = argVal.asCollectionValue();
-		DomainCollectionType collType = (DomainCollectionType)callExp.getType();
-		TupleType tupleType = (TupleType) collType.getElementType();
+		DomainCollectionType collType = (DomainCollectionType)returnType;
+		DomainTupleType tupleType = (DomainTupleType) collType.getElementType();
 		Set<TupleValue> product = sourceValue.product(argumentValue, tupleType);
         return valueFactory.createSetValue(collType, product);
 	}

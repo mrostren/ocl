@@ -16,7 +16,6 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
@@ -33,7 +32,7 @@ public class OclAnyOclIsKindOfOperation extends AbstractBinaryOperation
 {
 	public static final OclAnyOclIsKindOfOperation INSTANCE = new OclAnyOclIsKindOfOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal, Value argVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal, Value argVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		DomainType sourceType = sourceVal.getType();
 		TypeValue argTypeValue = argVal.asTypeValue();

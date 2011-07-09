@@ -158,7 +158,7 @@ public abstract class AbstractExtendingVisitor<R, C>
 	}
 
 	public R visitInvalidLiteralExp(org.eclipse.ocl.examples.pivot.InvalidLiteralExp object) {
-		return visitLiteralExp(object);
+		return visitPrimitiveLiteralExp(object);
 	}
 
 	public R visitInvalidType(org.eclipse.ocl.examples.pivot.InvalidType object) {

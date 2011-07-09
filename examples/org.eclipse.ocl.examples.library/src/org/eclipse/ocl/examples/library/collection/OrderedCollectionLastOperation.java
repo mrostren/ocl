@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.collection;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.OrderedCollectionValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 
@@ -31,7 +31,7 @@ public class OrderedCollectionLastOperation extends AbstractUnaryOperation
 {
 	public static final OrderedCollectionLastOperation INSTANCE = new OrderedCollectionLastOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value argument) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value argument) throws InvalidValueException {
 		OrderedCollectionValue orderedCollectionValue = argument.asOrderedCollectionValue();
 		return orderedCollectionValue.last();
 	}

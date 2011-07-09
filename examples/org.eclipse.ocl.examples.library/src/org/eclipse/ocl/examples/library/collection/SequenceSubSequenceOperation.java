@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.collection;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractTernaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.SequenceValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 
@@ -31,7 +31,7 @@ public class SequenceSubSequenceOperation extends AbstractTernaryOperation
 {
 	public static final SequenceSubSequenceOperation INSTANCE = new SequenceSubSequenceOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value firstArgumentValue, Value secondArgumentValue) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, Value firstArgumentValue, Value secondArgumentValue) throws InvalidValueException {
 		SequenceValue selfValue = sourceValue.asSequenceValue();
 		Integer fromValue = firstArgumentValue.asInteger();
 		Integer toValue = secondArgumentValue.asInteger();

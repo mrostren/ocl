@@ -16,9 +16,9 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.BooleanValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -31,7 +31,7 @@ public class OclAnyOclIsUndefinedOperation extends AbstractUnaryOperation
 {
 	public static final OclAnyOclIsUndefinedOperation INSTANCE = new OclAnyOclIsUndefinedOperation();
 
-	public BooleanValue evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value argument) {
+	public BooleanValue evaluate(DomainEvaluator evaluator, DomainType returnType, Value argument) {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		return valueFactory.booleanValueOf(argument.isUndefined());
 	}

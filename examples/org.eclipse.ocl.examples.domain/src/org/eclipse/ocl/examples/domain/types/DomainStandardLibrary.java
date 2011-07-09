@@ -16,6 +16,12 @@
  */
 package org.eclipse.ocl.examples.domain.types;
 
+import java.util.Enumeration;
+import java.util.List;
+
+import org.eclipse.emf.ecore.xml.type.AnyType;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
+
 /**
  * A representation of the OCL Standard Library, which is the set of singleton
  * instances of the OCL-defined metatypes, including the generic collection
@@ -167,6 +173,17 @@ public interface DomainStandardLibrary
      * @return the <tt>String</tt> type (an instance of {@link PrimitiveType})
      */
 	DomainType getStringType();
+
+	/**
+	 * Obtains the instance of the tuple part description for a name and a type.
+	 */
+	DomainTypedElement getTuplePart(String name, DomainType type);
+
+	/**
+	 * Obtains the instance of the {@link TupleType} metatype for the given list of parts,
+	 * which must be alphabetical order by name.
+	 */
+	DomainTupleType getTupleType(List<? extends DomainTypedElement> parts);
     
     /**
      * Obtains the instance of the {@link PrimitiveType} metatype,

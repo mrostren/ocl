@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.elements.DomainProperty;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractProperty;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
@@ -44,7 +44,7 @@ public class ExplicitNavigationProperty extends AbstractProperty
 {
 	public static final ExplicitNavigationProperty INSTANCE = new ExplicitNavigationProperty();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, DomainProperty property) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, DomainProperty property) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		Object object = sourceValue.asObject();
 		if ((object instanceof ClassifierType) && !(property.getClass_() instanceof ClassifierType)) {

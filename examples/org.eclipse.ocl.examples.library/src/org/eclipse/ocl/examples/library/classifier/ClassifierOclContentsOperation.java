@@ -20,12 +20,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.ObjectValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -38,7 +38,7 @@ public class ClassifierOclContentsOperation extends AbstractUnaryOperation
 {
 	public static final ClassifierOclContentsOperation INSTANCE = new ClassifierOclContentsOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		ObjectValue objectVal = sourceValue.asObjectValue();
 		Object object = objectVal.getObject();
@@ -49,6 +49,6 @@ public class ClassifierOclContentsOperation extends AbstractUnaryOperation
 		for (Object eContent : ((EObject)object).eContents()) {
 			collection.add(valueFactory.valueOf(eContent));
     	}
-    	return valueFactory.createSetValue((DomainCollectionType)callExp.getType(), collection);
+    	return valueFactory.createSetValue((DomainCollectionType)returnType, collection);
 	}
 }

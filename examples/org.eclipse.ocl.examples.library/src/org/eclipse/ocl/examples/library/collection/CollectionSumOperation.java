@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.collection;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.CollectionValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -34,16 +34,16 @@ public class CollectionSumOperation extends AbstractUnaryOperation
 {
 	public static final CollectionSumOperation INSTANCE = new CollectionSumOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		CollectionValue collectionValue = sourceVal.asCollectionValue();
 		// FIXME Bug 301351 Look for user-defined zero
 //			resultType.getZero();
-		if (valueFactory.conformsTo(callExp.getType(), valueFactory.getStandardLibrary().getIntegerType())) {
-			return collectionValue.sum(evaluator, callExp, IntegerPlusOperation.INSTANCE, valueFactory.integerValueOf(0));
+		if (valueFactory.conformsTo(returnType, valueFactory.getStandardLibrary().getIntegerType())) {
+			return collectionValue.sum(evaluator, returnType, IntegerPlusOperation.INSTANCE, valueFactory.integerValueOf(0));
 		}
 		else {
-			return collectionValue.sum(evaluator, callExp, RealPlusOperation.INSTANCE, valueFactory.realValueOf(0.0));
+			return collectionValue.sum(evaluator, returnType, RealPlusOperation.INSTANCE, valueFactory.realValueOf(0.0));
 		}
 	}
 }

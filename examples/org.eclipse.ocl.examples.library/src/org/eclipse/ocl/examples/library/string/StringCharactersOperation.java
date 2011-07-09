@@ -19,11 +19,11 @@ package org.eclipse.ocl.examples.library.string;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.StringValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -36,7 +36,7 @@ public class StringCharactersOperation extends AbstractUnaryOperation
 {
 	public static final StringCharactersOperation INSTANCE = new StringCharactersOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		String sourceString = sourceVal.asString();
 		List<StringValue> results = new ArrayList<StringValue>(sourceString.length());
@@ -44,6 +44,6 @@ public class StringCharactersOperation extends AbstractUnaryOperation
 			String s = sourceString.substring(i, i+1);
 			results.add(valueFactory.stringValueOf(s));
 		}
-		return valueFactory.createSequenceValue((DomainCollectionType)callExp.getType(), results);
+		return valueFactory.createSequenceValue((DomainCollectionType)returnType, results);
 	}
 }

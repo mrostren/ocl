@@ -501,12 +501,12 @@ public class PivotValidator
 				return validateCollectionKind((CollectionKind)value, diagnostics, context);
 			case PivotPackage.BOOLEAN:
 				return validateBoolean((Boolean)value, diagnostics, context);
-			case PivotPackage.CALLABLE_IMPLEMENTATION:
-				return validateCallableImplementation((LibraryFeature)value, diagnostics, context);
 			case PivotPackage.INT:
 				return validateInt((Integer)value, diagnostics, context);
 			case PivotPackage.INTEGER:
 				return validateInteger((BigInteger)value, diagnostics, context);
+			case PivotPackage.LIBRARY_FEATURE:
+				return validateLibraryFeature((LibraryFeature)value, diagnostics, context);
 			case PivotPackage.OBJECT:
 				return validateObject(value, diagnostics, context);
 			case PivotPackage.REAL:
@@ -1168,17 +1168,6 @@ public class PivotValidator
 			CallOperationAction callOperationAction,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)callOperationAction, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateCallableImplementation(
-			LibraryFeature callableImplementation,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return true;
 	}
 
 	/**
@@ -1907,6 +1896,16 @@ public class PivotValidator
 	 */
 	public boolean validateInteger(BigInteger integer,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLibraryFeature(LibraryFeature libraryFeature, DiagnosticChain diagnostics, Map<Object, Object> context)
+	{
 		return true;
 	}
 

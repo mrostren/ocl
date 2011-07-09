@@ -16,13 +16,21 @@
  */
 package org.eclipse.ocl.examples.domain.library;
 
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
 
 /**
  */
 public interface LibraryFeature
 {
-	Diagnostic validate(DomainStandardLibrary standardLibrary, DomainCallExp callExp);
+	/**
+	 * Return a validator for a CallExp using this feature. May return null for no validator.
+	 * 
+	 * Validation occurs during analysis with the pivot model using facilities that are not needed
+	 * for evaluation. This method enables a pivot-unaware evaluation plugin to load a validator
+	 * from a pivot-aware plugin without imposing a pivot dependency.
+	 * 
+	 * @param standardLibrary a context to assist in class loading.
+	 * @return
+	 */
+	LibraryValidator getValidator(DomainStandardLibrary standardLibrary);
 }

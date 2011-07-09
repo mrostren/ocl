@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.integer;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.IntegerValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 
@@ -31,7 +31,7 @@ public class IntegerPlusOperation extends AbstractBinaryOperation
 {
 	public static final IntegerPlusOperation INSTANCE = new IntegerPlusOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value left, Value right) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value left, Value right) throws InvalidValueException {
 		IntegerValue leftValue = left.toIntegerValue();
 		IntegerValue rightValue = right.toIntegerValue();
 		if ((leftValue != null) && (rightValue != null)) {

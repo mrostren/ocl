@@ -16,9 +16,9 @@
  */
 package org.eclipse.ocl.examples.library.oclvoid;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.BooleanValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -31,7 +31,7 @@ public class OclVoidOrOperation extends AbstractBinaryOperation
 {
 	public static final OclVoidOrOperation INSTANCE = new OclVoidOrOperation();
 
-	public BooleanValue evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value left, Value right) {
+	public BooleanValue evaluate(DomainEvaluator evaluator, DomainType returnType, Value left, Value right) {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		if (right == valueFactory.getTrue()) {
 			return valueFactory.getTrue();

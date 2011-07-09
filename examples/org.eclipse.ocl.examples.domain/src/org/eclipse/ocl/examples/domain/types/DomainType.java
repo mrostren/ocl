@@ -17,7 +17,9 @@
 package org.eclipse.ocl.examples.domain.types;
 
 import org.eclipse.ocl.examples.domain.elements.DomainElement;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
 public interface DomainType extends DomainElement
 {
+	DomainType getCommonType(DomainType type, ValueFactory valueFactory);
 }

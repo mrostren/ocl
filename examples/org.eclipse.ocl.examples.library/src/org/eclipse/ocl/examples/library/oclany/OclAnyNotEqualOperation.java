@@ -16,9 +16,9 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.BooleanValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -35,8 +35,8 @@ public class OclAnyNotEqualOperation extends OclAnyEqualOperation
 	public static final OclAnyNotEqualOperation INSTANCE = new OclAnyNotEqualOperation();
 
 	@Override
-	public BooleanValue evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value left, Value right) throws InvalidValueException {
+	public BooleanValue evaluate(DomainEvaluator evaluator, DomainType returnType, Value left, Value right) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
-		return valueFactory.booleanValueOf(!super.evaluate(evaluator, callExp, left, right).asBoolean());
+		return valueFactory.booleanValueOf(!super.evaluate(evaluator, returnType, left, right).asBoolean());
 	}
 }

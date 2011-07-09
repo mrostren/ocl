@@ -24,7 +24,7 @@ import org.eclipse.ocl.examples.domain.elements.DomainExpression;
  * an evaluation. It passes the prevailing EvaluationEnvironment to the handler
  * to support diagnosis of the failing context..
  */
-public class InvalidEvaluationException extends EvaluationException
+public class InvalidEvaluationException extends DomainException
 {
 	private static final long serialVersionUID = 1L;
 

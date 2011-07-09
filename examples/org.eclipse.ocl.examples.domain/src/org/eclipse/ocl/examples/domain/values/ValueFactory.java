@@ -44,6 +44,7 @@ public interface ValueFactory
 	BagValue createBagValue(DomainCollectionType type, Value... values);
 	BagValue createBagValue(DomainCollectionType type, Bag<? extends Value> values);
 	BagValue createBagValue(DomainCollectionType type, Collection<? extends Value> values);
+	BagValue createBagValue(Value... values);
     
 	/**
 	 * Creates a new OCL <tt>Collection</tt> of the specified ordering and uniqueness.
@@ -64,24 +65,27 @@ public interface ValueFactory
 	OrderedSetValue createOrderedSetValue(DomainCollectionType type, Value... values);
 	OrderedSetValue createOrderedSetValue(DomainCollectionType type, LinkedHashSet<? extends Value> values);
 	OrderedSetValue createOrderedSetValue(DomainCollectionType type, Collection<? extends Value> values);
+	OrderedSetValue createOrderedSetValue(Value... value);
 
     SequenceValue createSequenceOf(Object... objects);
     SequenceValue createSequenceOf(Iterable<?> objects);
 	SequenceValue createSequenceValue(DomainCollectionType type, Value... values);
 	SequenceValue createSequenceValue(DomainCollectionType type, List<? extends Value> values);
 	SequenceValue createSequenceValue(DomainCollectionType type, Collection<? extends Value> values);
+	SequenceValue createSequenceValue(Value... value);
 	
     SetValue createSetOf(Object... objects);
     SetValue createSetOf(Iterable<?> objects);
 	SetValue createSetValue(DomainCollectionType type, Value... values);
 	SetValue createSetValue(DomainCollectionType type, Set<? extends Value> values);
 	SetValue createSetValue(DomainCollectionType type, Collection<? extends Value> values);
+	SetValue createSetValue(Value... value);
 	
 	Value createTupleValue(DomainTupleType type, Map<? extends DomainTypedElement, Value> values);
 
 	Value createTypeValue(DomainClassifierType type);
 
-	DomainType getCommonType(DomainType firstType, DomainType ssecondType);
+//	DomainType getCommonType(DomainType firstType, DomainType secondType);
 	Object getEcoreValueOf(Value result);
     DomainType getElementType(Value... values);
     DomainType getElementType(Iterable<Value> values);
@@ -108,6 +112,7 @@ public interface ValueFactory
 	RealValue realValueOf(String aValue) throws InvalidValueException;
 	
 	StringValue stringValueOf(String value) ;
+	DomainType typeOf(Value value, Value... values);
 	
 	InvalidValue throwInvalidValueException(String message, Object... bindings) throws InvalidValueException;
 

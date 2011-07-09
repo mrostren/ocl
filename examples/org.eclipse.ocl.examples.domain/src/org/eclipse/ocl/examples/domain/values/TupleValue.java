@@ -17,7 +17,7 @@
 
 package org.eclipse.ocl.examples.domain.values;
 
-import org.eclipse.ocl.examples.domain.elements.DomainProperty;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.types.DomainTupleType;
 
 /**
@@ -48,5 +48,5 @@ public interface TupleValue extends Value {
      * @param part the tuple part (as an attribute)
      * @return the corresponding value
      */
-	Value getValue(DomainProperty part);
+	Value getValue(DomainTypedElement part);
 }

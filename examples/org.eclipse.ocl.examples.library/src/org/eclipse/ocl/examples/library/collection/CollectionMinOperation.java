@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.collection;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.CollectionValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.library.numeric.NumericMinOperation;
@@ -32,9 +32,9 @@ public class CollectionMinOperation extends AbstractUnaryOperation
 {
 	public static final CollectionMinOperation INSTANCE = new CollectionMinOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		CollectionValue collectionValue = sourceVal.asCollectionValue();
 		// FIXME Bug 301351 Look for user-defined min
-		return collectionValue.maxMin(evaluator, callExp, NumericMinOperation.INSTANCE);
+		return collectionValue.maxMin(evaluator, returnType, NumericMinOperation.INSTANCE);
 	}
 }

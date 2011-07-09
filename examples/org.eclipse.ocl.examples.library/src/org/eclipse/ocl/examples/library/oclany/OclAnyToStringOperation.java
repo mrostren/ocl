@@ -16,9 +16,9 @@
  */
 package org.eclipse.ocl.examples.library.oclany;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
@@ -30,7 +30,7 @@ public class OclAnyToStringOperation extends AbstractUnaryOperation
 {
 	public static final OclAnyToStringOperation INSTANCE = new OclAnyToStringOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		String string = sourceVal == null?  Value.INVALID_NAME : sourceVal.oclToString();
 		return valueFactory.stringValueOf(string);

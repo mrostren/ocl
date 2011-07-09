@@ -27,5 +27,5 @@ package org.eclipse.ocl.examples.pivot;
  * @generated
  */
 public interface InvalidLiteralExp
-		extends LiteralExp {
+		extends PrimitiveLiteralExp {
 } // InvalidLiteralExp

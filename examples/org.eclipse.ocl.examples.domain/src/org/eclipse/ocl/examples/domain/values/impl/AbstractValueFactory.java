@@ -110,6 +110,12 @@ public abstract class AbstractValueFactory implements ValueFactory
 	public BagValue createBagValue(DomainCollectionType type, Collection<? extends Value> values) {
 		return new BagValueImpl(this, type, values);
 	}
+
+	public BagValue createBagValue(Value... values) {
+		DomainType elementType = getElementType(values);
+		DomainCollectionType collectionType = standardLibrary.getBagType(elementType);
+		return new BagValueImpl(this, collectionType, values);
+	}
     
 	/**
 	 * Creates a new OCL <tt>Collection</tt> of the specified ordering and uniqueness.
@@ -207,6 +213,12 @@ public abstract class AbstractValueFactory implements ValueFactory
 		return new OrderedSetValueImpl(this, type, values);
 	}
 
+	public OrderedSetValue createOrderedSetValue(Value... values) {
+		DomainType elementType = getElementType(values);
+		DomainCollectionType collectionType = standardLibrary.getOrderedSetType(elementType);
+		return new OrderedSetValueImpl(this, collectionType, values);
+	}
+
     public SequenceValue createSequenceOf(Object... objects) {
     	List<Value> collection = new ArrayList<Value>();
     	if (objects != null) {
@@ -239,6 +251,12 @@ public abstract class AbstractValueFactory implements ValueFactory
 
 	public SequenceValue createSequenceValue(DomainCollectionType type, Collection<? extends Value> values) {
 		return new SequenceValueImpl(this, type, values);
+	}
+
+	public SequenceValue createSequenceValue(Value... values) {
+		DomainType elementType = getElementType(values);
+		DomainCollectionType collectionType = standardLibrary.getSequenceType(elementType);
+		return new SequenceValueImpl(this, collectionType, values);
 	}
 
     public SetValue createSetOf(Object... objects) {
@@ -275,6 +293,12 @@ public abstract class AbstractValueFactory implements ValueFactory
 		return new SetValueImpl(this, type, values);
 	}
 
+	public SetValue createSetValue(Value... values) {
+		DomainType elementType = getElementType(values);
+		DomainCollectionType collectionType = standardLibrary.getSetType(elementType);
+		return new SetValueImpl(this, collectionType, values);
+	}
+
 	public Value createTupleValue(DomainTupleType type, Map<? extends DomainTypedElement, Value> values) {
 		return new TupleValueImpl(this, type, (Map<? extends DomainTypedElement, Value>) values);
 	}
@@ -286,7 +310,7 @@ public abstract class AbstractValueFactory implements ValueFactory
     public DomainType getElementType(Value... values) {
     	DomainType elementType = standardLibrary.getOclVoidType();
     	for (Value value : values) {
-    		elementType = getCommonType(elementType, value.getType());
+    		elementType = elementType.getCommonType(value.getType(), this);
     	}
      	return elementType;
     }
@@ -294,7 +318,7 @@ public abstract class AbstractValueFactory implements ValueFactory
     public DomainType getElementType(Iterable<Value> values) {
     	DomainType elementType = standardLibrary.getOclVoidType();
     	for (Value value : values) {
-    		elementType = getCommonType(elementType, value.getType());
+    		elementType = elementType.getCommonType(value.getType(), this);
     	}
      	return elementType;
     }
@@ -435,6 +459,16 @@ public abstract class AbstractValueFactory implements ValueFactory
 //	public String toString() {
 //		return "ValueFactory : " + name;
 //	}
+
+	public DomainType typeOf(Value value, Value... values) {
+		DomainType type = value.getType();
+		if (values != null) {
+			for (Value anotherValue : values) {
+				type = type.getCommonType(anotherValue.getType(), this);
+			}		
+		}
+		return type;
+	}
 
 	public Value valueOf(Object object) {
 		if (object instanceof Value) {

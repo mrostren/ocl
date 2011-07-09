@@ -589,6 +589,7 @@ public class PivotSwitch<T> extends Switch<T> {
 			{
 				InvalidLiteralExp invalidLiteralExp = (InvalidLiteralExp)theEObject;
 				T result = caseInvalidLiteralExp(invalidLiteralExp);
+				if (result == null) result = casePrimitiveLiteralExp(invalidLiteralExp);
 				if (result == null) result = caseLiteralExp(invalidLiteralExp);
 				if (result == null) result = caseOclExpression(invalidLiteralExp);
 				if (result == null) result = caseTypedElement(invalidLiteralExp);

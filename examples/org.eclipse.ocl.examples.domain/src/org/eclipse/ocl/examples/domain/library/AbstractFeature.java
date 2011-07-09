@@ -16,16 +16,23 @@
  */
 package org.eclipse.ocl.examples.domain.library;
 
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
-
 
 /**
  */
 public abstract class AbstractFeature implements LibraryFeature
 {
-	public Diagnostic validate(DomainStandardLibrary standardLibrary, DomainCallExp callExp) {
+	public static LibraryValidator getLibraryValidator(Object contextObject, String validatorClassName) {
+		try {
+			Class<?> validatorClass = contextObject.getClass().getClassLoader().loadClass(validatorClassName);
+			return (LibraryValidator) validatorClass.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();		// WIP FIXME
+			return null;
+		}
+	}
+	
+	public LibraryValidator getValidator(DomainStandardLibrary standardLibrary) {
 		return null;
-	}	
+	}
 }

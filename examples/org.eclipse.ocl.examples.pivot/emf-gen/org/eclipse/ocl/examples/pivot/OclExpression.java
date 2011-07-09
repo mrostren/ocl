@@ -21,7 +21,7 @@ import org.eclipse.ocl.examples.domain.elements.DomainExpression;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Ocl Expression</b></em>'.
- * @implements org.eclipse.ocl.examples.domain.DomainExpression
+ * @implements org.eclipse.ocl.examples.domain.elements.DomainExpression
  * <!-- end-user-doc -->
  *
  *

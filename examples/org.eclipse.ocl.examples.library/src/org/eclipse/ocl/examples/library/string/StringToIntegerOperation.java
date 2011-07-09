@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.string;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
@@ -31,7 +31,7 @@ public class StringToIntegerOperation extends AbstractUnaryOperation
 {
 	public static final StringToIntegerOperation INSTANCE = new StringToIntegerOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		String sourceString = sourceVal.asString();
 		return valueFactory.integerValueOf(sourceString.trim());

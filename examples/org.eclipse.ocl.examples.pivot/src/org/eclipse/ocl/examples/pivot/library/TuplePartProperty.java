@@ -16,12 +16,12 @@
  */
 package org.eclipse.ocl.examples.pivot.library;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.elements.DomainProperty;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractProperty;
 import org.eclipse.ocl.examples.domain.library.LibraryFeature;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.TupleValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 
@@ -29,7 +29,7 @@ public class TuplePartProperty extends AbstractProperty
 {
 	public static final LibraryFeature INSTANCE = new TuplePartProperty();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, DomainProperty property) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, DomainProperty property) throws InvalidValueException {
 /*		if (!(sourceValue instanceof TupleValue) || sourceValue.isUndefined()) {
 			if (sourceValue.isInvalid()) {
 				return sourceValue;

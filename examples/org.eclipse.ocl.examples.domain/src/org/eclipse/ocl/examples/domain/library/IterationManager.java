@@ -19,7 +19,7 @@ package org.eclipse.ocl.examples.domain.library;
 import java.util.Iterator;
 
 import org.eclipse.ocl.examples.domain.elements.DomainExpression;
-import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluationEnvironment;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
@@ -36,11 +36,11 @@ public class IterationManager<ACC extends Value>
 	{		// FIXME Make this a delegating value so that evalEnv can update in place
 		private final DomainEvaluator evaluator;
 		private final CollectionValue collectionValue;
-		private final DomainVariableDeclaration variable;
+		private final DomainTypedElement variable;
 		private Iterator<Value> javaIter;
 		private Value value = null;
 
-		public ValueIterator(DomainEvaluator evaluator, CollectionValue collectionValue, DomainVariableDeclaration variable) {
+		public ValueIterator(DomainEvaluator evaluator, CollectionValue collectionValue, DomainTypedElement variable) {
 			this.evaluator = evaluator;
 			this.collectionValue = collectionValue;
 			this.variable = variable;
@@ -73,11 +73,11 @@ public class IterationManager<ACC extends Value>
 		}
 	}
 
-	protected static ValueIterator[] createIterators(DomainVariableDeclaration[] referredIterators, DomainEvaluator evaluator, CollectionValue collectionValue) {
+	protected static ValueIterator[] createIterators(DomainTypedElement[] referredIterators, DomainEvaluator evaluator, CollectionValue collectionValue) {
 		int iMax = referredIterators.length;
 		ValueIterator[] iterators = new ValueIterator[iMax];
 		for (int i = 0; i < iMax; i++) {
-			DomainVariableDeclaration referredIterator = referredIterators[i];
+			DomainTypedElement referredIterator = referredIterators[i];
 			iterators[i] = new ValueIterator(evaluator, collectionValue, referredIterator);
 		}
 		return iterators;
@@ -88,11 +88,11 @@ public class IterationManager<ACC extends Value>
 	private final CollectionValue collectionValue;
 	private final DomainExpression body;
 	private ACC accumulatorValue;
-	private final DomainVariableDeclaration accumulatorVariable;
-	private final DomainVariableDeclaration[] referredIterators;
+	private final DomainTypedElement accumulatorVariable;
+	private final DomainTypedElement[] referredIterators;
 	private final ValueIterator[] iterators;
 	
-	public IterationManager(DomainEvaluator evaluator, DomainExpression body, CollectionValue collectionValue, ACC accumulatorValue, DomainVariableDeclaration... iterators) {
+	public IterationManager(DomainEvaluator evaluator, DomainExpression body, CollectionValue collectionValue, ACC accumulatorValue, DomainTypedElement... iterators) {
 		this.depth = 0;
 		this.evaluator = evaluator.createNestedEvaluator();
 		this.collectionValue = collectionValue;
@@ -103,7 +103,7 @@ public class IterationManager<ACC extends Value>
 		this.iterators = createIterators(referredIterators, this.evaluator, collectionValue);
 	}
 	
-	public IterationManager(DomainEvaluator evaluator, DomainExpression body, CollectionValue collectionValue, DomainVariableDeclaration accumulator, ACC accumulatorValue, DomainVariableDeclaration... iterators) {
+	public IterationManager(DomainEvaluator evaluator, DomainExpression body, CollectionValue collectionValue, DomainTypedElement accumulator, ACC accumulatorValue, DomainTypedElement... iterators) {
 		this.depth = 0;
 		this.evaluator = evaluator.createNestedEvaluator();
 		this.collectionValue = collectionValue;

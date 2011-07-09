@@ -211,7 +211,7 @@
       <ownedAttribute xmi:type="cmof:Property" xmi:id="_IPg0gYgHEd-aGOJuUCcZBA" name="parameterVariable" type="_IPg0MIgHEd-aGOJuUCcZBA" isOrdered="true" upper="*" lower="0" isComposite="true"/>
     </ownedMember>
     <ownedMember xmi:type="cmof:Class" xmi:id="_IPg0hIgHEd-aGOJuUCcZBA" name="OpaqueExpression"/>
-    <ownedMember xmi:type="cmof:Class" xmi:id="_IPg0hYgHEd-aGOJuUCcZBA" name="InvalidLiteralExp" superClass="_IPg0WogHEd-aGOJuUCcZBA"/>
+    <ownedMember xmi:type="cmof:Class" xmi:id="_IPg0hYgHEd-aGOJuUCcZBA" name="InvalidLiteralExp" superClass="_IPg0YIgHEd-aGOJuUCcZBA"/>
     <ownedMember xmi:type="cmof:Class" xmi:id="_IPg0h4gHEd-aGOJuUCcZBA" name="FeatureCallExp" isAbstract="true" superClass="_IPg0FIgHEd-aGOJuUCcZBA">
       <ownedAttribute xmi:type="cmof:Property" xmi:id="_NHRtAM_AEd-OX-Zde0V6vA" name="isPre" default="false">
         <type xmi:type="cmof:PrimitiveType" href="Infrastructure.cmof#Core-PrimitiveTypes-Boolean"/>

@@ -16,15 +16,17 @@
  */
 package org.eclipse.ocl.examples.pivot;
 
+import org.eclipse.ocl.examples.domain.types.DomainType;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Type</b></em>'.
+ * @extends org.eclipse.ocl.examples.domain.types.DomainType
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A type is a named element that is used as the type for a typed element. A type can be contained in a package.
  * Type is defined to be a kind of templateable element so that a type can be parameterized. It is also defined to be a kind of parameterable element so that a type can be a formal template parameter.
- * @extends org.eclipse.ocl.examples.domain.types.Type
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +42,7 @@ package org.eclipse.ocl.examples.pivot;
  * @generated
  */
 public interface Type
-		extends NamedElement, TemplateableElement, ParameterableElement, org.eclipse.ocl.examples.domain.types.DomainType {
+		extends NamedElement, TemplateableElement, ParameterableElement, DomainType {
 
 	/**
 	 * Returns the value of the '<em><b>Package</b></em>' container reference.

@@ -59,7 +59,7 @@ public interface PivotPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/ocl/3.2.0/Pivot"; //$NON-NLS-1$
+	String eNS_URI = "http://www.eclipse.org/ocl/3.2.0/OCL"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -854,16 +854,6 @@ public interface PivotPackage
 	 * @generated
 	 */
 	int ASSOCIATION_CLASS = 2;
-
-	/**
-	 * The meta object id for the '<em>Callable Implementation</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
-	 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getCallableImplementation()
-	 * @generated
-	 */
-	int CALLABLE_IMPLEMENTATION = 100;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.examples.pivot.internal.impl.OperationImpl <em>Operation</em>}' class.
@@ -6702,7 +6692,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__OWNED_COMMENT = LITERAL_EXP__OWNED_COMMENT;
+	int INVALID_LITERAL_EXP__OWNED_COMMENT = PRIMITIVE_LITERAL_EXP__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Moniker</b></em>' attribute.
@@ -6711,7 +6701,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__MONIKER = LITERAL_EXP__MONIKER;
+	int INVALID_LITERAL_EXP__MONIKER = PRIMITIVE_LITERAL_EXP__MONIKER;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6720,7 +6710,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__NAME = LITERAL_EXP__NAME;
+	int INVALID_LITERAL_EXP__NAME = PRIMITIVE_LITERAL_EXP__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Rule</b></em>' containment reference list.
@@ -6729,7 +6719,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__OWNED_RULE = LITERAL_EXP__OWNED_RULE;
+	int INVALID_LITERAL_EXP__OWNED_RULE = PRIMITIVE_LITERAL_EXP__OWNED_RULE;
 
 	/**
 	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
@@ -6738,7 +6728,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__IS_STATIC = LITERAL_EXP__IS_STATIC;
+	int INVALID_LITERAL_EXP__IS_STATIC = PRIMITIVE_LITERAL_EXP__IS_STATIC;
 
 	/**
 	 * The feature id for the '<em><b>Owned Annotation</b></em>' containment reference list.
@@ -6747,7 +6737,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__OWNED_ANNOTATION = LITERAL_EXP__OWNED_ANNOTATION;
+	int INVALID_LITERAL_EXP__OWNED_ANNOTATION = PRIMITIVE_LITERAL_EXP__OWNED_ANNOTATION;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -6756,7 +6746,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP__TYPE = LITERAL_EXP__TYPE;
+	int INVALID_LITERAL_EXP__TYPE = PRIMITIVE_LITERAL_EXP__TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Invalid Literal Exp</em>' class.
@@ -6765,7 +6755,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP_FEATURE_COUNT = LITERAL_EXP_FEATURE_COUNT + 0;
+	int INVALID_LITERAL_EXP_FEATURE_COUNT = PRIMITIVE_LITERAL_EXP_FEATURE_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Has Moniker</em>' operation.
@@ -6774,7 +6764,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP___HAS_MONIKER = LITERAL_EXP___HAS_MONIKER;
+	int INVALID_LITERAL_EXP___HAS_MONIKER = PRIMITIVE_LITERAL_EXP___HAS_MONIKER;
 
 	/**
 	 * The number of operations of the '<em>Invalid Literal Exp</em>' class.
@@ -6783,7 +6773,7 @@ public interface PivotPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INVALID_LITERAL_EXP_OPERATION_COUNT = LITERAL_EXP_OPERATION_COUNT + 0;
+	int INVALID_LITERAL_EXP_OPERATION_COUNT = PRIMITIVE_LITERAL_EXP_OPERATION_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -14727,7 +14717,7 @@ public interface PivotPackage
 	 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getInt()
 	 * @generated
 	 */
-	int INT = 101;
+	int INT = 100;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -14737,7 +14727,17 @@ public interface PivotPackage
 	 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 102;
+	int INTEGER = 101;
+
+	/**
+	 * The meta object id for the '<em>Library Feature</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
+	 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getLibraryFeature()
+	 * @generated
+	 */
+	int LIBRARY_FEATURE = 102;
 
 	/**
 	 * The meta object id for the '<em>Object</em>' data type.
@@ -17265,17 +17265,6 @@ public interface PivotPackage
 	EReference getAssociationClass_UnownedAttribute();
 
 	/**
-	 * Returns the meta object for data type '{@link org.eclipse.ocl.examples.domain.library.LibraryFeature <em>Callable Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Callable Implementation</em>'.
-	 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
-	 * @model instanceClass="org.eclipse.ocl.examples.pivot.evaluation.CallableImplementation"
-	 * @generated
-	 */
-	EDataType getCallableImplementation();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.examples.pivot.Operation <em>Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17776,6 +17765,17 @@ public interface PivotPackage
 	 * @generated
 	 */
 	EDataType getInteger();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.ocl.examples.domain.library.LibraryFeature <em>Library Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Library Feature</em>'.
+	 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
+	 * @model instanceClass="org.eclipse.ocl.examples.domain.library.LibraryFeature"
+	 * @generated
+	 */
+	EDataType getLibraryFeature();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Object <em>Object</em>}'.
@@ -19893,16 +19893,6 @@ public interface PivotPackage
 		EReference ASSOCIATION_CLASS__UNOWNED_ATTRIBUTE = eINSTANCE.getAssociationClass_UnownedAttribute();
 
 		/**
-		 * The meta object literal for the '<em>Callable Implementation</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
-		 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getCallableImplementation()
-		 * @generated
-		 */
-		EDataType CALLABLE_IMPLEMENTATION = eINSTANCE.getCallableImplementation();
-
-		/**
 		 * The meta object literal for the '{@link org.eclipse.ocl.examples.pivot.internal.impl.OperationImpl <em>Operation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -20323,6 +20313,16 @@ public interface PivotPackage
 		 * @generated
 		 */
 		EDataType INTEGER = eINSTANCE.getInteger();
+
+		/**
+		 * The meta object literal for the '<em>Library Feature</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.ocl.examples.domain.library.LibraryFeature
+		 * @see org.eclipse.ocl.examples.pivot.internal.impl.PivotPackageImpl#getLibraryFeature()
+		 * @generated
+		 */
+		EDataType LIBRARY_FEATURE = eINSTANCE.getLibraryFeature();
 
 		/**
 		 * The meta object literal for the '<em>Object</em>' data type.

@@ -27,10 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.ocl.examples.domain.elements.DomainElement;
 import org.eclipse.ocl.examples.domain.elements.DomainExpression;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluationEnvironment;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluationVisitor;
-import org.eclipse.ocl.examples.domain.evaluation.EvaluationException;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
@@ -118,7 +118,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 			return EvaluationVisitorImpl.this.createNestedVisitor().getEvaluator();
 		}
 
-		public Value evaluate(DomainExpression body) {
+		public Value evaluate(DomainElement body) {
 			return ((OclExpression) body).accept(EvaluationVisitorImpl.this);
 		}
 
@@ -464,7 +464,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 				switch (iSize) {
 					case 1: {
 						Variable firstIterator = iterators.get(0);
-						result = ((LibraryIterate)implementation).evaluate(evaluator, iterateExp, sourceValue, accumulator.getRepresentedParameter(), initValue, body, firstIterator.getRepresentedParameter());
+						result = ((LibraryIterate)implementation).evaluate(evaluator, iterateExp.getType(), sourceValue, accumulator.getRepresentedParameter(), initValue, body, firstIterator.getRepresentedParameter());
 						break;
 					}
 					default: {
@@ -472,7 +472,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 						for (int i = 0; i < iSize; i++) {
 							variables[i] = iterators.get(i).getRepresentedParameter();
 						}
-						result = ((LibraryIterate)implementation).evaluate(evaluator, iterateExp, sourceValue, accumulator.getRepresentedParameter(), initValue, body, variables);
+						result = ((LibraryIterate)implementation).evaluate(evaluator, iterateExp.getType(), sourceValue, accumulator.getRepresentedParameter(), initValue, body, variables);
 						break;
 					}
 				}
@@ -536,7 +536,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 				switch (iSize) {
 					case 1: {
 						Variable firstIterator = iterators.get(0);
-						result = ((LibraryIteration)implementation).evaluate(evaluator, iteratorExp, sourceValue, body, firstIterator.getRepresentedParameter());
+						result = ((LibraryIteration)implementation).evaluate(evaluator, iteratorExp.getType(), sourceValue, body, firstIterator.getRepresentedParameter());
 						break;
 					}
 //					case 2: {
@@ -550,7 +550,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 						for (int i = 0; i < iSize; i++) {
 							variables[i] = iterators.get(i).getRepresentedParameter();
 						}
-						result = ((LibraryIteration)implementation).evaluate(evaluator, iteratorExp, sourceValue, body, variables);
+						result = ((LibraryIteration)implementation).evaluate(evaluator, iteratorExp.getType(), sourceValue, body, variables);
 						break;
 					}
 				}
@@ -642,7 +642,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 		if ((ownedParameters.size() == 1) && (ownedParameters.get(0).getType() instanceof SelfType)) {
 			firstArgument =  arguments.get(0).accept(undecoratedVisitor);
 			DomainType argType = firstArgument.getType();
-			dynamicSourceType = valueFactory.getCommonType(dynamicSourceType, argType);
+			dynamicSourceType = dynamicSourceType.getCommonType(argType, valueFactory);
 	 	}
 		//
 		//	Resolve operation to dispatch
@@ -751,7 +751,7 @@ public class EvaluationVisitorImpl extends AbstractEvaluationVisitor
 		Value sourceValue = source.accept(evaluationVisitor);
 		Value resultValue = null;
 		try {
-			resultValue = implementation.evaluate(evaluator, propertyCallExp, sourceValue, propertyCallExp.getReferredProperty());
+			resultValue = implementation.evaluate(evaluator, propertyCallExp.getType(), sourceValue, propertyCallExp.getReferredProperty());
 		}
 		catch (EvaluationException e) {
 			throw e;

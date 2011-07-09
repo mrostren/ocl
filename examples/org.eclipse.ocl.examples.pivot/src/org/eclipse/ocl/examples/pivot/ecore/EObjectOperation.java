@@ -28,6 +28,7 @@ import org.eclipse.ocl.examples.domain.library.AbstractOperation;
 import org.eclipse.ocl.examples.domain.library.LibraryBinaryOperation;
 import org.eclipse.ocl.examples.domain.library.LibraryTernaryOperation;
 import org.eclipse.ocl.examples.domain.library.LibraryUnaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.pivot.ExpressionInOcl;
 import org.eclipse.ocl.examples.pivot.OpaqueExpression;
@@ -41,7 +42,7 @@ import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 
 /** 
- * An EObjectOperation provides the standard CallableImplementation to implement an
+ * An EObjectOperation provides the standard LibraryOperation to implement an
  * OperationCallExp. When constructed with a null specification, the call returns
  * an invalid. When constructed with a non-null specification,
  * the specification defines the operation body, which if provided as an OpaqueExpression
@@ -58,20 +59,20 @@ public class EObjectOperation extends AbstractOperation implements LibraryUnaryO
 		this.specification = specification;
 	}
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue) throws InvalidValueException {
-		if (expressionInOcl == null) {		
-			resolveExpressionInOcl(evaluator, callExp, sourceValue);
-		}
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue) throws InvalidValueException {
+//		if (expressionInOcl == null) {		
+//			resolveExpressionInOcl(evaluator, returnType, sourceValue);
+//		}
 		DomainEvaluator nestedEvaluator = evaluator.createNestedEvaluator();
 		DomainEvaluationEnvironment nestedEvaluationEnvironment = nestedEvaluator.getEvaluationEnvironment();
 		nestedEvaluationEnvironment.add(expressionInOcl.getContextVariable(), sourceValue);
 		return nestedEvaluator.evaluate(expressionInOcl.getBodyExpression());
 	}
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value argumentValue) throws InvalidValueException {
-		if (expressionInOcl == null) {		
-			resolveExpressionInOcl(evaluator, callExp, sourceValue);
-		}
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, Value argumentValue) throws InvalidValueException {
+//		if (expressionInOcl == null) {		
+//			resolveExpressionInOcl(evaluator, returnType, sourceValue);
+//		}
 		DomainEvaluator nestedEvaluator = evaluator.createNestedEvaluator();
 		DomainEvaluationEnvironment nestedEvaluationEnvironment = nestedEvaluator.getEvaluationEnvironment();
 		nestedEvaluationEnvironment.add(expressionInOcl.getContextVariable(), sourceValue);
@@ -80,10 +81,10 @@ public class EObjectOperation extends AbstractOperation implements LibraryUnaryO
 		return nestedEvaluator.evaluate(expressionInOcl.getBodyExpression());
 	}
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value firstArgumentValue, Value secondArgumentValue) throws InvalidValueException {
-		if (expressionInOcl == null) {		
-			resolveExpressionInOcl(evaluator, callExp, sourceValue);
-		}
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, Value firstArgumentValue, Value secondArgumentValue) throws InvalidValueException {
+//		if (expressionInOcl == null) {		
+//			resolveExpressionInOcl(evaluator, returnType, sourceValue);
+//		}
 		DomainEvaluator nestedEvaluator = evaluator.createNestedEvaluator();
 		DomainEvaluationEnvironment nestedEvaluationEnvironment = nestedEvaluator.getEvaluationEnvironment();
 		nestedEvaluationEnvironment.add(expressionInOcl.getContextVariable(), sourceValue);

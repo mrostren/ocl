@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module generateOclCommon('http://www.eclipse.org/ocl/3.2.0/Pivot','http://www.eclipse.org/emf/2002/Ecore')/]
+[module generateOclCommon('http://www.eclipse.org/ocl/3.2.0/OCL','http://www.eclipse.org/emf/2002/Ecore')/]
 
 [query public getRootPackage(elem : Package) : Package =
 if elem.nestingPackage->notEmpty() then elem.nestingPackage.getRootPackage() else elem endif/]

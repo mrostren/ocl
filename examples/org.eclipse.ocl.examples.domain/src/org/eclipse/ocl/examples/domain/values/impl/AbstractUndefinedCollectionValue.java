@@ -21,7 +21,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.LibraryBinaryOperation;
@@ -160,7 +159,7 @@ public abstract class AbstractUndefinedCollectionValue extends AbstractUndefined
 		return toInvalidValue();
 	}
 
-	public Value maxMin(DomainEvaluator evaluator, DomainCallExp callExp, LibraryBinaryOperation binaryOperation) throws InvalidValueException {
+	public Value maxMin(DomainEvaluator evaluator, DomainType returnType, LibraryBinaryOperation binaryOperation) throws InvalidValueException {
     	return toInvalidValue();
 	}
 
@@ -208,7 +207,7 @@ public abstract class AbstractUndefinedCollectionValue extends AbstractUndefined
 		return toInvalidValue();
 	}
 
-	public Value sum(DomainEvaluator evaluator, DomainCallExp callExp, LibraryBinaryOperation binaryOperation, Value zero) throws InvalidValueException {
+	public Value sum(DomainEvaluator evaluator, DomainType returnType, LibraryBinaryOperation binaryOperation, Value zero) throws InvalidValueException {
     	return toInvalidValue();
 	}
 

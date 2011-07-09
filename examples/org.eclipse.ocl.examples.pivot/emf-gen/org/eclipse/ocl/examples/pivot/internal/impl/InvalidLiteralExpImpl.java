@@ -31,7 +31,7 @@ import org.eclipse.ocl.examples.pivot.util.Visitor;
  * @generated
  */
 public class InvalidLiteralExpImpl
-		extends LiteralExpImpl
+		extends PrimitiveLiteralExpImpl
 		implements InvalidLiteralExp {
 
 	/**

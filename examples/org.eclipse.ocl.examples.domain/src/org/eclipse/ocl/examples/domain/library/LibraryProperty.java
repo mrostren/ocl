@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.domain.library;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.elements.DomainProperty;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 
 /**
@@ -28,5 +28,5 @@ public interface LibraryProperty extends LibraryFeature
 {
 	/**
 	 */
-	Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, DomainProperty property) throws InvalidValueException;
+	Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceValue, DomainProperty property) throws InvalidValueException;
 }

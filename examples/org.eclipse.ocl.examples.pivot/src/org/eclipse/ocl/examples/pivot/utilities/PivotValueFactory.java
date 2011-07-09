@@ -52,9 +52,9 @@ public class PivotValueFactory extends AbstractValueFactory
 		return new ElementValueImpl<E>(this, getTypeManager().getPivotType(eClass.getName()), element);
 	}
 
-	public DomainType getCommonType(DomainType firstType, DomainType secondType) {
-		return getTypeManager().getCommonType((Type)firstType, (Type)secondType, null);			// WIP
-	}
+//	public DomainType getCommonType(DomainType firstType, DomainType secondType) {
+//		return getTypeManager().getCommonType((Type)firstType, (Type)secondType, null);			// WIP
+//	}
 
 	public Object getEcoreValueOf(Value value) {
 		if (value instanceof NullValue) {

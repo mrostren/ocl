@@ -17,11 +17,11 @@
 package org.eclipse.ocl.examples.library.classifier;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractUnaryOperation;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.ObjectValue;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
@@ -34,7 +34,7 @@ public class ClassifierOclContainerOperation extends AbstractUnaryOperation
 {
 	public static final ClassifierOclContainerOperation INSTANCE = new ClassifierOclContainerOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		ObjectValue objectVal = sourceVal.asObjectValue();
 		Object object = objectVal.getObject();

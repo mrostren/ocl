@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.ocl.examples.domain.types.DomainType;
+import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.Annotation;
 import org.eclipse.ocl.examples.pivot.Comment;
 import org.eclipse.ocl.examples.pivot.Constraint;
@@ -44,6 +46,7 @@ import org.eclipse.ocl.examples.pivot.internal.operations.ParameterableElementOp
 import org.eclipse.ocl.examples.pivot.internal.operations.TemplateableElementOperations;
 import org.eclipse.ocl.examples.pivot.internal.operations.TypeOperations;
 import org.eclipse.ocl.examples.pivot.util.Visitor;
+import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 
 /**
  * <!-- begin-user-doc -->
@@ -863,5 +866,9 @@ public class TypeImpl
 	@Override
 	public <R, C> R accept(Visitor<R, C> visitor) {
 		return visitor.visitType(this);
+	}
+
+	public DomainType getCommonType(DomainType type, ValueFactory valueFactory) {
+		return ((TypeManager)valueFactory.getStandardLibrary()).getCommonType(this, (Type)type, null);
 	}
 } //TypeImpl

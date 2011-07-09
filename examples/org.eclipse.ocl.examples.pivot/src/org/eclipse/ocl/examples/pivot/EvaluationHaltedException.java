@@ -19,7 +19,7 @@ package org.eclipse.ocl.examples.pivot;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.ocl.examples.common.plugin.OCLExamplesCommonPlugin;
-import org.eclipse.ocl.examples.domain.evaluation.EvaluationException;
+import org.eclipse.ocl.examples.pivot.evaluation.EvaluationException;
 
 /**
  * Exception indicating a managed interruption of evaluation.

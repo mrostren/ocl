@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.ocl.examples.domain.elements.DomainExpression;
-import org.eclipse.ocl.examples.domain.elements.DomainVariableDeclaration;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidEvaluationException;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.values.NullValue;
@@ -61,7 +61,7 @@ public abstract class AbstractEvaluationEnvironment
     protected final TypeManager typeManager;
 
 	private final EvaluationEnvironment parent;
-    private final Map<DomainVariableDeclaration, Value> variableValues = new HashMap<DomainVariableDeclaration, Value>();
+    private final Map<DomainTypedElement, Value> variableValues = new HashMap<DomainTypedElement, Value>();
 
     private final Map<Option<?>, Object> options = new HashMap<Option<?>, Object>();
     
@@ -114,7 +114,7 @@ public abstract class AbstractEvaluationEnvironment
      * @param value
      *            the new value
      */
-    public void replace(DomainVariableDeclaration referredVariable, Value value) {
+    public void replace(DomainTypedElement referredVariable, Value value) {
     	if (referredVariable instanceof Variable) {
     		assert ((Variable)referredVariable).getRepresentedParameter() == null;
     	}
@@ -129,7 +129,7 @@ public abstract class AbstractEvaluationEnvironment
      * @param value
      *            the associated binding
      */
-    public void add(DomainVariableDeclaration referredVariable, Value value) {
+    public void add(DomainTypedElement referredVariable, Value value) {
     	if (referredVariable instanceof Variable) {
     		assert ((Variable)referredVariable).getRepresentedParameter() == null;
     	}
@@ -152,7 +152,7 @@ public abstract class AbstractEvaluationEnvironment
      * @return the value associated with the removed name
      */
     @Deprecated
-    public Value remove(DomainVariableDeclaration referredVariable) {
+    public Value remove(DomainTypedElement referredVariable) {
     	if (referredVariable instanceof Variable) {
     		assert ((Variable)referredVariable).getRepresentedParameter() == null;
     	}

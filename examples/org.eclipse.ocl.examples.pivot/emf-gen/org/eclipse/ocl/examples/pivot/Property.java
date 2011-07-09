@@ -26,7 +26,7 @@ import org.eclipse.ocl.examples.domain.elements.DomainProperty;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Property</b></em>'.
  * @implements Iterable<Property>
- * @implements org.eclipse.ocl.examples.domain.Property
+ * @implements org.eclipse.ocl.examples.domain.elements.DomainProperty
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->

@@ -21,7 +21,7 @@ import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Collection Type</b></em>'.
- * @extends org.eclipse.ocl.examples.pivot.values.CollectionValueType
+ * @implements org.eclipse.ocl.examples.domain.types.DomainCollectionType
  * <!-- end-user-doc -->
  *
  * <p>

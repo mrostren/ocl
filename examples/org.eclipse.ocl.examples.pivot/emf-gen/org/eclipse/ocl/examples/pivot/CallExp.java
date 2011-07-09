@@ -22,7 +22,7 @@ import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Call Exp</b></em>'.
- * @implements org.eclipse.ocl.examples.domain.DomainCallExp
+ * @implements org.eclipse.ocl.examples.domain.elements.DomainCallExp
  * <!-- end-user-doc -->
  *
  * <p>

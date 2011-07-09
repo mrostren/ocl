@@ -29,6 +29,6 @@ import org.eclipse.ocl.examples.domain.values.Value;
 public abstract class AbstractUnaryOperation extends AbstractOperation implements LibraryUnaryOperation
 {
 	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value... argumentValues) throws InvalidValueException {
-		return evaluate(evaluator, callExp, sourceValue);
+		return evaluate(evaluator, callExp.getType(), sourceValue);
 	}
 }

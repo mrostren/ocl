@@ -16,12 +16,11 @@
  */
 package org.eclipse.ocl.examples.library.numeric;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.messages.EvaluatorMessages;
-import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.types.DomainStandardLibrary;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.IntegerValue;
 import org.eclipse.ocl.examples.domain.values.RealValue;
 import org.eclipse.ocl.examples.domain.values.TypeValue;
@@ -38,7 +37,7 @@ public class NumericOclAsTypeOperation extends OclAnyOclAsTypeOperation
 	public static final NumericOclAsTypeOperation INSTANCE = new NumericOclAsTypeOperation();
 
 	@Override
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceVal, Value argVal) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value sourceVal, Value argVal) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		DomainStandardLibrary standardLibrary = valueFactory.getStandardLibrary();
 		DomainType sourceType = sourceVal.getType();

@@ -22,12 +22,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.LibraryBinaryOperation;
 import org.eclipse.ocl.examples.domain.types.DomainCollectionType;
 import org.eclipse.ocl.examples.domain.types.DomainTupleType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 
 public interface CollectionValue extends Value, Iterable<Value>
 {
@@ -52,14 +52,14 @@ public interface CollectionValue extends Value, Iterable<Value>
 	CollectionValue intersection(CollectionValue c) throws InvalidValueException;
 	BooleanValue isEmpty() throws InvalidValueException;
 	Iterator<Value> iterator();
-	Value maxMin(DomainEvaluator evaluator, DomainCallExp callExp, LibraryBinaryOperation binaryOperation) throws InvalidValueException;
+	Value maxMin(DomainEvaluator evaluator, DomainType returnType, LibraryBinaryOperation binaryOperation) throws InvalidValueException;
 	BooleanValue notEmpty() throws InvalidValueException;
 	Set<TupleValue> product(CollectionValue c, DomainTupleType tupleType) throws InvalidValueException;   	
 //	CollectionValue selectAsType(Type elementType) throws InvalidValueException;
 //	CollectionValue selectByKind(Type elementType) throws InvalidValueException;
 	IntegerValue size() throws InvalidValueException;
     OrderedCollectionValue sort(Comparator<Value> comparator) throws InvalidValueException;
-	Value sum(DomainEvaluator evaluator, DomainCallExp callExp, LibraryBinaryOperation binaryOperation, Value zero) throws InvalidValueException;
+	Value sum(DomainEvaluator evaluator, DomainType returnType, LibraryBinaryOperation binaryOperation, Value zero) throws InvalidValueException;
 	OrderedCollectionValue toOrderedCollectionValue() throws InvalidValueException;
     CollectionValue union(CollectionValue c) throws InvalidValueException;
 }

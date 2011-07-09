@@ -16,10 +16,10 @@
  */
 package org.eclipse.ocl.examples.library.string;
 
-import org.eclipse.ocl.examples.domain.elements.DomainCallExp;
 import org.eclipse.ocl.examples.domain.evaluation.DomainEvaluator;
 import org.eclipse.ocl.examples.domain.evaluation.InvalidValueException;
 import org.eclipse.ocl.examples.domain.library.AbstractBinaryOperation;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.Value;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
 
@@ -31,7 +31,7 @@ public class StringLessThanOperation extends AbstractBinaryOperation
 {
 	public static final StringLessThanOperation INSTANCE = new StringLessThanOperation();
 
-	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value left, Value right) throws InvalidValueException {
+	public Value evaluate(DomainEvaluator evaluator, DomainType returnType, Value left, Value right) throws InvalidValueException {
 		ValueFactory valueFactory = evaluator.getValueFactory();
 		String leftString = left.asString();
 		String rightString = right.asString();

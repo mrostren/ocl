@@ -75,7 +75,7 @@ public interface Feature
 	 * @return the value of the '<em>Implementation</em>' attribute.
 	 * @see #setImplementation(LibraryFeature)
 	 * @see org.eclipse.ocl.examples.pivot.PivotPackage#getFeature_Implementation()
-	 * @model dataType="org.eclipse.ocl.examples.pivot.CallableImplementation" transient="true" ordered="false"
+	 * @model dataType="org.eclipse.ocl.examples.pivot.LibraryFeature" transient="true" ordered="false"
 	 * @generated
 	 */
 	LibraryFeature getImplementation();

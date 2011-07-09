@@ -18,9 +18,9 @@ package org.eclipse.ocl.examples.domain.types;
 
 import java.util.List;
 
-import org.eclipse.ocl.examples.domain.elements.DomainProperty;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 
-public interface DomainTupleType extends DomainType {
-	List<? extends DomainProperty> getOwnedAttributes();
-
+public interface DomainTupleType extends DomainType
+{
+	List<? extends DomainTypedElement> getOwnedAttributes();
 }

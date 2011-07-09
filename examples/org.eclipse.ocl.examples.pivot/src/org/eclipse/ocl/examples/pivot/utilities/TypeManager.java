@@ -45,7 +45,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.ocl.examples.common.utils.ClassUtils;
+import org.eclipse.ocl.examples.domain.elements.DomainTypedElement;
 import org.eclipse.ocl.examples.domain.library.LibraryFeature;
+import org.eclipse.ocl.examples.domain.types.DomainTupleType;
+import org.eclipse.ocl.examples.domain.types.DomainType;
 import org.eclipse.ocl.examples.domain.values.ValueFactory;
 import org.eclipse.ocl.examples.pivot.AnyType;
 import org.eclipse.ocl.examples.pivot.ClassifierType;
@@ -2046,5 +2049,15 @@ public class TypeManager extends TypeCaches implements Adapter
 
 	public void setTarget(Notifier newTarget) {
 		assert newTarget == pivotResourceSet;
+	}
+
+	public DomainTypedElement getTuplePart(String name, DomainType type) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();		// WIP
+	}
+
+	public DomainTupleType getTupleType(List<? extends DomainTypedElement> parts) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();		// WIP
 	}
 }

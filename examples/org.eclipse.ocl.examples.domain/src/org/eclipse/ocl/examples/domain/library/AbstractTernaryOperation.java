@@ -29,6 +29,6 @@ import org.eclipse.ocl.examples.domain.values.Value;
 public abstract class AbstractTernaryOperation extends AbstractOperation implements LibraryTernaryOperation
 {
 	public Value evaluate(DomainEvaluator evaluator, DomainCallExp callExp, Value sourceValue, Value... argumentValues) throws InvalidValueException {
-		return evaluate(evaluator, callExp, sourceValue, argumentValues[0], argumentValues[1]);
+		return evaluate(evaluator, callExp.getType(), sourceValue, argumentValues[0], argumentValues[1]);
 	}
 }
