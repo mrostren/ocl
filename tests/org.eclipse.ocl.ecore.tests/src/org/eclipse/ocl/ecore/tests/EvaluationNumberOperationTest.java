@@ -25,6 +25,23 @@ import org.eclipse.ocl.expressions.UnlimitedNaturalLiteralExp;
 public class EvaluationNumberOperationTest
 		extends AbstractEvaluationTest {
 
+	public void testGrowingIntToLongOnSubtraction() {
+		assertResult(2147483648L, "(-1-2147483647).abs()");
+	}
+	
+	public void testGrowingIntToLongOnAddition() {
+		assertResult(2147483648L, "2147483647 + 1");
+	}
+	
+	public void testGrowingIntToLongOnMultiplication() {
+		assertResult(4294967294L, "2147483647 * 2");
+	}
+	
+	public void testSumOverLong() {
+		assertResult(3000000000000L, "Sequence{1000000000000, 1000000000000, 1000000000000}->sum()");
+	}
+	
+	
 	public void testNumberAbs() {
 		// Integer::abs()
 		assertResult(Integer.valueOf(3), "3.abs()");
