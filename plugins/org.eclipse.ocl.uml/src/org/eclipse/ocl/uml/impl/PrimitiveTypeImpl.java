@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.ocl.uml.PrimitiveType;
 import org.eclipse.ocl.uml.UMLPackage;
+import org.eclipse.ocl.uml.internal.operations.PrimitiveTypeOperations;
 import org.eclipse.ocl.uml.internal.OCLStandardLibraryImpl;
 import org.eclipse.uml2.uml.Operation;
 

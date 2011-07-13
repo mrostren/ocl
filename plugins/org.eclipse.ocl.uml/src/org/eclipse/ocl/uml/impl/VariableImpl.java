@@ -30,6 +30,7 @@ import org.eclipse.ocl.expressions.ExpressionsPackage;
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.uml.UMLPackage;
 import org.eclipse.ocl.uml.Variable;
+import org.eclipse.ocl.uml.internal.operations.VariableOperations;
 import org.eclipse.ocl.util.ToStringVisitor;
 import org.eclipse.ocl.utilities.ASTNode;
 import org.eclipse.ocl.utilities.TypedASTNode;

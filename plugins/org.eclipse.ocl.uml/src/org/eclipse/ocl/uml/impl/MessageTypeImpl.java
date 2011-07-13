@@ -38,6 +38,7 @@ import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.types.TypesPackage;
 import org.eclipse.ocl.uml.MessageType;
 import org.eclipse.ocl.uml.UMLPackage;
+import org.eclipse.ocl.uml.internal.operations.MessageTypeOperations;
 import org.eclipse.ocl.uml.internal.OCLStandardLibraryImpl;
 import org.eclipse.ocl.uml.util.OCLUMLUtil;
 import org.eclipse.ocl.util.TypeUtil;
@@ -480,8 +481,10 @@ public class MessageTypeImpl
 
 				for (TypedElement next : typedElements) {
 					features
-						.add(reflection.createProperty(next.getName(), TypeUtil
-							.resolveType(env, reflection.getOCLType(next))));
+						.add(reflection.createProperty(
+							next.getName(),
+							TypeUtil.resolveType(env,
+								reflection.getOCLType(next))));
 				}
 			}
 		}

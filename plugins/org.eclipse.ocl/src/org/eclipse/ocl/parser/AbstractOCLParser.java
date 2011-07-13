@@ -475,7 +475,7 @@ public abstract class AbstractOCLParser
 		IntegerLiteralExpCS result = CSTFactory.eINSTANCE
 			.createIntegerLiteralExpCS();
 		result.setSymbol(string);
-		result.setIntegerSymbol(Integer.valueOf(string));
+		result.setIntegerSymbol(Long.valueOf(string));
 		return result;
 	}
 

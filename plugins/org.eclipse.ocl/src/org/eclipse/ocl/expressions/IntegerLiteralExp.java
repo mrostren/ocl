@@ -53,7 +53,7 @@ public interface IntegerLiteralExp<C>
 	 * @model
 	 * @generated
 	 */
-	Integer getIntegerSymbol();
+	Long getIntegerSymbol();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.ocl.expressions.IntegerLiteralExp#getIntegerSymbol <em>Integer Symbol</em>}' attribute.
@@ -63,7 +63,7 @@ public interface IntegerLiteralExp<C>
 	 * @see #getIntegerSymbol()
 	 * @generated
 	 */
-	void setIntegerSymbol(Integer value);
+	void setIntegerSymbol(Long value);
 
 	/**
 	 * <!-- begin-user-doc -->

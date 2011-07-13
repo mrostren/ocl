@@ -1712,8 +1712,11 @@ public class UMLValidator
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (oclExpression.getType() == null) {
 			if (diagnostics != null) {
-				diagnostics.add(createDiagnostic(Diagnostic.ERROR,
-					DIAGNOSTIC_SOURCE, 0, "_UI_GenericConstraint_diagnostic", //$NON-NLS-1$
+				diagnostics.add(createDiagnostic(
+					Diagnostic.ERROR,
+					DIAGNOSTIC_SOURCE,
+					0,
+					"_UI_GenericConstraint_diagnostic", //$NON-NLS-1$
 					new Object[]{
 						"has_type", getObjectLabel(oclExpression, context)}, //$NON-NLS-1$
 					new Object[]{oclExpression}, context));

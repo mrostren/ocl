@@ -2589,7 +2589,7 @@ public class CSTPackageImpl
 			"IntegerLiteralExpCS", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(
 			getIntegerLiteralExpCS_IntegerSymbol(),
-			ecorePackage.getEIntegerObject(),
+			ecorePackage.getELongObject(),
 			"integerSymbol", null, 0, 1, IntegerLiteralExpCS.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(

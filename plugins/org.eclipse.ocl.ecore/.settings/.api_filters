@@ -22,4 +22,30 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/ocl/ecore/impl/IntegerLiteralExpImpl.java" type="org.eclipse.ocl.ecore.impl.IntegerLiteralExpImpl">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.ecore.impl.IntegerLiteralExpImpl"/>
+                <message_argument value="getIntegerSymbol()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.ecore.impl.IntegerLiteralExpImpl"/>
+                <message_argument value="setIntegerSymbol(Integer)"/>
+            </message_arguments>
+        </filter>
+        <filter id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.ecore.impl.IntegerLiteralExpImpl"/>
+                <message_argument value="INTEGER_SYMBOL_EDEFAULT"/>
+            </message_arguments>
+        </filter>
+        <filter id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.ecore.impl.IntegerLiteralExpImpl"/>
+                <message_argument value="integerSymbol"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

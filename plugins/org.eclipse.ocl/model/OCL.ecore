@@ -1119,7 +1119,7 @@
           </eGenericType>
         </eParameters>
       </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
       <eGenericSuperTypes eClassifier="#//expressions/NumericLiteralExp">
         <eTypeArguments eTypeParameter="#//expressions/IntegerLiteralExp/C"/>
       </eGenericSuperTypes>

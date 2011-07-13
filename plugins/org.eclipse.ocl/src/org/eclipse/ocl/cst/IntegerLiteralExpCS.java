@@ -45,12 +45,12 @@ public interface IntegerLiteralExpCS
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Integer Symbol</em>' attribute.
-	 * @see #setIntegerSymbol(Integer)
+	 * @see #setIntegerSymbol(Long)
 	 * @see org.eclipse.ocl.cst.CSTPackage#getIntegerLiteralExpCS_IntegerSymbol()
 	 * @model
 	 * @generated
 	 */
-	Integer getIntegerSymbol();
+	Long getIntegerSymbol();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.ocl.cst.IntegerLiteralExpCS#getIntegerSymbol <em>Integer Symbol</em>}' attribute.
@@ -60,6 +60,6 @@ public interface IntegerLiteralExpCS
 	 * @see #getIntegerSymbol()
 	 * @generated
 	 */
-	void setIntegerSymbol(Integer value);
+	void setIntegerSymbol(Long value);
 
 } // IntegerLiteralExpCS
