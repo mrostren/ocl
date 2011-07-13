@@ -47,6 +47,13 @@ public class EvaluationNumberOperationTest
 	public void testGrowingIntToLongOnMultiplication() {
 		assertResult(4294967294L, "2147483647 * 2");
 	}
+
+	public void testSumOverLongInducedBySelf() throws ParserException {
+		helper.setContext(OCLStandardLibraryImpl.INSTANCE.getInteger());
+		OCLExpression<EClassifier> expr = helper.createQuery("Sequence{self, self, self}->sum()");
+		long result = (Long) ocl.evaluate(1000000000000L, expr);
+		assertEquals(3000000000000L, result);
+	}
 	
 	public void testSumOverLong() {
 		assertResult(3000000000000L, "Sequence{1000000000000, 1000000000000, 1000000000000}->sum()");

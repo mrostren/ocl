@@ -33,6 +33,7 @@ import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.expressions.CollectionKind;
 import org.eclipse.ocl.internal.OCLPlugin;
+import org.eclipse.ocl.internal.evaluation.NumberUtil;
 import org.eclipse.ocl.internal.l10n.OCLMessages;
 import org.eclipse.ocl.types.CollectionType;
 
@@ -176,12 +177,12 @@ public class CollectionUtil {
         Object object = it.next();
 
         // two cases: Integer and Double
-        if (object instanceof Integer) {
-            int currVal = 0;
+        if (object instanceof Integer || object instanceof Long) {
+            long currVal = 0;
             for (it = self.iterator(); it.hasNext();) {
-                currVal += ((Integer) it.next()).intValue();
+                currVal += ((Number) it.next()).longValue();
             }
-            return new Integer(currVal);
+            return NumberUtil.coerceNumber(currVal);
         } else if (object instanceof Double) {
             double currVal = 0.0;
             for (it = self.iterator(); it.hasNext();) {
