@@ -880,7 +880,7 @@ public class CollectionUtil {
      * 
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
-    public static <E> E at(Collection<E> self, int index) {
+    public static <E> E at(Collection<E> self, long index) {
         index = index - 1;
         
         if (index < 0 || index >= self.size()) {
@@ -889,7 +889,7 @@ public class CollectionUtil {
 					+ self.size());
 		}
         
-        int curr = 0;
+        long curr = 0;
         for (Iterator<E> it = self.iterator(); it.hasNext();) {
             E object = it.next();
             if (curr++ == index) {

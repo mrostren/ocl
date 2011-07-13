@@ -245,7 +245,11 @@ public abstract class AbstractEvaluationVisitor<PK, C, O, P, EL, PM, S, COA, SSA
 	 */
 	public Object visitExpression(OCLExpression<C> expression) {
         try {
-            return expression.accept(getVisitor());
+            Object result = expression.accept(getVisitor());
+            if (result instanceof Long) {
+            	result = NumberUtil.coerceNumber((Long) result);
+            }
+            return result;
         } catch (EvaluationHaltedException e) {
         	// evaluation stopped on demand, propagate further
         	throw e;

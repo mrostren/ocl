@@ -1207,10 +1207,10 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 
 						case PredefinedType.AT: {
 							// OrderedSet, Sequence::at(Integer)
-							if (!(argVal instanceof Integer)) {
+							if (!(argVal instanceof Integer || argVal instanceof Long)) {
 								return getInvalid();
 							}
-							int indexVal = ((Integer) argVal).intValue();
+							long indexVal = ((Number) argVal).longValue();
 							return CollectionUtil.at(sourceColl, indexVal);
 						}
 
