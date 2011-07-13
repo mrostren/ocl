@@ -48,7 +48,7 @@ public interface IntegerLiteralExp<C>
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Integer Symbol</em>' attribute.
-	 * @see #setIntegerSymbol(Integer)
+	 * @see #setIntegerSymbol(Long)
 	 * @see org.eclipse.ocl.expressions.ExpressionsPackage#getIntegerLiteralExp_IntegerSymbol()
 	 * @model
 	 * @generated

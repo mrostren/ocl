@@ -588,7 +588,7 @@ public class EvaluationNumberOperationTest
 
 	public void testNumberOclAsType() {
 		assertResult(Integer.valueOf(3), "3.oclAsType(Integer)");
-		assertResult(3, "3.oclAsType(Real)"); // this is Integer / int because 3 as Real is still an Integer in OCL terms
+		assertResult(new Double(3.0), "3.oclAsType(Real)");
 		assertResultInvalid("3.oclAsType(String)");
 		assertResult(Integer.valueOf(3), "3.oclAsType(OclAny)");
 		assertResultInvalid("3.oclAsType(OclVoid)");

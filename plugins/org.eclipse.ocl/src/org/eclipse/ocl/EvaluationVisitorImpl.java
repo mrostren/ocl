@@ -609,7 +609,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 					} else if (sourceVal instanceof Boolean
 						&& ((TypeExp<C>) arg).getReferredType() == getBoolean()) {
 						return sourceVal;
-                    } else if (sourceVal instanceof Integer
+                    } else if ((sourceVal instanceof Integer || sourceVal instanceof Long)
 						&& (((TypeExp<C>) arg).getReferredType() == getReal())) {
                         
                         if (sourceType == getUnlimitedNatural()) {
