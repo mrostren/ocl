@@ -80,6 +80,7 @@ import org.eclipse.ocl.internal.evaluation.IterationTemplateOne;
 import org.eclipse.ocl.internal.evaluation.IterationTemplateReject;
 import org.eclipse.ocl.internal.evaluation.IterationTemplateSelect;
 import org.eclipse.ocl.internal.evaluation.IterationTemplateSortedBy;
+import org.eclipse.ocl.internal.evaluation.NumberUtil;
 import org.eclipse.ocl.internal.l10n.OCLMessages;
 import org.eclipse.ocl.parser.AbstractOCLAnalyzer;
 import org.eclipse.ocl.types.AnyType;
@@ -366,7 +367,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
                             }
                             
 							// Integer::abs()
-							return Math.abs(sourceInt);
+							return NumberUtil.coerceNumber(Math.abs((long) sourceInt));
                         } else if (sourceVal instanceof Long) {
                             long sourceInt = (Long) sourceVal;
                             

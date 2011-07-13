@@ -33,6 +33,10 @@ public class EvaluationNumberOperationTest
 		extends AbstractEvaluationTest {
 
 	public void testGrowingIntToLongOnSubtraction() {
+		assertResult(-2147483648, "-1-2147483647");
+	}
+	
+	public void testGrowingIntToLongOnSubtractionWithAbs() {
 		assertResult(2147483648L, "(-1-2147483647).abs()");
 	}
 	
