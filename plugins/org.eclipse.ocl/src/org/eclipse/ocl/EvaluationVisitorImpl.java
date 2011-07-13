@@ -1287,8 +1287,8 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 					if (isUndefined(arg1) || isUndefined(arg2)) {
 						return getInvalid();
 					}
-					int lower = ((Integer) arg1).intValue();
-					int upper = ((Integer) arg2).intValue();
+					int lower = ((Number) arg1).intValue();
+					int upper = ((Number) arg2).intValue();
 					if (!(1 <= lower &&
 							  lower <= upper &&
 							  upper <= ((String) sourceVal).length())) {
@@ -2299,20 +2299,20 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 			OCLExpression<C> last = collRange.getLast();
 
 			// evaluate first value
-			Integer firstVal = (Integer) first.accept(getVisitor());
+			Number firstVal = (Number) first.accept(getVisitor());
 			if (firstVal == null) {
 				result.add(null);
 				return result;
 			}
 			// evaluate last value
-			Integer lastVal = (Integer) last.accept(getVisitor());
+			Number lastVal = (Number) last.accept(getVisitor());
 			if (lastVal == null) {
 				result.add(null);
 				return result;
 			}
 
-			int firstInt = firstVal.intValue();
-			int lastInt = lastVal.intValue();
+			long firstInt = firstVal.longValue();
+			long lastInt = lastVal.longValue();
 			if (firstInt > lastInt) {
                 return result;
             }
@@ -2383,13 +2383,13 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 
 	// private static inner class for lazy lists over an integer range
 	private static final class IntegerRangeList
-		extends AbstractList<Integer> {
+		extends AbstractList<Long> {
 
 //		public IntegerRangeList() {
 //			super();
 //		}
 
-		public IntegerRangeList(int first, int last) {
+		public IntegerRangeList(long first, long last) {
 			super();
 			this.first = first;
 			this.last = last;
@@ -2405,46 +2405,46 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 
 		@Override
         public int size() {
-			return last - first + 1;
+			return (int) (last - first + 1);
 		}
 
 		@Override
-        public Integer get(int index) {
+        public Long get(int index) {
 			if (index < 0 || index >= size()) {
 				String message = OCLMessages.bind(
 						OCLMessages.IndexOutOfRange_ERROR_,
 						new Object[] {
 								Integer.toString(index),
-								Integer.toString(first),
-								Integer.toString(last)});
+								Long.toString(first),
+								Long.toString(last)});
 				IllegalArgumentException error = new IllegalArgumentException(
 					message);
 				OCLPlugin.throwing(getClass(), "get", error);//$NON-NLS-1$
 				throw error;
 			}
-			return new Integer(first + index);
+			return new Long(first + index);
 		}
 
 		@Override
-        public Iterator<Integer> iterator() {
+        public Iterator<Long> iterator() {
 			// local iterator class that provides
 			// hasNext() and next() methods appropriate
 			// for this range set
 			class IntegerRangeIterator
-				implements Iterator<Integer> {
+				implements Iterator<Long> {
 
 				public IntegerRangeIterator() {
 					curr = first;
 					initialized = false;
 				}
 
-				public Integer next() {
+				public Long next() {
 					if (!initialized) {
 						curr = first - 1;
 						initialized = true;
 					}
 					if (hasNext()) {
-                        return new Integer(++curr);
+                        return new Long(++curr);
                     }
 					throw new NoSuchElementException();
 				}
@@ -2457,7 +2457,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 					throw new UnsupportedOperationException();
 				}
 
-				private int curr;
+				private long curr;
 
 				private boolean initialized;
 			}
@@ -2465,9 +2465,9 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 			return new IntegerRangeIterator();
 		}
 
-		private int first;
+		private long first;
 
-		private int last;
+		private long last;
 	}
 
 	/**
