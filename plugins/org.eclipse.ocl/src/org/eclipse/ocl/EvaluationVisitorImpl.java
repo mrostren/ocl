@@ -1320,8 +1320,8 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 							return getInvalid();
 						}
 						// Sequence::subSequence(Integer, Integer)
-						int lower = ((Integer) arg1).intValue();
-						int upper = ((Integer) arg2).intValue();
+						long lower = ((Number) arg1).longValue();
+						long upper = ((Number) arg2).longValue();
 						return CollectionUtil.subSequence(sourceColl,
 							lower, upper);
 					}

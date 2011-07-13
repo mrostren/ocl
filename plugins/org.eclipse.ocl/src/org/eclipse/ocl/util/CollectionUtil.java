@@ -837,8 +837,8 @@ public class CollectionUtil {
      * @throws IndexOutOfBoundsException if an index is out of bounds
      * @throws IllegalArgumentException if the lower bound is greater than the upper
      */
-    public static <E> Collection<E> subSequence(Collection<E> self, int lower,
-            int upper) {
+    public static <E> Collection<E> subSequence(Collection<E> self, long lower,
+            long upper) {
         lower = lower - 1;
         upper = upper - 1;
         
@@ -855,7 +855,7 @@ public class CollectionUtil {
         }
         
         Collection<E> result = createNewSequence();
-        int curr = 0;
+        long curr = 0;
         for (Iterator<E> it = self.iterator(); it.hasNext();) {
             E object = it.next();
             if (curr >= lower && curr <= upper) {
