@@ -11,6 +11,12 @@
  */
 package org.eclipse.ocl.ecore.tests;
 
+import java.math.BigInteger;
+
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.internal.OCLStandardLibraryImpl;
+import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.expressions.UnlimitedNaturalLiteralExp;
 
 //FIXME we're missing oclIsNew and oclIsInState
@@ -20,6 +26,7 @@ import org.eclipse.ocl.expressions.UnlimitedNaturalLiteralExp;
  * need revisting once bug 261008 is fixed.
  * 
  * @author Laurent Goubet (lgoubet)
+ * @author Axel Uhl (auhl)
  */
 @SuppressWarnings("nls")
 public class EvaluationNumberOperationTest
@@ -41,7 +48,20 @@ public class EvaluationNumberOperationTest
 		assertResult(3000000000000L, "Sequence{1000000000000, 1000000000000, 1000000000000}->sum()");
 	}
 	
-	
+	public void testCoerceBigIntegerToInt() throws ParserException {
+		helper.setContext(OCLStandardLibraryImpl.INSTANCE.getInteger());
+		OCLExpression<EClassifier> expr = helper.createQuery("self + 1");
+		int result = (Integer) ocl.evaluate(new BigInteger("1"), expr);
+		assertEquals(2, result);
+	}
+
+	public void testCoerceBigIntegerToLong() throws ParserException {
+		helper.setContext(OCLStandardLibraryImpl.INSTANCE.getInteger());
+		OCLExpression<EClassifier> expr = helper.createQuery("self + 1");
+		long result = (Long) ocl.evaluate(new BigInteger("3000000000000"), expr);
+		assertEquals(3000000000001L, result);
+	}
+
 	public void testNumberAbs() {
 		// Integer::abs()
 		assertResult(Integer.valueOf(3), "3.abs()");
