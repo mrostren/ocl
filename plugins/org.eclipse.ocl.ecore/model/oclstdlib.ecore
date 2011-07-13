@@ -153,7 +153,7 @@
         <eParameters name="b" eType="#/0/Boolean"/>
       </eOperations>
     </eClassifiers>
-    <eClassifiers xsi:type="ocl.ecore:PrimitiveType" name="Integer" instanceClassName="java.lang.Integer"/>
+    <eClassifiers xsi:type="ocl.ecore:PrimitiveType" name="Integer" instanceClassName="java.lang.Long"/>
     <eClassifiers xsi:type="ecore:EClass" name="Integer_Class">
       <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL" references="#/0/Integer"/>
       <eOperations name="=" eType="#/0/Boolean">
