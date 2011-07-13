@@ -744,7 +744,7 @@ public class CollectionUtil {
      * 
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
-    public static <E> Collection<E> insertAt(Collection<E> self, int index, E object) {
+    public static <E> Collection<E> insertAt(Collection<E> self, long index, E object) {
         index = index - 1;
         
         if (index < 0 || index > self.size()) {
@@ -760,7 +760,7 @@ public class CollectionUtil {
             result = createNewSequence();
         }
         
-        int curr = 0;
+        long curr = 0;
         for (Iterator<E> it = self.iterator(); it.hasNext();) {
             if (curr == index) {
                 result.add(object);

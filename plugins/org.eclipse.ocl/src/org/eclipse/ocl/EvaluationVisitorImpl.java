@@ -1303,7 +1303,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 							return getInvalid();
 						}
 						// OrderedSet, Sequence::insertAt(Integer, T)
-						int index = ((Integer) arg1).intValue();
+						long index = ((Number) arg1).longValue();
 						return CollectionUtil.insertAt(sourceColl, index,
 							arg2);
 					} else if (opCode == PredefinedType.SUB_ORDERED_SET) {
