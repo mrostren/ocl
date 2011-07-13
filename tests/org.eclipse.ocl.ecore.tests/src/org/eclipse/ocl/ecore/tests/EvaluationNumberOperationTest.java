@@ -54,7 +54,28 @@ public class EvaluationNumberOperationTest
 		long result = (Long) ocl.evaluate(1000000000000L, expr);
 		assertEquals(3000000000000L, result);
 	}
-	
+
+	public void testLongOclIsKindOfInteger() throws ParserException {
+		helper.setContext(OCLStandardLibraryImpl.INSTANCE.getInteger());
+		OCLExpression<EClassifier> expr = helper.createQuery("self.oclIsKindOf(Integer)");
+		boolean result = (Boolean) ocl.evaluate(1000000000000L, expr);
+		assertTrue(result);
+	}
+
+	public void testLongOclIsKindOfReal() throws ParserException {
+		helper.setContext(OCLStandardLibraryImpl.INSTANCE.getInteger());
+		OCLExpression<EClassifier> expr = helper.createQuery("self.oclIsKindOf(Real)");
+		boolean result = (Boolean) ocl.evaluate(1000000000000L, expr);
+		assertTrue(result);
+	}
+
+	public void testLongOclIsTypeOf() throws ParserException {
+		helper.setContext(OCLStandardLibraryImpl.INSTANCE.getInteger());
+		OCLExpression<EClassifier> expr = helper.createQuery("self.oclIsKindOf(Integer)");
+		boolean result = (Boolean) ocl.evaluate(1000000000000L, expr);
+		assertTrue(result);
+	}
+
 	public void testSumOverLong() {
 		assertResult(3000000000000L, "Sequence{1000000000000, 1000000000000, 1000000000000}->sum()");
 	}
