@@ -2203,7 +2203,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 	 */
 	@Override
     public Object visitIntegerLiteralExp(IntegerLiteralExp<C> il) {
-		return il.getIntegerSymbol();
+		return NumberUtil.coerceNumber(il.getIntegerSymbol());
 	}
     
     /**
@@ -2383,7 +2383,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 
 	// private static inner class for lazy lists over an integer range
 	private static final class IntegerRangeList
-		extends AbstractList<Long> {
+		extends AbstractList<Number> {
 
 //		public IntegerRangeList() {
 //			super();
@@ -2409,7 +2409,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 		}
 
 		@Override
-        public Long get(int index) {
+        public Number get(int index) {
 			if (index < 0 || index >= size()) {
 				String message = OCLMessages.bind(
 						OCLMessages.IndexOutOfRange_ERROR_,
@@ -2422,29 +2422,29 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 				OCLPlugin.throwing(getClass(), "get", error);//$NON-NLS-1$
 				throw error;
 			}
-			return new Long(first + index);
+			return NumberUtil.coerceNumber(first + index);
 		}
 
 		@Override
-        public Iterator<Long> iterator() {
+        public Iterator<Number> iterator() {
 			// local iterator class that provides
 			// hasNext() and next() methods appropriate
 			// for this range set
 			class IntegerRangeIterator
-				implements Iterator<Long> {
+				implements Iterator<Number> {
 
 				public IntegerRangeIterator() {
 					curr = first;
 					initialized = false;
 				}
 
-				public Long next() {
+				public Number next() {
 					if (!initialized) {
 						curr = first - 1;
 						initialized = true;
 					}
 					if (hasNext()) {
-                        return new Long(++curr);
+                        return NumberUtil.coerceNumber(++curr);
                     }
 					throw new NoSuchElementException();
 				}
