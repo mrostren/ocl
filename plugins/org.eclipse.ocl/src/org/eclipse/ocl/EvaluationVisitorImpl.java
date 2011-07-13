@@ -1311,8 +1311,8 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 							return getInvalid();
 						}
 						// OrderedSet, Sequence::subOrderedSet(Integer, Integer)
-						int lower = ((Integer) arg1).intValue();
-						int upper = ((Integer) arg2).intValue();
+						long lower = ((Number) arg1).longValue();
+						long upper = ((Number) arg2).longValue();
 						return CollectionUtil.subOrderedSet(sourceColl,
 							lower, upper);
 					} else if (opCode == PredefinedType.SUB_SEQUENCE) {
