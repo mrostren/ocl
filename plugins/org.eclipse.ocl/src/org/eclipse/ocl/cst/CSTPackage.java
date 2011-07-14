@@ -3481,6 +3481,15 @@ public interface CSTPackage
 	int INTEGER_LITERAL_EXP_CS__INTEGER_SYMBOL = PRIMITIVE_LITERAL_EXP_CS_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_LITERAL_EXP_CS__LONG_SYMBOL = PRIMITIVE_LITERAL_EXP_CS_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Integer Literal Exp CS</em>' class.
 	 * <!-- begin-user-doc -->
 	 * This value may change when the model code is regenerated.
@@ -3489,7 +3498,7 @@ public interface CSTPackage
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL_EXP_CS_FEATURE_COUNT = PRIMITIVE_LITERAL_EXP_CS_FEATURE_COUNT + 1;
+	int INTEGER_LITERAL_EXP_CS_FEATURE_COUNT = PRIMITIVE_LITERAL_EXP_CS_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.cst.impl.UnlimitedNaturalLiteralExpCSImpl <em>Unlimited Natural Literal Exp CS</em>}' class.
@@ -6233,6 +6242,17 @@ public interface CSTPackage
 	EAttribute getIntegerLiteralExpCS_IntegerSymbol();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.ocl.cst.IntegerLiteralExpCS#getLongSymbol <em>Long Symbol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Long Symbol</em>'.
+	 * @see org.eclipse.ocl.cst.IntegerLiteralExpCS#getLongSymbol()
+	 * @see #getIntegerLiteralExpCS()
+	 * @generated
+	 */
+	EAttribute getIntegerLiteralExpCS_LongSymbol();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.cst.UnlimitedNaturalLiteralExpCS <em>Unlimited Natural Literal Exp CS</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7547,6 +7567,15 @@ public interface CSTPackage
 		 */
 		EAttribute INTEGER_LITERAL_EXP_CS__INTEGER_SYMBOL = eINSTANCE
 			.getIntegerLiteralExpCS_IntegerSymbol();
+
+		/**
+		 * The meta object literal for the '<em><b>Long Symbol</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTEGER_LITERAL_EXP_CS__LONG_SYMBOL = eINSTANCE
+			.getIntegerLiteralExpCS_LongSymbol();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.ocl.cst.impl.UnlimitedNaturalLiteralExpCSImpl <em>Unlimited Natural Literal Exp CS</em>}' class.

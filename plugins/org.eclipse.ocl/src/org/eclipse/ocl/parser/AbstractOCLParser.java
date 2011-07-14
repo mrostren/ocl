@@ -76,6 +76,7 @@ import org.eclipse.ocl.cst.TypeCS;
 import org.eclipse.ocl.cst.UnlimitedNaturalLiteralExpCS;
 import org.eclipse.ocl.cst.VariableCS;
 import org.eclipse.ocl.cst.VariableExpCS;
+import org.eclipse.ocl.internal.evaluation.NumberUtil;
 import org.eclipse.ocl.internal.l10n.OCLMessages;
 import org.eclipse.ocl.lpg.AbstractLexer;
 import org.eclipse.ocl.lpg.AbstractParser;
@@ -475,7 +476,12 @@ public abstract class AbstractOCLParser
 		IntegerLiteralExpCS result = CSTFactory.eINSTANCE
 			.createIntegerLiteralExpCS();
 		result.setSymbol(string);
-		result.setIntegerSymbol(Long.valueOf(string));
+		Number number = NumberUtil.coerceNumber(Long.valueOf(string));
+		if (number instanceof Integer) {
+			result.setIntegerSymbol((Integer) number);
+		} else {
+			result.setLongSymbol((Long) number);
+		}
 		return result;
 	}
 

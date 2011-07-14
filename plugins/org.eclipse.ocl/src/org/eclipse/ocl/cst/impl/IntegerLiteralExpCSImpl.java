@@ -31,6 +31,7 @@ import org.eclipse.ocl.cst.IntegerLiteralExpCS;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.ocl.cst.impl.IntegerLiteralExpCSImpl#getIntegerSymbol <em>Integer Symbol</em>}</li>
+ *   <li>{@link org.eclipse.ocl.cst.impl.IntegerLiteralExpCSImpl#getLongSymbol <em>Long Symbol</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,7 +49,7 @@ public class IntegerLiteralExpCSImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Long INTEGER_SYMBOL_EDEFAULT = null;
+	protected static final Integer INTEGER_SYMBOL_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getIntegerSymbol() <em>Integer Symbol</em>}' attribute.
@@ -58,7 +59,27 @@ public class IntegerLiteralExpCSImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected Long integerSymbol = INTEGER_SYMBOL_EDEFAULT;
+	protected Integer integerSymbol = INTEGER_SYMBOL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLongSymbol() <em>Long Symbol</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLongSymbol()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Long LONG_SYMBOL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLongSymbol() <em>Long Symbol</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLongSymbol()
+	 * @generated
+	 * @ordered
+	 */
+	protected Long longSymbol = LONG_SYMBOL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,7 +105,7 @@ public class IntegerLiteralExpCSImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Long getIntegerSymbol() {
+	public Integer getIntegerSymbol() {
 		return integerSymbol;
 	}
 
@@ -93,8 +114,8 @@ public class IntegerLiteralExpCSImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIntegerSymbol(Long newIntegerSymbol) {
-		Long oldIntegerSymbol = integerSymbol;
+	public void setIntegerSymbol(Integer newIntegerSymbol) {
+		Integer oldIntegerSymbol = integerSymbol;
 		integerSymbol = newIntegerSymbol;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
@@ -107,11 +128,36 @@ public class IntegerLiteralExpCSImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Long getLongSymbol() {
+		return longSymbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLongSymbol(Long newLongSymbol) {
+		Long oldLongSymbol = longSymbol;
+		longSymbol = newLongSymbol;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+				CSTPackage.INTEGER_LITERAL_EXP_CS__LONG_SYMBOL, oldLongSymbol,
+				longSymbol));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CSTPackage.INTEGER_LITERAL_EXP_CS__INTEGER_SYMBOL :
 				return getIntegerSymbol();
+			case CSTPackage.INTEGER_LITERAL_EXP_CS__LONG_SYMBOL :
+				return getLongSymbol();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -125,7 +171,10 @@ public class IntegerLiteralExpCSImpl
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CSTPackage.INTEGER_LITERAL_EXP_CS__INTEGER_SYMBOL :
-				setIntegerSymbol((Long) newValue);
+				setIntegerSymbol((Integer) newValue);
+				return;
+			case CSTPackage.INTEGER_LITERAL_EXP_CS__LONG_SYMBOL :
+				setLongSymbol((Long) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -141,6 +190,9 @@ public class IntegerLiteralExpCSImpl
 		switch (featureID) {
 			case CSTPackage.INTEGER_LITERAL_EXP_CS__INTEGER_SYMBOL :
 				setIntegerSymbol(INTEGER_SYMBOL_EDEFAULT);
+				return;
+			case CSTPackage.INTEGER_LITERAL_EXP_CS__LONG_SYMBOL :
+				setLongSymbol(LONG_SYMBOL_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -158,6 +210,10 @@ public class IntegerLiteralExpCSImpl
 				return INTEGER_SYMBOL_EDEFAULT == null
 					? integerSymbol != null
 					: !INTEGER_SYMBOL_EDEFAULT.equals(integerSymbol);
+			case CSTPackage.INTEGER_LITERAL_EXP_CS__LONG_SYMBOL :
+				return LONG_SYMBOL_EDEFAULT == null
+					? longSymbol != null
+					: !LONG_SYMBOL_EDEFAULT.equals(longSymbol);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -175,6 +231,8 @@ public class IntegerLiteralExpCSImpl
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (integerSymbol: "); //$NON-NLS-1$
 		result.append(integerSymbol);
+		result.append(", longSymbol: "); //$NON-NLS-1$
+		result.append(longSymbol);
 		result.append(')');
 		return result.toString();
 	}

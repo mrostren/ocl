@@ -238,6 +238,7 @@
       </genClasses>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLCST.ecore#//cst/IntegerLiteralExpCS">
         <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute OCLCST.ecore#//cst/IntegerLiteralExpCS/integerSymbol"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute OCLCST.ecore#//cst/IntegerLiteralExpCS/longSymbol"/>
       </genClasses>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLCST.ecore#//cst/UnlimitedNaturalLiteralExpCS">
         <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute OCLCST.ecore#//cst/UnlimitedNaturalLiteralExpCS/integerSymbol"/>

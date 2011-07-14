@@ -2940,7 +2940,8 @@ public abstract class AbstractOCLAnalyzer<PK, C, O, P, EL, PM, S, COA, SSA, CT, 
 			IntegerLiteralExpCS integerLiteralExpCS,
 			Environment<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E> env) {
 		IntegerLiteralExp<C> astNode;
-		Number integerSymbol = NumberUtil.coerceNumber(integerLiteralExpCS.getIntegerSymbol());
+		Number integerSymbol = NumberUtil.coerceNumber(integerLiteralExpCS.getIntegerSymbol() != null ?
+			integerLiteralExpCS.getIntegerSymbol() : integerLiteralExpCS.getLongSymbol());
 		if (integerSymbol instanceof Integer) {
 			astNode = oclFactory.createIntegerLiteralExp();
 			initASTMapping(env, astNode, integerLiteralExpCS);

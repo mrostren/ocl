@@ -1290,6 +1290,16 @@ public class CSTPackageImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIntegerLiteralExpCS_LongSymbol() {
+		return (EAttribute) integerLiteralExpCSEClass.getEStructuralFeatures()
+			.get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUnlimitedNaturalLiteralExpCS() {
 		return unlimitedNaturalLiteralExpCSEClass;
 	}
@@ -1975,6 +1985,8 @@ public class CSTPackageImpl
 		integerLiteralExpCSEClass = createEClass(INTEGER_LITERAL_EXP_CS);
 		createEAttribute(integerLiteralExpCSEClass,
 			INTEGER_LITERAL_EXP_CS__INTEGER_SYMBOL);
+		createEAttribute(integerLiteralExpCSEClass,
+			INTEGER_LITERAL_EXP_CS__LONG_SYMBOL);
 
 		unlimitedNaturalLiteralExpCSEClass = createEClass(UNLIMITED_NATURAL_LITERAL_EXP_CS);
 		createEAttribute(unlimitedNaturalLiteralExpCSEClass,
@@ -2589,8 +2601,12 @@ public class CSTPackageImpl
 			"IntegerLiteralExpCS", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(
 			getIntegerLiteralExpCS_IntegerSymbol(),
-			ecorePackage.getELongObject(),
+			ecorePackage.getEIntegerObject(),
 			"integerSymbol", null, 0, 1, IntegerLiteralExpCS.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+			getIntegerLiteralExpCS_LongSymbol(),
+			ecorePackage.getELongObject(),
+			"longSymbol", null, 0, 1, IntegerLiteralExpCS.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 			unlimitedNaturalLiteralExpCSEClass,

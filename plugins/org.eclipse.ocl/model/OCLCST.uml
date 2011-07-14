@@ -512,6 +512,10 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EIntegerObject"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qdx-Bv8fEduhWtVvKtiQ7w"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_Tny_cK4GEeC05dpFnmzaLQ" name="longSymbol" visibility="public" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELongObject"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Tny_ca4GEeC05dpFnmzaLQ"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_qdx-B_8fEduhWtVvKtiQ7w" name="UnlimitedNaturalLiteralExpCS">
         <generalization xmi:id="_qdx-CP8fEduhWtVvKtiQ7w" general="_qdx9__8fEduhWtVvKtiQ7w"/>
