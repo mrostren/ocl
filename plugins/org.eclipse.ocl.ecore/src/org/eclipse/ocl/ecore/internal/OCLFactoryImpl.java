@@ -47,6 +47,7 @@ import org.eclipse.ocl.expressions.InvalidLiteralExp;
 import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NullLiteralExp;
 import org.eclipse.ocl.expressions.OperationCallExp;
@@ -209,6 +210,11 @@ public class OCLFactoryImpl implements OCLFactory, OCLFactoryWithHiddenOpposite 
     public <C> IntegerLiteralExp<C> createIntegerLiteralExp() {
         return (IntegerLiteralExp<C>)
             EcoreFactory.eINSTANCE.createIntegerLiteralExp();
+    }
+
+    public <C> LongLiteralExp<C> createLongLiteralExp() {
+        return (LongLiteralExp<C>)
+            EcoreFactory.eINSTANCE.createLongLiteralExp();
     }
 
     public <C> InvalidLiteralExp<C> createInvalidLiteralExp() {

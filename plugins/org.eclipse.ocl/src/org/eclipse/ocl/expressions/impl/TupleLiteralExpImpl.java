@@ -18,8 +18,8 @@
 package org.eclipse.ocl.expressions.impl;
 
 import java.util.Collection;
-
 import java.util.Map;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;

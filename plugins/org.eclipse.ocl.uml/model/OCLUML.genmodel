@@ -81,6 +81,7 @@
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLUML.ecore#//uml/IfExp"/>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLUML.ecore#//uml/IntegerLiteralExp"/>
       <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="OCLUML.ecore#//uml/NumericLiteralExp"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLUML.ecore#//uml/LongLiteralExp"/>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLUML.ecore#//uml/UnlimitedNaturalLiteralExp"/>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLUML.ecore#//uml/InvalidLiteralExp"/>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCLUML.ecore#//uml/IterateExp"/>

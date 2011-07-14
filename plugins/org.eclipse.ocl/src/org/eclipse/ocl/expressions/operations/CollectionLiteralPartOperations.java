@@ -17,7 +17,6 @@
 package org.eclipse.ocl.expressions.operations;
 
 import org.eclipse.ocl.expressions.CollectionLiteralPart;
-
 import org.eclipse.ocl.utilities.Visitor;
 
 /**

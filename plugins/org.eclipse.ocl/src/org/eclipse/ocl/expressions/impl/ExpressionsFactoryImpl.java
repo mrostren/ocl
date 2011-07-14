@@ -23,8 +23,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-//import org.eclipse.ocl.expressions.*;
 import org.eclipse.ocl.expressions.AssociationClassCallExp;
 import org.eclipse.ocl.expressions.BooleanLiteralExp;
 import org.eclipse.ocl.expressions.CollectionItem;
@@ -40,6 +38,7 @@ import org.eclipse.ocl.expressions.InvalidLiteralExp;
 import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NullLiteralExp;
 import org.eclipse.ocl.expressions.OperationCallExp;
@@ -118,6 +117,8 @@ public class ExpressionsFactoryImpl
 				return createIfExp();
 			case ExpressionsPackage.INTEGER_LITERAL_EXP :
 				return createIntegerLiteralExp();
+			case ExpressionsPackage.LONG_LITERAL_EXP :
+				return createLongLiteralExp();
 			case ExpressionsPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return createUnlimitedNaturalLiteralExp();
 			case ExpressionsPackage.INVALID_LITERAL_EXP :
@@ -270,6 +271,16 @@ public class ExpressionsFactoryImpl
 	public <C> IntegerLiteralExp<C> createIntegerLiteralExp() {
 		IntegerLiteralExpImpl<C> integerLiteralExp = new IntegerLiteralExpImpl<C>();
 		return integerLiteralExp;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public <C> LongLiteralExp<C> createLongLiteralExp() {
+		LongLiteralExpImpl<C> longLiteralExp = new LongLiteralExpImpl<C>();
+		return longLiteralExp;
 	}
 
 	/**

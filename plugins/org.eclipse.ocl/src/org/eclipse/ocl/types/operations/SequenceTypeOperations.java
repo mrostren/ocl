@@ -22,10 +22,8 @@ import java.util.Map;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.types.SequenceType;
-
 import org.eclipse.ocl.types.util.TypesValidator;
 import org.eclipse.ocl.util.OCLUtil;
 

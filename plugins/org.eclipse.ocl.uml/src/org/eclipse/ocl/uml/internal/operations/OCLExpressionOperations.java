@@ -17,11 +17,8 @@
 package org.eclipse.ocl.uml.internal.operations;
 
 import org.eclipse.ocl.uml.OCLExpression;
-
 import org.eclipse.ocl.utilities.Visitor;
-
 import org.eclipse.uml2.uml.Classifier;
-
 import org.eclipse.uml2.uml.internal.operations.NamedElementOperations;
 
 /**

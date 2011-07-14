@@ -17,22 +17,67 @@
  */
 package org.eclipse.ocl.uml.util;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipse.ocl.uml.*;
-
+import org.eclipse.ocl.uml.AnyType;
+import org.eclipse.ocl.uml.AssociationClassCallExp;
+import org.eclipse.ocl.uml.BagType;
+import org.eclipse.ocl.uml.BooleanLiteralExp;
+import org.eclipse.ocl.uml.CallExp;
+import org.eclipse.ocl.uml.CollectionItem;
+import org.eclipse.ocl.uml.CollectionLiteralExp;
+import org.eclipse.ocl.uml.CollectionLiteralPart;
+import org.eclipse.ocl.uml.CollectionRange;
+import org.eclipse.ocl.uml.CollectionType;
+import org.eclipse.ocl.uml.ElementType;
+import org.eclipse.ocl.uml.EnumLiteralExp;
+import org.eclipse.ocl.uml.ExpressionInOCL;
+import org.eclipse.ocl.uml.FeatureCallExp;
+import org.eclipse.ocl.uml.IfExp;
+import org.eclipse.ocl.uml.IntegerLiteralExp;
+import org.eclipse.ocl.uml.InvalidLiteralExp;
+import org.eclipse.ocl.uml.InvalidType;
+import org.eclipse.ocl.uml.IterateExp;
+import org.eclipse.ocl.uml.IteratorExp;
+import org.eclipse.ocl.uml.LetExp;
+import org.eclipse.ocl.uml.LiteralExp;
+import org.eclipse.ocl.uml.LongLiteralExp;
+import org.eclipse.ocl.uml.LoopExp;
+import org.eclipse.ocl.uml.MessageExp;
+import org.eclipse.ocl.uml.MessageType;
+import org.eclipse.ocl.uml.NavigationCallExp;
+import org.eclipse.ocl.uml.NullLiteralExp;
+import org.eclipse.ocl.uml.NumericLiteralExp;
+import org.eclipse.ocl.uml.OCLExpression;
+import org.eclipse.ocl.uml.OperationCallExp;
+import org.eclipse.ocl.uml.OrderedSetType;
+import org.eclipse.ocl.uml.PrimitiveLiteralExp;
+import org.eclipse.ocl.uml.PrimitiveType;
+import org.eclipse.ocl.uml.PropertyCallExp;
+import org.eclipse.ocl.uml.RealLiteralExp;
+import org.eclipse.ocl.uml.SequenceType;
+import org.eclipse.ocl.uml.SetType;
+import org.eclipse.ocl.uml.StateExp;
+import org.eclipse.ocl.uml.StringLiteralExp;
+import org.eclipse.ocl.uml.TemplateParameterType;
+import org.eclipse.ocl.uml.TupleLiteralExp;
+import org.eclipse.ocl.uml.TupleLiteralPart;
+import org.eclipse.ocl.uml.TupleType;
+import org.eclipse.ocl.uml.TypeExp;
+import org.eclipse.ocl.uml.TypeType;
+import org.eclipse.ocl.uml.UMLPackage;
+import org.eclipse.ocl.uml.UnlimitedNaturalLiteralExp;
+import org.eclipse.ocl.uml.UnspecifiedValueExp;
+import org.eclipse.ocl.uml.Variable;
+import org.eclipse.ocl.uml.VariableExp;
+import org.eclipse.ocl.uml.VoidType;
 import org.eclipse.ocl.utilities.ASTNode;
 import org.eclipse.ocl.utilities.CallingASTNode;
 import org.eclipse.ocl.utilities.PredefinedType;
 import org.eclipse.ocl.utilities.TypedASTNode;
 import org.eclipse.ocl.utilities.Visitable;
-
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
@@ -1072,6 +1117,47 @@ public class UMLSwitch<T>
 					result = caseElement(numericLiteralExp);
 				if (result == null)
 					result = caseEModelElement(numericLiteralExp);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case UMLPackage.LONG_LITERAL_EXP : {
+				LongLiteralExp longLiteralExp = (LongLiteralExp) theEObject;
+				T result = caseLongLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseIntegerLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseNumericLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseExpressions_IntegerLiteralExp(longLiteralExp);
+				if (result == null)
+					result = casePrimitiveLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseExpressions_NumericLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseExpressions_PrimitiveLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseOCLExpression(longLiteralExp);
+				if (result == null)
+					result = caseExpressions_LiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseTypedElement(longLiteralExp);
+				if (result == null)
+					result = caseExpressions_OCLExpression(longLiteralExp);
+				if (result == null)
+					result = caseNamedElement(longLiteralExp);
+				if (result == null)
+					result = caseUtilities_TypedElement(longLiteralExp);
+				if (result == null)
+					result = caseVisitable(longLiteralExp);
+				if (result == null)
+					result = caseASTNode(longLiteralExp);
+				if (result == null)
+					result = caseElement(longLiteralExp);
+				if (result == null)
+					result = caseEModelElement(longLiteralExp);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -2164,6 +2250,21 @@ public class UMLSwitch<T>
 	 * @generated
 	 */
 	public T caseNumericLiteralExp(NumericLiteralExp object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Long Literal Exp</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Long Literal Exp</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLongLiteralExp(LongLiteralExp object) {
 		return null;
 	}
 

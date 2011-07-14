@@ -19,20 +19,66 @@ package org.eclipse.ocl.uml.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.ocl.uml.*;
-
+import org.eclipse.ocl.uml.AnyType;
+import org.eclipse.ocl.uml.AssociationClassCallExp;
+import org.eclipse.ocl.uml.BagType;
+import org.eclipse.ocl.uml.BooleanLiteralExp;
+import org.eclipse.ocl.uml.CallExp;
+import org.eclipse.ocl.uml.CollectionItem;
+import org.eclipse.ocl.uml.CollectionLiteralExp;
+import org.eclipse.ocl.uml.CollectionLiteralPart;
+import org.eclipse.ocl.uml.CollectionRange;
+import org.eclipse.ocl.uml.CollectionType;
+import org.eclipse.ocl.uml.ElementType;
+import org.eclipse.ocl.uml.EnumLiteralExp;
+import org.eclipse.ocl.uml.ExpressionInOCL;
+import org.eclipse.ocl.uml.FeatureCallExp;
+import org.eclipse.ocl.uml.IfExp;
+import org.eclipse.ocl.uml.IntegerLiteralExp;
+import org.eclipse.ocl.uml.InvalidLiteralExp;
+import org.eclipse.ocl.uml.InvalidType;
+import org.eclipse.ocl.uml.IterateExp;
+import org.eclipse.ocl.uml.IteratorExp;
+import org.eclipse.ocl.uml.LetExp;
+import org.eclipse.ocl.uml.LiteralExp;
+import org.eclipse.ocl.uml.LongLiteralExp;
+import org.eclipse.ocl.uml.LoopExp;
+import org.eclipse.ocl.uml.MessageExp;
+import org.eclipse.ocl.uml.MessageType;
+import org.eclipse.ocl.uml.NavigationCallExp;
+import org.eclipse.ocl.uml.NullLiteralExp;
+import org.eclipse.ocl.uml.NumericLiteralExp;
+import org.eclipse.ocl.uml.OCLExpression;
+import org.eclipse.ocl.uml.OperationCallExp;
+import org.eclipse.ocl.uml.OrderedSetType;
+import org.eclipse.ocl.uml.PrimitiveLiteralExp;
+import org.eclipse.ocl.uml.PrimitiveType;
+import org.eclipse.ocl.uml.PropertyCallExp;
+import org.eclipse.ocl.uml.RealLiteralExp;
+import org.eclipse.ocl.uml.SequenceType;
+import org.eclipse.ocl.uml.SetType;
+import org.eclipse.ocl.uml.StateExp;
+import org.eclipse.ocl.uml.StringLiteralExp;
+import org.eclipse.ocl.uml.TemplateParameterType;
+import org.eclipse.ocl.uml.TupleLiteralExp;
+import org.eclipse.ocl.uml.TupleLiteralPart;
+import org.eclipse.ocl.uml.TupleType;
+import org.eclipse.ocl.uml.TypeExp;
+import org.eclipse.ocl.uml.TypeType;
+import org.eclipse.ocl.uml.UMLPackage;
+import org.eclipse.ocl.uml.UnlimitedNaturalLiteralExp;
+import org.eclipse.ocl.uml.UnspecifiedValueExp;
+import org.eclipse.ocl.uml.Variable;
+import org.eclipse.ocl.uml.VariableExp;
+import org.eclipse.ocl.uml.VoidType;
 import org.eclipse.ocl.utilities.ASTNode;
 import org.eclipse.ocl.utilities.CallingASTNode;
 import org.eclipse.ocl.utilities.PredefinedType;
 import org.eclipse.ocl.utilities.TypedASTNode;
 import org.eclipse.ocl.utilities.Visitable;
-
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
@@ -254,6 +300,11 @@ public class UMLAdapterFactory
 		@Override
 		public Adapter caseNumericLiteralExp(NumericLiteralExp object) {
 			return createNumericLiteralExpAdapter();
+		}
+
+		@Override
+		public Adapter caseLongLiteralExp(LongLiteralExp object) {
+			return createLongLiteralExpAdapter();
 		}
 
 		@Override
@@ -1200,6 +1251,20 @@ public class UMLAdapterFactory
 	 * @generated
 	 */
 	public Adapter createNumericLiteralExpAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ocl.uml.LongLiteralExp <em>Long Literal Exp</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ocl.uml.LongLiteralExp
+	 * @generated
+	 */
+	public Adapter createLongLiteralExpAdapter() {
 		return null;
 	}
 

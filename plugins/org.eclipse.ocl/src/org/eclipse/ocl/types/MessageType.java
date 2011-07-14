@@ -18,6 +18,7 @@
 package org.eclipse.ocl.types;
 
 import java.util.Map;
+
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.ocl.utilities.PredefinedType;

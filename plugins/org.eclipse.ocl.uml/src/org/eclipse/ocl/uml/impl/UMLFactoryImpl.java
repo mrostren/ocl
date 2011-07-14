@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.ocl.uml.*;
 import org.eclipse.ocl.uml.AnyType;
 import org.eclipse.ocl.uml.AssociationClassCallExp;
 import org.eclipse.ocl.uml.BagType;
@@ -41,6 +40,7 @@ import org.eclipse.ocl.uml.InvalidType;
 import org.eclipse.ocl.uml.IterateExp;
 import org.eclipse.ocl.uml.IteratorExp;
 import org.eclipse.ocl.uml.LetExp;
+import org.eclipse.ocl.uml.LongLiteralExp;
 import org.eclipse.ocl.uml.MessageExp;
 import org.eclipse.ocl.uml.MessageType;
 import org.eclipse.ocl.uml.NullLiteralExp;
@@ -158,6 +158,8 @@ public class UMLFactoryImpl
 				return createIfExp();
 			case UMLPackage.INTEGER_LITERAL_EXP :
 				return createIntegerLiteralExp();
+			case UMLPackage.LONG_LITERAL_EXP :
+				return createLongLiteralExp();
 			case UMLPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return createUnlimitedNaturalLiteralExp();
 			case UMLPackage.INVALID_LITERAL_EXP :
@@ -420,6 +422,16 @@ public class UMLFactoryImpl
 	public IntegerLiteralExp createIntegerLiteralExp() {
 		IntegerLiteralExpImpl integerLiteralExp = new IntegerLiteralExpImpl();
 		return integerLiteralExp;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LongLiteralExp createLongLiteralExp() {
+		LongLiteralExpImpl longLiteralExp = new LongLiteralExpImpl();
+		return longLiteralExp;
 	}
 
 	/**

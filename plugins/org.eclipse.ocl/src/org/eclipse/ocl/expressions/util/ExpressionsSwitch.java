@@ -17,13 +17,9 @@
  */
 package org.eclipse.ocl.expressions.util;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipse.ocl.expressions.*;
 import org.eclipse.ocl.expressions.AssociationClassCallExp;
 import org.eclipse.ocl.expressions.BooleanLiteralExp;
 import org.eclipse.ocl.expressions.CallExp;
@@ -41,6 +37,7 @@ import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
 import org.eclipse.ocl.expressions.LiteralExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.LoopExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NavigationCallExp;
@@ -391,6 +388,29 @@ public class ExpressionsSwitch<T>
 					result = caseVisitable(numericLiteralExp);
 				if (result == null)
 					result = caseASTNode(numericLiteralExp);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case ExpressionsPackage.LONG_LITERAL_EXP : {
+				LongLiteralExp<?> longLiteralExp = (LongLiteralExp<?>) theEObject;
+				T result = caseLongLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseIntegerLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseNumericLiteralExp(longLiteralExp);
+				if (result == null)
+					result = casePrimitiveLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseOCLExpression(longLiteralExp);
+				if (result == null)
+					result = caseTypedElement(longLiteralExp);
+				if (result == null)
+					result = caseVisitable(longLiteralExp);
+				if (result == null)
+					result = caseASTNode(longLiteralExp);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -1070,6 +1090,21 @@ public class ExpressionsSwitch<T>
 	 * @generated
 	 */
 	public <C> T caseNumericLiteralExp(NumericLiteralExp<C> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Long Literal Exp</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Long Literal Exp</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public <C> T caseLongLiteralExp(LongLiteralExp<C> object) {
 		return null;
 	}
 

@@ -48,6 +48,7 @@ import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
 import org.eclipse.ocl.expressions.LiteralExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.LoopExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NavigationCallExp;
@@ -236,6 +237,13 @@ public class ExpressionsPackageImpl
 	 * @generated
 	 */
 	private EClass numericLiteralExpEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass longLiteralExpEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -921,6 +929,25 @@ public class ExpressionsPackageImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLongLiteralExp() {
+		return longLiteralExpEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLongLiteralExp_LongSymbol() {
+		return (EAttribute) longLiteralExpEClass.getEStructuralFeatures()
+			.get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOCLExpression() {
 		return oclExpressionEClass;
 	}
@@ -1264,6 +1291,9 @@ public class ExpressionsPackageImpl
 
 		numericLiteralExpEClass = createEClass(NUMERIC_LITERAL_EXP);
 
+		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
+		createEAttribute(longLiteralExpEClass, LONG_LITERAL_EXP__LONG_SYMBOL);
+
 		unlimitedNaturalLiteralExpEClass = createEClass(UNLIMITED_NATURAL_LITERAL_EXP);
 		createEAttribute(unlimitedNaturalLiteralExpEClass,
 			UNLIMITED_NATURAL_LITERAL_EXP__INTEGER_SYMBOL);
@@ -1421,6 +1451,8 @@ public class ExpressionsPackageImpl
 			integerLiteralExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter numericLiteralExpEClass_C = addETypeParameter(
 			numericLiteralExpEClass, "C"); //$NON-NLS-1$
+		ETypeParameter longLiteralExpEClass_C = addETypeParameter(
+			longLiteralExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter unlimitedNaturalLiteralExpEClass_C = addETypeParameter(
 			unlimitedNaturalLiteralExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter invalidLiteralExpEClass_C = addETypeParameter(
@@ -1555,6 +1587,10 @@ public class ExpressionsPackageImpl
 		g2 = createEGenericType(numericLiteralExpEClass_C);
 		g1.getETypeArguments().add(g2);
 		numericLiteralExpEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getIntegerLiteralExp());
+		g2 = createEGenericType(longLiteralExpEClass_C);
+		g1.getETypeArguments().add(g2);
+		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getNumericLiteralExp());
 		g2 = createEGenericType(unlimitedNaturalLiteralExpEClass_C);
 		g1.getETypeArguments().add(g2);
@@ -1956,7 +1992,7 @@ public class ExpressionsPackageImpl
 			"IntegerLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(
 			getIntegerLiteralExp_IntegerSymbol(),
-			ecorePackage.getELongObject(),
+			ecorePackage.getEIntegerObject(),
 			"integerSymbol", null, 0, 1, IntegerLiteralExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		op = addEOperation(integerLiteralExpEClass, ecorePackage.getEBoolean(),
@@ -1974,6 +2010,18 @@ public class ExpressionsPackageImpl
 			numericLiteralExpEClass,
 			NumericLiteralExp.class,
 			"NumericLiteralExp", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(
+			longLiteralExpEClass,
+			LongLiteralExp.class,
+			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+			getLongLiteralExp_LongSymbol(),
+			ecorePackage.getELongObject(),
+			"longSymbol", null, 0, 1, LongLiteralExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		addEOperation(longLiteralExpEClass, ecorePackage.getELongObject(),
+			"getSymbol", 0, 1, IS_UNIQUE, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 			unlimitedNaturalLiteralExpEClass,

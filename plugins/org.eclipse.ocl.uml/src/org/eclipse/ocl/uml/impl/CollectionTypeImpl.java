@@ -36,7 +36,6 @@ import org.eclipse.ocl.types.SetType;
 import org.eclipse.ocl.types.TypesPackage;
 import org.eclipse.ocl.uml.CollectionType;
 import org.eclipse.ocl.uml.UMLPackage;
-import org.eclipse.ocl.uml.internal.operations.CollectionTypeOperations;
 import org.eclipse.ocl.uml.internal.OCLStandardLibraryImpl;
 import org.eclipse.ocl.utilities.ASTNode;
 import org.eclipse.ocl.utilities.PredefinedType;

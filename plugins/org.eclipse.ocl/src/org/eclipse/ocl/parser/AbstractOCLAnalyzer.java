@@ -114,6 +114,7 @@ import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
 import org.eclipse.ocl.expressions.LiteralExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.LoopExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NavigationCallExp;
@@ -131,6 +132,7 @@ import org.eclipse.ocl.expressions.UnlimitedNaturalLiteralExp;
 import org.eclipse.ocl.expressions.UnspecifiedValueExp;
 import org.eclipse.ocl.expressions.Variable;
 import org.eclipse.ocl.expressions.VariableExp;
+import org.eclipse.ocl.internal.evaluation.NumberUtil;
 import org.eclipse.ocl.internal.l10n.OCLMessages;
 import org.eclipse.ocl.lpg.AbstractAnalyzer;
 import org.eclipse.ocl.lpg.BasicEnvironment2;
@@ -2937,10 +2939,18 @@ public abstract class AbstractOCLAnalyzer<PK, C, O, P, EL, PM, S, COA, SSA, CT, 
 	protected IntegerLiteralExp<C> integerLiteralExpCS(
 			IntegerLiteralExpCS integerLiteralExpCS,
 			Environment<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E> env) {
-
-		IntegerLiteralExp<C> astNode = oclFactory.createIntegerLiteralExp();
-		initASTMapping(env, astNode, integerLiteralExpCS);
-		astNode.setIntegerSymbol(integerLiteralExpCS.getIntegerSymbol());
+		IntegerLiteralExp<C> astNode;
+		Number integerSymbol = NumberUtil.coerceNumber(integerLiteralExpCS.getIntegerSymbol());
+		if (integerSymbol instanceof Integer) {
+			astNode = oclFactory.createIntegerLiteralExp();
+			initASTMapping(env, astNode, integerLiteralExpCS);
+			astNode.setIntegerSymbol((Integer) integerSymbol);
+		} else {
+			LongLiteralExp<C> longAstNode = oclFactory.createLongLiteralExp();
+			initASTMapping(env, longAstNode, integerLiteralExpCS);
+			longAstNode.setLongSymbol((Long) integerSymbol);
+			astNode = longAstNode;
+		}
 		astNode.setType(env.getOCLStandardLibrary().getInteger());
 
 		TRACE(

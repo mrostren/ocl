@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
+import org.eclipse.ocl.expressions.ExpressionsPackage;
 import org.eclipse.ocl.utilities.UtilitiesPackage;
 
 /**
@@ -5621,6 +5621,17 @@ public interface EcorePackage
 	int INTEGER_LITERAL_EXP_FEATURE_COUNT = NUMERIC_LITERAL_EXP_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.ocl.ecore.impl.LongLiteralExpImpl <em>Long Literal Exp</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.ocl.ecore.impl.LongLiteralExpImpl
+	 * @see org.eclipse.ocl.ecore.impl.EcorePackageImpl#getLongLiteralExp()
+	 * @generated
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP = 54;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.ecore.impl.UnlimitedNaturalLiteralExpImpl <em>Unlimited Natural Literal Exp</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * This value may change when the model code is regenerated.
@@ -9393,6 +9404,156 @@ public interface EcorePackage
 	int OPPOSITE_PROPERTY_CALL_EXP_FEATURE_COUNT = NAVIGATION_CALL_EXP_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__START_POSITION = ExpressionsPackage.LONG_LITERAL_EXP__START_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>End Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__END_POSITION = ExpressionsPackage.LONG_LITERAL_EXP__END_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__INTEGER_SYMBOL = ExpressionsPackage.LONG_LITERAL_EXP__INTEGER_SYMBOL;
+
+	/**
+	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__LONG_SYMBOL = ExpressionsPackage.LONG_LITERAL_EXP__LONG_SYMBOL;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__EANNOTATIONS = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__NAME = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__ORDERED = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__UNIQUE = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__LOWER_BOUND = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__UPPER_BOUND = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Many</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__MANY = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__REQUIRED = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__ETYPE = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP__EGENERIC_TYPE = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 9;
+
+	/**
+	 * The number of structural features of the '<em>Long Literal Exp</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 * @since 3.2
+	 */
+	int LONG_LITERAL_EXP_FEATURE_COUNT = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 10;
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.ecore.AnyType <em>Any Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9737,6 +9898,17 @@ public interface EcorePackage
 	 * @generated
 	 */
 	EClass getIntegerLiteralExp();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.ocl.ecore.LongLiteralExp <em>Long Literal Exp</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Long Literal Exp</em>'.
+	 * @see org.eclipse.ocl.ecore.LongLiteralExp
+	 * @generated
+	 * @since 3.2
+	 */
+	EClass getLongLiteralExp();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.ecore.UnlimitedNaturalLiteralExp <em>Unlimited Natural Literal Exp</em>}'.
@@ -10360,6 +10532,17 @@ public interface EcorePackage
 		 * @generated
 		 */
 		EClass INTEGER_LITERAL_EXP = eINSTANCE.getIntegerLiteralExp();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.ocl.ecore.impl.LongLiteralExpImpl <em>Long Literal Exp</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.ocl.ecore.impl.LongLiteralExpImpl
+		 * @see org.eclipse.ocl.ecore.impl.EcorePackageImpl#getLongLiteralExp()
+		 * @generated
+		 * @since 3.2
+		 */
+		EClass LONG_LITERAL_EXP = eINSTANCE.getLongLiteralExp();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.ocl.ecore.impl.UnlimitedNaturalLiteralExpImpl <em>Unlimited Natural Literal Exp</em>}' class.

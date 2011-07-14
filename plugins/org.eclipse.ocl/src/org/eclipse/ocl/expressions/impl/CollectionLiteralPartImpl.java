@@ -21,8 +21,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.ocl.expressions.CollectionLiteralPart;
 import org.eclipse.ocl.expressions.ExpressionsPackage;
-
-//import org.eclipse.ocl.expressions.operations.CollectionLiteralPartOperations;
 import org.eclipse.ocl.utilities.Visitor;
 
 /**

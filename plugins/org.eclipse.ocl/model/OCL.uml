@@ -729,7 +729,7 @@ s.concat (
         </ownedTemplateSignature>
         <generalization xmi:id="_unvVyNppEdu-d8Dv4wLx9Q" general="_unvVy9ppEdu-d8Dv4wLx9Q"/>
         <ownedAttribute xmi:id="_unvVydppEdu-d8Dv4wLx9Q" name="integerSymbol" visibility="public" isOrdered="true">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELongObject"/>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EIntegerObject"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_unvVytppEdu-d8Dv4wLx9Q"/>
         </ownedAttribute>
         <nestedClassifier xmi:type="uml:Class" xmi:id="_unvVy9ppEdu-d8Dv4wLx9Q" name="NumericLiteralExp_C">
@@ -737,6 +737,29 @@ s.concat (
             <parameterSubstitution xmi:id="_unvVzdppEdu-d8Dv4wLx9Q" formal="_unvV0NppEdu-d8Dv4wLx9Q" actual="_unvVx9ppEdu-d8Dv4wLx9Q"/>
           </templateBinding>
         </nestedClassifier>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_JksS4K3yEeC05dpFnmzaLQ" name="LongLiteralExp">
+        <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_JksS463yEeC05dpFnmzaLQ" parameter="_JksS5K3yEeC05dpFnmzaLQ">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_JksS5K3yEeC05dpFnmzaLQ" parameteredElement="_JksS5a3yEeC05dpFnmzaLQ">
+            <ownedParameteredElement xmi:type="uml:Class" xmi:id="_JksS5a3yEeC05dpFnmzaLQ" name="C" templateParameter="_JksS5K3yEeC05dpFnmzaLQ"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+        <generalization xmi:id="_JksS5q3yEeC05dpFnmzaLQ" general="_JksS6a3yEeC05dpFnmzaLQ"/>
+        <ownedAttribute xmi:id="_JksS563yEeC05dpFnmzaLQ" name="longSymbol" visibility="public" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELongObject"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JksS6K3yEeC05dpFnmzaLQ"/>
+        </ownedAttribute>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_JksS6a3yEeC05dpFnmzaLQ" name="IntegerLiteralExp_C">
+          <templateBinding xmi:id="_JksS6q3yEeC05dpFnmzaLQ" signature="_unvVxdppEdu-d8Dv4wLx9Q">
+            <parameterSubstitution xmi:id="_JksS663yEeC05dpFnmzaLQ" formal="_unvVxtppEdu-d8Dv4wLx9Q" actual="_JksS5a3yEeC05dpFnmzaLQ"/>
+          </templateBinding>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_UqtvoK3zEeC05dpFnmzaLQ" name="getSymbol" isQuery="true">
+          <ownedParameter xmi:id="_XgcmoK3zEeC05dpFnmzaLQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELongObject"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xgcmoa3zEeC05dpFnmzaLQ"/>
+          </ownedParameter>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_unvVztppEdu-d8Dv4wLx9Q" name="NumericLiteralExp" isAbstract="true">
         <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_unvVz9ppEdu-d8Dv4wLx9Q" parameter="_unvV0NppEdu-d8Dv4wLx9Q">
@@ -2338,4 +2361,9 @@ part->size() = type.oclAsType (TupleType).allProperties()->size()</body>
   <Ecore:EParameter xmi:id="_SCfO4N1nEduZ74nG8yJaxg" base_Parameter="_FcnTgN1nEduZ74nG8yJaxg"/>
   <Ecore_1:EClass xmi:id="_1lMzkNXZEd6ci-srLwOkAQ" base_Class="_-PCtwNLlEd6hmvYFRJXZTA"/>
   <Ecore:EReference xmi:id="_82aXYNXZEd6ci-srLwOkAQ" base_Property="_ykFGANLmEd6hmvYFRJXZTA"/>
+  <Ecore:EClass xmi:id="_4xZC4K3zEeC05dpFnmzaLQ" base_Class="_JksS4K3yEeC05dpFnmzaLQ"/>
+  <Ecore:EAttribute xmi:id="_7ntvwK3zEeC05dpFnmzaLQ" base_Property="_JksS563yEeC05dpFnmzaLQ"/>
+  <Ecore:EGenericType xmi:id="_9RPSUK3zEeC05dpFnmzaLQ" base_Class="_JksS6a3yEeC05dpFnmzaLQ"/>
+  <Ecore:EOperation xmi:id="_-cwqQK3zEeC05dpFnmzaLQ" base_Operation="_UqtvoK3zEeC05dpFnmzaLQ"/>
+  <Ecore:ETypeParameter xmi:id="_BbXwcK30EeC05dpFnmzaLQ" base_TemplateParameter="_JksS5K3yEeC05dpFnmzaLQ"/>
 </xmi:XMI>

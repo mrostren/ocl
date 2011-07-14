@@ -56,7 +56,7 @@ public class IntegerLiteralExpImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Long INTEGER_SYMBOL_EDEFAULT = null;
+	protected static final Integer INTEGER_SYMBOL_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getIntegerSymbol() <em>Integer Symbol</em>}' attribute.
@@ -66,7 +66,7 @@ public class IntegerLiteralExpImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected Long integerSymbol = INTEGER_SYMBOL_EDEFAULT;
+	protected Integer integerSymbol = INTEGER_SYMBOL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,7 +92,7 @@ public class IntegerLiteralExpImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Long getIntegerSymbol() {
+	public Integer getIntegerSymbol() {
 		return integerSymbol;
 	}
 
@@ -101,8 +101,8 @@ public class IntegerLiteralExpImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIntegerSymbol(Long newIntegerSymbol) {
-		Long oldIntegerSymbol = integerSymbol;
+	public void setIntegerSymbol(Integer newIntegerSymbol) {
+		Integer oldIntegerSymbol = integerSymbol;
 		integerSymbol = newIntegerSymbol;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
@@ -144,7 +144,7 @@ public class IntegerLiteralExpImpl
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case UMLPackage.INTEGER_LITERAL_EXP__INTEGER_SYMBOL :
-				setIntegerSymbol((Long) newValue);
+				setIntegerSymbol((Integer) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

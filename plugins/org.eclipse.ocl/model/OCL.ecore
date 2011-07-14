@@ -1119,7 +1119,7 @@
           </eGenericType>
         </eParameters>
       </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
       <eGenericSuperTypes eClassifier="#//expressions/NumericLiteralExp">
         <eTypeArguments eTypeParameter="#//expressions/IntegerLiteralExp/C"/>
       </eGenericSuperTypes>
@@ -1128,6 +1128,14 @@
       <eTypeParameters name="C"/>
       <eGenericSuperTypes eClassifier="#//expressions/PrimitiveLiteralExp">
         <eTypeArguments eTypeParameter="#//expressions/NumericLiteralExp/C"/>
+      </eGenericSuperTypes>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LongLiteralExp">
+      <eTypeParameters name="C"/>
+      <eOperations name="getSymbol" ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="longSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+      <eGenericSuperTypes eClassifier="#//expressions/IntegerLiteralExp">
+        <eTypeArguments eTypeParameter="#//expressions/LongLiteralExp/C"/>
       </eGenericSuperTypes>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="UnlimitedNaturalLiteralExp">

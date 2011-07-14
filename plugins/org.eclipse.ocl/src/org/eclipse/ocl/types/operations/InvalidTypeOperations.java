@@ -17,7 +17,6 @@
 package org.eclipse.ocl.types.operations;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.ocl.types.InvalidType;
 
 /**

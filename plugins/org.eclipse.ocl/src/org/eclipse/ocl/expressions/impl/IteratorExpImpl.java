@@ -18,6 +18,7 @@
 package org.eclipse.ocl.expressions.impl;
 
 import java.util.Map;
+
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.ocl.expressions.ExpressionsPackage;

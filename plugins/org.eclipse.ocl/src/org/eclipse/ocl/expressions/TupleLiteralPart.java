@@ -18,6 +18,7 @@
 package org.eclipse.ocl.expressions;
 
 import java.util.Map;
+
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.ocl.utilities.TypedASTNode;
 import org.eclipse.ocl.utilities.TypedElement;

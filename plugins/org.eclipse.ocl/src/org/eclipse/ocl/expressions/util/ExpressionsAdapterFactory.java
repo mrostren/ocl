@@ -21,7 +21,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.ocl.expressions.*;
 import org.eclipse.ocl.expressions.AssociationClassCallExp;
 import org.eclipse.ocl.expressions.BooleanLiteralExp;
 import org.eclipse.ocl.expressions.CallExp;
@@ -39,6 +38,7 @@ import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
 import org.eclipse.ocl.expressions.LiteralExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.LoopExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NavigationCallExp;
@@ -204,6 +204,11 @@ public class ExpressionsAdapterFactory
 		@Override
 		public <C> Adapter caseNumericLiteralExp(NumericLiteralExp<C> object) {
 			return createNumericLiteralExpAdapter();
+		}
+
+		@Override
+		public <C> Adapter caseLongLiteralExp(LongLiteralExp<C> object) {
+			return createLongLiteralExpAdapter();
 		}
 
 		@Override
@@ -652,6 +657,20 @@ public class ExpressionsAdapterFactory
 	 * @generated
 	 */
 	public Adapter createNumericLiteralExpAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ocl.expressions.LongLiteralExp <em>Long Literal Exp</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ocl.expressions.LongLiteralExp
+	 * @generated
+	 */
+	public Adapter createLongLiteralExpAdapter() {
 		return null;
 	}
 

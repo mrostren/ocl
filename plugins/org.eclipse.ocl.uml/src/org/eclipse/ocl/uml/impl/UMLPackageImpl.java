@@ -49,6 +49,7 @@ import org.eclipse.ocl.uml.IterateExp;
 import org.eclipse.ocl.uml.IteratorExp;
 import org.eclipse.ocl.uml.LetExp;
 import org.eclipse.ocl.uml.LiteralExp;
+import org.eclipse.ocl.uml.LongLiteralExp;
 import org.eclipse.ocl.uml.LoopExp;
 import org.eclipse.ocl.uml.MessageExp;
 import org.eclipse.ocl.uml.MessageType;
@@ -301,6 +302,13 @@ public class UMLPackageImpl
 	 * @generated
 	 */
 	private EClass numericLiteralExpEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass longLiteralExpEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -851,6 +859,15 @@ public class UMLPackageImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLongLiteralExp() {
+		return longLiteralExpEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUnlimitedNaturalLiteralExp() {
 		return unlimitedNaturalLiteralExpEClass;
 	}
@@ -1132,6 +1149,8 @@ public class UMLPackageImpl
 		integerLiteralExpEClass = createEClass(INTEGER_LITERAL_EXP);
 
 		numericLiteralExpEClass = createEClass(NUMERIC_LITERAL_EXP);
+
+		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
 
 		unlimitedNaturalLiteralExpEClass = createEClass(UNLIMITED_NATURAL_LITERAL_EXP);
 
@@ -1439,6 +1458,7 @@ public class UMLPackageImpl
 		g2 = createEGenericType(theUMLPackage_1.getClassifier());
 		g1.getETypeArguments().add(g2);
 		numericLiteralExpEClass.getEGenericSuperTypes().add(g1);
+		longLiteralExpEClass.getESuperTypes().add(this.getIntegerLiteralExp());
 		g1 = createEGenericType(this.getNumericLiteralExp());
 		unlimitedNaturalLiteralExpEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(theExpressionsPackage
@@ -1757,6 +1777,11 @@ public class UMLPackageImpl
 			numericLiteralExpEClass,
 			NumericLiteralExp.class,
 			"NumericLiteralExp", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(
+			longLiteralExpEClass,
+			LongLiteralExp.class,
+			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(
 			unlimitedNaturalLiteralExpEClass,

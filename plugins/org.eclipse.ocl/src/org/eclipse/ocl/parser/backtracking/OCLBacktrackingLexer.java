@@ -41,15 +41,20 @@
 
 package org.eclipse.ocl.parser.backtracking;
 
-import lpg.runtime.*;
-import org.eclipse.ocl.lpg.AbstractLexer;
-
 import java.io.Reader;
 
+import lpg.runtime.ILexStream;
+import lpg.runtime.IPrsStream;
+import lpg.runtime.LexParser;
+import lpg.runtime.Monitor;
+import lpg.runtime.ParseTable;
+import lpg.runtime.RuleAction;
+
 import org.eclipse.ocl.Environment;
+import org.eclipse.ocl.lpg.AbstractLexer;
 import org.eclipse.ocl.lpg.BasicEnvironment;
-import org.eclipse.ocl.lpg.DerivedPrsStream;
 import org.eclipse.ocl.lpg.DerivedLexStream;
+import org.eclipse.ocl.lpg.DerivedPrsStream;
 import org.eclipse.ocl.util.OCLUtil;
 
 @SuppressWarnings("nls")

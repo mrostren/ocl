@@ -20,7 +20,6 @@ package org.eclipse.ocl.uml.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.ocl.uml.CollectionLiteralPart;
 import org.eclipse.ocl.uml.UMLPackage;
-import org.eclipse.ocl.uml.internal.operations.CollectionLiteralPartOperations;
 import org.eclipse.ocl.utilities.Visitor;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Type;

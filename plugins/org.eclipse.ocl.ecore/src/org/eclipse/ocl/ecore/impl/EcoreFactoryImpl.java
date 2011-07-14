@@ -43,6 +43,7 @@ import org.eclipse.ocl.ecore.InvalidType;
 import org.eclipse.ocl.ecore.IterateExp;
 import org.eclipse.ocl.ecore.IteratorExp;
 import org.eclipse.ocl.ecore.LetExp;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.MessageExp;
 import org.eclipse.ocl.ecore.MessageType;
 import org.eclipse.ocl.ecore.NullLiteralExp;
@@ -206,6 +207,8 @@ public class EcoreFactoryImpl
 				return createVariableExp();
 			case EcorePackage.OPPOSITE_PROPERTY_CALL_EXP :
 				return createOppositePropertyCallExp();
+			case EcorePackage.LONG_LITERAL_EXP :
+				return createLongLiteralExp();
 			default :
 				throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -471,6 +474,17 @@ public class EcoreFactoryImpl
 	public IntegerLiteralExp createIntegerLiteralExp() {
 		IntegerLiteralExpImpl integerLiteralExp = new IntegerLiteralExpImpl();
 		return integerLiteralExp;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @since 3.2
+	 */
+	public LongLiteralExp createLongLiteralExp() {
+		LongLiteralExpImpl longLiteralExp = new LongLiteralExpImpl();
+		return longLiteralExp;
 	}
 
 	/**

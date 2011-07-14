@@ -18,6 +18,7 @@
 package org.eclipse.ocl.expressions;
 
 import java.util.Map;
+
 import org.eclipse.emf.common.util.DiagnosticChain;
 
 /**
@@ -48,12 +49,12 @@ public interface IntegerLiteralExp<C>
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Integer Symbol</em>' attribute.
-	 * @see #setIntegerSymbol(Long)
+	 * @see #setIntegerSymbol(Integer)
 	 * @see org.eclipse.ocl.expressions.ExpressionsPackage#getIntegerLiteralExp_IntegerSymbol()
 	 * @model
 	 * @generated
 	 */
-	Long getIntegerSymbol();
+	Integer getIntegerSymbol();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.ocl.expressions.IntegerLiteralExp#getIntegerSymbol <em>Integer Symbol</em>}' attribute.
@@ -63,7 +64,7 @@ public interface IntegerLiteralExp<C>
 	 * @see #getIntegerSymbol()
 	 * @generated
 	 */
-	void setIntegerSymbol(Long value);
+	void setIntegerSymbol(Integer value);
 
 	/**
 	 * <!-- begin-user-doc -->

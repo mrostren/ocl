@@ -237,6 +237,15 @@ public interface UMLFactory
 	IntegerLiteralExp createIntegerLiteralExp();
 
 	/**
+	 * Returns a new object of class '<em>Long Literal Exp</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Long Literal Exp</em>'.
+	 * @generated
+	 */
+	LongLiteralExp createLongLiteralExp();
+
+	/**
 	 * Returns a new object of class '<em>Unlimited Natural Literal Exp</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

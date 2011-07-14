@@ -48,6 +48,7 @@ import org.eclipse.ocl.ecore.IterateExp;
 import org.eclipse.ocl.ecore.IteratorExp;
 import org.eclipse.ocl.ecore.LetExp;
 import org.eclipse.ocl.ecore.LiteralExp;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.LoopExp;
 import org.eclipse.ocl.ecore.MessageExp;
 import org.eclipse.ocl.ecore.MessageType;
@@ -334,6 +335,9 @@ public class EcoreValidator
 			case EcorePackage.OPPOSITE_PROPERTY_CALL_EXP :
 				return validateOppositePropertyCallExp(
 					(OppositePropertyCallExp) value, diagnostics, context);
+			case EcorePackage.LONG_LITERAL_EXP :
+				return validateLongLiteralExp((LongLiteralExp) value,
+					diagnostics, context);
 			default :
 				return true;
 		}
@@ -2037,6 +2041,61 @@ public class EcoreValidator
 			result &= expressionsValidator
 				.validateIntegerLiteralExp_checkIntegerType(integerLiteralExp,
 					diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @since 3.2
+	 */
+	public boolean validateLongLiteralExp(LongLiteralExp longLiteralExp,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(longLiteralExp, diagnostics,
+			context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms(longLiteralExp,
+			diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID(longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= expressionsValidator
+				.validateIntegerLiteralExp_checkIntegerType(longLiteralExp,
+					diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateOCLExpression_WellFormedName(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= ecoreValidator.validateETypedElement_ValidLowerBound(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= ecoreValidator.validateETypedElement_ValidUpperBound(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= ecoreValidator.validateETypedElement_ConsistentBounds(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= ecoreValidator.validateETypedElement_ValidType(
+				longLiteralExp, diagnostics, context);
 		return result;
 	}
 

@@ -22,17 +22,15 @@ import java.util.Map;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.expressions.TupleLiteralExp;
 import org.eclipse.ocl.expressions.TupleLiteralPart;
-
 import org.eclipse.ocl.expressions.util.ExpressionsValidator;
-import org.eclipse.ocl.utilities.Visitor;
 import org.eclipse.ocl.internal.l10n.OCLMessages;
 import org.eclipse.ocl.util.OCLUtil;
 import org.eclipse.ocl.util.TypeUtil;
+import org.eclipse.ocl.utilities.Visitor;
 
 /**
  * <!-- begin-user-doc -->

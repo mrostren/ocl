@@ -32,6 +32,7 @@ import org.eclipse.ocl.expressions.InvalidLiteralExp;
 import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NullLiteralExp;
 import org.eclipse.ocl.expressions.OperationCallExp;
@@ -228,6 +229,15 @@ public interface OCLFactory {
 	 * @generated
 	 */
 	<C> IntegerLiteralExp<C> createIntegerLiteralExp();
+
+	/**
+	 * Returns a new object of class '<em>Long Literal Exp</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Long Literal Exp</em>'.
+	 * @generated
+	 */
+	<C> LongLiteralExp<C> createLongLiteralExp();
 
 	/**
 	 * Returns a new object of class '<em>Unlimited Natural Literal Exp</em>'.

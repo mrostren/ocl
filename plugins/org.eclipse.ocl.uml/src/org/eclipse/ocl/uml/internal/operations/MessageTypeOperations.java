@@ -17,11 +17,8 @@
 package org.eclipse.ocl.uml.internal.operations;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.ocl.uml.MessageType;
-
 import org.eclipse.uml2.uml.Operation;
-
 import org.eclipse.uml2.uml.internal.operations.ClassifierOperations;
 
 /**

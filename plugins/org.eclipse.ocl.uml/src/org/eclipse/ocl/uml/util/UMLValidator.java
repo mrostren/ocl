@@ -22,17 +22,62 @@ import java.util.Map;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.EObjectValidator;
-
 import org.eclipse.ocl.expressions.util.ExpressionsValidator;
-
 import org.eclipse.ocl.types.util.TypesValidator;
-
-import org.eclipse.ocl.uml.*;
-
+import org.eclipse.ocl.uml.AnyType;
+import org.eclipse.ocl.uml.AssociationClassCallExp;
+import org.eclipse.ocl.uml.BagType;
+import org.eclipse.ocl.uml.BooleanLiteralExp;
+import org.eclipse.ocl.uml.CallExp;
+import org.eclipse.ocl.uml.CollectionItem;
+import org.eclipse.ocl.uml.CollectionLiteralExp;
+import org.eclipse.ocl.uml.CollectionLiteralPart;
+import org.eclipse.ocl.uml.CollectionRange;
+import org.eclipse.ocl.uml.CollectionType;
+import org.eclipse.ocl.uml.ElementType;
+import org.eclipse.ocl.uml.EnumLiteralExp;
+import org.eclipse.ocl.uml.ExpressionInOCL;
+import org.eclipse.ocl.uml.FeatureCallExp;
+import org.eclipse.ocl.uml.IfExp;
+import org.eclipse.ocl.uml.IntegerLiteralExp;
+import org.eclipse.ocl.uml.InvalidLiteralExp;
+import org.eclipse.ocl.uml.InvalidType;
+import org.eclipse.ocl.uml.IterateExp;
+import org.eclipse.ocl.uml.IteratorExp;
+import org.eclipse.ocl.uml.LetExp;
+import org.eclipse.ocl.uml.LiteralExp;
+import org.eclipse.ocl.uml.LongLiteralExp;
+import org.eclipse.ocl.uml.LoopExp;
+import org.eclipse.ocl.uml.MessageExp;
+import org.eclipse.ocl.uml.MessageType;
+import org.eclipse.ocl.uml.NavigationCallExp;
+import org.eclipse.ocl.uml.NullLiteralExp;
+import org.eclipse.ocl.uml.NumericLiteralExp;
+import org.eclipse.ocl.uml.OCLExpression;
+import org.eclipse.ocl.uml.OperationCallExp;
+import org.eclipse.ocl.uml.OrderedSetType;
+import org.eclipse.ocl.uml.PrimitiveLiteralExp;
+import org.eclipse.ocl.uml.PrimitiveType;
+import org.eclipse.ocl.uml.PropertyCallExp;
+import org.eclipse.ocl.uml.RealLiteralExp;
+import org.eclipse.ocl.uml.SequenceType;
+import org.eclipse.ocl.uml.SetType;
+import org.eclipse.ocl.uml.StateExp;
+import org.eclipse.ocl.uml.StringLiteralExp;
+import org.eclipse.ocl.uml.TemplateParameterType;
+import org.eclipse.ocl.uml.TupleLiteralExp;
+import org.eclipse.ocl.uml.TupleLiteralPart;
+import org.eclipse.ocl.uml.TupleType;
+import org.eclipse.ocl.uml.TypeExp;
+import org.eclipse.ocl.uml.TypeType;
+import org.eclipse.ocl.uml.UMLPackage;
+import org.eclipse.ocl.uml.UnlimitedNaturalLiteralExp;
+import org.eclipse.ocl.uml.UnspecifiedValueExp;
+import org.eclipse.ocl.uml.Variable;
+import org.eclipse.ocl.uml.VariableExp;
+import org.eclipse.ocl.uml.VoidType;
 import org.eclipse.ocl.uml.internal.OCLUMLPlugin;
 
 /**
@@ -219,6 +264,9 @@ public class UMLValidator
 					diagnostics, context);
 			case UMLPackage.NUMERIC_LITERAL_EXP :
 				return validateNumericLiteralExp((NumericLiteralExp) value,
+					diagnostics, context);
+			case UMLPackage.LONG_LITERAL_EXP :
+				return validateLongLiteralExp((LongLiteralExp) value,
 					diagnostics, context);
 			case UMLPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return validateUnlimitedNaturalLiteralExp(
@@ -2379,6 +2427,66 @@ public class UMLValidator
 		if (result || diagnostics != null)
 			result &= validateOCLExpression_has_type(numericLiteralExp,
 				diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLongLiteralExp(LongLiteralExp longLiteralExp,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(longLiteralExp, diagnostics,
+			context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms(longLiteralExp,
+			diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID(longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= umlValidator.validateElement_validateNotOwnSelf(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= umlValidator.validateElement_validateHasOwner(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= umlValidator
+				.validateNamedElement_validateHasNoQualifiedName(
+					longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= umlValidator
+				.validateNamedElement_validateHasQualifiedName(longLiteralExp,
+					diagnostics, context);
+		if (result || diagnostics != null)
+			result &= umlValidator
+				.validateNamedElement_validateVisibilityNeedsOwnership(
+					longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateOCLExpression_has_type(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= expressionsValidator
+				.validateIntegerLiteralExp_checkIntegerType(longLiteralExp,
+					diagnostics, context);
 		return result;
 	}
 

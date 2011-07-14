@@ -53,6 +53,7 @@
       <genClasses image="false" ecoreClass="OCLEcore.ecore#//ecore/FeatureCallExp"/>
       <genClasses ecoreClass="OCLEcore.ecore#//ecore/IfExp"/>
       <genClasses ecoreClass="OCLEcore.ecore#//ecore/IntegerLiteralExp"/>
+      <genClasses ecoreClass="OCLEcore.ecore#//ecore/LongLiteralExp"/>
       <genClasses ecoreClass="OCLEcore.ecore#//ecore/UnlimitedNaturalLiteralExp"/>
       <genClasses ecoreClass="OCLEcore.ecore#//ecore/InvalidLiteralExp"/>
       <genClasses ecoreClass="OCLEcore.ecore#//ecore/IterateExp"/>

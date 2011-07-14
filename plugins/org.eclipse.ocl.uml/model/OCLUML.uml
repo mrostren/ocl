@@ -496,6 +496,10 @@
         <generalization xmi:id="_O6JJs9p9Eduf94aRL_gBBg" general="_O6JJtdp9Eduf94aRL_gBBg"/>
         <generalization xmi:id="_O6JJtNp9Eduf94aRL_gBBg" general="_O6JJu9p9Eduf94aRL_gBBg"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Of9k8K3wEeC05dpFnmzaLQ" name="LongLiteralExp">
+        <generalization xmi:id="_Of9k8a3wEeC05dpFnmzaLQ" general="_O6JJstp9Eduf94aRL_gBBg"/>
+        <generalization xmi:id="_Of9k8q3wEeC05dpFnmzaLQ" general="_FGU8EK3wEeC05dpFnmzaLQ"/>
+      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_O6JJtdp9Eduf94aRL_gBBg" name="NumericLiteralExp" isAbstract="true">
         <generalization xmi:id="_O6JJttp9Eduf94aRL_gBBg" general="_O6JJftp9Eduf94aRL_gBBg"/>
         <generalization xmi:id="_O6JJt9p9Eduf94aRL_gBBg" general="_O6JJuNp9Eduf94aRL_gBBg"/>
@@ -513,6 +517,15 @@
         <templateBinding xmi:id="_O6JJvNp9Eduf94aRL_gBBg">
           <signature xmi:type="uml:RedefinableTemplateSignature" href="../../org.eclipse.ocl/model/OCL.uml#_unvVxdppEdu-d8Dv4wLx9Q"/>
           <parameterSubstitution xmi:id="_O6JJvdp9Eduf94aRL_gBBg">
+            <formal xmi:type="uml:ClassifierTemplateParameter" href="../../org.eclipse.ocl/model/OCL.uml#_unvVxtppEdu-d8Dv4wLx9Q"/>
+            <actual xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+          </parameterSubstitution>
+        </templateBinding>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_FGU8EK3wEeC05dpFnmzaLQ" name="LongLiteralExp_Classifier">
+        <templateBinding xmi:id="_FGVjIK3wEeC05dpFnmzaLQ">
+          <signature xmi:type="uml:RedefinableTemplateSignature" href="../../org.eclipse.ocl/model/OCL.uml#_unvVxdppEdu-d8Dv4wLx9Q"/>
+          <parameterSubstitution xmi:id="_FGVjIa3wEeC05dpFnmzaLQ">
             <formal xmi:type="uml:ClassifierTemplateParameter" href="../../org.eclipse.ocl/model/OCL.uml#_unvVxtppEdu-d8Dv4wLx9Q"/>
             <actual xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
           </parameterSubstitution>
@@ -920,9 +933,11 @@
   <Ecore:EClass xmi:id="_O6PPsNp9Eduf94aRL_gBBg" base_Class="_O6JJrNp9Eduf94aRL_gBBg"/>
   <Ecore:EGenericType xmi:id="_O6PPsdp9Eduf94aRL_gBBg" base_Class="_O6JJr9p9Eduf94aRL_gBBg"/>
   <Ecore:EClass xmi:id="_O6PPstp9Eduf94aRL_gBBg" base_Class="_O6JJstp9Eduf94aRL_gBBg"/>
-  <Ecore:EClass xmi:id="_O6VWINp9Eduf94aRL_gBBg" base_Class="_O6JJtdp9Eduf94aRL_gBBg"/>
+  <Ecore:EClass xmi:id="_O6PPstp9Eduf94aRL_gBBg" base_Class="_O6JJstp9Eduf94aRL_gBBg"/>
+  <Ecore:EClass xmi:id="_O6VWINp9Eduf94aRL_gBBg" base_Class="_Of9k8K3wEeC05dpFnmzaLQ"/>
   <Ecore:EGenericType xmi:id="_O6VWIdp9Eduf94aRL_gBBg" base_Class="_O6JJuNp9Eduf94aRL_gBBg"/>
   <Ecore:EGenericType xmi:id="_O6VWItp9Eduf94aRL_gBBg" base_Class="_O6JJu9p9Eduf94aRL_gBBg"/>
+  <Ecore:EGenericType xmi:id="_O6VWItp9Eduf94aRL_gBBg" base_Class="_FGU8EK3wEeC05dpFnmzaLQ"/>
   <Ecore:EClass xmi:id="_O6VWI9p9Eduf94aRL_gBBg" base_Class="_O6JJvtp9Eduf94aRL_gBBg"/>
   <Ecore:EGenericType xmi:id="_O6VWJNp9Eduf94aRL_gBBg" base_Class="_O6JJwdp9Eduf94aRL_gBBg"/>
   <Ecore:EClass xmi:id="_O6VWJdp9Eduf94aRL_gBBg" base_Class="_O6JJxNp9Eduf94aRL_gBBg"/>

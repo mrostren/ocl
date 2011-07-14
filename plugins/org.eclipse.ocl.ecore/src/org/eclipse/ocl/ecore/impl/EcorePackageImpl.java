@@ -49,6 +49,7 @@ import org.eclipse.ocl.ecore.IterateExp;
 import org.eclipse.ocl.ecore.IteratorExp;
 import org.eclipse.ocl.ecore.LetExp;
 import org.eclipse.ocl.ecore.LiteralExp;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.LoopExp;
 import org.eclipse.ocl.ecore.MessageExp;
 import org.eclipse.ocl.ecore.MessageType;
@@ -297,6 +298,13 @@ public class EcorePackageImpl
 	 * @generated
 	 */
 	private EClass integerLiteralExpEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass longLiteralExpEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -866,6 +874,16 @@ public class EcorePackageImpl
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
+	 * @since 3.2
+	 */
+	public EClass getLongLiteralExp() {
+		return longLiteralExpEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	public EClass getUnlimitedNaturalLiteralExp() {
 		return unlimitedNaturalLiteralExpEClass;
@@ -1243,6 +1261,8 @@ public class EcorePackageImpl
 		oppositePropertyCallExpEClass = createEClass(OPPOSITE_PROPERTY_CALL_EXP);
 		createEReference(oppositePropertyCallExpEClass,
 			OPPOSITE_PROPERTY_CALL_EXP__REFERRED_OPPOSITE_PROPERTY);
+
+		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
 	}
 
 	/**
@@ -1659,6 +1679,12 @@ public class EcorePackageImpl
 		variableExpEClass.getEGenericSuperTypes().add(g1);
 		oppositePropertyCallExpEClass.getESuperTypes().add(
 			this.getNavigationCallExp());
+		g1 = createEGenericType(theExpressionsPackage.getLongLiteralExp());
+		g2 = createEGenericType(theEcorePackage_1.getEClassifier());
+		g1.getETypeArguments().add(g2);
+		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getIntegerLiteralExp());
+		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(anyTypeEClass, AnyType.class,
@@ -1948,6 +1974,11 @@ public class EcorePackageImpl
 			theEcorePackage_1.getEReference(),
 			null,
 			"referredOppositeProperty", null, 1, 1, OppositePropertyCallExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+			longLiteralExpEClass,
+			LongLiteralExp.class,
+			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		// Create resource
 		createResource(eNS_URI);

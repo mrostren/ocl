@@ -23,7 +23,6 @@ import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.eclipse.ocl.expressions.*;
 import org.eclipse.ocl.expressions.AssociationClassCallExp;
 import org.eclipse.ocl.expressions.BooleanLiteralExp;
 import org.eclipse.ocl.expressions.CallExp;
@@ -42,6 +41,7 @@ import org.eclipse.ocl.expressions.IterateExp;
 import org.eclipse.ocl.expressions.IteratorExp;
 import org.eclipse.ocl.expressions.LetExp;
 import org.eclipse.ocl.expressions.LiteralExp;
+import org.eclipse.ocl.expressions.LongLiteralExp;
 import org.eclipse.ocl.expressions.LoopExp;
 import org.eclipse.ocl.expressions.MessageExp;
 import org.eclipse.ocl.expressions.NavigationCallExp;
@@ -495,6 +495,9 @@ public class ExpressionsValidator
 					diagnostics, context);
 			case ExpressionsPackage.NUMERIC_LITERAL_EXP :
 				return validateNumericLiteralExp((NumericLiteralExp<?>) value,
+					diagnostics, context);
+			case ExpressionsPackage.LONG_LITERAL_EXP :
+				return validateLongLiteralExp((LongLiteralExp<?>) value,
 					diagnostics, context);
 			case ExpressionsPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return validateUnlimitedNaturalLiteralExp(
@@ -1083,6 +1086,44 @@ public class ExpressionsValidator
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(numericLiteralExp, diagnostics,
 			context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLongLiteralExp(LongLiteralExp<?> longLiteralExp,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(longLiteralExp, diagnostics,
+			context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms(longLiteralExp,
+			diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained(longLiteralExp,
+				diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired(
+				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID(longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique(longLiteralExp, diagnostics,
+				context);
+		if (result || diagnostics != null)
+			result &= validateIntegerLiteralExp_checkIntegerType(
+				longLiteralExp, diagnostics, context);
+		return result;
 	}
 
 	/**
