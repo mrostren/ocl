@@ -1210,7 +1210,7 @@ public class EvaluationVisitorImpl<PK, C, O, P, EL, PM, S, COA, SSA, CT, CLS, E>
 							if (!(argVal instanceof Integer || argVal instanceof Long)) {
 								return getInvalid();
 							}
-							long indexVal = ((Number) argVal).longValue();
+							long indexVal = argVal == null ? 0l : ((Number) argVal).longValue();
 							return CollectionUtil.at(sourceColl, indexVal);
 						}
 

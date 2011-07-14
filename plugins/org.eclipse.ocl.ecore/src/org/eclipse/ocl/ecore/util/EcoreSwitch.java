@@ -1542,37 +1542,37 @@ public class EcoreSwitch<T>
 				LongLiteralExp longLiteralExp = (LongLiteralExp) theEObject;
 				T result = caseLongLiteralExp(longLiteralExp);
 				if (result == null)
-					result = caseExpressions_LongLiteralExp(longLiteralExp);
-				if (result == null)
 					result = caseIntegerLiteralExp(longLiteralExp);
 				if (result == null)
-					result = caseExpressions_IntegerLiteralExp(longLiteralExp);
+					result = caseExpressions_LongLiteralExp(longLiteralExp);
 				if (result == null)
 					result = caseNumericLiteralExp(longLiteralExp);
 				if (result == null)
-					result = caseExpressions_NumericLiteralExp(longLiteralExp);
+					result = caseExpressions_IntegerLiteralExp(longLiteralExp);
 				if (result == null)
 					result = casePrimitiveLiteralExp(longLiteralExp);
 				if (result == null)
-					result = caseExpressions_PrimitiveLiteralExp(longLiteralExp);
+					result = caseExpressions_NumericLiteralExp(longLiteralExp);
 				if (result == null)
 					result = caseLiteralExp(longLiteralExp);
 				if (result == null)
-					result = caseExpressions_LiteralExp(longLiteralExp);
+					result = caseExpressions_PrimitiveLiteralExp(longLiteralExp);
 				if (result == null)
 					result = caseOCLExpression(longLiteralExp);
 				if (result == null)
-					result = caseExpressions_OCLExpression(longLiteralExp);
+					result = caseExpressions_LiteralExp(longLiteralExp);
 				if (result == null)
 					result = caseETypedElement(longLiteralExp);
+				if (result == null)
+					result = caseExpressions_OCLExpression(longLiteralExp);
+				if (result == null)
+					result = caseENamedElement(longLiteralExp);
 				if (result == null)
 					result = caseTypedElement(longLiteralExp);
 				if (result == null)
 					result = caseVisitable(longLiteralExp);
 				if (result == null)
 					result = caseASTNode(longLiteralExp);
-				if (result == null)
-					result = caseENamedElement(longLiteralExp);
 				if (result == null)
 					result = caseEModelElement(longLiteralExp);
 				if (result == null)

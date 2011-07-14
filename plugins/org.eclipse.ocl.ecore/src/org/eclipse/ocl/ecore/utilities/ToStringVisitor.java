@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.CallOperationAction;
 import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.OppositePropertyCallExp;
 import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.utilities.TypedElement;
@@ -32,6 +33,7 @@ import org.eclipse.ocl.utilities.TypedElement;
 
 /**
  * @since 3.1
+ * @author Axel Uhl
  */
 public class ToStringVisitor
 		extends
@@ -82,5 +84,13 @@ public class ToStringVisitor
 			OppositePropertyCallExp callExp) {
         String sourceResult = safeVisit(callExp.getSource());
         return handleOppositePropertyCallExp(callExp, sourceResult);
+	}
+
+	/**
+	 * @since 3.2
+	 */
+	public String visitLongLiteralExp(LongLiteralExp literalExp) {
+		return (literalExp.getSymbol() == null)? NULL_PLACEHOLDER
+			: literalExp.getSymbol().toString();
 	}
 }

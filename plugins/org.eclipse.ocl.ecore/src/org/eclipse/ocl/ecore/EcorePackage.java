@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.ocl.expressions.ExpressionsPackage;
 import org.eclipse.ocl.utilities.UtilitiesPackage;
 
 /**
@@ -9404,154 +9403,154 @@ public interface EcorePackage
 	int OPPOSITE_PROPERTY_CALL_EXP_FEATURE_COUNT = NAVIGATION_CALL_EXP_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 * @since 3.2
-	 */
-	int LONG_LITERAL_EXP__START_POSITION = ExpressionsPackage.LONG_LITERAL_EXP__START_POSITION;
-
-	/**
-	 * The feature id for the '<em><b>End Position</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 * @since 3.2
-	 */
-	int LONG_LITERAL_EXP__END_POSITION = ExpressionsPackage.LONG_LITERAL_EXP__END_POSITION;
-
-	/**
-	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 * @since 3.2
-	 */
-	int LONG_LITERAL_EXP__INTEGER_SYMBOL = ExpressionsPackage.LONG_LITERAL_EXP__INTEGER_SYMBOL;
-
-	/**
-	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 * @since 3.2
-	 */
-	int LONG_LITERAL_EXP__LONG_SYMBOL = ExpressionsPackage.LONG_LITERAL_EXP__LONG_SYMBOL;
-
-	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__EANNOTATIONS = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 0;
+	int LONG_LITERAL_EXP__EANNOTATIONS = INTEGER_LITERAL_EXP__EANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__NAME = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 1;
+	int LONG_LITERAL_EXP__NAME = INTEGER_LITERAL_EXP__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__ORDERED = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 2;
+	int LONG_LITERAL_EXP__ORDERED = INTEGER_LITERAL_EXP__ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__UNIQUE = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 3;
+	int LONG_LITERAL_EXP__UNIQUE = INTEGER_LITERAL_EXP__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__LOWER_BOUND = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 4;
+	int LONG_LITERAL_EXP__LOWER_BOUND = INTEGER_LITERAL_EXP__LOWER_BOUND;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__UPPER_BOUND = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 5;
+	int LONG_LITERAL_EXP__UPPER_BOUND = INTEGER_LITERAL_EXP__UPPER_BOUND;
 
 	/**
 	 * The feature id for the '<em><b>Many</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__MANY = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 6;
+	int LONG_LITERAL_EXP__MANY = INTEGER_LITERAL_EXP__MANY;
 
 	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__REQUIRED = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 7;
+	int LONG_LITERAL_EXP__REQUIRED = INTEGER_LITERAL_EXP__REQUIRED;
 
 	/**
 	 * The feature id for the '<em><b>EType</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__ETYPE = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 8;
+	int LONG_LITERAL_EXP__ETYPE = INTEGER_LITERAL_EXP__ETYPE;
 
 	/**
 	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP__EGENERIC_TYPE = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 9;
+	int LONG_LITERAL_EXP__EGENERIC_TYPE = INTEGER_LITERAL_EXP__EGENERIC_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__START_POSITION = INTEGER_LITERAL_EXP__START_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>End Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__END_POSITION = INTEGER_LITERAL_EXP__END_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__INTEGER_SYMBOL = INTEGER_LITERAL_EXP__INTEGER_SYMBOL;
+
+	/**
+	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__LONG_SYMBOL = INTEGER_LITERAL_EXP_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Long Literal Exp</em>' class.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 3.2
 	 */
-	int LONG_LITERAL_EXP_FEATURE_COUNT = ExpressionsPackage.LONG_LITERAL_EXP_FEATURE_COUNT + 10;
+	int LONG_LITERAL_EXP_FEATURE_COUNT = INTEGER_LITERAL_EXP_FEATURE_COUNT + 1;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.ecore.AnyType <em>Any Type</em>}'.

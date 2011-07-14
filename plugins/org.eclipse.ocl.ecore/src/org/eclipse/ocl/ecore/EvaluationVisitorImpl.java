@@ -37,6 +37,7 @@ import org.eclipse.ocl.ecore.delegate.SettingBehavior;
 import org.eclipse.ocl.ecore.utilities.VisitorExtension;
 import org.eclipse.ocl.expressions.CollectionKind;
 import org.eclipse.ocl.expressions.OCLExpression;
+import org.eclipse.ocl.internal.evaluation.NumberUtil;
 import org.eclipse.ocl.types.CollectionType;
 import org.eclipse.ocl.util.CollectionUtil;
 
@@ -136,6 +137,18 @@ public class EvaluationVisitorImpl
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * Callback for a LongLiteralExp visit.
+	 * 
+	 * @return the value of the integer literal as a java.lang.Long or, if it
+	 *         can be coerced into an Integer without loss, as a
+	 *         java.lang.Integer.
+	 * @since 3.2
+	 */
+	public Object visitLongLiteralExp(LongLiteralExp literalExp) {
+		return NumberUtil.coerceNumber(literalExp.getSymbol());
 	}
 
 }

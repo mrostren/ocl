@@ -16,4 +16,12 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/ocl/ecore/utilities/VisitorExtension.java" type="org.eclipse.ocl.ecore.utilities.VisitorExtension">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.ecore.utilities.VisitorExtension"/>
+                <message_argument value="visitLongLiteralExp(LongLiteralExp)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

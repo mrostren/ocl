@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.CallOperationAction;
 import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.OppositePropertyCallExp;
 import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.ecore.utilities.VisitorExtension;
@@ -142,5 +143,16 @@ public class ValidationVisitor
 		}
 		
 		return Boolean.valueOf(TypeUtil.exactTypeMatch(env, refType, type));
+	}
+
+	/**
+	 * @since 3.2
+	 */
+	public Boolean visitLongLiteralExp(LongLiteralExp literalExp) {
+		if (literalExp.getType()  != env.getOCLStandardLibrary().getInteger()) {
+			String message = OCLMessages.TypeConformanceIntegerLiteral_ERROR_;
+			return validatorError(literalExp, message, "visitLongLiteralExp");//$NON-NLS-1$
+		}
+		return Boolean.TRUE;
 	}
 }

@@ -16,26 +16,24 @@
  */
 package org.eclipse.ocl.ecore.utilities;
 
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.OppositePropertyCallExp;
 
 /**
- * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Visitor Extension</b></em>'.
  * @since 3.1
- * <!-- end-user-doc -->
- *
+ * @author Axel Uhl
  *
  * @see org.eclipse.ocl.utilities.UtilitiesPackage#getVisitorExtension()
  * @model interface="true" abstract="true"
  */
 public interface VisitorExtension<T> {
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model callExpRequired="true"
-	 * @generated
-	 */
 	T visitOppositePropertyCallExp(OppositePropertyCallExp callExp);
+	
+	/**
+	 * @since 3.2
+	 */
+	T visitLongLiteralExp(LongLiteralExp literalExp);
 
 } // VisitorExtension

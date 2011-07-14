@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ocl.EvaluationVisitor;
 import org.eclipse.ocl.ecore.CallOperationAction;
 import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.OppositePropertyCallExp;
 import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.ecore.utilities.VisitorExtension;
@@ -61,4 +62,13 @@ public class TracingEvaluationVisitor
     		return null;
     	}
     }
+
+	@SuppressWarnings("unchecked")
+	public Object visitLongLiteralExp(LongLiteralExp literalExp) {
+    	if (getDelegate() instanceof VisitorExtension) {
+    		return ((VisitorExtension<Object>) getDelegate()).visitLongLiteralExp(literalExp);
+    	} else {
+    		return null;
+    	}
+	}
 }

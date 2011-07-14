@@ -30,6 +30,6 @@ import org.eclipse.emf.ecore.EClassifier;
  * @since 3.2
  */
 public interface LongLiteralExp
-		extends org.eclipse.ocl.expressions.LongLiteralExp<EClassifier>,
-		IntegerLiteralExp {
+		extends IntegerLiteralExp,
+		org.eclipse.ocl.expressions.LongLiteralExp<EClassifier> {
 } // LongLiteralExp

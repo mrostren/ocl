@@ -32,6 +32,7 @@ import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.CallOperationAction;
 import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EnvironmentWithHiddenOpposites;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.OppositePropertyCallExp;
 import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.ecore.utilities.VisitorExtension;
@@ -59,6 +60,10 @@ public class OCLSyntaxHelper
 		
 		public List<Choice> visitOppositePropertyCallExp(OppositePropertyCallExp oppositepropertycallexp) {
 			return getChoices(oppositepropertycallexp, getConstraintType());
+		}
+
+		public List<Choice> visitLongLiteralExp(LongLiteralExp exp) {
+			return getChoices(exp, getConstraintType());
 		}
 	}
 

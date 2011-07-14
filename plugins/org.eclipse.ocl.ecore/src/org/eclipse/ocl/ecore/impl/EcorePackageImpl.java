@@ -1679,11 +1679,11 @@ public class EcorePackageImpl
 		variableExpEClass.getEGenericSuperTypes().add(g1);
 		oppositePropertyCallExpEClass.getESuperTypes().add(
 			this.getNavigationCallExp());
+		g1 = createEGenericType(this.getIntegerLiteralExp());
+		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(theExpressionsPackage.getLongLiteralExp());
 		g2 = createEGenericType(theEcorePackage_1.getEClassifier());
 		g1.getETypeArguments().add(g2);
-		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
-		g1 = createEGenericType(this.getIntegerLiteralExp());
 		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
 
 		// Initialize classes and features; add operations and parameters

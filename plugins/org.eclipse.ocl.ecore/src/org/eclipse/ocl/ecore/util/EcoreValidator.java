@@ -2078,10 +2078,6 @@ public class EcoreValidator
 			result &= validate_EveryMapEntryUnique(longLiteralExp, diagnostics,
 				context);
 		if (result || diagnostics != null)
-			result &= expressionsValidator
-				.validateIntegerLiteralExp_checkIntegerType(longLiteralExp,
-					diagnostics, context);
-		if (result || diagnostics != null)
 			result &= validateOCLExpression_WellFormedName(longLiteralExp,
 				diagnostics, context);
 		if (result || diagnostics != null)
@@ -2096,6 +2092,10 @@ public class EcoreValidator
 		if (result || diagnostics != null)
 			result &= ecoreValidator.validateETypedElement_ValidType(
 				longLiteralExp, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= expressionsValidator
+				.validateIntegerLiteralExp_checkIntegerType(longLiteralExp,
+					diagnostics, context);
 		return result;
 	}
 

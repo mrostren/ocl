@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ocl.ecore.CallOperationAction;
 import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.LongLiteralExp;
 import org.eclipse.ocl.ecore.OppositePropertyCallExp;
 import org.eclipse.ocl.ecore.SendSignalAction;
 
@@ -88,5 +89,12 @@ public class AbstractVisitor<T>
             T sourceResult) {
         return result;
     }
+
+	/**
+	 * @since 3.2
+	 */
+	public T visitLongLiteralExp(LongLiteralExp literalExp) {
+		return result;
+	}
     
 }
