@@ -19,6 +19,7 @@ package org.eclipse.ocl.expressions;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Long Literal Exp</b></em>'.
+ * @since 3.2
  * <!-- end-user-doc -->
  *
  * <p>

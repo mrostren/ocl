@@ -1,5 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.ocl.uml" version="2">
+    <resource path="src/org/eclipse/ocl/uml/UMLFactory.java" type="org.eclipse.ocl.uml.UMLFactory">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLFactory"/>
+                <message_argument value="createLongLiteralExp()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/uml/UMLPackage.java" type="org.eclipse.ocl.uml.UMLPackage">
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__CLIENT_DEPENDENCY"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__EANNOTATIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__END_POSITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__INTEGER_SYMBOL"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__NAMESPACE"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__NAME_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__OWNER"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__START_POSITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__TYPE"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__VISIBILITY"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage"/>
+                <message_argument value="getLongLiteralExp()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/uml/UMLPackage.java" type="org.eclipse.ocl.uml.UMLPackage$Literals">
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.uml.UMLPackage.Literals"/>
+                <message_argument value="LONG_LITERAL_EXP"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/ocl/uml/impl/AnyTypeImpl.java" type="org.eclipse.ocl.uml.impl.AnyTypeImpl">
         <filter id="576720909">
             <message_arguments>

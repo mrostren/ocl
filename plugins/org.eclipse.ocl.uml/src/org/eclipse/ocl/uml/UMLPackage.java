@@ -9464,159 +9464,26 @@ public interface UMLPackage
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.uml.impl.LongLiteralExpImpl <em>Long Literal Exp</em>}' class.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.ocl.uml.impl.LongLiteralExpImpl
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getLongLiteralExp()
 	 * @generated
 	 */
-	int LONG_LITERAL_EXP = 30;
-
-	/**
-	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__EANNOTATIONS = INTEGER_LITERAL_EXP__EANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__OWNED_ELEMENT = INTEGER_LITERAL_EXP__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__OWNER = INTEGER_LITERAL_EXP__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__OWNED_COMMENT = INTEGER_LITERAL_EXP__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__NAME = INTEGER_LITERAL_EXP__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__VISIBILITY = INTEGER_LITERAL_EXP__VISIBILITY;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__QUALIFIED_NAME = INTEGER_LITERAL_EXP__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__CLIENT_DEPENDENCY = INTEGER_LITERAL_EXP__CLIENT_DEPENDENCY;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__NAMESPACE = INTEGER_LITERAL_EXP__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Name Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__NAME_EXPRESSION = INTEGER_LITERAL_EXP__NAME_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__TYPE = INTEGER_LITERAL_EXP__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__START_POSITION = INTEGER_LITERAL_EXP__START_POSITION;
-
-	/**
-	 * The feature id for the '<em><b>End Position</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__END_POSITION = INTEGER_LITERAL_EXP__END_POSITION;
-
-	/**
-	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__INTEGER_SYMBOL = INTEGER_LITERAL_EXP__INTEGER_SYMBOL;
-
-	/**
-	 * The number of structural features of the '<em>Long Literal Exp</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP_FEATURE_COUNT = INTEGER_LITERAL_EXP_FEATURE_COUNT + 0;
+	int LONG_LITERAL_EXP = 50;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.uml.impl.UnlimitedNaturalLiteralExpImpl <em>Unlimited Natural Literal Exp</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * This value may change when the model code is regenerated.
 	 * It is subject to change without notice.
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.ocl.uml.impl.UnlimitedNaturalLiteralExpImpl
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getUnlimitedNaturalLiteralExp()
 	 * @generated
 	 */
-	int UNLIMITED_NATURAL_LITERAL_EXP = 31;
+	int UNLIMITED_NATURAL_LITERAL_EXP = 30;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -9804,7 +9671,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getInvalidLiteralExp()
 	 * @generated
 	 */
-	int INVALID_LITERAL_EXP = 32;
+	int INVALID_LITERAL_EXP = 31;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -9970,7 +9837,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getLoopExp()
 	 * @generated
 	 */
-	int LOOP_EXP = 34;
+	int LOOP_EXP = 33;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -10191,7 +10058,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getIterateExp()
 	 * @generated
 	 */
-	int ITERATE_EXP = 33;
+	int ITERATE_EXP = 32;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -10423,7 +10290,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getIteratorExp()
 	 * @generated
 	 */
-	int ITERATOR_EXP = 35;
+	int ITERATOR_EXP = 34;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -10644,7 +10511,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getLetExp()
 	 * @generated
 	 */
-	int LET_EXP = 36;
+	int LET_EXP = 35;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -10832,7 +10699,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getMessageExp()
 	 * @generated
 	 */
-	int MESSAGE_EXP = 37;
+	int MESSAGE_EXP = 36;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -11064,7 +10931,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getNullLiteralExp()
 	 * @generated
 	 */
-	int NULL_LITERAL_EXP = 38;
+	int NULL_LITERAL_EXP = 37;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -11230,7 +11097,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getOperationCallExp()
 	 * @generated
 	 */
-	int OPERATION_CALL_EXP = 39;
+	int OPERATION_CALL_EXP = 38;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -11473,7 +11340,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getPropertyCallExp()
 	 * @generated
 	 */
-	int PROPERTY_CALL_EXP = 40;
+	int PROPERTY_CALL_EXP = 39;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -11716,7 +11583,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getRealLiteralExp()
 	 * @generated
 	 */
-	int REAL_LITERAL_EXP = 41;
+	int REAL_LITERAL_EXP = 40;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -11893,7 +11760,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getStateExp()
 	 * @generated
 	 */
-	int STATE_EXP = 42;
+	int STATE_EXP = 41;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -12070,7 +11937,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getStringLiteralExp()
 	 * @generated
 	 */
-	int STRING_LITERAL_EXP = 43;
+	int STRING_LITERAL_EXP = 42;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -12247,7 +12114,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getTupleLiteralExp()
 	 * @generated
 	 */
-	int TUPLE_LITERAL_EXP = 44;
+	int TUPLE_LITERAL_EXP = 43;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -12424,7 +12291,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getTupleLiteralPart()
 	 * @generated
 	 */
-	int TUPLE_LITERAL_PART = 45;
+	int TUPLE_LITERAL_PART = 44;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -12634,7 +12501,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getTypeExp()
 	 * @generated
 	 */
-	int TYPE_EXP = 46;
+	int TYPE_EXP = 45;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -12811,7 +12678,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getUnspecifiedValueExp()
 	 * @generated
 	 */
-	int UNSPECIFIED_VALUE_EXP = 47;
+	int UNSPECIFIED_VALUE_EXP = 46;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -12999,7 +12866,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 48;
+	int VARIABLE = 47;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -13209,7 +13076,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getVariableExp()
 	 * @generated
 	 */
-	int VARIABLE_EXP = 49;
+	int VARIABLE_EXP = 48;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -13387,7 +13254,7 @@ public interface UMLPackage
 	 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getTemplateParameterType()
 	 * @generated
 	 */
-	int TEMPLATE_PARAMETER_TYPE = 50;
+	int TEMPLATE_PARAMETER_TYPE = 49;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -13870,6 +13737,156 @@ public interface UMLPackage
 	int TEMPLATE_PARAMETER_TYPE_FEATURE_COUNT = org.eclipse.uml2.uml.UMLPackage.CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__EANNOTATIONS = INTEGER_LITERAL_EXP__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__OWNED_ELEMENT = INTEGER_LITERAL_EXP__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__OWNER = INTEGER_LITERAL_EXP__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__OWNED_COMMENT = INTEGER_LITERAL_EXP__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__NAME = INTEGER_LITERAL_EXP__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__VISIBILITY = INTEGER_LITERAL_EXP__VISIBILITY;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__QUALIFIED_NAME = INTEGER_LITERAL_EXP__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__CLIENT_DEPENDENCY = INTEGER_LITERAL_EXP__CLIENT_DEPENDENCY;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__NAMESPACE = INTEGER_LITERAL_EXP__NAMESPACE;
+
+	/**
+	 * The feature id for the '<em><b>Name Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__NAME_EXPRESSION = INTEGER_LITERAL_EXP__NAME_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__TYPE = INTEGER_LITERAL_EXP__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__START_POSITION = INTEGER_LITERAL_EXP__START_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>End Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__END_POSITION = INTEGER_LITERAL_EXP__END_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__INTEGER_SYMBOL = INTEGER_LITERAL_EXP__INTEGER_SYMBOL;
+
+	/**
+	 * The number of structural features of the '<em>Long Literal Exp</em>' class.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP_FEATURE_COUNT = INTEGER_LITERAL_EXP_FEATURE_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.uml.AnyType <em>Any Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14238,6 +14255,7 @@ public interface UMLPackage
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.uml.LongLiteralExp <em>Long Literal Exp</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Long Literal Exp</em>'.
 	 * @see org.eclipse.ocl.uml.LongLiteralExp
@@ -14839,6 +14857,7 @@ public interface UMLPackage
 		/**
 		 * The meta object literal for the '{@link org.eclipse.ocl.uml.impl.LongLiteralExpImpl <em>Long Literal Exp</em>}' class.
 		 * <!-- begin-user-doc -->
+		 * @since 3.2
 		 * <!-- end-user-doc -->
 		 * @see org.eclipse.ocl.uml.impl.LongLiteralExpImpl
 		 * @see org.eclipse.ocl.uml.impl.UMLPackageImpl#getLongLiteralExp()

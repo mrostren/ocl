@@ -1,3 +1,137 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.ocl" version="2">
+    <resource path="src/org/eclipse/ocl/cst/CSTPackage.java" type="org.eclipse.ocl.cst.CSTPackage">
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.cst.CSTPackage"/>
+                <message_argument value="INTEGER_LITERAL_EXP_CS_FEATURE_COUNT"/>
+                <message_argument value="7"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.cst.CSTPackage"/>
+                <message_argument value="INTEGER_LITERAL_EXP_CS__LONG_SYMBOL"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.cst.CSTPackage"/>
+                <message_argument value="getIntegerLiteralExpCS_LongSymbol()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/cst/IntegerLiteralExpCS.java" type="org.eclipse.ocl.cst.IntegerLiteralExpCS">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.cst.IntegerLiteralExpCS"/>
+                <message_argument value="getLongSymbol()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.cst.IntegerLiteralExpCS"/>
+                <message_argument value="setLongSymbol(Long)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/expressions/ExpressionsFactory.java" type="org.eclipse.ocl.expressions.ExpressionsFactory">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsFactory"/>
+                <message_argument value="createLongLiteralExp()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/expressions/ExpressionsPackage.java" type="org.eclipse.ocl.expressions.ExpressionsPackage">
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="COLLECTION_KIND"/>
+                <message_argument value="35"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="LONG_LITERAL_EXP"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="LONG_LITERAL_EXP_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__END_POSITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__INTEGER_SYMBOL"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__LONG_SYMBOL"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="LONG_LITERAL_EXP__START_POSITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="getLongLiteralExp()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.expressions.ExpressionsPackage"/>
+                <message_argument value="getLongLiteralExp_LongSymbol()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/util/CollectionUtil.java" type="org.eclipse.ocl.util.CollectionUtil">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.util.CollectionUtil"/>
+                <message_argument value="at(Collection&lt;E&gt;, int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.util.CollectionUtil"/>
+                <message_argument value="insertAt(Collection&lt;E&gt;, int, E)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.util.CollectionUtil"/>
+                <message_argument value="subOrderedSet(Collection&lt;E&gt;, int, int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.util.CollectionUtil"/>
+                <message_argument value="subSequence(Collection&lt;E&gt;, int, int)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/ocl/utilities/OCLFactory.java" type="org.eclipse.ocl.utilities.OCLFactory">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.ocl.utilities.OCLFactory"/>
+                <message_argument value="createLongLiteralExp()"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

@@ -26,6 +26,7 @@ import org.eclipse.ocl.expressions.operations.LongLiteralExpOperations;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Long Literal Exp</b></em>'.
+ * @since 3.2
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:

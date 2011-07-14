@@ -1093,69 +1093,26 @@ public interface ExpressionsPackage
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.LongLiteralExpImpl <em>Long Literal Exp</em>}' class.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.ocl.expressions.impl.LongLiteralExpImpl
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getLongLiteralExp()
 	 * @generated
 	 */
-	int LONG_LITERAL_EXP = 16;
-
-	/**
-	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__START_POSITION = INTEGER_LITERAL_EXP__START_POSITION;
-
-	/**
-	 * The feature id for the '<em><b>End Position</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__END_POSITION = INTEGER_LITERAL_EXP__END_POSITION;
-
-	/**
-	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__INTEGER_SYMBOL = INTEGER_LITERAL_EXP__INTEGER_SYMBOL;
-
-	/**
-	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP__LONG_SYMBOL = INTEGER_LITERAL_EXP_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Long Literal Exp</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LONG_LITERAL_EXP_FEATURE_COUNT = INTEGER_LITERAL_EXP_FEATURE_COUNT + 1;
+	int LONG_LITERAL_EXP = 35;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.UnlimitedNaturalLiteralExpImpl <em>Unlimited Natural Literal Exp</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * This value may change when the model code is regenerated.
 	 * It is subject to change without notice.
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.ocl.expressions.impl.UnlimitedNaturalLiteralExpImpl
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getUnlimitedNaturalLiteralExp()
 	 * @generated
 	 */
-	int UNLIMITED_NATURAL_LITERAL_EXP = 17;
+	int UNLIMITED_NATURAL_LITERAL_EXP = 16;
 
 	/**
 	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
@@ -1222,7 +1179,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getInvalidLiteralExp()
 	 * @generated
 	 */
-	int INVALID_LITERAL_EXP = 18;
+	int INVALID_LITERAL_EXP = 17;
 
 	/**
 	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
@@ -1267,7 +1224,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getLoopExp()
 	 * @generated
 	 */
-	int LOOP_EXP = 20;
+	int LOOP_EXP = 19;
 
 	/**
 	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
@@ -1367,7 +1324,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getIterateExp()
 	 * @generated
 	 */
-	int ITERATE_EXP = 19;
+	int ITERATE_EXP = 18;
 
 	/**
 	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
@@ -1478,7 +1435,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getIteratorExp()
 	 * @generated
 	 */
-	int ITERATOR_EXP = 22;
+	int ITERATOR_EXP = 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.LetExpImpl <em>Let Exp</em>}' class.
@@ -1490,7 +1447,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getLetExp()
 	 * @generated
 	 */
-	int LET_EXP = 23;
+	int LET_EXP = 22;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.MessageExpImpl <em>Message Exp</em>}' class.
@@ -1502,7 +1459,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getMessageExp()
 	 * @generated
 	 */
-	int MESSAGE_EXP = 24;
+	int MESSAGE_EXP = 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.NullLiteralExpImpl <em>Null Literal Exp</em>}' class.
@@ -1514,7 +1471,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getNullLiteralExp()
 	 * @generated
 	 */
-	int NULL_LITERAL_EXP = 25;
+	int NULL_LITERAL_EXP = 24;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.OperationCallExpImpl <em>Operation Call Exp</em>}' class.
@@ -1526,7 +1483,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getOperationCallExp()
 	 * @generated
 	 */
-	int OPERATION_CALL_EXP = 26;
+	int OPERATION_CALL_EXP = 25;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.PropertyCallExpImpl <em>Property Call Exp</em>}' class.
@@ -1538,7 +1495,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getPropertyCallExp()
 	 * @generated
 	 */
-	int PROPERTY_CALL_EXP = 27;
+	int PROPERTY_CALL_EXP = 26;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.RealLiteralExpImpl <em>Real Literal Exp</em>}' class.
@@ -1550,7 +1507,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getRealLiteralExp()
 	 * @generated
 	 */
-	int REAL_LITERAL_EXP = 28;
+	int REAL_LITERAL_EXP = 27;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.StateExpImpl <em>State Exp</em>}' class.
@@ -1562,7 +1519,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getStateExp()
 	 * @generated
 	 */
-	int STATE_EXP = 29;
+	int STATE_EXP = 28;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.StringLiteralExpImpl <em>String Literal Exp</em>}' class.
@@ -1574,7 +1531,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getStringLiteralExp()
 	 * @generated
 	 */
-	int STRING_LITERAL_EXP = 30;
+	int STRING_LITERAL_EXP = 29;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.TupleLiteralExpImpl <em>Tuple Literal Exp</em>}' class.
@@ -1586,7 +1543,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getTupleLiteralExp()
 	 * @generated
 	 */
-	int TUPLE_LITERAL_EXP = 31;
+	int TUPLE_LITERAL_EXP = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.TupleLiteralPartImpl <em>Tuple Literal Part</em>}' class.
@@ -1598,7 +1555,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getTupleLiteralPart()
 	 * @generated
 	 */
-	int TUPLE_LITERAL_PART = 32;
+	int TUPLE_LITERAL_PART = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.TypeExpImpl <em>Type Exp</em>}' class.
@@ -1610,7 +1567,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getTypeExp()
 	 * @generated
 	 */
-	int TYPE_EXP = 33;
+	int TYPE_EXP = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.UnspecifiedValueExpImpl <em>Unspecified Value Exp</em>}' class.
@@ -1622,7 +1579,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getUnspecifiedValueExp()
 	 * @generated
 	 */
-	int UNSPECIFIED_VALUE_EXP = 34;
+	int UNSPECIFIED_VALUE_EXP = 33;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.impl.VariableImpl <em>Variable</em>}' class.
@@ -1634,7 +1591,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 21;
+	int VARIABLE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
@@ -2570,7 +2527,7 @@ public interface ExpressionsPackage
 	 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getVariableExp()
 	 * @generated
 	 */
-	int VARIABLE_EXP = 35;
+	int VARIABLE_EXP = 34;
 
 	/**
 	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
@@ -2615,6 +2572,56 @@ public interface ExpressionsPackage
 	 * @ordered
 	 */
 	int VARIABLE_EXP_FEATURE_COUNT = OCL_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Start Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__START_POSITION = INTEGER_LITERAL_EXP__START_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>End Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__END_POSITION = INTEGER_LITERAL_EXP__END_POSITION;
+
+	/**
+	 * The feature id for the '<em><b>Integer Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__INTEGER_SYMBOL = INTEGER_LITERAL_EXP__INTEGER_SYMBOL;
+
+	/**
+	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP__LONG_SYMBOL = INTEGER_LITERAL_EXP_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Long Literal Exp</em>' class.
+	 * <!-- begin-user-doc -->
+	 * @since 3.2
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LONG_LITERAL_EXP_FEATURE_COUNT = INTEGER_LITERAL_EXP_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ocl.expressions.CollectionKind <em>Collection Kind</em>}' enum.
@@ -3159,6 +3166,7 @@ public interface ExpressionsPackage
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.ocl.expressions.LongLiteralExp <em>Long Literal Exp</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Long Literal Exp</em>'.
 	 * @see org.eclipse.ocl.expressions.LongLiteralExp
@@ -3169,6 +3177,7 @@ public interface ExpressionsPackage
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.ocl.expressions.LongLiteralExp#getLongSymbol <em>Long Symbol</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Long Symbol</em>'.
 	 * @see org.eclipse.ocl.expressions.LongLiteralExp#getLongSymbol()
@@ -3962,6 +3971,7 @@ public interface ExpressionsPackage
 		/**
 		 * The meta object literal for the '{@link org.eclipse.ocl.expressions.impl.LongLiteralExpImpl <em>Long Literal Exp</em>}' class.
 		 * <!-- begin-user-doc -->
+		 * @since 3.2
 		 * <!-- end-user-doc -->
 		 * @see org.eclipse.ocl.expressions.impl.LongLiteralExpImpl
 		 * @see org.eclipse.ocl.expressions.impl.ExpressionsPackageImpl#getLongLiteralExp()
@@ -3972,6 +3982,7 @@ public interface ExpressionsPackage
 		/**
 		 * The meta object literal for the '<em><b>Long Symbol</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
+		 * @since 3.2
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */

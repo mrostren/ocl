@@ -418,11 +418,6 @@
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCL.ecore#//expressions/NumericLiteralExp">
         <genTypeParameters ecoreTypeParameter="OCL.ecore#//expressions/NumericLiteralExp/C"/>
       </genClasses>
-      <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCL.ecore#//expressions/LongLiteralExp">
-        <genTypeParameters ecoreTypeParameter="OCL.ecore#//expressions/LongLiteralExp/C"/>
-        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute OCL.ecore#//expressions/LongLiteralExp/longSymbol"/>
-        <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="OCL.ecore#//expressions/LongLiteralExp/getSymbol"/>
-      </genClasses>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCL.ecore#//expressions/UnlimitedNaturalLiteralExp">
         <genTypeParameters ecoreTypeParameter="OCL.ecore#//expressions/UnlimitedNaturalLiteralExp/C"/>
         <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute OCL.ecore#//expressions/UnlimitedNaturalLiteralExp/integerSymbol"/>
@@ -636,6 +631,11 @@
       </genClasses>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCL.ecore#//expressions/UnspecifiedValueExp">
         <genTypeParameters ecoreTypeParameter="OCL.ecore#//expressions/UnspecifiedValueExp/C"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCL.ecore#//expressions/LongLiteralExp">
+        <genTypeParameters ecoreTypeParameter="OCL.ecore#//expressions/LongLiteralExp/C"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute OCL.ecore#//expressions/LongLiteralExp/longSymbol"/>
+        <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="OCL.ecore#//expressions/LongLiteralExp/getSymbol"/>
       </genClasses>
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="OCL.ecore#//expressions/VariableExp">
         <genTypeParameters ecoreTypeParameter="OCL.ecore#//expressions/VariableExp/C"/>

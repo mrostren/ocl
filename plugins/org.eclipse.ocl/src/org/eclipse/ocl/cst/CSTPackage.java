@@ -3483,6 +3483,7 @@ public interface CSTPackage
 	/**
 	 * The feature id for the '<em><b>Long Symbol</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
@@ -3494,6 +3495,7 @@ public interface CSTPackage
 	 * <!-- begin-user-doc -->
 	 * This value may change when the model code is regenerated.
 	 * It is subject to change without notice.
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
@@ -6244,6 +6246,7 @@ public interface CSTPackage
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.ocl.cst.IntegerLiteralExpCS#getLongSymbol <em>Long Symbol</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Long Symbol</em>'.
 	 * @see org.eclipse.ocl.cst.IntegerLiteralExpCS#getLongSymbol()
@@ -7571,6 +7574,7 @@ public interface CSTPackage
 		/**
 		 * The meta object literal for the '<em><b>Long Symbol</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
+	 * @since 3.2
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */

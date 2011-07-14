@@ -743,6 +743,7 @@ public class CollectionUtil {
      * @return the source collection with the object inserted at the index
      * 
      * @throws IndexOutOfBoundsException if the index is out of bounds
+     * @since 3.2
      */
     public static <E> Collection<E> insertAt(Collection<E> self, long index, E object) {
         index = index - 1;
@@ -789,6 +790,7 @@ public class CollectionUtil {
      * 
      * @throws IndexOutOfBoundsException if an index is out of bounds
      * @throws IllegalArgumentException if the lower bound is greater than the upper
+     * @since 3.2
      */
     public static <E> Collection<E> subOrderedSet(Collection<E> self, long lower,
             long upper) {
@@ -836,6 +838,7 @@ public class CollectionUtil {
      * 
      * @throws IndexOutOfBoundsException if an index is out of bounds
      * @throws IllegalArgumentException if the lower bound is greater than the upper
+     * @since 3.2
      */
     public static <E> Collection<E> subSequence(Collection<E> self, long lower,
             long upper) {
@@ -879,6 +882,7 @@ public class CollectionUtil {
      * @return the object at the specified index of the source collection
      * 
      * @throws IndexOutOfBoundsException if the index is out of bounds
+     * @since 3.2
      */
     public static <E> E at(Collection<E> self, long index) {
         index = index - 1;

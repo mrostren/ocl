@@ -926,6 +926,7 @@ public class ExpressionsPackageImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -935,6 +936,7 @@ public class ExpressionsPackageImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -1291,9 +1293,6 @@ public class ExpressionsPackageImpl
 
 		numericLiteralExpEClass = createEClass(NUMERIC_LITERAL_EXP);
 
-		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
-		createEAttribute(longLiteralExpEClass, LONG_LITERAL_EXP__LONG_SYMBOL);
-
 		unlimitedNaturalLiteralExpEClass = createEClass(UNLIMITED_NATURAL_LITERAL_EXP);
 		createEAttribute(unlimitedNaturalLiteralExpEClass,
 			UNLIMITED_NATURAL_LITERAL_EXP__INTEGER_SYMBOL);
@@ -1362,6 +1361,9 @@ public class ExpressionsPackageImpl
 
 		variableExpEClass = createEClass(VARIABLE_EXP);
 		createEReference(variableExpEClass, VARIABLE_EXP__REFERRED_VARIABLE);
+
+		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
+		createEAttribute(longLiteralExpEClass, LONG_LITERAL_EXP__LONG_SYMBOL);
 
 		// Create enums
 		collectionKindEEnum = createEEnum(COLLECTION_KIND);
@@ -1451,8 +1453,6 @@ public class ExpressionsPackageImpl
 			integerLiteralExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter numericLiteralExpEClass_C = addETypeParameter(
 			numericLiteralExpEClass, "C"); //$NON-NLS-1$
-		ETypeParameter longLiteralExpEClass_C = addETypeParameter(
-			longLiteralExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter unlimitedNaturalLiteralExpEClass_C = addETypeParameter(
 			unlimitedNaturalLiteralExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter invalidLiteralExpEClass_C = addETypeParameter(
@@ -1509,6 +1509,8 @@ public class ExpressionsPackageImpl
 			variableExpEClass, "C"); //$NON-NLS-1$
 		ETypeParameter variableExpEClass_PM = addETypeParameter(
 			variableExpEClass, "PM"); //$NON-NLS-1$
+		ETypeParameter longLiteralExpEClass_C = addETypeParameter(
+			longLiteralExpEClass, "C"); //$NON-NLS-1$
 
 		// Set bounds for type parameters
 
@@ -1587,10 +1589,6 @@ public class ExpressionsPackageImpl
 		g2 = createEGenericType(numericLiteralExpEClass_C);
 		g1.getETypeArguments().add(g2);
 		numericLiteralExpEClass.getEGenericSuperTypes().add(g1);
-		g1 = createEGenericType(this.getIntegerLiteralExp());
-		g2 = createEGenericType(longLiteralExpEClass_C);
-		g1.getETypeArguments().add(g2);
-		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getNumericLiteralExp());
 		g2 = createEGenericType(unlimitedNaturalLiteralExpEClass_C);
 		g1.getETypeArguments().add(g2);
@@ -1685,6 +1683,10 @@ public class ExpressionsPackageImpl
 		g2 = createEGenericType(variableExpEClass_C);
 		g1.getETypeArguments().add(g2);
 		variableExpEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getIntegerLiteralExp());
+		g2 = createEGenericType(longLiteralExpEClass_C);
+		g1.getETypeArguments().add(g2);
+		longLiteralExpEClass.getEGenericSuperTypes().add(g1);
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(
@@ -2010,18 +2012,6 @@ public class ExpressionsPackageImpl
 			numericLiteralExpEClass,
 			NumericLiteralExp.class,
 			"NumericLiteralExp", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(
-			longLiteralExpEClass,
-			LongLiteralExp.class,
-			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(
-			getLongLiteralExp_LongSymbol(),
-			ecorePackage.getELongObject(),
-			"longSymbol", null, 0, 1, LongLiteralExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		addEOperation(longLiteralExpEClass, ecorePackage.getELongObject(),
-			"getSymbol", 0, 1, IS_UNIQUE, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 			unlimitedNaturalLiteralExpEClass,
@@ -2583,6 +2573,18 @@ public class ExpressionsPackageImpl
 		g2 = createEGenericType(ecorePackage.getEJavaObject());
 		g1.getETypeArguments().add(g2);
 		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+			longLiteralExpEClass,
+			LongLiteralExp.class,
+			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+			getLongLiteralExp_LongSymbol(),
+			ecorePackage.getELongObject(),
+			"longSymbol", null, 0, 1, LongLiteralExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		addEOperation(longLiteralExpEClass, ecorePackage.getELongObject(),
+			"getSymbol", 0, 1, IS_UNIQUE, !IS_ORDERED); //$NON-NLS-1$
 
 		// Initialize enums and add enum literals
 		initEEnum(collectionKindEEnum, CollectionKind.class, "CollectionKind"); //$NON-NLS-1$

@@ -117,8 +117,6 @@ public class ExpressionsFactoryImpl
 				return createIfExp();
 			case ExpressionsPackage.INTEGER_LITERAL_EXP :
 				return createIntegerLiteralExp();
-			case ExpressionsPackage.LONG_LITERAL_EXP :
-				return createLongLiteralExp();
 			case ExpressionsPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return createUnlimitedNaturalLiteralExp();
 			case ExpressionsPackage.INVALID_LITERAL_EXP :
@@ -155,6 +153,8 @@ public class ExpressionsFactoryImpl
 				return createUnspecifiedValueExp();
 			case ExpressionsPackage.VARIABLE_EXP :
 				return createVariableExp();
+			case ExpressionsPackage.LONG_LITERAL_EXP :
+				return createLongLiteralExp();
 			default :
 				throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -275,6 +275,7 @@ public class ExpressionsFactoryImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

@@ -856,6 +856,7 @@ public class UMLPackageImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -1150,8 +1151,6 @@ public class UMLPackageImpl
 
 		numericLiteralExpEClass = createEClass(NUMERIC_LITERAL_EXP);
 
-		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
-
 		unlimitedNaturalLiteralExpEClass = createEClass(UNLIMITED_NATURAL_LITERAL_EXP);
 
 		invalidLiteralExpEClass = createEClass(INVALID_LITERAL_EXP);
@@ -1193,6 +1192,8 @@ public class UMLPackageImpl
 		templateParameterTypeEClass = createEClass(TEMPLATE_PARAMETER_TYPE);
 		createEReference(templateParameterTypeEClass,
 			TEMPLATE_PARAMETER_TYPE__OWNED_OPERATION);
+
+		longLiteralExpEClass = createEClass(LONG_LITERAL_EXP);
 	}
 
 	/**
@@ -1458,7 +1459,6 @@ public class UMLPackageImpl
 		g2 = createEGenericType(theUMLPackage_1.getClassifier());
 		g1.getETypeArguments().add(g2);
 		numericLiteralExpEClass.getEGenericSuperTypes().add(g1);
-		longLiteralExpEClass.getESuperTypes().add(this.getIntegerLiteralExp());
 		g1 = createEGenericType(this.getNumericLiteralExp());
 		unlimitedNaturalLiteralExpEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(theExpressionsPackage
@@ -1606,6 +1606,7 @@ public class UMLPackageImpl
 		g2 = createEGenericType(theUMLPackage_1.getOperation());
 		g1.getETypeArguments().add(g2);
 		templateParameterTypeEClass.getEGenericSuperTypes().add(g1);
+		longLiteralExpEClass.getESuperTypes().add(this.getIntegerLiteralExp());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(anyTypeEClass, AnyType.class,
@@ -1779,11 +1780,6 @@ public class UMLPackageImpl
 			"NumericLiteralExp", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(
-			longLiteralExpEClass,
-			LongLiteralExp.class,
-			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(
 			unlimitedNaturalLiteralExpEClass,
 			UnlimitedNaturalLiteralExp.class,
 			"UnlimitedNaturalLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1881,6 +1877,11 @@ public class UMLPackageImpl
 			theUMLPackage_1.getOperation(),
 			null,
 			"ownedOperation", null, 0, -1, TemplateParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+			longLiteralExpEClass,
+			LongLiteralExp.class,
+			"LongLiteralExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		// Create resource
 		createResource(eNS_URI);

@@ -158,8 +158,6 @@ public class UMLFactoryImpl
 				return createIfExp();
 			case UMLPackage.INTEGER_LITERAL_EXP :
 				return createIntegerLiteralExp();
-			case UMLPackage.LONG_LITERAL_EXP :
-				return createLongLiteralExp();
 			case UMLPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return createUnlimitedNaturalLiteralExp();
 			case UMLPackage.INVALID_LITERAL_EXP :
@@ -198,6 +196,8 @@ public class UMLFactoryImpl
 				return createVariableExp();
 			case UMLPackage.TEMPLATE_PARAMETER_TYPE :
 				return createTemplateParameterType();
+			case UMLPackage.LONG_LITERAL_EXP :
+				return createLongLiteralExp();
 			default :
 				throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -426,6 +426,7 @@ public class UMLFactoryImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

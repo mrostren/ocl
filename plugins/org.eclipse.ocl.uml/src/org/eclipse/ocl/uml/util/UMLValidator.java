@@ -265,9 +265,6 @@ public class UMLValidator
 			case UMLPackage.NUMERIC_LITERAL_EXP :
 				return validateNumericLiteralExp((NumericLiteralExp) value,
 					diagnostics, context);
-			case UMLPackage.LONG_LITERAL_EXP :
-				return validateLongLiteralExp((LongLiteralExp) value,
-					diagnostics, context);
 			case UMLPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return validateUnlimitedNaturalLiteralExp(
 					(UnlimitedNaturalLiteralExp) value, diagnostics, context);
@@ -323,6 +320,9 @@ public class UMLValidator
 			case UMLPackage.TEMPLATE_PARAMETER_TYPE :
 				return validateTemplateParameterType(
 					(TemplateParameterType) value, diagnostics, context);
+			case UMLPackage.LONG_LITERAL_EXP :
+				return validateLongLiteralExp((LongLiteralExp) value,
+					diagnostics, context);
 			default :
 				return true;
 		}
@@ -2432,6 +2432,7 @@ public class UMLValidator
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

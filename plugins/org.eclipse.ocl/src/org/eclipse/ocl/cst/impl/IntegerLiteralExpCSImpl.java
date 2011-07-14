@@ -64,6 +64,7 @@ public class IntegerLiteralExpCSImpl
 	/**
 	 * The default value of the '{@link #getLongSymbol() <em>Long Symbol</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @see #getLongSymbol()
 	 * @generated
@@ -74,6 +75,7 @@ public class IntegerLiteralExpCSImpl
 	/**
 	 * The cached value of the '{@link #getLongSymbol() <em>Long Symbol</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @see #getLongSymbol()
 	 * @generated
@@ -125,6 +127,7 @@ public class IntegerLiteralExpCSImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -134,6 +137,7 @@ public class IntegerLiteralExpCSImpl
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

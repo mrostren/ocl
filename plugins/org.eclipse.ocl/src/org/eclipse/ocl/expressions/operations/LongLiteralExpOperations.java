@@ -21,6 +21,7 @@ import org.eclipse.ocl.expressions.LongLiteralExp;
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Long Literal Exp</b></em>' model objects.
+ * @since 3.2
  * <!-- end-user-doc -->
  *
  * <p>

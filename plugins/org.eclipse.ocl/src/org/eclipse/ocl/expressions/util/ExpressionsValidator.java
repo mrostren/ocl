@@ -496,9 +496,6 @@ public class ExpressionsValidator
 			case ExpressionsPackage.NUMERIC_LITERAL_EXP :
 				return validateNumericLiteralExp((NumericLiteralExp<?>) value,
 					diagnostics, context);
-			case ExpressionsPackage.LONG_LITERAL_EXP :
-				return validateLongLiteralExp((LongLiteralExp<?>) value,
-					diagnostics, context);
 			case ExpressionsPackage.UNLIMITED_NATURAL_LITERAL_EXP :
 				return validateUnlimitedNaturalLiteralExp(
 					(UnlimitedNaturalLiteralExp<?>) value, diagnostics, context);
@@ -554,6 +551,9 @@ public class ExpressionsValidator
 					(UnspecifiedValueExp<?>) value, diagnostics, context);
 			case ExpressionsPackage.VARIABLE_EXP :
 				return validateVariableExp((VariableExp<?, ?>) value,
+					diagnostics, context);
+			case ExpressionsPackage.LONG_LITERAL_EXP :
+				return validateLongLiteralExp((LongLiteralExp<?>) value,
 					diagnostics, context);
 			case ExpressionsPackage.COLLECTION_KIND :
 				return validateCollectionKind((CollectionKind) value,
@@ -1090,6 +1090,7 @@ public class ExpressionsValidator
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

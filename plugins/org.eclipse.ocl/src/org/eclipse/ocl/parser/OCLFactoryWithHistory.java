@@ -158,6 +158,9 @@ public class OCLFactoryWithHistory implements OCLFactory {
         return record(delegate.<C>createIntegerLiteralExp());
     }
 
+    /**
+	 * @since 3.2
+	 */
     public <C> LongLiteralExp<C> createLongLiteralExp() {
         return record(delegate.<C>createLongLiteralExp());
     }

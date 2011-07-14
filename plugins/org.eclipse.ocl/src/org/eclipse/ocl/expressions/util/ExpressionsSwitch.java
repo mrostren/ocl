@@ -392,29 +392,6 @@ public class ExpressionsSwitch<T>
 					result = defaultCase(theEObject);
 				return result;
 			}
-			case ExpressionsPackage.LONG_LITERAL_EXP : {
-				LongLiteralExp<?> longLiteralExp = (LongLiteralExp<?>) theEObject;
-				T result = caseLongLiteralExp(longLiteralExp);
-				if (result == null)
-					result = caseIntegerLiteralExp(longLiteralExp);
-				if (result == null)
-					result = caseNumericLiteralExp(longLiteralExp);
-				if (result == null)
-					result = casePrimitiveLiteralExp(longLiteralExp);
-				if (result == null)
-					result = caseLiteralExp(longLiteralExp);
-				if (result == null)
-					result = caseOCLExpression(longLiteralExp);
-				if (result == null)
-					result = caseTypedElement(longLiteralExp);
-				if (result == null)
-					result = caseVisitable(longLiteralExp);
-				if (result == null)
-					result = caseASTNode(longLiteralExp);
-				if (result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
 			case ExpressionsPackage.UNLIMITED_NATURAL_LITERAL_EXP : {
 				UnlimitedNaturalLiteralExp<?> unlimitedNaturalLiteralExp = (UnlimitedNaturalLiteralExp<?>) theEObject;
 				T result = caseUnlimitedNaturalLiteralExp(unlimitedNaturalLiteralExp);
@@ -752,6 +729,29 @@ public class ExpressionsSwitch<T>
 					result = caseVisitable(variableExp);
 				if (result == null)
 					result = caseASTNode(variableExp);
+				if (result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case ExpressionsPackage.LONG_LITERAL_EXP : {
+				LongLiteralExp<?> longLiteralExp = (LongLiteralExp<?>) theEObject;
+				T result = caseLongLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseIntegerLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseNumericLiteralExp(longLiteralExp);
+				if (result == null)
+					result = casePrimitiveLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseLiteralExp(longLiteralExp);
+				if (result == null)
+					result = caseOCLExpression(longLiteralExp);
+				if (result == null)
+					result = caseTypedElement(longLiteralExp);
+				if (result == null)
+					result = caseVisitable(longLiteralExp);
+				if (result == null)
+					result = caseASTNode(longLiteralExp);
 				if (result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -1098,6 +1098,7 @@ public class ExpressionsSwitch<T>
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Long Literal Exp</em>'.

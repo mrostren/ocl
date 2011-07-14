@@ -231,7 +231,6 @@
         <eTypeArguments eClassifier="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Classifier"/>
       </eGenericSuperTypes>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LongLiteralExp" eSuperTypes="#//uml/IntegerLiteralExp"/>
     <eClassifiers xsi:type="ecore:EClass" name="UnlimitedNaturalLiteralExp">
       <eGenericSuperTypes eClassifier="#//uml/NumericLiteralExp"/>
       <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.ocl/model/OCL.ecore#//expressions/UnlimitedNaturalLiteralExp">
@@ -370,5 +369,6 @@
         <eTypeArguments eClassifier="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Operation"/>
       </eGenericSuperTypes>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LongLiteralExp" eSuperTypes="#//uml/IntegerLiteralExp"/>
   </eSubpackages>
 </ecore:EPackage>

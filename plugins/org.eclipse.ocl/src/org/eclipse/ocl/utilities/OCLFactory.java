@@ -233,6 +233,7 @@ public interface OCLFactory {
 	/**
 	 * Returns a new object of class '<em>Long Literal Exp</em>'.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Long Literal Exp</em>'.
 	 * @generated

@@ -70,6 +70,7 @@ public interface IntegerLiteralExpCS
 	 * If the meaning of the '<em>Long Symbol</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Long Symbol</em>' attribute.
 	 * @see #setLongSymbol(Long)
@@ -82,6 +83,7 @@ public interface IntegerLiteralExpCS
 	/**
 	 * Sets the value of the '{@link org.eclipse.ocl.cst.IntegerLiteralExpCS#getLongSymbol <em>Long Symbol</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 3.2
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Long Symbol</em>' attribute.
 	 * @see #getLongSymbol()
