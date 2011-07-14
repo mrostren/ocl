@@ -9,7 +9,7 @@ COMPACT_BUILD_ID="${BUILD_ID//[-_]}"
 COMPACT_BUILD_ID="${COMPACT_BUILD_ID:0:12}"
 :
 {
-	cat "${WORKSPACE}/org.eclipse.mdt/org.eclipse.ocl/releng/org.eclipse.ocl.releng.buckminster/releng/ocl-build.properties"
+	cat "${WORKSPACE}/org.eclipse.ocl.git/releng/org.eclipse.ocl.releng.buckminster/releng/ocl-build.properties"
 
 	echo
 	echo "# Define the Build Type (added by Hudson job definition)"
@@ -44,6 +44,7 @@ COMPACT_BUILD_ID="${COMPACT_BUILD_ID:0:12}"
 
 	echo
 	echo "# Sign the jars (added by Hudson job definition)"
+    echo "signing.type=eclipse.local"
 	echo "site.signing=${SITE_SIGNING}"
 
 	echo
@@ -54,7 +55,7 @@ COMPACT_BUILD_ID="${COMPACT_BUILD_ID:0:12}"
 	echo "packages.base=MDT-OCL.downloads"
 	echo "tests.base=MDT-OCL.test.results" 
 	echo "javadoc.base=MDT-OCL.javadoc"
-	echo "version=3.1.0"
+	echo "version=3.2.0"
 	echo "downloads.area=/home/data/httpd/download.eclipse.org/modeling/mdt/ocl"
 
 
