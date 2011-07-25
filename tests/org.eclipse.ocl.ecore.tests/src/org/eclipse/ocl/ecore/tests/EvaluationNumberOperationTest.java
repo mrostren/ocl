@@ -11,6 +11,8 @@
  */
 package org.eclipse.ocl.ecore.tests;
 
+import java.math.BigInteger;
+
 import org.eclipse.ocl.expressions.UnlimitedNaturalLiteralExp;
 
 //FIXME we're missing oclIsNew and oclIsInState
@@ -1144,4 +1146,40 @@ public class EvaluationNumberOperationTest
 	public void testUnlimitedUnaryMinusNull() {
 		assertResultInvalid("let u : UnlimitedNatural = null in -u");
 	}
+	
+	public void testLongVersusInt() {
+		assertQueryTrue(null, "2147483648 > 2147483647");
+		assertQueryFalse(null, "2147483647 > 2147483648");
+		assertQueryFalse(null, "-2147483649 > -2147483648");
+		assertQueryTrue(null, "-2147483648 > -2147483649");
+
+		assertQueryTrue(null, "9223372036854775807 > 9223372036854775806");
+		assertQueryFalse(null, "9223372036854775806 > 9223372036854775807");
+		assertQueryFalse(null,
+			"(-9223372036854775807-1) > -9223372036854775807");
+		assertQueryTrue(null, "-9223372036854775807 > (-9223372036854775807-1)");
+	}
+
+    public void testNumberNegate() {
+        assertQueryEquals(null, -1, "-1");
+        assertQueryEquals(null, -1.0, "-1.0", 0.0);
+
+        assertQueryEquals(null, -2147483647, "-2147483647");
+        assertQueryEquals(null, -2147483648, "-2147483648");
+        assertQueryEquals(null, -2147483649L, "-2147483649");
+
+		assertQueryEquals(null,
+			BigInteger.ONE.shiftLeft(63).negate().add(BigInteger.ONE).longValue(),
+			"-9223372036854775807");
+		assertQueryEquals(null, BigInteger.ONE.shiftLeft(63).negate().longValue(),
+			"-9223372036854775808");
+		assertQueryEquals(null,
+			BigInteger.ONE.shiftLeft(63).negate().subtract(BigInteger.ONE).longValue(), "-9223372036854775809");
+        // invalid
+        assertQueryInvalid(null, "let i : Integer = invalid in -i");
+        assertQueryInvalid(null, "let r : Real = invalid in -r");
+        // null
+        assertQueryInvalid(null, "let i : Integer = null in -i");
+        assertQueryInvalid(null, "let r : Real = null in -r");
+    }
 }

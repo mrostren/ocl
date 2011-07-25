@@ -345,6 +345,23 @@ public abstract class GenericTestSuite<E extends EObject, PK extends E, T extend
 	}
 
 	/**
+	 * Assert that the result of evaluating an expression as a query is equal to expected within the
+	 * delta range provided. <code>expression</code> is expected to evaluate to a {@link Number} object.
+	 * @return the evaluation result
+	 */
+	protected Object assertQueryEquals(Object context, Number expected, String expression, double delta) {
+		String denormalized = denormalize(expression);
+		try {
+			Number value = (Number) evaluate(helper, context, denormalized);
+			assertEquals(denormalized, expected.doubleValue(), value.doubleValue(), delta);
+			return value;
+		} catch (ParserException e) {
+            fail("Failed to parse or evaluate \"" + denormalized + "\": " + e.getLocalizedMessage());
+			return null;
+		}
+	}
+
+	/**
 	 * Assert that the result of evaluating an expression as a query is the same as expected.
 	 */
 	protected Object assertQueryEvaluate(Object context, String expression) {

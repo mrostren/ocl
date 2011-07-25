@@ -250,6 +250,12 @@ public class TuplesTest
 		assertEquals("Roger", evaluate(expr));
 	}
 	
+	public void test_tupleWithLongLiteral_349117() {
+		OCLExpression<EClassifier> expr = parse("package ocltest context Fruit "
+			+ "inv: Tuple{first : Integer = 5000000000}.first " + "endpackage");
+		assertEquals(5000000000l, evaluate(expr));
+	}
+
 	public void test_tupleWithLongIntegerProperty_349117() throws ParserException {
 		// tuples work fine with int / java.lang.Integer
 		helper.setContext(ecore.getEClassifier("EInt"));
