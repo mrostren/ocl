@@ -13,6 +13,7 @@ package org.eclipse.ocl.ecore.tests;
 
 import java.math.BigInteger;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ocl.expressions.UnlimitedNaturalLiteralExp;
 
 //FIXME we're missing oclIsNew and oclIsInState
@@ -1161,6 +1162,7 @@ public class EvaluationNumberOperationTest
 	}
 
     public void testNumberNegate() {
+    	helper.setContext(EcorePackage.eINSTANCE.getEClassifier());
         assertQueryEquals(null, -1, "-1");
         assertQueryEquals(null, -1.0, "-1.0", 0.0);
 
