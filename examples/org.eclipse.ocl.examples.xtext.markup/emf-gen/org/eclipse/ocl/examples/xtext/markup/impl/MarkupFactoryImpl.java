@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.ocl.examples.xtext.markup.*;
 import org.eclipse.ocl.examples.xtext.markup.CompoundElement;
 import org.eclipse.ocl.examples.xtext.markup.FigElement;
 import org.eclipse.ocl.examples.xtext.markup.FigRefElement;
@@ -83,6 +84,8 @@ public class MarkupFactoryImpl extends EFactoryImpl implements MarkupFactory {
 			case MarkupPackage.MARKUP: return createMarkup();
 			case MarkupPackage.MARKUP_ELEMENT: return createMarkupElement();
 			case MarkupPackage.NEW_LINE_ELEMENT: return createNewLineElement();
+			case MarkupPackage.NULL_ELEMENT: return createNullElement();
+			case MarkupPackage.OCL_ELEMENT: return createOclElement();
 			case MarkupPackage.TEXT_ELEMENT: return createTextElement();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -157,6 +160,26 @@ public class MarkupFactoryImpl extends EFactoryImpl implements MarkupFactory {
 	public NewLineElement createNewLineElement() {
 		NewLineElementImpl newLineElement = new NewLineElementImpl();
 		return newLineElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NullElement createNullElement() {
+		NullElementImpl nullElement = new NullElementImpl();
+		return nullElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OclElement createOclElement() {
+		OclElementImpl oclElement = new OclElementImpl();
+		return oclElement;
 	}
 
 	/**

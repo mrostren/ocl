@@ -16,6 +16,8 @@
  */
 package org.eclipse.ocl.examples.xtext.markup;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ocl.examples.xtext.markup.util.MarkupSwitch;
 
@@ -28,6 +30,14 @@ public class MarkupToString extends MarkupSwitch<StringBuffer>
 	public static String toString(MarkupElement element) {
 		MarkupToString toString = new MarkupToString();
 		return toString.doSwitch(element).toString();
+	}
+
+	public static String toString(List<MarkupElement> elements) {
+		MarkupToString toString = new MarkupToString();
+		for (MarkupElement element : elements) {
+			toString.doSwitch(element);
+		}
+		return toString.toString();
 	}
 	
 	protected final StringBuffer s = new StringBuffer();
@@ -55,8 +65,26 @@ public class MarkupToString extends MarkupSwitch<StringBuffer>
 	}
 
 	@Override
+	public StringBuffer caseNullElement(NullElement object) {
+		s.append("[");
+		caseCompoundElement(object);
+		s.append("]");
+		return s;
+	}
+
+	@Override
+	public StringBuffer caseOclElement(OclElement object) {
+		s.append("ocl[");
+		caseCompoundElement(object);
+		s.append("]");
+		return s;
+	}
+
+	@Override
 	public StringBuffer caseTextElement(TextElement object) {
-		s.append(object.getText());
+		for (String text : object.getText()) {
+			s.append(text);
+		}
 		return s;
 	}
 
@@ -66,6 +94,11 @@ public class MarkupToString extends MarkupSwitch<StringBuffer>
 		s.append(object.eClass().getName());
 		s.append(">");
 		return s;
+	}
+
+	@Override
+	public String toString() {
+		return s.toString();
 	}
 }
 

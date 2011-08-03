@@ -41,10 +41,13 @@ public class MarkupParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTextElementAccess().getTextAlternatives_0(), "rule__TextElement__TextAlternatives_0");
 					put(grammarAccess.getFontElementAccess().getFontAlternatives_0_0(), "rule__FontElement__FontAlternatives_0_0");
 					put(grammarAccess.getFigElementAccess().getAlternatives_0(), "rule__FigElement__Alternatives_0");
+					put(grammarAccess.getMarkupKeywordAccess().getAlternatives(), "rule__MarkupKeyword__Alternatives");
 					put(grammarAccess.getFontElementAccess().getGroup(), "rule__FontElement__Group__0");
 					put(grammarAccess.getFigElementAccess().getGroup(), "rule__FigElement__Group__0");
 					put(grammarAccess.getFigElementAccess().getGroup_0_1(), "rule__FigElement__Group_0_1__0");
 					put(grammarAccess.getFigRefElementAccess().getGroup(), "rule__FigRefElement__Group__0");
+					put(grammarAccess.getNullElementAccess().getGroup(), "rule__NullElement__Group__0");
+					put(grammarAccess.getOclElementAccess().getGroup(), "rule__OclElement__Group__0");
 					put(grammarAccess.getMarkupAccess().getElementsAssignment(), "rule__Markup__ElementsAssignment");
 					put(grammarAccess.getTextElementAccess().getTextAssignment(), "rule__TextElement__TextAssignment");
 					put(grammarAccess.getNewLineElementAccess().getTextAssignment(), "rule__NewLineElement__TextAssignment");
@@ -53,6 +56,8 @@ public class MarkupParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFigElementAccess().getIdAssignment_0_1_1(), "rule__FigElement__IdAssignment_0_1_1");
 					put(grammarAccess.getFigElementAccess().getSrcAssignment_1(), "rule__FigElement__SrcAssignment_1");
 					put(grammarAccess.getFigRefElementAccess().getRefAssignment_1(), "rule__FigRefElement__RefAssignment_1");
+					put(grammarAccess.getNullElementAccess().getElementsAssignment_2(), "rule__NullElement__ElementsAssignment_2");
+					put(grammarAccess.getOclElementAccess().getElementsAssignment_2(), "rule__OclElement__ElementsAssignment_2");
 				}
 			};
 		}

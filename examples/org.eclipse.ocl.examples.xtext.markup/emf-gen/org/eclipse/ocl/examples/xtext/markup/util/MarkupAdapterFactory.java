@@ -20,6 +20,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.ocl.examples.xtext.markup.*;
 import org.eclipse.ocl.examples.xtext.markup.CompoundElement;
 import org.eclipse.ocl.examples.xtext.markup.FigElement;
 import org.eclipse.ocl.examples.xtext.markup.FigRefElement;
@@ -113,6 +114,14 @@ public class MarkupAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseNewLineElement(NewLineElement object) {
 				return createNewLineElementAdapter();
+			}
+			@Override
+			public Adapter caseNullElement(NullElement object) {
+				return createNullElementAdapter();
+			}
+			@Override
+			public Adapter caseOclElement(OclElement object) {
+				return createOclElementAdapter();
 			}
 			@Override
 			public Adapter caseTextElement(TextElement object) {
@@ -233,6 +242,34 @@ public class MarkupAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNewLineElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ocl.examples.xtext.markup.NullElement <em>Null Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ocl.examples.xtext.markup.NullElement
+	 * @generated
+	 */
+	public Adapter createNullElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ocl.examples.xtext.markup.OclElement <em>Ocl Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ocl.examples.xtext.markup.OclElement
+	 * @generated
+	 */
+	public Adapter createOclElementAdapter() {
 		return null;
 	}
 

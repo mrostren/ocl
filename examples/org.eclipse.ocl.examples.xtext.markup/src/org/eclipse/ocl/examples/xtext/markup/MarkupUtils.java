@@ -19,17 +19,16 @@ package org.eclipse.ocl.examples.xtext.markup;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.ocl.examples.pivot.utilities.TypeManager;
 import org.eclipse.ocl.examples.xtext.markup.parser.antlr.MarkupParser;
 import org.eclipse.ocl.examples.xtext.markup.util.MarkupSwitch;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.parser.IParseResult;
 
 import com.google.inject.Injector;
 
 public class MarkupUtils extends MarkupSwitch<StringBuffer>
 {
-	public static Markup decode(String text) {
+/*	public static Markup decode(String text) {
 //		System.out.println("decode: " + text);	
 		Injector injector = MarkupStandaloneSetup.getInjector();
 		MarkupParser parser = injector.getInstance(MarkupParser.class);
@@ -43,6 +42,14 @@ public class MarkupUtils extends MarkupSwitch<StringBuffer>
 			System.out.println("error : " + parseError.getSyntaxErrorMessage());
 		}
 		return (Markup)rootASTElement;
+	} */
+
+	public static IParseResult decode(String text) {
+//		System.out.println("decode: " + text);	
+		Injector injector = MarkupStandaloneSetup.getInjector();
+		MarkupParser parser = injector.getInstance(MarkupParser.class);
+		Reader reader = new StringReader(text);
+		return parser.parse(reader);
 	}
 
 	public static int getNewlineCount(NewLineElement element) {
@@ -73,8 +80,8 @@ public class MarkupUtils extends MarkupSwitch<StringBuffer>
 		return lineCount;
 	}
 
-	public static String toHTML(Markup markup) {
-		return MarkupToHTML.toString(markup);
+	public static String toHTML(TypeManager typeManager, Object context, Markup markup) throws Exception {
+		return MarkupToHTML.toString(typeManager, context, markup);
 	}
 }
 

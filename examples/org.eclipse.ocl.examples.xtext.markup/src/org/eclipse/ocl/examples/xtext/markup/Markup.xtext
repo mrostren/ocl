@@ -30,6 +30,8 @@ MarkupElement:
 |	TextElement
 |	FigElement
 |	FigRefElement
+|	NullElement
+|	OclElement
 ;
 
 TextElement:
@@ -52,6 +54,23 @@ FigRefElement:
 	'fig-[' ref=[FigElement|ID] ']'
 ;
 
+NullElement:
+	{NullElement} '[' elements+=MarkupElement* ']'
+;
+
+OclElement:
+	{OclElement} 'ocl[' elements+=MarkupElement* ']'
+;
+
+MarkupKeyword:
+	'b['
+|	'e['
+|	'fig['
+|	'fig:'
+|	'fig-['
+|	'ocl['
+|	']'
+;
 //terminal INT returns ecore::EInt: ('0'..'9')+;
 terminal ID: ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 terminal WORD: ( '\\' ('b'|'t'|'n'|'f'|'r'|'"'|"'"|'\\'|'<'|'>'|'['|']') | !('\\'|'['|']'|' '|'\t'|'\n'|'\r') )+;

@@ -30,6 +30,8 @@ import org.eclipse.ocl.examples.xtext.markup.MarkupElement;
 import org.eclipse.ocl.examples.xtext.markup.MarkupFactory;
 import org.eclipse.ocl.examples.xtext.markup.MarkupPackage;
 import org.eclipse.ocl.examples.xtext.markup.NewLineElement;
+import org.eclipse.ocl.examples.xtext.markup.NullElement;
+import org.eclipse.ocl.examples.xtext.markup.OclElement;
 import org.eclipse.ocl.examples.xtext.markup.TextElement;
 
 /**
@@ -87,6 +89,20 @@ public class MarkupPackageImpl extends EPackageImpl implements MarkupPackage {
 	 * @generated
 	 */
 	private EClass newLineElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass nullElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass oclElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -314,6 +330,24 @@ public class MarkupPackageImpl extends EPackageImpl implements MarkupPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getNullElement() {
+		return nullElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOclElement() {
+		return oclElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTextElement() {
 		return textElementEClass;
 	}
@@ -379,6 +413,10 @@ public class MarkupPackageImpl extends EPackageImpl implements MarkupPackage {
 		newLineElementEClass = createEClass(NEW_LINE_ELEMENT);
 		createEAttribute(newLineElementEClass, NEW_LINE_ELEMENT__TEXT);
 
+		nullElementEClass = createEClass(NULL_ELEMENT);
+
+		oclElementEClass = createEClass(OCL_ELEMENT);
+
 		textElementEClass = createEClass(TEXT_ELEMENT);
 		createEAttribute(textElementEClass, TEXT_ELEMENT__TEXT);
 	}
@@ -417,6 +455,8 @@ public class MarkupPackageImpl extends EPackageImpl implements MarkupPackage {
 		figRefElementEClass.getESuperTypes().add(this.getMarkupElement());
 		markupEClass.getESuperTypes().add(this.getCompoundElement());
 		newLineElementEClass.getESuperTypes().add(this.getMarkupElement());
+		nullElementEClass.getESuperTypes().add(this.getCompoundElement());
+		oclElementEClass.getESuperTypes().add(this.getCompoundElement());
 		textElementEClass.getESuperTypes().add(this.getMarkupElement());
 
 		// Initialize classes and features; add operations and parameters
@@ -443,6 +483,10 @@ public class MarkupPackageImpl extends EPackageImpl implements MarkupPackage {
 
 		initEClass(newLineElementEClass, NewLineElement.class, "NewLineElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNewLineElement_Text(), ecorePackage.getEString(), "text", null, 1, 1, NewLineElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(nullElementEClass, NullElement.class, "NullElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(oclElementEClass, OclElement.class, "OclElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(textElementEClass, TextElement.class, "TextElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTextElement_Text(), ecorePackage.getEString(), "text", null, 0, -1, TextElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

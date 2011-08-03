@@ -19,6 +19,7 @@ package org.eclipse.ocl.examples.xtext.markup.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.eclipse.ocl.examples.xtext.markup.*;
 import org.eclipse.ocl.examples.xtext.markup.CompoundElement;
 import org.eclipse.ocl.examples.xtext.markup.FigElement;
 import org.eclipse.ocl.examples.xtext.markup.FigRefElement;
@@ -136,6 +137,22 @@ public class MarkupSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case MarkupPackage.NULL_ELEMENT: {
+				NullElement nullElement = (NullElement)theEObject;
+				T result = caseNullElement(nullElement);
+				if (result == null) result = caseCompoundElement(nullElement);
+				if (result == null) result = caseMarkupElement(nullElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MarkupPackage.OCL_ELEMENT: {
+				OclElement oclElement = (OclElement)theEObject;
+				T result = caseOclElement(oclElement);
+				if (result == null) result = caseCompoundElement(oclElement);
+				if (result == null) result = caseMarkupElement(oclElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case MarkupPackage.TEXT_ELEMENT: {
 				TextElement textElement = (TextElement)theEObject;
 				T result = caseTextElement(textElement);
@@ -249,6 +266,36 @@ public class MarkupSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseNewLineElement(NewLineElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Null Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Null Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNullElement(NullElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Ocl Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Ocl Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOclElement(OclElement object) {
 		return null;
 	}
 

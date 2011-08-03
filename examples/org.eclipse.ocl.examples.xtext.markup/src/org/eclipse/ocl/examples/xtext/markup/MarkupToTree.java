@@ -21,7 +21,7 @@ import org.eclipse.ocl.examples.xtext.markup.util.MarkupSwitch;
 
 /**
  * MarkupToTree gives an indented textual tree presentation of the markup for
- * debugging purposes. Each liune starts with a class name followed by attributes.
+ * debugging purposes. Each line starts with a class name followed by attributes.
  */
 public class MarkupToTree extends MarkupSwitch<StringBuffer>
 {
@@ -59,9 +59,8 @@ public class MarkupToTree extends MarkupSwitch<StringBuffer>
 	
 	@Override
 	public StringBuffer caseCompoundElement(CompoundElement object) {
-		for (MarkupElement element : object.getElements()) {
-			doSwitch(element);
-		}
+		appendClass(object);
+		appendIndented(object.getElements());
 		return s;
 	}
 
@@ -97,6 +96,11 @@ public class MarkupToTree extends MarkupSwitch<StringBuffer>
 		appendClass(object);
 		s.append("\n");
 		return s;
+	}
+
+	@Override
+	public String toString() {
+		return s.toString();
 	}
 }
 
