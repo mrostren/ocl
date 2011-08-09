@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pfx:Universe xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx="http://www.omg.org/ocl/benchmark/B1" xsi:schemaLocation="http://www.omg.org/ocl/benchmark/B1 B1.ecore">
+  <people name="Ada" civstat="widowed" gender="female" alive="true"/>
+  <people name="Bob" civstat="divorced" gender="male" alive="true"/>
+  <people name="Cyd" civstat="married" gender="male"/>
+  <people name="Dan" civstat="married" gender="male" alive="true" wife="//@people.4"/>
+  <people name="Eve" civstat="married" gender="female" alive="true" husband="//@people.3"/>
+</pfx:Universe>

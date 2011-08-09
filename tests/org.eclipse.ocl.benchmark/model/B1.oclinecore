@@ -1,0 +1,16 @@
+package CivilStatusWorld : pfx = 'http://www.omg.org/ocl/benchmark/B1'
+{
+	class Person
+	{
+		attribute name : String;
+		attribute civstat : String;
+		attribute gender : String;
+		attribute alive : Boolean;
+		operation spouse() : Person {
+			body: if self.gender='female' then self.husband else self.wife endif;
+		}
+	--association Marriage between
+		property wife#husband : Person [0..1];
+		property husband#wife : Person [0..1];
+	}
+}
