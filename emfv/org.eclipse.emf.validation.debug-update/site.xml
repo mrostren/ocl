@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.emf.validation.debug_0.0.1.201302200959.jar" id="org.eclipse.emf.validation.debug" version="0.0.1.201302200959">
+      <category name="ValidityView"/>
+   </feature>
+   <category-def name="ValidityView" label="Validity View">
+      <description>
+         Additional View supporting fine-grained Validation
+      </description>
+   </category-def>
+</site>

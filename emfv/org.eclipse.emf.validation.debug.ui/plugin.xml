@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.views">
+      <category id="org.eclipse.emf.validation.ui"
+      		name="Model Validation"/>
+      <view id="org.eclipse.emf.validation.debug.ui.validity"
+            name="ValidityView"
+            icon="icons/validation.gif"
+            category="org.eclipse.emf.validation.ui"
+            class="org.eclipse.emf.validation.debug.ui.view.ValidityView"/>
+   </extension>
+  
+   <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            icon="icons/validation.gif"
+            configTypeID="org.eclipse.emf.validation.debug.launchConfigurationType"
+            id="org.eclipse.emf.validation.debug.ui.launching.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+
+   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            type="org.eclipse.emf.validation.debug.launchConfigurationType"
+            description="ValidityLaunchConfigurationGroupName"
+            class="org.eclipse.emf.validation.debug.ui.launching.ValidityTabGroup"
+            id="org.eclipse.emf.validation.debug.ui.launching.ValidityApplicationTabGroup">
+      </launchConfigurationTabGroup>
+   </extension>
+
+</plugin>
