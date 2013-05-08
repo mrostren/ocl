@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+	    <launchConfigurationType id="org.eclipse.ocl.examples.debug.launch.oclQuery"
+	        name="OCL Query"
+	        delegate="org.eclipse.ocl.examples.debug.launching.OCLQueryLaunchConfigurationDelegate"
+	        modes="run, debug"/>
+	</extension>
+   <extension point="org.eclipse.emf.validation.debug.constraint_locator">
+   		<locator metaclass="http://www.eclipse.org/ocl/3.1.0/Pivot"
+   			class="org.eclipse.ocl.examples.debug.locator.PivotConstraintLocator"/>
+   		<locator metaclass="http://www.eclipse.org/uml2/2.0.0/UML"
+   			 class="org.eclipse.ocl.examples.debug.locator.UMLConstraintLocator"/>
+   		<locator metaclass="http://www.eclipse.org/uml2/3.0.0/UML"
+   			 class="org.eclipse.ocl.examples.debug.locator.UMLConstraintLocator"/>
+   		<locator metaclass="http://www.eclipse.org/uml2/4.0.0/UML"
+   			 class="org.eclipse.ocl.examples.debug.locator.UMLConstraintLocator"/>
+   </extension>
+
+</plugin>
