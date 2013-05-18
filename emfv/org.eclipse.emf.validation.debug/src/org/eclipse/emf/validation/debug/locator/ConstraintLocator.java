@@ -14,11 +14,14 @@
  */
 package org.eclipse.emf.validation.debug.locator;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ValidityManager;
@@ -35,16 +38,22 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 public interface ConstraintLocator
 {
+	public static interface Descriptor
+	{
+		/**
+		 * Return the ConstraintLocator described by this.
+		 */
+		@NonNull ConstraintLocator getConstraintLocator();
+	}
+
 	/**
-	 * Return a ConstraintLocator, which is typically this, but may be a lazily loaded ConstraintLocator.
-	 * @return
+	 * Return all constrainingTypes for a given tyoe; typically this returns the supertype closeure.
 	 */
-	@NonNull ConstraintLocator getConstraintLocator();
-	
+	@NonNull Set<URI> getAllTypes(@NonNull EModelElement constrainingType);
+
 	/**
 	 * Return a constrainedType-to-constraint map for all types in the given resources that have an ePackage whose URI complies with
 	 * the registration of this ConstraintLocator. The validityModel is used to create the LeafConstrainingNodes for each constraint.
-	 * 
 	 */
 	@Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources);
 
@@ -52,6 +61,18 @@ public interface ConstraintLocator
 	 * Return an icon to identify this kind of ConstraintLocator.
 	 */
 	@Nullable Object getImage();
+
+	/**
+	 * Return any resources imported from within resource.
+	 */
+	@Nullable Collection<Resource> getImports(@NonNull EPackage ePackage, @NonNull Resource resource);
+
+	/**
+	 * Return a diagnostic label for eObject.
+	 */
+	@NonNull String getLabel(@NonNull EModelElement eObject);
+
+	@Nullable URI getURI(@NonNull EObject eObject);
 	
 	/**
 	 * Update the validation result to include the verdict of the validation using validityManager to provide shared services.

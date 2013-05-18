@@ -8,9 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.emf.validation.debug.plugin.ValidityPlugin$Implementation
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit,
- org.eclipse.jdt.annotation;bundle-version="1.1.0";resolution:=optional,
  org.eclipse.debug.core
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.emf.validation.debug,

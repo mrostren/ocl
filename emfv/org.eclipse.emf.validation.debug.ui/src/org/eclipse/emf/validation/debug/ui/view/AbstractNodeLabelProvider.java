@@ -160,12 +160,22 @@ public class AbstractNodeLabelProvider extends ColumnLabelProvider
 	@Override
 	public Image getImage(Object element) {
 		if (element instanceof ResultValidatableNode) {
-			LeafConstrainingNode leafConstrainingNode = (LeafConstrainingNode) ((ResultValidatableNode)element).getResultConstrainingNode().getParent();
-			return labelProvider.getImage(leafConstrainingNode.getConstraintLocator().getImage());
+			ConstrainingNode constrainingNode = ((ResultValidatableNode)element).getResultConstrainingNode().getParent();
+			if (constrainingNode instanceof LeafConstrainingNode) {
+				return labelProvider.getImage(((LeafConstrainingNode)constrainingNode).getConstraintLocator().getImage());
+			}
+			else {
+				return labelProvider.getImage(constrainingNode.getConstrainingObject());
+			}
 		}
 		else if (element instanceof ResultConstrainingNode) {
-			LeafConstrainingNode leafConstrainingNode = (LeafConstrainingNode) ((ResultConstrainingNode)element).getParent();
-			return labelProvider.getImage(leafConstrainingNode.getConstraintLocator().getImage());
+			ConstrainingNode constrainingNode = (ConstrainingNode) ((ResultConstrainingNode)element).getParent();
+			if (constrainingNode instanceof LeafConstrainingNode) {
+				return labelProvider.getImage(((LeafConstrainingNode)constrainingNode).getConstraintLocator().getImage());
+			}
+			else {
+				return labelProvider.getImage(constrainingNode.getConstrainingObject());
+			}
 		}
 		else if (element instanceof ConstrainingNode) {
 			return labelProvider.getImage(((ConstrainingNode)element).getConstrainingObject());

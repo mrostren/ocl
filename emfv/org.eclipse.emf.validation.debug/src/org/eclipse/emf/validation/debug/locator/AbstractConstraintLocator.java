@@ -15,13 +15,23 @@
 package org.eclipse.emf.validation.debug.locator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.emf.validation.debug.ValidityModel;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
@@ -30,12 +40,8 @@ import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-public abstract class AbstractConstraintLocator implements ConstraintLocator
+public abstract class AbstractConstraintLocator implements ConstraintLocator, ConstraintLocator.Descriptor
 {
-	public @NonNull ConstraintLocator getConstraintLocator() {
-		return this;
-	}
-
 	protected @NonNull Map<EModelElement, List<LeafConstrainingNode>> createLeafConstrainingNode(@Nullable Map<EModelElement, List<LeafConstrainingNode>> map,
 			@NonNull ValidityModel validityModel, @NonNull EModelElement constrainingType, @NonNull Object constrainingObject, @NonNull String label) {
 		LeafConstrainingNode constraint = validityModel.createLeafConstrainingNode();
@@ -54,8 +60,43 @@ public abstract class AbstractConstraintLocator implements ConstraintLocator
 		return map;
 	}
 
+	public @NonNull Set<URI> getAllTypes(@NonNull EModelElement constrainingType) {
+		Set<URI> allTypes = new HashSet<URI>();
+		allTypes.add(EcoreUtil.getURI(constrainingType));
+		if (constrainingType instanceof EClass) {
+			for (EClass eSuperClass : ((EClass)constrainingType).getEAllSuperTypes()) {
+				allTypes.add(EcoreUtil.getURI(eSuperClass));
+			}
+		}
+		return allTypes;
+	}
+
+	public @NonNull ConstraintLocator getConstraintLocator() {
+		return this;
+	}
+
 	public @Nullable Object getImage() {
 		return null;
+	}
+
+	public @Nullable Collection<Resource> getImports(@NonNull EPackage ePackage, @NonNull Resource resource) {
+		return null;
+	}
+
+	public @NonNull String getLabel(@NonNull EModelElement eObject) {
+		StringBuilder s = new StringBuilder();
+		if (eObject instanceof ENamedElement) {
+			EObject eContainer = eObject.eContainer();
+			if (eContainer instanceof ENamedElement) {
+				s.append(((ENamedElement)eContainer).getName() + "::");
+			}
+			s.append(((ENamedElement)eObject).getName());
+		}
+		else {
+			s.append(String.valueOf(eObject));
+		}
+		@SuppressWarnings("null") @NonNull String string = s.toString();
+		return string;
 	}
 
 	protected @NonNull Severity getSeverity(@NonNull BasicDiagnostic diagnostic) {
@@ -70,6 +111,27 @@ public abstract class AbstractConstraintLocator implements ConstraintLocator
 		}
 		assert severity != null;
 		return severity;
+	}
+
+	public @Nullable URI getURI(@NonNull EObject eObject) {
+		EObject eContainer = eObject;
+		for ( ; true; eContainer = eContainer.eContainer()) {
+			if (eContainer == null) {
+				return null;
+			}
+			if (eContainer instanceof EPackage) {
+				break;
+			}
+		}
+		String nsURI = ((EPackage)eContainer).getNsURI();
+		if (nsURI == null) {
+			return null;
+		}
+		Resource resource = eObject.eResource();
+		if (resource == null) {
+			return null;
+		}
+		return URI.createURI(nsURI).appendFragment(resource.getURIFragment(eObject));
 	}
 
 	public void validate(@NonNull Result result, @NonNull ValidityManager validityManager) {

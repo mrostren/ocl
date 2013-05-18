@@ -14,23 +14,12 @@
  */
 package org.eclipse.emf.validation.debug.plugin;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.RegistryFactory;
-import org.eclipse.emf.ecore.EModelElement;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.RegistryReader;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.ValidityModel;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
-import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * A plugin extension reader that populates the
@@ -45,7 +34,7 @@ class ConstraintLocatorRegistryReader extends RegistryReader
 	static final @NonNull String ATT_METACLASS = "metaclass";
 	static final @NonNull String ATT_CLASS = "class";
 
-	static class ConstraintLocatorDescriptor extends PluginClassDescriptor implements ConstraintLocator
+	static class ConstraintLocatorDescriptor extends PluginClassDescriptor implements ConstraintLocator.Descriptor
 	{
 		protected final @NonNull String uri;
 		protected /*@LazyNonNull*/ ConstraintLocator constraintLocator = null;
@@ -74,22 +63,9 @@ class ConstraintLocatorRegistryReader extends RegistryReader
 			return constraintLocator2;
 		}
 
-		public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources) {
-			return getConstraintLocator().getConstraints(validityModel, ePackage, resources);
-		}
-
-		@Nullable
-		public Object getImage() {
-			return getConstraintLocator().getImage();
-		}
-
 		@Override
 		public @NonNull String toString() {
 			return uri;
-		}
-
-		public void validate(@NonNull Result result, @NonNull ValidityManager validityManager) {
-			getConstraintLocator().validate(result, validityManager);
 		}
 	}
 

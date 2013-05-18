@@ -24,7 +24,9 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -50,7 +52,8 @@ import org.eclipse.jdt.annotation.Nullable;
 
 public class ValidityManager
 {	
-	public static final @NonNull Map<String, List<ConstraintLocator>> globalConstraintLocators = new HashMap<String, List<ConstraintLocator>>();
+	private static final @NonNull Map<String, List<ConstraintLocator.Descriptor>> constraintLocatorDescriptors = new HashMap<String, List<ConstraintLocator.Descriptor>>();
+	private static final @NonNull Map<String, List<ConstraintLocator>> constraintLocators = new HashMap<String, List<ConstraintLocator>>();
 
 /*	public static void addConstraintLocator(@NonNull EClass eClass, @NonNull ConstraintLocator constraintLocator) {
 		Resource eResource = eClass.eResource();
@@ -58,15 +61,57 @@ public class ValidityManager
 		addConstraintLocator(uri, constraintLocator);
 	} */
 
-	public static void addConstraintLocator(/*@NonNull*/ String uri, @NonNull ConstraintLocator constraintLocator) {
-		List<ConstraintLocator> list = globalConstraintLocators.get(uri);
+	public static synchronized void addConstraintLocator(/*@NonNull*/ String nsURI, @NonNull ConstraintLocator.Descriptor constraintLocator) {
+		List<ConstraintLocator.Descriptor> list = constraintLocatorDescriptors.get(nsURI);
 		if (list == null) {
-			list = new ArrayList<ConstraintLocator>();
-			globalConstraintLocators.put(uri, list);
+			list = new ArrayList<ConstraintLocator.Descriptor>();
+			constraintLocatorDescriptors.put(nsURI, list);
 		}
 		if (!list.contains(constraintLocator)) {
 			list.add(constraintLocator);
+			constraintLocators.remove(nsURI);
 		}
+	}
+
+	public static synchronized @Nullable ConstraintLocator getConstraintLocator(@NonNull EObject eObject) {
+		return getConstraintLocator(eObject.eResource());
+	}
+
+	public static synchronized @Nullable ConstraintLocator getConstraintLocator(@Nullable Resource resource) {
+		if (resource != null) {
+			for (EObject eObject : resource.getContents()) {
+				EClass eClass = eObject.eClass();
+				if (eClass != null) {
+					EPackage ePackage = eClass.getEPackage();
+					if (ePackage != null) {
+						String nsURI = ePackage.getNsURI();
+						if (nsURI != null) {
+							List<ConstraintLocator> list = getConstraintLocators(nsURI);
+							if ((list != null) && (list.size() > 0)) {
+								return list.get(0);
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public static synchronized @Nullable List<ConstraintLocator> getConstraintLocators(@NonNull String nsURI) {
+		List<ConstraintLocator> list = constraintLocators.get(nsURI);
+		if (list == null) {
+			List<ConstraintLocator.Descriptor> descriptors = constraintLocatorDescriptors.get(nsURI);
+			if (descriptors == null) {
+				return null;
+			}
+			list = new ArrayList<ConstraintLocator>();
+			constraintLocators.put(nsURI, list);
+			for (ConstraintLocator.Descriptor descriptor : descriptors) {
+				list.add(descriptor.getConstraintLocator());
+			}
+		}
+		return list;
 	}
 	
 	public static void initialize() {
@@ -118,12 +163,7 @@ public class ValidityManager
 		if (set == null) {
 			set = new HashSet<ConstraintLocator>();
 		}
-		for (ConstraintLocator constraintLocator : list) {
-			ConstraintLocator constraintLocator2 = constraintLocator.getConstraintLocator();
-			if (constraintLocator2 != null) {
-				set.add(constraintLocator2);
-			}
-		}
+		set.addAll(list);
 		return set;
 	}
 
@@ -204,7 +244,7 @@ public class ValidityManager
 	}
 
 	public void setInput(Object newInput) {
-//		System.out.println("inputChanged " + newInput);
+		System.out.println("\n==================================================\ninputChanged " + newInput);
 //		if (newInput == oldInput) {
 //			return;
 //		}
