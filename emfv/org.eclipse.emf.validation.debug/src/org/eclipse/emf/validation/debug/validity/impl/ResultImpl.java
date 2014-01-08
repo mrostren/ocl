@@ -9,6 +9,7 @@
  *
  * Contributors:
  *	E.D.Willink (CEA LIST) - initial API and implementation
+ *  Obeo - Fix the severity set
  *
  * </copyright>
  */
@@ -242,7 +243,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 			eNotify(new ENotificationImpl(this, Notification.SET, ValidityPackage.RESULT__SEVERITY, oldSeverity, severity));
 	}
 	public void setSeverity(Severity newSeverity) {
-		if (newSeverity != severity) {
+		if (newSeverity != severity || newSeverity == SEVERITY_EDEFAULT) {
 			setSeverityGen(newSeverity);
 			getResultValidatableNode().setWorstResult(this);
 			getResultConstrainingNode().setWorstResult(this);

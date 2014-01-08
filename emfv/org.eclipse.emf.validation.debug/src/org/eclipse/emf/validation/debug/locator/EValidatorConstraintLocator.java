@@ -9,6 +9,7 @@
  *
  * Contributors:
  *	E.D.Willink (CEA LIST) - initial API and implementation
+ *  Obeo - Manage the Navigation from the ValidityView -> to the Editor
  *
  * </copyright>
  */
@@ -88,7 +89,8 @@ public class EValidatorConstraintLocator extends AbstractConstraintLocator
 									constraintName = "<datatype>";
 								}
 								if (constraintName != null) {
-									map = createLeafConstrainingNode(map, validityModel, eClassifier, method, constraintName);
+									MethodConstraintDefinition definition = new MethodConstraintDefinition(method);
+									map = createLeafConstrainingNode(map, validityModel, eClassifier, method, definition, constraintName);
 								}
 							}
 						}

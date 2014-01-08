@@ -14,6 +14,7 @@
  */
 package org.eclipse.emf.validation.debug.validity;
 
+import org.eclipse.emf.validation.debug.locator.ConstraintDefinition;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 
 /**
@@ -25,6 +26,7 @@ import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintLocator <em>Constraint Locator</em>}</li>
+ *   <li>{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintDefinition <em>Constraint Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,4 +60,30 @@ public interface LeafConstrainingNode extends ConstrainingNode {
 	 * @generated
 	 */
 	void setConstraintLocator(ConstraintLocator value);
+
+	/**
+	 * Returns the value of the '<em><b>Constraint Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Constraint Definition</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constraint Definition</em>' attribute.
+	 * @see #setConstraintDefinition(ConstraintDefinition)
+	 * @see org.eclipse.emf.validation.debug.validity.ValidityPackage#getLeafConstrainingNode_ConstraintDefinition()
+	 * @model dataType="org.eclipse.emf.validation.debug.validity.ConstraintDefinition" required="true" transient="true"
+	 * @generated
+	 */
+	ConstraintDefinition getConstraintDefinition();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintDefinition <em>Constraint Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Constraint Definition</em>' attribute.
+	 * @see #getConstraintDefinition()
+	 * @generated
+	 */
+	void setConstraintDefinition(ConstraintDefinition value);
 } // LeafConstrainingNode

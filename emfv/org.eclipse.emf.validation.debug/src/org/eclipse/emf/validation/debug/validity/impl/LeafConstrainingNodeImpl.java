@@ -17,6 +17,7 @@ package org.eclipse.emf.validation.debug.validity.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.validation.debug.locator.ConstraintDefinition;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.ValidityPackage;
@@ -30,6 +31,7 @@ import org.eclipse.emf.validation.debug.validity.ValidityPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.emf.validation.debug.validity.impl.LeafConstrainingNodeImpl#getConstraintLocator <em>Constraint Locator</em>}</li>
+ *   <li>{@link org.eclipse.emf.validation.debug.validity.impl.LeafConstrainingNodeImpl#getConstraintDefinition <em>Constraint Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,6 +56,25 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 	 * @ordered
 	 */
 	protected ConstraintLocator constraintLocator = CONSTRAINT_LOCATOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getConstraintDefinition() <em>Constraint Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstraintDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ConstraintDefinition CONSTRAINT_DEFINITION_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getConstraintDefinition() <em>Constraint Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstraintDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConstraintDefinition constraintDefinition = CONSTRAINT_DEFINITION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -100,11 +121,34 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ConstraintDefinition getConstraintDefinition() {
+		return constraintDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConstraintDefinition(ConstraintDefinition newConstraintDefinition) {
+		ConstraintDefinition oldConstraintDefinition = constraintDefinition;
+		constraintDefinition = newConstraintDefinition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION, oldConstraintDefinition, constraintDefinition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				return getConstraintLocator();
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
+				return getConstraintDefinition();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -119,6 +163,9 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 		switch (featureID) {
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				setConstraintLocator((ConstraintLocator)newValue);
+				return;
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
+				setConstraintDefinition((ConstraintDefinition)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,6 +182,9 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				setConstraintLocator(CONSTRAINT_LOCATOR_EDEFAULT);
 				return;
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
+				setConstraintDefinition(CONSTRAINT_DEFINITION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -149,6 +199,8 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 		switch (featureID) {
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				return CONSTRAINT_LOCATOR_EDEFAULT == null ? constraintLocator != null : !CONSTRAINT_LOCATOR_EDEFAULT.equals(constraintLocator);
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
+				return CONSTRAINT_DEFINITION_EDEFAULT == null ? constraintDefinition != null : !CONSTRAINT_DEFINITION_EDEFAULT.equals(constraintDefinition);
 		}
 		return super.eIsSet(featureID);
 	}

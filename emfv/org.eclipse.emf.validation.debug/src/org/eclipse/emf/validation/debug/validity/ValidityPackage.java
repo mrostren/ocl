@@ -372,13 +372,22 @@ public interface ValidityPackage extends EPackage {
 	int LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR = CONSTRAINING_NODE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Constraint Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION = CONSTRAINING_NODE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Leaf Constraining Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEAF_CONSTRAINING_NODE_FEATURE_COUNT = CONSTRAINING_NODE_FEATURE_COUNT + 1;
+	int LEAF_CONSTRAINING_NODE_FEATURE_COUNT = CONSTRAINING_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Get Parent</em>' operation.
@@ -1264,6 +1273,16 @@ public interface ValidityPackage extends EPackage {
 	int CONSTRAINT_LOCATOR = 12;
 
 	/**
+	 * The meta object id for the '<em>Constraint Definition</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.validation.debug.locator.ConstraintDefinition
+	 * @see org.eclipse.emf.validation.debug.validity.impl.ValidityPackageImpl#getConstraintDefinition()
+	 * @generated
+	 */
+	int CONSTRAINT_DEFINITION = 13;
+
+	/**
 	 * The meta object id for the '<em>Exception</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1271,7 +1290,7 @@ public interface ValidityPackage extends EPackage {
 	 * @see org.eclipse.emf.validation.debug.validity.impl.ValidityPackageImpl#getException()
 	 * @generated
 	 */
-	int EXCEPTION = 13;
+	int EXCEPTION = 14;
 
 	/**
 	 * The meta object id for the '<em>Object</em>' data type.
@@ -1281,7 +1300,7 @@ public interface ValidityPackage extends EPackage {
 	 * @see org.eclipse.emf.validation.debug.validity.impl.ValidityPackageImpl#getObject()
 	 * @generated
 	 */
-	int OBJECT = 14;
+	int OBJECT = 15;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.validation.debug.validity.AbstractNode <em>Abstract Node</em>}'.
@@ -1431,6 +1450,17 @@ public interface ValidityPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLeafConstrainingNode_ConstraintLocator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintDefinition <em>Constraint Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Constraint Definition</em>'.
+	 * @see org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintDefinition()
+	 * @see #getLeafConstrainingNode()
+	 * @generated
+	 */
+	EAttribute getLeafConstrainingNode_ConstraintDefinition();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.validation.debug.validity.Result <em>Result</em>}'.
@@ -1765,6 +1795,17 @@ public interface ValidityPackage extends EPackage {
 	EDataType getConstraintLocator();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.emf.validation.debug.locator.ConstraintDefinition <em>Constraint Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Constraint Definition</em>'.
+	 * @see org.eclipse.emf.validation.debug.locator.ConstraintDefinition
+	 * @model instanceClass="org.eclipse.emf.validation.debug.locator.ConstraintDefinition" serializeable="false"
+	 * @generated
+	 */
+	EDataType getConstraintDefinition();
+
+	/**
 	 * Returns the meta object for data type '{@link java.lang.Exception <em>Exception</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1926,6 +1967,14 @@ public interface ValidityPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR = eINSTANCE.getLeafConstrainingNode_ConstraintLocator();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint Definition</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION = eINSTANCE.getLeafConstrainingNode_ConstraintDefinition();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.validation.debug.validity.impl.ResultImpl <em>Result</em>}' class.
@@ -2194,6 +2243,16 @@ public interface ValidityPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType CONSTRAINT_LOCATOR = eINSTANCE.getConstraintLocator();
+
+		/**
+		 * The meta object literal for the '<em>Constraint Definition</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.validation.debug.locator.ConstraintDefinition
+		 * @see org.eclipse.emf.validation.debug.validity.impl.ValidityPackageImpl#getConstraintDefinition()
+		 * @generated
+		 */
+		EDataType CONSTRAINT_DEFINITION = eINSTANCE.getConstraintDefinition();
 
 		/**
 		 * The meta object literal for the '<em>Exception</em>' data type.

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -43,11 +42,12 @@ import org.eclipse.jdt.annotation.Nullable;
 public abstract class AbstractConstraintLocator implements ConstraintLocator, ConstraintLocator.Descriptor
 {
 	protected @NonNull Map<EModelElement, List<LeafConstrainingNode>> createLeafConstrainingNode(@Nullable Map<EModelElement, List<LeafConstrainingNode>> map,
-			@NonNull ValidityModel validityModel, @NonNull EModelElement constrainingType, @NonNull Object constrainingObject, @NonNull String label) {
+			@NonNull ValidityModel validityModel, @NonNull EModelElement constrainingType, @NonNull Object constrainingObject, @NonNull ConstraintDefinition definition, @NonNull String label) {
 		LeafConstrainingNode constraint = validityModel.createLeafConstrainingNode();
 		constraint.setConstraintLocator(this);
 		constraint.setLabel(label);
 		constraint.setConstrainingObject(constrainingObject);
+		constraint.setConstraintDefinition(definition);
 		if (map == null) {
 			map = new HashMap<EModelElement, List<LeafConstrainingNode>>();
 		}
@@ -99,7 +99,7 @@ public abstract class AbstractConstraintLocator implements ConstraintLocator, Co
 		return string;
 	}
 
-	protected @NonNull Severity getSeverity(@NonNull BasicDiagnostic diagnostic) {
+	protected @NonNull Severity getSeverity(@NonNull Diagnostic diagnostic) {
 		Severity severity;
 		switch (diagnostic.getSeverity()) {
 			case Diagnostic.OK: severity = Severity.OK; break;

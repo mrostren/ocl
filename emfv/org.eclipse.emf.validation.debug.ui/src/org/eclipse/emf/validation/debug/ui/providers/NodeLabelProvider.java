@@ -12,7 +12,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.ui.view;
+package org.eclipse.emf.validation.debug.ui.providers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +22,10 @@ import java.io.Writer;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
+import org.eclipse.emf.validation.debug.ui.view.SeveritiesDecorator;
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
@@ -41,7 +44,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
-public class AbstractNodeLabelProvider extends ColumnLabelProvider
+public class NodeLabelProvider extends ColumnLabelProvider
 {
 	protected class Summary
 	{
@@ -101,7 +104,7 @@ public class AbstractNodeLabelProvider extends ColumnLabelProvider
 	private final Color validatableColor;
 	private final Color constrainingNodeColor;
 
-	public AbstractNodeLabelProvider(@NonNull ILabelProvider labelProvider, Color validatableColor, Color constrainingNodeColor) {
+	public NodeLabelProvider(@NonNull ILabelProvider labelProvider, Color validatableColor, Color constrainingNodeColor) {
 		this.labelProvider = labelProvider;
 		this.validatableColor = validatableColor;
 		this.constrainingNodeColor = constrainingNodeColor;
@@ -113,12 +116,15 @@ public class AbstractNodeLabelProvider extends ColumnLabelProvider
 	}
 
 	protected void appendResourceDiagnostic(@NonNull Writer s, @NonNull Diagnostic diagnostic) {
-		try {
-			s.append(diagnostic.getMessage());
-		} catch (IOException e) {}
+		boolean isFirst = true;
 		for (Diagnostic child : diagnostic.getChildren()) {
 			try {
-				s.append("\n" + child.getMessage());
+				if (isFirst) {
+					s.append(child.getMessage());
+					isFirst = false;
+				} else {
+					s.append("\n" + child.getMessage());
+				}
 			} catch (IOException e) {}
 		}
 	}
@@ -227,21 +233,8 @@ public class AbstractNodeLabelProvider extends ColumnLabelProvider
 
 	@Override
 	public String getText(Object element) {
-/*		if (element instanceof ConstrainingNode) {
-			return labelProvider.getText(((ConstrainingNode)element).getConstrainingObject());
-		}
-		else if (element instanceof ValidatableNode) {
-			return labelProvider.getText(((ValidatableNode)element).getConstrainedObject());
-		}
-		else {
-			return labelProvider.getText(element);
-		} */
 		return ((AbstractNode)element).getLabel();
 	}
-
-//	public int getToolTipDisplayDelayTime(Object object) {
-//		return 0;
-//	}
 
 	@Override
 	public Image getToolTipImage(Object object) {
@@ -251,18 +244,57 @@ public class AbstractNodeLabelProvider extends ColumnLabelProvider
 
 	@Override
 	public @Nullable String getToolTipText(Object element) {
-		if (element instanceof ResultConstrainingNode) {
-			return getResultToolTip(((ResultConstrainingNode)element).getWorstResult());
-		}
-		else if (element instanceof ResultValidatableNode) {
-			return getResultToolTip(((ResultValidatableNode)element).getWorstResult());
-		}
-		else if (element instanceof AbstractNode) {
-			return getSummaryToolTip((AbstractNode)element);
-		}
-		else {
+		if (element instanceof LeafConstrainingNode) {
+			LeafConstrainingNode leafConstrainingNode = ((LeafConstrainingNode) element);
+			return getLeafConstrainingNodeHoover(leafConstrainingNode, false);
+		} else if (element instanceof ResultConstrainingNode) {
+			return getResultToolTip(((ResultConstrainingNode) element)
+				.getWorstResult());
+		} else if (element instanceof ResultValidatableNode) {
+			Result result = ((ResultValidatableNode) element).getWorstResult();
+			if (result != null) {
+				LeafConstrainingNode leafConstrainingNode = result
+					.getLeafConstrainingNode();
+				return getLeafConstrainingNodeHoover(leafConstrainingNode, true);
+			} else {
+				ConstrainingNode contrainingNode = ((ResultValidatableNode) element).getResultConstrainingNode().getParent();
+				if (contrainingNode instanceof LeafConstrainingNode){
+					LeafConstrainingNode leafConstrainingNode = ((LeafConstrainingNode) contrainingNode);
+					return getLeafConstrainingNodeHoover(leafConstrainingNode, true);
+				}
+				return getResultToolTip(result);
+			}
+		} else if (element instanceof AbstractNode) {
+			return getSummaryToolTip((AbstractNode) element);
+		} else {
 			return "Unknown";
 		}
+	}
+
+	private String getLeafConstrainingNodeHoover(
+			LeafConstrainingNode leafConstrainingNode, boolean withDiagnosisMessage) {
+		StringBuilder s = new StringBuilder();
+		Resource resource = leafConstrainingNode.getConstraintDefinition().getResource();
+		s.append("Location: ");
+		if (resource != null) {
+			s.append(resource.getURI().toString());
+		} else {
+			s.append(ValidationDebugMessages.ValidityView_Constraints_LabelProvider_UnexistingResource);
+		}
+		
+		String expression = leafConstrainingNode.getConstraintDefinition().getExpression();
+		s.append("\nExpression: ");
+		if (expression != null) {
+			s.append(expression);
+		} else {
+			s.append(ValidationDebugMessages.ValidityView_Constraints_LabelProvider_UnattainableExpression);
+		}
+		
+		if (withDiagnosisMessage) {
+			s.append("\nEvaluation Result: ");
+			s.append(getResultToolTip(leafConstrainingNode.getWorstResult()));
+		}
+		return s.toString();
 	}
 
 	public int getToolTipTimeDisplayed(Object object) {

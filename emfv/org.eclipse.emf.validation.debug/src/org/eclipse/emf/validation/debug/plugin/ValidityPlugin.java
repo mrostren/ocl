@@ -78,6 +78,12 @@ public class ValidityPlugin extends EMFPlugin {
 			super.start(context);
 			new ConstraintLocatorRegistryReader().readRegistry();
 		}
-	}
 
+		@Override
+		public void stop(BundleContext context)
+				throws Exception {
+			super.stop(context);
+			plugin = null;
+		}
+	}
 }

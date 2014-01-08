@@ -9,6 +9,7 @@
  *
  * Contributors:
  *	E.D.Willink (CEA LIST) - initial API and implementation
+ *  Obeo - Fix refreshing and Manage Enabled Nodes Validation
  *
  * </copyright>
  */
@@ -29,6 +30,7 @@ import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.emf.validation.debug.ValidityModel;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
+import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
@@ -88,7 +90,6 @@ public class IDEValidityManager extends ValidityManager
 		@Override
 		protected IStatus run(/*@NonNull*/ IProgressMonitor monitor) {
 			assert monitor != null;
-//			System.out.println(Thread.currentThread().getName() + " - ValidationJob.run");
 			try {
 				final ResultSet resultSet = createResultSet(monitor);
 				if (resultSet == null) {
@@ -111,9 +112,40 @@ public class IDEValidityManager extends ValidityManager
 							if (refreshLabels) {
 								monitor.setTaskName(i + "/" + results.size() + ": " + validatable.toString());
 							}
+							ValidatableNode validatableParent = validatable.getParent();
 							LeafConstrainingNode constraint = result.getLeafConstrainingNode();
-							ConstraintLocator constraintLocator = constraint.getConstraintLocator();
-							constraintLocator.validate(result, IDEValidityManager.this);
+
+							if (constraint !=null){
+								List<ConstrainingNode> constrainingAncestors = getConstrainingNodeAncestors(constraint);
+
+								boolean isConstrainingNodeEnabled = true;
+								for (ConstrainingNode constrainingAncestor: constrainingAncestors){
+									if (!constrainingAncestor.isEnabled()){
+										isConstrainingNodeEnabled = false;
+										break;
+									}
+								}
+								
+								boolean isEnabledForValidation = false;
+								if (isConstrainingNodeEnabled) {
+									if (validatable instanceof ResultValidatableNode) {
+										if (validatableParent != null && validatableParent.isEnabled()) {
+											isEnabledForValidation = true;
+										} 
+									} else {
+										isEnabledForValidation = true;
+									}
+								}
+
+								if (isEnabledForValidation){
+									ConstraintLocator constraintLocator = constraint.getConstraintLocator();
+									constraintLocator.validate(result, IDEValidityManager.this);
+								} else {
+									result.setSeverity(Severity.UNKNOWN);
+								}
+							} else {
+								result.setSeverity(Severity.UNKNOWN);
+							}
 						}
 						catch (Exception e) {
 							result.setException(e);
@@ -130,8 +162,6 @@ public class IDEValidityManager extends ValidityManager
 				}
 				finally {
 					monitor.done();
-//					System.out.println(Thread.currentThread().getName() + " - ValidationJob.end");
-//						resultSet.setStable();
 				}
 			}
 			finally {
@@ -139,6 +169,16 @@ public class IDEValidityManager extends ValidityManager
 					validityJobs.remove(this);
 				}
 			}
+		}
+
+		private  @NonNull List<ConstrainingNode> getConstrainingNodeAncestors(@NonNull ConstrainingNode constraining) {
+			ConstrainingNode ancestor = constraining.getParent();
+			List<ConstrainingNode> ancestors = new ArrayList<ConstrainingNode>();
+			while (ancestor != null) {
+				ancestors.add(ancestor);
+				ancestor = ancestor.getParent();
+			}
+			return ancestors;
 		}
 	}
 
@@ -185,10 +225,18 @@ public class IDEValidityManager extends ValidityManager
 						ResultConstrainingNode resultConstrainingNode = result.getResultConstrainingNode();
 						if (resultConstrainingNode != null) {
 							refreshJob.add(resultConstrainingNode);
+							ConstrainingNode parent = resultConstrainingNode.getParent();
+							if (parent != null) {
+								refreshJob.add(parent);
+							}
 						}
 						ResultValidatableNode resultValidatableNode = result.getResultValidatableNode();
 						if (resultValidatableNode != null) {
 							refreshJob.add(resultValidatableNode);
+							ValidatableNode parent = resultValidatableNode.getParent();
+							if (parent != null) {
+								refreshJob.add(parent);
+							}
 						}
 					}
 				}

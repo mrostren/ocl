@@ -9,6 +9,7 @@
  *
  * Contributors:
  *	E.D.Willink (CEA LIST) - initial API and implementation
+ *  Obeo - Add new Icon for disabled Nodes
  *
  * </copyright>
  */
@@ -33,12 +34,12 @@ public class SeveritiesDecorator extends SideBySideImageDecorator
 		Result worstResult = ((AbstractNode)element).getWorstResult();
 		Severity worst = worstResult != null ? worstResult.getSeverity() : Severity.UNKNOWN;
 		switch (worst) {
-			case UNKNOWN: imageName = "unknown.gif"; break;
-			case OK: imageName = "ok.gif"; break;
+			case UNKNOWN: imageName = "disabled.gif"; break;
+			case OK: imageName = "success.gif"; break;
 			case INFO: imageName = "info.gif"; break;
 			case WARNING: imageName = "warning.gif"; break;
 			case ERROR: imageName = "error.gif"; break;
-			case FATAL: imageName = "fatal.gif"; break;
+			case FATAL: imageName = "failed.gif"; break;
 			default: imageName = "unknown.gif"; break;
 		}
 		Object image2 = ValidityUIPlugin.INSTANCE.getImage(imageName);

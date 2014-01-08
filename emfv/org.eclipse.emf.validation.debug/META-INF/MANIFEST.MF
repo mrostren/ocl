@@ -8,6 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.emf.validation.debug.plugin.ValidityPlugin$Implementation
 Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit,
  org.eclipse.debug.core
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
@@ -16,6 +17,7 @@ Export-Package: org.eclipse.emf.validation.debug,
  org.eclipse.emf.validation.debug.locator,
  org.eclipse.emf.validation.debug.validity,
  org.eclipse.emf.validation.debug.validity.impl,
+ org.eclipse.emf.validation.debug.validity.markers,
  org.eclipse.emf.validation.debug.validity.util
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j

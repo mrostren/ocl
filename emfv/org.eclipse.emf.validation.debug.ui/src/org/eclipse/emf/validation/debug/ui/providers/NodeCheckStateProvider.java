@@ -12,12 +12,12 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.ui.view;
+package org.eclipse.emf.validation.debug.ui.providers;
 
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.jface.viewers.ICheckStateProvider;
 
-public class AbstractNodeCheckStateProvider implements ICheckStateProvider
+public class NodeCheckStateProvider implements ICheckStateProvider
 {
 	public boolean isChecked(Object element) {
 		AbstractNode node = (AbstractNode) element;
@@ -26,7 +26,6 @@ public class AbstractNodeCheckStateProvider implements ICheckStateProvider
 
 	public boolean isGrayed(Object element) {
 		AbstractNode node = (AbstractNode) element;
-		boolean enabled = node.isEnabled();
-		return enabled ? !node.isAllChildrenEnabled() : !node.isAllChildrenDisabled();
+		return node.isEnabled() ? !node.isAllChildrenEnabled() : !node.isAllChildrenDisabled();
 	}
 }

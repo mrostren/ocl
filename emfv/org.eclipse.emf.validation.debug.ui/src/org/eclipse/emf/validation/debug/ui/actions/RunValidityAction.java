@@ -9,6 +9,7 @@
  *
  * Contributors:
  *	E.D.Willink (CEA LIST) - initial API and implementation
+ *  Obeo - Messages Externalization
  *
  * </copyright>
  */
@@ -17,6 +18,7 @@ package org.eclipse.emf.validation.debug.ui.actions;
 import java.net.URL;
 
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
+import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
 import org.eclipse.emf.validation.debug.ui.view.IDEValidityManager;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.action.Action;
@@ -27,10 +29,10 @@ public final class RunValidityAction extends Action
 	protected final @NonNull IDEValidityManager validityManager;
 	
 	public RunValidityAction(@NonNull IDEValidityManager validityManager) {
-		super("Validate Selected Constraints and Elements");
+		super(ValidationDebugMessages.ValidityView_Action_RunValidity_Title);
 		this.validityManager = validityManager;
-		setToolTipText("Perform a Validation of the selected Model Elements using the selected Constraints");
-		URL image = (URL) ValidityUIPlugin.INSTANCE.getImage("run_exec.png");
+		setToolTipText(ValidationDebugMessages.ValidityView_Action_RunValidity_ToolTipText);
+		URL image = (URL) ValidityUIPlugin.INSTANCE.getImage(ValidationDebugMessages.ValidityView_Action_RunValidity_ImageLocation);
 		setImageDescriptor(ImageDescriptor.createFromURL(image));
 	}
 

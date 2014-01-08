@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EModelElement;
@@ -48,16 +47,13 @@ import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
 import org.eclipse.ocl.examples.pivot.manager.MetaModelManager;
 import org.eclipse.ocl.examples.pivot.utilities.PivotEnvironmentFactory;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
-import org.eclipse.uml2.types.TypesPackage;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageImport;
-import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
-import org.eclipse.uml2.uml.UMLPackage;
 
 public class UMLConstraintLocator extends AbstractConstraintLocator
 {
@@ -119,7 +115,8 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 						}
 						constraints.add(constraint); */
 	//						EClass eC = constrainedElement.eClass();
-							map = createLeafConstrainingNode(map, validityModel, contextElement, umlConstraint, label);
+							UMLConstraintDefinition definition = new UMLConstraintDefinition(umlConstraint, resource);
+							map = createLeafConstrainingNode(map, validityModel, contextElement, umlConstraint, definition, label);
 						}
 					}
 				}

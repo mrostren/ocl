@@ -12,29 +12,27 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.ui.view;
+package org.eclipse.emf.validation.debug.ui.providers;
 
 import java.util.List;
 
 import org.eclipse.emf.validation.debug.ValidityManager;
+import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
+import org.eclipse.emf.validation.debug.validity.RootConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.RootNode;
-import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-public class ValidatableNodeContentProvider implements ITreeContentProvider
+public class ConstrainingNodeContentProvider implements ITreeContentProvider
 {
 	public static final @NonNull Object[] NO_OBJECTS = new Object[0];
 	
-//	private final @NonNull ILabelProvider labelProvider;
 	private final @NonNull ValidityManager validityManager;
 
-	public ValidatableNodeContentProvider(@NonNull ValidityManager validityManager, @NonNull ILabelProvider labelProvider) {
+	public ConstrainingNodeContentProvider(@NonNull ValidityManager validityManager, @NonNull ILabelProvider labelProvider) {
 		this.validityManager = validityManager;
-//		this.labelProvider = labelProvider;
 	}
 
 	public void dispose() {}
@@ -44,25 +42,24 @@ public class ValidatableNodeContentProvider implements ITreeContentProvider
 		if (rootNode == null) {
 			return NO_OBJECTS;
 		}
-		List<RootValidatableNode> validatableNodes = rootNode.getValidatableNodes();
-		return validatableNodes.toArray(new Object[validatableNodes.size()]);
+		List<RootConstrainingNode> constrainingNodes = rootNode.getConstrainingNodes();
+		return constrainingNodes.toArray(new Object[constrainingNodes.size()]);
 	}
 
 	public Object[] getChildren(Object parentElement) {
-		List<ValidatableNode> validatableNodes = ((ValidatableNode)parentElement).getChildren();
-		return validatableNodes.toArray(new Object[validatableNodes.size()]);
+		List<ConstrainingNode> constrainingNodes = ((ConstrainingNode)parentElement).getChildren();
+		return constrainingNodes.toArray(new Object[constrainingNodes.size()]);
 	}
 
 	public Object getParent(Object element) {
-		return ((ValidatableNode)element).getParent();
+		return ((ConstrainingNode)element).getParent();
 	}
 
 	public boolean hasChildren(Object element) {
-		List<ValidatableNode> validatableNodes = ((ValidatableNode)element).getChildren();
-		return validatableNodes.size() > 0;
+		List<ConstrainingNode> constrainingNodes = ((ConstrainingNode)element).getChildren();
+		return constrainingNodes.size() > 0;
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-//		System.out.println("inputChanged " + newInput);
 	}
 }

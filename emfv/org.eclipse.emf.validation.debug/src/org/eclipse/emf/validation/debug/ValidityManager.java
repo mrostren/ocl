@@ -9,7 +9,7 @@
  *
  * Contributors:
  *	E.D.Willink (CEA LIST) - initial API and implementation
- *
+ *  Obeo - Optimize View Input Refresh
  * </copyright>
  */
 package org.eclipse.emf.validation.debug;
@@ -27,7 +27,6 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -37,9 +36,6 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
-import org.eclipse.emf.validation.debug.locator.EClassConstraintLocator;
-import org.eclipse.emf.validation.debug.locator.EClassifierConstraintLocator;
-import org.eclipse.emf.validation.debug.locator.EValidatorConstraintLocator;
 import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
@@ -55,12 +51,20 @@ public class ValidityManager
 	private static final @NonNull Map<String, List<ConstraintLocator.Descriptor>> constraintLocatorDescriptors = new HashMap<String, List<ConstraintLocator.Descriptor>>();
 	private static final @NonNull Map<String, List<ConstraintLocator>> constraintLocators = new HashMap<String, List<ConstraintLocator>>();
 
-/*	public static void addConstraintLocator(@NonNull EClass eClass, @NonNull ConstraintLocator constraintLocator) {
-		Resource eResource = eClass.eResource();
-		URI uri = eResource.getURI().appendFragment(eResource.getURIFragment(EcorePackage.Literals.ECLASS));
-		addConstraintLocator(uri, constraintLocator);
-	} */
 
+	private final @NonNull Set<Resource> newResources = new HashSet<Resource>();
+
+	private final @NonNull Set<Resource> oldResources = new HashSet<Resource>();
+	
+	/**
+	 * This add the corresponding constraint locator if it exists in the list of
+	 * defined descriptors.
+	 * 
+	 * @param nsURI
+	 *            the nsURI of the validated resource
+	 * @param constraintLocator
+	 *            the corresponding constraint locator
+	 */
 	public static synchronized void addConstraintLocator(/*@NonNull*/ String nsURI, @NonNull ConstraintLocator.Descriptor constraintLocator) {
 		List<ConstraintLocator.Descriptor> list = constraintLocatorDescriptors.get(nsURI);
 		if (list == null) {
@@ -112,14 +116,6 @@ public class ValidityManager
 			}
 		}
 		return list;
-	}
-	
-	public static void initialize() {
-		addConstraintLocator(EcorePackage.eNS_URI, new EClassConstraintLocator());
-		addConstraintLocator(EcorePackage.eNS_URI, new EClassifierConstraintLocator());
-		addConstraintLocator(EcorePackage.eNS_URI, new EValidatorConstraintLocator());
-//		addConstraintLocator(UMLPackage.Literals.CONSTRAINT, new UMLConstraintLocator());
-//		addConstraintLocator(PivotPackage.Literals.CONSTRAINT, new PivotConstraintLocator());
 	}
 	
 	protected final @NonNull ComposedAdapterFactory adapterFactory;
@@ -184,7 +180,6 @@ public class ValidityManager
 	}
 
 	public List<Result> getConstrainingNodeResults(@NonNull ConstrainingNode element) {
-//		refreshLastResultSet();
 		List<Result> results = new ArrayList<Result>();
 		if (element.getLabel().startsWith("EOperation")) {
 			getAllConstrainingNodeResults(results, element);
@@ -235,66 +230,60 @@ public class ValidityManager
 		ValidityModel model2 = model;
 		return model2 != null ? model2.getRootNode() : null;
 	}
+	
+	public @Nullable ValidityModel getModel() {
+		return model;
+	}
 
 	public List<Result> getValidatableNodeResults(@NonNull ValidatableNode element) {
-//		refreshLastResultSet();
 		List<Result> results = new ArrayList<Result>();
 		getAllValidatableNodeResults(results, element);
 		return results;
 	}
 
 	public void setInput(Object newInput) {
-		System.out.println("\n==================================================\ninputChanged " + newInput);
-//		if (newInput == oldInput) {
-//			return;
-//		}
-//		contentMap.clear();
-//		metaModelManager = null;
 		ResourceSet selectedResourceSet = null;
 		Resource selectedResource = null;
 		EObject selectedObject = null;
-		Set<Resource> newResources = new HashSet<Resource>();
+		newResources.clear();
+		
+		if(newInput == null){
+			oldResources.removeAll(oldResources);
+			model = null;
+			return;
+		}
 		
 		if (newInput instanceof ResourceSet) {
 			selectedResourceSet = (ResourceSet) newInput;
-//			metaModelManager = PivotUtil.findMetaModelManager(selectedResourceSet);
-//			if (metaModelManager == null) {
-//				metaModelManager = new MetaModelManager();
-//				MetaModelManagerResourceSetAdapter.getAdapter(selectedResourceSet, metaModelManager);
-//				if (myMetaModelManagers == null) {
-//					myMetaModelManagers = new HashSet<MetaModelManager>();
-//				}
-//				myMetaModelManagers.add(metaModelManager);
-//			}
 			newResources.addAll(selectedResourceSet.getResources());
-		}
-		else if (newInput instanceof Resource) {
+		} else if (newInput instanceof Resource) {
 			selectedResource = (Resource) newInput;
 			selectedResourceSet = selectedResource.getResourceSet();
 			if (selectedResourceSet == null) {
 				newResources.add(selectedResource);
 			}
-//			metaModelManager = PivotUtil.findMetaModelManager(selectedResource);			
-		}
-		else if (newInput instanceof EObject) {
+		} else if (newInput instanceof EObject) {
 			selectedObject = (EObject) newInput;
 			selectedResource = selectedObject.eResource();
 			selectedResourceSet = selectedResource != null ? selectedResource.getResourceSet() : null;
-//			metaModelManager = PivotUtil.findMetaModelManager(selectedObject);			
 		}
+
 		if (selectedResourceSet != null) {
 			newResources.addAll(selectedResourceSet.getResources());
 		}
+		
 		if (newResources.isEmpty()) {
 			return;
 		}
-		ValidityModel model2 = model;
-		if (model2 != null) {
-			if (newResources.equals(model2.getResources())) {
-				return;
-			}		
+		
+		if (!oldResources.isEmpty() && oldResources.equals(newResources)) {
+			return;
 		}
-		model = model2 = createModel(newResources);
+
+		ValidityModel model2 = model = createModel(newResources);
 		model2.init();
+
+		oldResources.clear();
+		oldResources.addAll(newResources);
 	}
 }
