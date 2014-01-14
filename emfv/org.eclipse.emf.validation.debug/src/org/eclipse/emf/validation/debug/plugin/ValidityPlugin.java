@@ -14,8 +14,12 @@
  */
 package org.eclipse.emf.validation.debug.plugin;
 
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.validation.export.ExportResultsListener;
+import org.eclipse.emf.validation.export.ExportResultsRegistry;
 import org.osgi.framework.BundleContext;
 
 public class ValidityPlugin extends EMFPlugin {
@@ -59,6 +63,12 @@ public class ValidityPlugin extends EMFPlugin {
 	 */
 	static public class Implementation extends EclipsePlugin {
 		/**
+		 * The registry listener that will be used to listen to Ocl Exporter
+		 * extension changes.
+		 */
+		private ExportResultsListener registryListener = new ExportResultsListener();
+		
+		/**
 		 * Creates the singleton instance.
 		 */
 		public Implementation() {
@@ -77,11 +87,19 @@ public class ValidityPlugin extends EMFPlugin {
 		public void start(BundleContext context) throws Exception {
 			super.start(context);
 			new ConstraintLocatorRegistryReader().readRegistry();
+			
+			final IExtensionRegistry registry = Platform.getExtensionRegistry();
+			registry.addListener(registryListener, ExportResultsListener.VALIDITY_EXPORTER_EXTENSION_POINT);
+			registryListener.parseInitialContributions();
 		}
 
 		@Override
 		public void stop(BundleContext context)
 				throws Exception {
+			final IExtensionRegistry registry = Platform.getExtensionRegistry();
+			registry.removeListener(registryListener);
+			ExportResultsRegistry.clearRegistry();
+			
 			super.stop(context);
 			plugin = null;
 		}

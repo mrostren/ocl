@@ -7,6 +7,7 @@
 <plugin>
    <extension-point id="constraint_locator" name="constraint_locator" schema="schema/constraint_locator.exsd"/>
 
+   <extension-point id="validity_exporter" name="Validity Results Exporter" schema="schema/validity_exporter.exsd"/>
    <extension point="org.eclipse.emf.validation.debug.constraint_locator">
    		<locator metaclass="http://www.eclipse.org/emf/2002/Ecore"
    			class="org.eclipse.emf.validation.debug.locator.EClassConstraintLocator"/>

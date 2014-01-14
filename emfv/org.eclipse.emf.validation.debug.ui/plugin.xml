@@ -29,4 +29,20 @@
       </launchConfigurationTabGroup>
    </extension>
 
+       <extension
+          point="org.eclipse.emf.validation.debug.validity_exporter">
+       <exporter
+             class="org.eclipse.emf.validation.debug.ui.export.util.HTMLExport"
+             extension="html"
+             name="HTMLExport">
+       </exporter>
+    </extension>
+    <extension
+          point="org.eclipse.emf.validation.debug.validity_exporter">
+       <exporter
+             class="org.eclipse.emf.validation.debug.ui.export.util.TextExport"
+             extension="txt"
+             name="TextExport">
+       </exporter>
+    </extension> 
 </plugin>

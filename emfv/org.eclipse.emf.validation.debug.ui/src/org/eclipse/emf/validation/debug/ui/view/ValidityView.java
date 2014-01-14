@@ -28,6 +28,7 @@ import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
 import org.eclipse.emf.validation.debug.ui.actions.DisableAllNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.DisableAllUnusedNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.EnableAllNodesAction;
+import org.eclipse.emf.validation.debug.ui.actions.ExportValidationResultAction;
 import org.eclipse.emf.validation.debug.ui.actions.FilterValidationResultAction;
 import org.eclipse.emf.validation.debug.ui.actions.LockValidatableNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.RunValidityAction;
@@ -153,6 +154,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	/**Local Tool Bar.*/
 	private Action runValidationAction;
 	private Action lockValidatableNodesAction;
+	private Action exportValidationResultAction;
 	private IAction filterValidationResultAction;
 
 	/**Validatable Tool Bar.*/
@@ -457,6 +459,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 		manager.add(new Separator());
 		manager.add(filterValidationResultAction);
 		manager.add(new Separator());
+		manager.add(exportValidationResultAction);
 
 		manager.update(true);
 	}
@@ -532,6 +535,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 		/*Toolbar actions*/
 		runValidationAction = new RunValidityAction(validityManager);
 
+		exportValidationResultAction = new ExportValidationResultAction(validityManager, this);
 		filterValidationResultAction = new FilterValidationResultAction(this);
 
 		/* Validatable Tool bar actions*/

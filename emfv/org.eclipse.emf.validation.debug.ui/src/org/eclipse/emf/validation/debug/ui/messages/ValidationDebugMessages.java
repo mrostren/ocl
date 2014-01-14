@@ -42,6 +42,12 @@ public class ValidationDebugMessages
 	public static String ValidityView_Action_RunValidity_Title;
 	public static String ValidityView_Action_RunValidity_ImageLocation;
 	public static String ValidityView_Action_RunValidity_ToolTipText;
+	
+	public static String ValidityView_Action_ExportResult_Title;
+	public static String ValidityView_Action_ExportResult_ImageLocation;
+	public static String ValidityView_Action_ExportResult_ToolTipText;
+	public static String ValidityView_Action_ExportResult_ToolTipText_NeedsRun;
+	public static String validityView_Action_ExportResult_ToolTipText_NoExporter;
 
 	public static String ValidityView_Action_FilterResult_Title;
 	public static String ValidityView_Action_FilterResult_ImageLocation;
@@ -69,4 +75,43 @@ public class ValidationDebugMessages
 	public static String ValidityView_Action_ShowNodesByKind_Kind_OK;
 	public static String ValidityView_Action_ShowNodesByKind_ToolTipText;
 	public static String ValidityView_Action_ShowFailedElementsNodes_ToolTipText;
+	
+	// Export Validation Results
+	public static String ExportValidationResultsDialog_title;
+	public static String ExportValidationResultsDialog_fileNameLabel;
+	public static String ExportValidationResultsDialog_defaultFileName;
+	public static String ExportValidationResultsDialog_exportedFileContextId;
+	public static String ExportValidationResultsDialog_file;
+	public static String ExportValidationResultsDialog_warningMessage;
+	
+	public static String ResourceContainerGroupDestination_label;
+	public static String ResourceContainerGroupSelection_message;
+	
+	// source IDEWorkbenchMessages	
+	public static String ContainerGroup_message;
+	public static String ContainerGroup_selectFolder;
+	
+	public static String NewWizardPage_errorTitle;
+	public static String NewWizardPage_internalErrorTitle;
+	public static String NewWizardPage_file;
+	public static String NewWizardPage_internalErrorMessage;
+	public static String NewWizardPage_nameExists;
+	public static String NewWizardPage_wrongExtension;
+	public static String NewWizardPage_newFileWizardContextId;
+	public static String NewWizardPage_pageName;
+	public static String NewWizardPage_resourceWillBeFilteredWarning;
+
+	public static String NewWizardPage_defaultFileName;
+	public static String NewWizardPage_fileNameLabel;
+	public static String NewWizardPage_pageDescription;
+	public static String NewWizardPage_pageSummary;
+	public static String NewWizardPage_pageTitle;
+	
+	public static String ResourceGroup_resource;
+	public static String ResourceGroup_nameExists;
+	public static String ResourceGroup_folderEmpty;
+	public static String ResourceGroup_noProject;
+	public static String ResourceGroup_emptyName;
+	public static String ResourceGroup_invalidFilename;
+	public static String ResourceGroup_pathOccupied;
 }
