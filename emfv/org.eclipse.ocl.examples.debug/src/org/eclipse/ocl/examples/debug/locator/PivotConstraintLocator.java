@@ -81,37 +81,6 @@ public class PivotConstraintLocator extends AbstractConstraintLocator
 		return map;
 	}
 
-	/**
-	 * Returns the {@link IFile} in which the provided {@link Resource} can be
-	 * found, if any.
-	 * 
-	 * @param resource
-	 *            the {@link Resource} for which we search the enclosing file
-	 * @return the corresponding {@link IFile} or <code>null</code> if one of the following occurs:
-	 *         <ul>
-	 *         <li>the given resource is null </li>
-	 *         <li>the resource {@link URI} cannot be determined</li>
-	 *         <li>the resource {@link URI} is not platform oriented</li>
-	 *         <li>the project supposed to contain the resource does not actually exist</li>
-	 *         <li>the project containing the resource is closed</li>
-	 *         </ul>
-	 * 
-	 */
-	private static @Nullable IFile findFile(Resource resource) {
-		if (resource == null || resource.getURI() == null || !resource.getURI().isPlatform()) {
-			return null;
-		}
-		
-		IPath resourcePath = new Path(resource.getURI().toPlatformString(true));
-		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(resourcePath);
-
-		IProject iProject = iFile.getProject();
-		if (!iProject.isAccessible() || !iFile.exists()) {
-			return null;
-		}
-		return iFile;
-	}
-
 	@Override
 	public void validate(@NonNull Result result, @NonNull ValidityManager validityManager) {
 		Constraint constraint = (Constraint) result.getLeafConstrainingNode().getConstrainingObject();
