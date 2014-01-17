@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2013 CEA LIST and others.
+ * Copyright (c) 2013,2014 CEA LIST and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,14 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -83,23 +77,32 @@ public class PivotConstraintLocator extends AbstractConstraintLocator
 
 	@Override
 	public void validate(@NonNull Result result, @NonNull ValidityManager validityManager) {
-		Constraint constraint = (Constraint) result.getLeafConstrainingNode().getConstrainingObject();
-		if (constraint !=null){
-			EObject eObject = result.getValidatableNode().getConstrainedObject();
-			BasicDiagnostic diagnostic = validityManager.createDefaultDiagnostic(eObject);
-			try {
-				ResourceSet resourceSet = eObject.eResource().getResourceSet();
-
-				if (resourceSet != null) {
-					ValidationAdapter validationAdapter = ValidationAdapter.findAdapter(resourceSet);
-					diagnostic.add(validationAdapter.validateSingleConstraint(constraint, eObject, validityManager.createDefaultContext()));
-					result.setDiagnostic(diagnostic);
-					result.setSeverity(getSeverity(diagnostic));
+		Severity severity = Severity.UNKNOWN;
+		try {
+			Constraint constraint = (Constraint) result.getLeafConstrainingNode().getConstrainingObject();
+			if (constraint != null){
+				EObject eObject = result.getValidatableNode().getConstrainedObject();
+				try {
+					ResourceSet resourceSet = eObject.eResource().getResourceSet();
+					if (resourceSet != null) {
+						ValidationAdapter validationAdapter = ValidationAdapter.findAdapter(resourceSet);
+						if (validationAdapter != null) {
+							Map<Object, Object> context = validityManager.createDefaultContext();
+							Diagnostic diagnostic = validationAdapter.validate(constraint, eObject, context);
+							result.setDiagnostic(diagnostic);
+							severity = diagnostic != null ? getSeverity(diagnostic) : Severity.OK;
+						}
+					}
+				} catch (Exception e) {
+					result.setException(e);
+					severity = Severity.FATAL;
+				} catch (Throwable e) {
+					result.setException(new Exception(e));		// FIXME avoid wrapper
+					severity = Severity.FATAL;
 				}
-			} catch (Exception e) {
-				result.setException(e);
-				result.setSeverity(Severity.FATAL);
 			}
+		} finally {
+			result.setSeverity(severity);
 		}
 	}
 }
