@@ -7,13 +7,12 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.emf.validation.debug.plugin.ValidityPlugin$Implementation
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.edit,
- org.eclipse.debug.core
+ org.eclipse.emf.ecore.edit
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.emf.validation.debug,
- org.eclipse.emf.validation.debug.launching,
  org.eclipse.emf.validation.debug.locator,
  org.eclipse.emf.validation.debug.validity,
  org.eclipse.emf.validation.debug.validity.impl,

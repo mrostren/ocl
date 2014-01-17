@@ -11,23 +11,6 @@
             category="org.eclipse.emf.validation.ui"
             class="org.eclipse.emf.validation.debug.ui.view.ValidityView"/>
    </extension>
-  
-   <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
-      <launchConfigurationTypeImage
-            icon="icons/validation.gif"
-            configTypeID="org.eclipse.emf.validation.debug.launchConfigurationType"
-            id="org.eclipse.emf.validation.debug.ui.launching.launchConfigurationTypeImage">
-      </launchConfigurationTypeImage>
-   </extension>
-
-   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            type="org.eclipse.emf.validation.debug.launchConfigurationType"
-            description="ValidityLaunchConfigurationGroupName"
-            class="org.eclipse.emf.validation.debug.ui.launching.ValidityTabGroup"
-            id="org.eclipse.emf.validation.debug.ui.launching.ValidityApplicationTabGroup">
-      </launchConfigurationTabGroup>
-   </extension>
 
        <extension
           point="org.eclipse.emf.validation.debug.validity_exporter">

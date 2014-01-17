@@ -24,14 +24,5 @@
             class="org.eclipse.emf.validation.debug.validity.ValidityPackage"
             genModel="model/Validity.genmodel"/>
    </extension>
-   
-   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            id="org.eclipse.emf.validation.debug.launchConfigurationType"
-            delegate="org.eclipse.emf.validation.debug.launching.ValidityLaunchConfigurationDelegate"
-            modes="run, debug"
-            name="Model Validation">
-      </launchConfigurationType>
-   </extension>
  
 </plugin>
