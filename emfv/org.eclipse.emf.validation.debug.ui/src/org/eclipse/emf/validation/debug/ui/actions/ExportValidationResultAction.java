@@ -40,7 +40,9 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
 public final class ExportValidationResultAction extends Action implements IMenuCreator
@@ -122,9 +124,11 @@ public final class ExportValidationResultAction extends Action implements IMenuC
 
 		@Override
 		public void run() {
+			IWorkbenchPage page = validityView.getSite().getPage();
 			IStructuredSelection selection = null;
-			if (validityView.getSite() != null) {
-				ISelectionProvider selectionProvider = validityView.getSite().getSelectionProvider();
+			IEditorPart editorPart = page.getActiveEditor();
+			if (editorPart.getSite() != null) {
+				ISelectionProvider selectionProvider = editorPart.getSite().getSelectionProvider();
 				if (selectionProvider != null) {
 					ISelection selection2 = selectionProvider.getSelection();
 					if (!selection2.isEmpty() && selection2 instanceof IStructuredSelection)

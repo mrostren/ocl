@@ -87,6 +87,8 @@ public abstract class AbstractExport implements IValidatorExport {
 		} catch (InterruptedException e) {
 			handleError(e, false);
 		}
+		
+		clearMaps();
 	}
 	
 	private static void handleError(Throwable t, boolean popup) {
@@ -130,6 +132,14 @@ public abstract class AbstractExport implements IValidatorExport {
 		for (ValidatableNode validatableNode : rootNode.getValidatableNodes()) {
 			populateMaps(validatableNode);
 		}
+	}
+	
+	private void clearMaps() {
+		validationSuccess.clear();
+		validationErrors.clear();
+		validationFailures.clear();
+		validationWarnings.clear();
+		validationInfos.clear();
 	}
 
 	private void populateMaps(ValidatableNode validatableNode) {
@@ -181,10 +191,10 @@ public abstract class AbstractExport implements IValidatorExport {
 		if (result == null) {
 			return null;
 		}
-		Object diagnostic = result.getDiagnostic();
 		StringWriter message = new StringWriter();
+		Object diagnostic = result.getDiagnostic();
 		if (diagnostic == null) {
-			message.append("<<null diagnostic message>>");
+			message.append("null diagnostic message");
 		} else if (diagnostic instanceof Diagnostic) {
 			boolean isFirst = true;
 			for (Diagnostic child : ((Diagnostic) diagnostic).getChildren()) {
@@ -204,6 +214,6 @@ public abstract class AbstractExport implements IValidatorExport {
 			message.append('\n');
 			exception.printStackTrace(new PrintWriter(message));
 		}
-		return result.toString();
+		return message.toString();
 	}
 }

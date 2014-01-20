@@ -185,7 +185,7 @@ public class HTMLExport extends AbstractExport {
 		s.append("\t\t\t<tr>\n");
 		Resource resource = node.getConstraintDefinition().getResource();
 		if (resource != null) {
-			s.append("\t\t\t Resource: " + resource + "\n");
+			s.append("\t\t\t<td> Resource: " + resource.getURI().lastSegment() + "</td>\n");
 		} else {
 			s.append("\t\t\t\t<td>"
 				+ ValidationDebugMessages.ValidityView_Constraints_LabelProvider_UnexistingResource
