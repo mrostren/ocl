@@ -25,9 +25,11 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
+import org.eclipse.emf.validation.debug.ui.actions.CollapseAllNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.DisableAllNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.DisableAllUnusedNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.EnableAllNodesAction;
+import org.eclipse.emf.validation.debug.ui.actions.ExpandAllNodesAction;
 import org.eclipse.emf.validation.debug.ui.actions.ExportValidationResultAction;
 import org.eclipse.emf.validation.debug.ui.actions.FilterValidationResultAction;
 import org.eclipse.emf.validation.debug.ui.actions.LockValidatableNodesAction;
@@ -103,9 +105,6 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	 * The ID of the view as specified by the extension.
 	 */
 	public static final @NonNull String ID = "org.eclipse.emf.validation.debug.ui.validity";//$NON-NLS-1$
-	
-	@SuppressWarnings("unused")
-	private static org.eclipse.ocl.examples.ui.OCLPropertyTester ensureViewsIdIsreferenced = null;
 
 	protected FilteredCheckboxTree filteredValidatableNodesTree;
 	protected FilteredCheckboxTree filteredConstrainingNodesTree;
@@ -155,17 +154,23 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	private ShowElementInEditorAction showConstrainingElementInEditorAction;
 	
 	/**Local Tool Bar.*/
+	private Action expandAllNodesAction;
+	private Action collapseAllNodesAction;
 	private Action runValidationAction;
 	private Action lockValidatableNodesAction;
 	private Action exportValidationResultAction;
 	private IAction filterValidationResultAction;
 
 	/**Validatable Tool Bar.*/
+	private Action expandAllValidatableNodesAction;
+	private Action collapseAllValidatableNodesAction;
 	private Action enableAllValidatableNodesAction;
 	private Action disableAllValidatableNodesAction;
 	private Action disableAllUnusedValidatableNodesAction;
 
 	/**Constraining Tool Bar.*/
+	private Action expandAllConstrainingNodesAction;
+	private Action collapseAllConstrainingNodesAction;
 	private Action enableAllConstrainingNodesAction;
 	private Action disableAllConstrainingNodesAction;
 	private Action disableAllUnusedConstrainingNodesAction;
@@ -427,6 +432,9 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	}
 
 	private void fillValidatableContextMenu(@NonNull IContributionManager manager) {
+		manager.add(expandAllValidatableNodesAction);
+		manager.add(collapseAllValidatableNodesAction);
+		manager.add(new Separator());
 		// use the same actions as the column tool bar
 		manager.add(enableAllValidatableNodesAction);
 		manager.add(disableAllValidatableNodesAction);
@@ -442,6 +450,9 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	}
 	
 	private void fillConstrainingContextMenu(@NonNull IContributionManager manager) {
+		manager.add(expandAllConstrainingNodesAction);
+		manager.add(collapseAllConstrainingNodesAction);
+		manager.add(new Separator());
 		// Use the same actions as the column tool bar
 		manager.add(enableAllConstrainingNodesAction);
 		manager.add(disableAllConstrainingNodesAction);
@@ -457,6 +468,9 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	}
 
 	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(expandAllNodesAction);
+		manager.add(collapseAllNodesAction);
+		manager.add(new Separator());
 		manager.add(lockValidatableNodesAction);
 		manager.add(runValidationAction);
 		manager.add(new Separator());
@@ -468,6 +482,9 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	}
 	
 	private void fillConstrainingColumnToolBar(IContributionManager manager) {
+		manager.add(expandAllConstrainingNodesAction);
+		manager.add(collapseAllConstrainingNodesAction);
+		manager.add(new Separator());
 		manager.add(enableAllConstrainingNodesAction);
 		manager.add(disableAllConstrainingNodesAction);
 		manager.add(new Separator());
@@ -477,6 +494,9 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	}
 
 	private void fillValidatableColumnToolBar(IContributionManager manager) {
+		manager.add(expandAllValidatableNodesAction);
+		manager.add(collapseAllValidatableNodesAction);
+		manager.add(new Separator());
 		manager.add(enableAllValidatableNodesAction);
 		manager.add(disableAllValidatableNodesAction);
 		manager.add(new Separator());
@@ -536,17 +556,23 @@ public class ValidityView extends ViewPart implements ISelectionListener
 		showConstrainingElementInEditorAction = new ShowElementInEditorAction(validityManager, getConstrainingNodesViewer());
 		
 		/*Toolbar actions*/
+		expandAllNodesAction = new ExpandAllNodesAction(validityManager, this, true, true);
+		collapseAllNodesAction = new CollapseAllNodesAction(validityManager, this, true, true);
 		runValidationAction = new RunValidityAction(validityManager);
 
 		exportValidationResultAction = new ExportValidationResultAction(validityManager, this);
 		filterValidationResultAction = new FilterValidationResultAction(this);
 
 		/* Validatable Tool bar actions*/
+		expandAllValidatableNodesAction = new ExpandAllNodesAction(validityManager, this, true, false);
+		collapseAllValidatableNodesAction = new CollapseAllNodesAction(validityManager, this, true, false);
 		enableAllValidatableNodesAction = new EnableAllNodesAction(validityManager, getValidatableNodesViewer(), true);	
 		disableAllValidatableNodesAction = new DisableAllNodesAction(validityManager, getValidatableNodesViewer(), true);	
 		disableAllUnusedValidatableNodesAction = new DisableAllUnusedNodesAction(validityManager, getValidatableNodesViewer(), true);	
 		
-		/* Constraining Tool bar actions*/	
+		/* Constraining Tool bar actions*/
+		expandAllConstrainingNodesAction = new ExpandAllNodesAction(validityManager, this, false, true);
+		collapseAllConstrainingNodesAction = new CollapseAllNodesAction(validityManager, this, false, true);
 		enableAllConstrainingNodesAction = new EnableAllNodesAction(validityManager, getConstrainingNodesViewer(), false);
 		disableAllConstrainingNodesAction = new DisableAllNodesAction(validityManager, getConstrainingNodesViewer(), false);
 		disableAllUnusedConstrainingNodesAction = new DisableAllUnusedNodesAction(validityManager, getConstrainingNodesViewer(), false);	

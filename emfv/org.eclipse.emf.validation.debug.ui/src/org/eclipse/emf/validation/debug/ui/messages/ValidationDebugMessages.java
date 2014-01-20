@@ -53,6 +53,20 @@ public class ValidationDebugMessages
 	public static String ValidityView_Action_FilterResult_ImageLocation;
 	public static String ValidityView_Action_FilterResult_ToolTipText;
 
+
+	public static String ValidityView_Action_ExpandAllNodes_Title;
+	public static String ValidityView_Action_ExpandAllNodes_ImageLocation;
+	public static String ValidityView_Action_ExpandAllNodes_ToolTipText;
+	public static String ValidityView_Action_ExpandAllConstrainingNodes_ToolTipText;
+	public static String ValidityView_Action_ExpandAllValidatableNodes_ToolTipText;
+	
+
+	public static String ValidityView_Action_CollapseAllNodes_Title;
+	public static String ValidityView_Action_CollapseAllNodes_ImageLocation;
+	public static String ValidityView_Action_CollapseAllNodes_ToolTipText;
+	public static String ValidityView_Action_CollapseAllConstrainingNodes_ToolTipText;
+	public static String ValidityView_Action_CollapseAllValidatableNodes_ToolTipText;
+	
 	public static String ValidityView_Action_SelectAllNodes_Title;
 	public static String ValidityView_Action_SelectAllNodes_ToolTipText;
 	public static String ValidityView_Action_SelectAllNodes_ImageLocation;
