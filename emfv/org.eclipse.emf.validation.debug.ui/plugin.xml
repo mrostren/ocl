@@ -8,8 +8,36 @@
             icon="icons/validation.gif"
             category="org.eclipse.ocl.examples.ui.views"
             class="org.eclipse.emf.validation.debug.ui.view.ValidityView"/>
-   </extension>
-
+   	</extension>
+	<extension
+		point="org.eclipse.ui.handlers">
+	<!-- Validate OCL -->
+		<handler
+			class="org.eclipse.emf.validation.debug.ui.handler.OCLValidateHandler"
+			commandId="org.eclipse.ocl.examples.xtext.completeocl.validate">
+		</handler>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="%MF_TriggerValidation"
+			id="org.eclipse.ocl.examples.xtext.completeocl.validate"
+			name="%MF_Validate">
+		</command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:org.eclipse.ocl.examples.ui.Menu?after=load">
+			<command
+         commandId="org.eclipse.ocl.examples.xtext.completeocl.validate"
+         icon="icons/run_exc.gif"
+         style="push"
+         tooltip="%MF_TriggerOclValidation">
+				<visibleWhen checkEnabled="false">
+					<test property="org.eclipse.ocl.examples.ui.resourceSetAvailable" forcePluginActivation="true"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
        <extension
           point="org.eclipse.emf.validation.debug.validity_exporter">
        <exporter
@@ -25,5 +53,5 @@
              extension="txt"
              name="TextExport">
        </exporter>
-    </extension> 
+    </extension>
 </plugin>
