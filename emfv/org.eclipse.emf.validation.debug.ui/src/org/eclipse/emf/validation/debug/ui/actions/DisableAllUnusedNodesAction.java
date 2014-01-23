@@ -32,7 +32,8 @@ public final class DisableAllUnusedNodesAction extends AbstractFilterAction
 	public DisableAllUnusedNodesAction(@NonNull ValidityManager validityManager, @NonNull StructuredViewer filteredViewer, boolean isValidatableFilterAction) {
 		super(ValidationDebugMessages.ValidityView_Action_ShowHideUnusedNodes_Title,
 				IAction.AS_CHECK_BOX,
-				ValidationDebugMessages.ValidityView_Action_HideUnusedNodes_ToolTipText,
+				isValidatableFilterAction ? ValidationDebugMessages.ValidityView_Action_HideUnusedValidatableNodes_ToolTipText
+										  : ValidationDebugMessages.ValidityView_Action_HideUnusedConstrainingNodes_ToolTipText,
 				ValidationDebugMessages.ValidityView_Action_ShowUnusedNodes_ImageLocation,
 				validityManager, filteredViewer, isValidatableFilterAction);
 	}
@@ -40,12 +41,14 @@ public final class DisableAllUnusedNodesAction extends AbstractFilterAction
 	@Override
 	public void run() {
 		if (this.isChecked()){
-			setToolTipText(ValidationDebugMessages.ValidityView_Action_ShowUnusedNodes_ToolTipText);
+			setToolTipText(isValidatableFilterAction ? ValidationDebugMessages.ValidityView_Action_ShowUnusedValidatableNodes_ToolTipText
+													 : ValidationDebugMessages.ValidityView_Action_ShowUnusedConstrainingNodes_ToolTipText);
 			URL image = (URL) ValidityUIPlugin.INSTANCE.getImage(ValidationDebugMessages.ValidityView_Action_HideUnusedNodes_ImageLocation);
 			setImageDescriptor(ImageDescriptor.createFromURL(image));
 			filteredViewer.addFilter(filter);
 		} else {
-			setToolTipText(ValidationDebugMessages.ValidityView_Action_HideUnusedNodes_ToolTipText);
+			setToolTipText(isValidatableFilterAction ? ValidationDebugMessages.ValidityView_Action_HideUnusedValidatableNodes_ToolTipText
+													 : ValidationDebugMessages.ValidityView_Action_HideUnusedConstrainingNodes_ToolTipText);
 			URL image = (URL) ValidityUIPlugin.INSTANCE.getImage(ValidationDebugMessages.ValidityView_Action_ShowUnusedNodes_ImageLocation);
 			setImageDescriptor(ImageDescriptor.createFromURL(image));
 			filteredViewer.removeFilter(filter);

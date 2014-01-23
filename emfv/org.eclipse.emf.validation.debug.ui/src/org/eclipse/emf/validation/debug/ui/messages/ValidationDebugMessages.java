@@ -68,16 +68,20 @@ public class ValidationDebugMessages
 	public static String ValidityView_Action_CollapseAllValidatableNodes_ToolTipText;
 	
 	public static String ValidityView_Action_SelectAllNodes_Title;
-	public static String ValidityView_Action_SelectAllNodes_ToolTipText;
+	public static String ValidityView_Action_SelectAllConstrainingNodes_ToolTipText;
+	public static String ValidityView_Action_SelectAllValidatableNodes_ToolTipText;
 	public static String ValidityView_Action_SelectAllNodes_ImageLocation;
 
 	public static String ValidityView_Action_DeselectAllNodes_Title;
-	public static String ValidityView_Action_DeselectAllNodes_ToolTipText;
+	public static String ValidityView_Action_DeselectAllConstrainingNodes_ToolTipText;
+	public static String ValidityView_Action_DeselectAllValidatableNodes_ToolTipText;
 	public static String ValidityView_Action_DeselectAllNodes_ImageLocation;
 	
 	public static String ValidityView_Action_ShowHideUnusedNodes_Title;
-	public static String ValidityView_Action_HideUnusedNodes_ToolTipText;
-	public static String ValidityView_Action_ShowUnusedNodes_ToolTipText;
+	public static String ValidityView_Action_HideUnusedConstrainingNodes_ToolTipText;
+	public static String ValidityView_Action_HideUnusedValidatableNodes_ToolTipText;
+	public static String ValidityView_Action_ShowUnusedConstrainingNodes_ToolTipText;
+	public static String ValidityView_Action_ShowUnusedValidatableNodes_ToolTipText;
 	public static String ValidityView_Action_ShowUnusedNodes_ImageLocation;
 	public static String ValidityView_Action_HideUnusedNodes_ImageLocation;
 

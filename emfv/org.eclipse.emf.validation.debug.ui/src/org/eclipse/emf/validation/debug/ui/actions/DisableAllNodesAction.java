@@ -26,7 +26,8 @@ public final class DisableAllNodesAction extends AbstractFilterAction {
 	
 	public DisableAllNodesAction(@NonNull ValidityManager validityManager, @NonNull StructuredViewer filteredViewer, boolean isValidatableFilterAction) {
 		super(ValidationDebugMessages.ValidityView_Action_DeselectAllNodes_Title,
-				ValidationDebugMessages.ValidityView_Action_DeselectAllNodes_ToolTipText,
+				isValidatableFilterAction ? ValidationDebugMessages.ValidityView_Action_DeselectAllValidatableNodes_ToolTipText
+										  : ValidationDebugMessages.ValidityView_Action_DeselectAllConstrainingNodes_ToolTipText,
 				ValidationDebugMessages.ValidityView_Action_DeselectAllNodes_ImageLocation,
 				validityManager, filteredViewer, isValidatableFilterAction);
 	}
