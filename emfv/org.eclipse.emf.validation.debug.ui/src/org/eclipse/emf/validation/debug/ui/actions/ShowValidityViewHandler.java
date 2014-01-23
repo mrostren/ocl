@@ -12,12 +12,11 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.ui.handler;
+package org.eclipse.emf.validation.debug.ui.actions;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.emf.validation.debug.ui.actions.RunValidityAction;
 import org.eclipse.emf.validation.debug.ui.view.ValidityView;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISources;
@@ -29,7 +28,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.EditorPart;
 
-public class OCLValidateHandler extends AbstractHandler {
+public class ShowValidityViewHandler extends AbstractHandler {
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		Object applicationContext = event.getApplicationContext();
