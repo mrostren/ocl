@@ -69,6 +69,7 @@ import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -83,9 +84,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
@@ -105,6 +108,9 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	 * The ID of the view as specified by the extension.
 	 */
 	public static final @NonNull String ID = "org.eclipse.emf.validation.debug.ui.validity";//$NON-NLS-1$
+
+	@SuppressWarnings("unused")
+	private static org.eclipse.ocl.examples.ui.OCLPropertyTester ensureViewsIdIsreferenced = null;
 
 	protected FilteredCheckboxTree filteredValidatableNodesTree;
 	protected FilteredCheckboxTree filteredConstrainingNodesTree;
@@ -276,6 +282,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	 *            Parent composite of the form.
 	 */
 	protected void createValidityViewForm(FormToolkit toolkit, Composite parent){
+
 		Color blackColor = parent.getDisplay().getSystemColor(SWT.COLOR_BLACK);
 		Color blueColor = parent.getDisplay().getSystemColor(SWT.COLOR_BLUE);
 	    ILabelProvider labelProvider = new AdapterFactoryLabelProvider(validityManager.getAdapterFactory());
@@ -397,12 +404,21 @@ public class ValidityView extends ViewPart implements ISelectionListener
 		hookConstrainingNodesDoubleClickAction();
 		hookValidatableNodesDoubleClickAction();
 		contributeToActionBars();
+		
+		IWorkbenchPage page = getSite().getPage();
+		assert page != null;
+		IEditorPart activeEditor = page.getActiveEditor();
+		assert activeEditor != null;
+
 		ISelectionService service = (ISelectionService) getSite().getService(ISelectionService.class);
 		if (service != null) {
 			service.addSelectionListener(this);
-			ISelection selection = service.getSelection();
-			Notifier input = SelectionUtil.getNotifierSelection(selection, this);
-			validityManager.setInput(input);
+			ISelectionProvider selectionProvider = getSite().getSelectionProvider();
+			if (selectionProvider == null){
+				selectionProvider = activeEditor.getSite().getSelectionProvider();
+			}
+			ISelection selectionFromProvider = selectionProvider.getSelection();
+			selectionChanged(activeEditor, selectionFromProvider);
 		}
 		refreshJob.initViewers(validatableNodesViewer, constrainingNodesViewer);
 		Dialog.applyDialogFont(parent);

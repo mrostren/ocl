@@ -23,6 +23,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -38,13 +39,32 @@ public class SelectionUtil
 {
 	public static @Nullable Notifier getNotifierSelection(@Nullable ISelection selection, @Nullable IWorkbenchPart part) {
 		Notifier input = null;
-		if (selection instanceof IStructuredSelection) {
+		if (selection instanceof ITreeSelection) {
+			input = getTreeSelection((ITreeSelection) selection, part);
+		} else if (selection instanceof IStructuredSelection) {
 			input = getStructureSelection((IStructuredSelection) selection, part);
 		}
 		else if (selection instanceof ITextSelection) {
 			input = getTextSelection((ITextSelection) selection, part);
 		}
 		return input;
+	}
+	
+	public static @Nullable Notifier getTreeSelection(@NonNull ITreeSelection selection, @Nullable IWorkbenchPart part) {
+		if (selection.size() == 1) {
+			Object firstElement = selection.getFirstElement();
+			if (firstElement instanceof Notifier)
+				return (Notifier) firstElement;
+			if (firstElement instanceof IAdaptable) {
+				Object adaptedElement = ((IAdaptable)firstElement).getAdapter(EObject.class);			// EMF Facet
+				if (adaptedElement instanceof Notifier)
+					return (Notifier) adaptedElement;
+			}
+			if (firstElement instanceof EObjectNode) {
+				return getXtextOutlineSelection((EObjectNode) firstElement, part);
+			}
+		}
+		return null;
 	}
 
 	public static @Nullable Notifier getStructureSelection(@NonNull IStructuredSelection selection, @Nullable IWorkbenchPart part) {
