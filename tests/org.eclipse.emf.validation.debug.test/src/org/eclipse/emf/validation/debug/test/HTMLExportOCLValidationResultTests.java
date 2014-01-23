@@ -14,9 +14,6 @@
  */
 package org.eclipse.emf.validation.debug.test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -24,6 +21,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -60,7 +59,7 @@ import org.xml.sax.InputSource;
 /**
  * Class testing the HTMLExport class.
  */
-public class HTMLExportOCLValidationResultTests {
+public class HTMLExportOCLValidationResultTests extends TestCase {
 
 	private static final String TEST_PROJECT_NAME = "/org.eclipse.emf.validation.debug.test/"; //$NON-NLS-1$
 	private static final String WARNING_NUMBER_XPATH_LOCATION = "//table[2]/tr[4]/td[2]"; //$NON-NLS-1$

@@ -14,14 +14,13 @@
  */
 package org.eclipse.emf.validation.debug.test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
 import javax.xml.xpath.XPathExpressionException;
+
+import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -57,7 +56,7 @@ import org.junit.Test;
 /**
  * Class testing the TextExport class.
  */
-public class TextExportOCLValidationResultTests {
+public class TextExportOCLValidationResultTests extends TestCase {
 
 	private static final String TEST_PROJECT_NAME = "/org.eclipse.emf.validation.debug.test/"; //$NON-NLS-1$
 	private static final String GENERATED_FILE_NAME = "testText.txt"; //$NON-NLS-1$

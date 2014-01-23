@@ -14,16 +14,13 @@
  */
 package org.eclipse.emf.validation.debug.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.TestCase;
+
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -50,8 +47,19 @@ import org.junit.Test;
 /**
  * Class testing the validityManager initialization mechanism.
  */
-public class ValidityManagerTests
-		extends ValidityManager {
+public class ValidityManagerTests extends TestCase
+{
+	public static class TestValidityManager extends ValidityManager
+	{
+
+		public void putResults(ResultSet resultSet) {
+			for (Result result : resultSet.getResults()) {
+				resultsMap.put(result.getResultValidatableNode(), result);
+			}
+		}
+		
+	}
+	
 	private static final String OCL_CONSTRAINTS_MODEL = "model/ecore.ocl"; //$NON-NLS-1$
 
 	private static final String OCL_CONSTRAINTS_MODEL2 = "model/ecoreTest.ocl"; //$NON-NLS-1$
@@ -78,7 +86,7 @@ public class ValidityManagerTests
 
 	private ValidityModel validityModel;
 
-	private ValidityManager validityManager;
+	private TestValidityManager validityManager;
 
 	private ResourceSet resourceSet;
 
@@ -123,7 +131,7 @@ public class ValidityManagerTests
 
 		validationAdapter = ValidationAdapter.findAdapter(resourceSet2);
 		assertNotNull(validationAdapter);
-		validityManager = this;
+		validityManager = new TestValidityManager();
 		validityManager.setInput(resourceSet2);
 		rootNode = validityManager.getRootNode();
 		validityModel = validityManager.getModel();
@@ -143,8 +151,8 @@ public class ValidityManagerTests
 		rootNode = null;
 		ecoreResource = null;
 		validityModel = null;
+		validityManager.dispose();
 		validityManager = null;
-		resultsMap.clear();
 	}
 
 	@Test
@@ -156,10 +164,7 @@ public class ValidityManagerTests
 
 		ResultSet resultSet = validityModel
 			.createResultSet(new NullProgressMonitor());
-		EList<Result> results = resultSet.getResults();
-		for (Result result : results) {
-			resultsMap.put(result.getResultValidatableNode(), result);
-		}
+		validityManager.putResults(resultSet);
 
 		ConstrainingNode constrainingNodeFromRootByLabel = TestTool
 			.getConstrainingNodeFromRootByLabel(
@@ -182,15 +187,12 @@ public class ValidityManagerTests
 	public void testValidityManagerGetValidatableNodeResults() {
 		ResultSet resultSet = validityModel
 			.createResultSet(new NullProgressMonitor());
-		EList<Result> results = resultSet.getResults();
-		for (Result result : results) {
-			resultsMap.put(result.getResultValidatableNode(), result);
-		}
+		validityManager.putResults(resultSet);
 
 		ValidatableNode rootValidatableNode = TestTool
 			.getValidatableNodeFromRootByLabel(rootNode.getValidatableNodes(),
 				"ecoreTest2"); //$NON-NLS-1$
-		List<Result> validatableNodeResults = getValidatableNodeResults(rootValidatableNode);
+		List<Result> validatableNodeResults = validityManager.getValidatableNodeResults(rootValidatableNode);
 
 		assertEquals((Integer) 4, (Integer) validatableNodeResults.size());
 

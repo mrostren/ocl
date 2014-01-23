@@ -14,11 +14,9 @@
  */
 package org.eclipse.emf.validation.debug.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Set;
+
+import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -57,7 +55,7 @@ import org.junit.Test;
 /**
  * Class testing the validityModel initialization mechanism.
  */
-public class ValidityModelTests {
+public class ValidityModelTests extends TestCase {
 	private static final String OCL_CONSTRAINTS_MODEL = "model/ecore.ocl"; //$NON-NLS-1$
 
 	private static final String OCL_CONSTRAINTS_MODEL2 = "model/ecoreTest.ocl"; //$NON-NLS-1$

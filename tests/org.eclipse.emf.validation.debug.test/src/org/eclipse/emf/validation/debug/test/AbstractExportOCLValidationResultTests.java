@@ -14,9 +14,7 @@
  */
 package org.eclipse.emf.validation.debug.test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -48,7 +46,7 @@ import org.junit.Test;
 /**
  * Class testing the AbstractExport class.
  */
-public class AbstractExportOCLValidationResultTests {
+public class AbstractExportOCLValidationResultTests extends TestCase {
 
 	private static final String TEST_PROJECT_NAME = "org.eclipse.emf.validation.debug.test"; //$NON-NLS-1$
 	private static final String TEST_PROJECT_PATH = "/"+TEST_PROJECT_NAME+"/"; //$NON-NLS-1$ //$NON-NLS-2$
