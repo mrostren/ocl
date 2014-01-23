@@ -47,7 +47,7 @@ public class ValidationDebugMessages
 	public static String ValidityView_Action_ExportResult_ImageLocation;
 	public static String ValidityView_Action_ExportResult_ToolTipText;
 	public static String ValidityView_Action_ExportResult_ToolTipText_NeedsRun;
-	public static String validityView_Action_ExportResult_ToolTipText_NoExporter;
+	public static String ValidityView_Action_ExportResult_ToolTipText_NoExporter;
 
 	public static String ValidityView_Action_FilterResult_Title;
 	public static String ValidityView_Action_FilterResult_ImageLocation;

@@ -61,7 +61,7 @@ public final class ExportValidationResultAction extends Action implements IMenuC
 		setImageDescriptor(ImageDescriptor.createFromURL(image));
 		
 		if (ExportResultsRegistry.getRegisteredExtensions().isEmpty()) {
-			setToolTipText(ValidationDebugMessages.validityView_Action_ExportResult_ToolTipText_NoExporter);
+			setToolTipText(ValidationDebugMessages.ValidityView_Action_ExportResult_ToolTipText_NoExporter);
 		} else {
 			setToolTipText(ValidationDebugMessages.ValidityView_Action_ExportResult_ToolTipText_NeedsRun);
 			setMenuCreator(this);
