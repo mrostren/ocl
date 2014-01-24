@@ -15,12 +15,13 @@
  */
 package org.eclipse.emf.validation.debug.ui.view;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -37,18 +38,17 @@ import org.eclipse.emf.validation.debug.ui.actions.RunValidityAction;
 import org.eclipse.emf.validation.debug.ui.actions.ShowElementInEditorAction;
 import org.eclipse.emf.validation.debug.ui.filters.NodesViewerFilter;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
+import org.eclipse.emf.validation.debug.ui.providers.ConstrainingNodeContentProvider;
 import org.eclipse.emf.validation.debug.ui.providers.NodeCheckStateProvider;
 import org.eclipse.emf.validation.debug.ui.providers.NodeLabelProvider;
-import org.eclipse.emf.validation.debug.ui.providers.ConstrainingNodeContentProvider;
 import org.eclipse.emf.validation.debug.ui.providers.ValidatableNodeContentProvider;
 import org.eclipse.emf.validation.debug.ui.ripoffs.FilteredCheckboxTree;
-import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.ResultValidatableNode;
 import org.eclipse.emf.validation.debug.validity.RootNode;
 import org.eclipse.emf.validation.debug.validity.Severity;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionManager;
@@ -601,17 +601,16 @@ public class ValidityView extends ViewPart implements ISelectionListener
 				Object obj = ((IStructuredSelection)selection).getFirstElement();
 				if (obj instanceof ResultConstrainingNode) {
 					ResultValidatableNode resultValidatableNode = ((ResultConstrainingNode)obj).getResultValidatableNode();
-					getValidatableNodesViewer().setSelection(
-							new StructuredSelection(resultValidatableNode),
-							true);
-				} else if (obj instanceof ConstrainingNode) {
+					getValidatableNodesViewer().setSelection(new StructuredSelection(resultValidatableNode), true);
+				}
+/*				else if (obj instanceof ConstrainingNode) {
 					Set<Object> expanded = new LinkedHashSet<Object>(Arrays.asList(getConstrainingNodesViewer().getExpandedElements()));
 					if (expanded.contains(obj)) {
 						getConstrainingNodesViewer().setExpandedState(obj, false);
 					} else {
 						getConstrainingNodesViewer().setExpandedState(obj, true);
 					}
-				}
+				} */
 			}
 		};
 		validatableNodesDoubleClickAction = new Action() {
@@ -621,19 +620,17 @@ public class ValidityView extends ViewPart implements ISelectionListener
 				Object obj = ((IStructuredSelection) selection)
 						.getFirstElement();
 				if (obj instanceof ResultValidatableNode) {
-					ResultConstrainingNode resultConstrainingNode = ((ResultValidatableNode) obj)
-							.getResultConstrainingNode();
-					getConstrainingNodesViewer().setSelection(
-							new StructuredSelection(resultConstrainingNode),
-							true);
-				} else if (obj instanceof ValidatableNode) {
+					ResultConstrainingNode resultConstrainingNode = ((ResultValidatableNode) obj).getResultConstrainingNode();
+					getConstrainingNodesViewer().setSelection(new StructuredSelection(resultConstrainingNode), true);
+				}
+/*				else if (obj instanceof ValidatableNode) {
 					Set<Object> expanded = new LinkedHashSet<Object>(Arrays.asList(getValidatableNodesViewer().getExpandedElements()));
 					if (expanded.contains(obj)) {
 						getValidatableNodesViewer().setExpandedState(obj, false);
 					} else {
 						getValidatableNodesViewer().setExpandedState(obj, true);
 					}
-				}
+				} */
 			}
 		};
 	}
@@ -693,18 +690,59 @@ public class ValidityView extends ViewPart implements ISelectionListener
 		}
 		if (part instanceof EditorPart){
 			Notifier input = SelectionUtil.getNotifierSelection(selection, part);
-			validityManager.setInput(input);
-			RootNode rootNode = validityManager.getRootNode();
-			Object validatableNodesViewerInput = getValidatableNodesViewer().getInput();
-			if (validatableNodesViewerInput == null || !validatableNodesViewerInput.equals(rootNode)) {
-				getValidatableNodesViewer().setInput(rootNode);
-				getConstrainingNodesViewer().setInput(rootNode);
+			setSelection(input);
+		}
+	}
 
-				filteredValidatableNodesTree.resetFilter();
-				filteredConstrainingNodesTree.resetFilter();
-				
-				validationRootChanged(rootNode);
+	private @Nullable Notifier selection = null;
+	private @Nullable Job setInputJob = null;
+	
+	protected void setSelection(final Notifier newSelection) {
+		if (newSelection != selection) {
+			selection = newSelection;
+			Job setInputJob2 = setInputJob;
+			if (setInputJob2 != null) {
+				setInputJob2.cancel();
 			}
+			setInputJob2 = setInputJob = new Job("Validity View: Change Selection")
+			{
+				@Override
+				protected IStatus run(/*@NonNull*/ IProgressMonitor monitor) {
+					assert monitor != null;
+					try {
+						final @SuppressWarnings("null")@NonNull Monitor emfMonitor = BasicMonitor.toMonitor(monitor);
+						validityManager.setInput(newSelection, emfMonitor);
+						if (!monitor.isCanceled()) {
+							getForm().getDisplay().asyncExec(new Runnable()
+							{
+								@Override
+								public void run() {
+									RootNode rootNode = validityManager.getRootNode();
+									Object validatableNodesViewerInput = getValidatableNodesViewer().getInput();
+									if (validatableNodesViewerInput == null || !validatableNodesViewerInput.equals(rootNode)) {
+										if (!emfMonitor.isCanceled()) {
+											getValidatableNodesViewer().setInput(rootNode);
+										}
+										if (!emfMonitor.isCanceled()) {
+											getConstrainingNodesViewer().setInput(rootNode);
+										}
+										if (!emfMonitor.isCanceled()) {
+											filteredValidatableNodesTree.resetFilter();
+											filteredConstrainingNodesTree.resetFilter();								
+											validationRootChanged(rootNode);
+										}
+									}
+								}
+							});
+						}
+						return monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS;
+					}
+					finally {
+						monitor.done();
+					}
+				}
+			};
+			setInputJob2.schedule();
 		}
 	}
 

@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
@@ -67,6 +69,19 @@ import org.eclipse.jdt.annotation.Nullable;
 public class ValidityModel
 {
 	private static final Logger logger = Logger.getLogger(ValidityManager.class);
+	
+	public static final int WORK_FOR_CLEAN_UP = 50;
+	public static final int WORK_FOR_CREATE_MODEL = 50;
+	private static final int WORK_FOR_ANALYZE_RESOURCES = 300;
+	private static final int WORK_FOR_LOCATE_CONSTRAINTS = 300;
+	private static final int WORK_FOR_CREATE_RESULTS = 300;
+	private static final int WORK_FOR_SORT_CONSTRAINING_NODES = 50;
+	private static final int WORK_FOR_SORT_VALIDATABLE_NODES = 50;
+	public static final int WORK_FOR_ALL_SET_INPUT = WORK_FOR_CLEAN_UP +
+			WORK_FOR_CREATE_MODEL + WORK_FOR_ANALYZE_RESOURCES +
+			WORK_FOR_LOCATE_CONSTRAINTS + WORK_FOR_CREATE_RESULTS +
+			WORK_FOR_SORT_CONSTRAINING_NODES + WORK_FOR_SORT_VALIDATABLE_NODES;
+	
 	private static Comparator<AbstractNode> natureComparator = new Comparator<AbstractNode>()
 	{
 		public int compare(AbstractNode o1, AbstractNode o2) {
@@ -108,57 +123,67 @@ public class ValidityModel
 	 *            the Collection of all resources in the resourceSet
 	 * @return a map containing all EPackages of all resources
 	 */
-	protected @NonNull Map<EPackage,Set<Resource>> analyzeResources(@NonNull Collection<Resource> resources) {
-		List<Resource> allResources = new ArrayList<Resource>(resources);
-		Map<EPackage,Set<Resource>> ePackage2resources = new HashMap<EPackage,Set<Resource>>();
-		for (int i = 0; i < allResources.size(); i++) {
-			Resource resource = allResources.get(i);
-			Set<EClass> eClasses = new HashSet<EClass>();
-			for (TreeIterator<EObject> tit = resource.getAllContents(); tit.hasNext(); ) {
-				@SuppressWarnings("null")@NonNull EObject eObject = tit.next();
-				@SuppressWarnings("null")@NonNull EClass eClass = eObject.eClass();
-				eClasses.add(eClass);
-			}
-			Set<EPackage> ePackages = new HashSet<EPackage>();
-			for (@SuppressWarnings("null")@NonNull EClass eClass : eClasses) {
-				ePackages.add(eClass.getEPackage());
-				for (@SuppressWarnings("null")@NonNull EClass eSuperClass : eClass.getEAllSuperTypes()) {
-					ePackages.add(eSuperClass.getEPackage());
+	protected @NonNull Map<EPackage,Set<Resource>> analyzeResources(@NonNull Collection<Resource> resources, @NonNull Monitor monitor, int worked) {
+		monitor.setTaskName("Analyzing Resources");
+		MonitorStep monitorStep = new MonitorStep(monitor, worked);
+		try {
+			List<Resource> allResources = new ArrayList<Resource>(resources);
+			Map<EPackage,Set<Resource>> ePackage2resources = new HashMap<EPackage,Set<Resource>>();
+			int allResourcesCount = allResources.size();
+			for (int i = 0; i < allResourcesCount; i++) {
+				Resource resource = allResources.get(i);
+				monitor.subTask("'" + resource.getURI() + "'");
+				Set<EClass> eClasses;
+				ResourceSet resourceSet = resource.getResourceSet();
+				if (resourceSet != null) {
+					synchronized (resourceSet) {	// See Bug 405072 for rationale that avoids CMEs as UML stereotypes are discovered lazily
+						eClasses = analyzeResource(resource);
+					}
 				}
-			}
-			for (@SuppressWarnings("null")@NonNull EPackage ePackage : ePackages) {
-				Set<Resource> ePackageResources = ePackage2resources.get(ePackage);
-				if (ePackageResources == null) {
-					ePackageResources = new HashSet<Resource>();
-					ePackage2resources.put(ePackage, ePackageResources);
+				else {
+					eClasses = analyzeResource(resource);
 				}
-				ePackageResources.add(resource);
-				String nsURI = ePackage.getNsURI();
-				if (nsURI !=null){
-					List<ConstraintLocator> list = ValidityManager.getConstraintLocators(nsURI);
-					if (list != null) {
-						for (ConstraintLocator constraintLocator : list) {
-							try {
-								Collection<Resource> moreResources = constraintLocator.getImports(ePackage, resource);
-								if (moreResources != null) {
-									for (Resource anotherResource : moreResources) {
-										if (!allResources.contains(anotherResource)) {
-											allResources.add(anotherResource);
+				Set<EPackage> ePackages = new HashSet<EPackage>();
+				for (@SuppressWarnings("null")@NonNull EClass eClass : eClasses) {
+					ePackages.add(eClass.getEPackage());
+					for (@SuppressWarnings("null")@NonNull EClass eSuperClass : eClass.getEAllSuperTypes()) {
+						ePackages.add(eSuperClass.getEPackage());
+					}
+				}
+				for (@SuppressWarnings("null")@NonNull EPackage ePackage : ePackages) {
+					Set<Resource> ePackageResources = ePackage2resources.get(ePackage);
+					if (ePackageResources == null) {
+						ePackageResources = new HashSet<Resource>();
+						ePackage2resources.put(ePackage, ePackageResources);
+					}
+					ePackageResources.add(resource);
+					String nsURI = ePackage.getNsURI();
+					if (nsURI !=null){
+						List<ConstraintLocator> list = ValidityManager.getConstraintLocators(nsURI);
+						if (list != null) {
+							for (ConstraintLocator constraintLocator : list) {
+								try {
+									Collection<Resource> moreResources = constraintLocator.getImports(ePackage, resource);
+									if (moreResources != null) {
+										for (Resource anotherResource : moreResources) {
+											if (!allResources.contains(anotherResource)) {
+												allResources.add(anotherResource);
+											}
 										}
 									}
 								}
-							}
-							catch (Exception e) {
-								Set<ConstraintLocator> badConstraintLocators2 = badConstraintLocators;
-								if (badConstraintLocators2 == null) {
-									synchronized (this) {
-										badConstraintLocators = badConstraintLocators2 = new HashSet<ConstraintLocator>();
+								catch (Exception e) {
+									Set<ConstraintLocator> badConstraintLocators2 = badConstraintLocators;
+									if (badConstraintLocators2 == null) {
+										synchronized (this) {
+											badConstraintLocators = badConstraintLocators2 = new HashSet<ConstraintLocator>();
+										}
 									}
-								}
-								if (!badConstraintLocators2.contains(constraintLocator)) {
-									synchronized (badConstraintLocators2) {
-										if (badConstraintLocators2.add(constraintLocator)) {
-											logger.error("ConstraintLocator " + constraintLocator + " failed", e);
+									if (!badConstraintLocators2.contains(constraintLocator)) {
+										synchronized (badConstraintLocators2) {
+											if (badConstraintLocators2.add(constraintLocator)) {
+												logger.error("ConstraintLocator " + constraintLocator + " failed", e);
+											}
 										}
 									}
 								}
@@ -166,9 +191,22 @@ public class ValidityModel
 						}
 					}
 				}
+				monitorStep.workedFraction(allResourcesCount);
 			}
+			return ePackage2resources;
+		} finally {
+			monitorStep.done();
 		}
-		return ePackage2resources;
+	}
+
+	protected Set<EClass> analyzeResource(Resource resource) {
+		Set<EClass> eClasses = new HashSet<EClass>();
+		for (TreeIterator<EObject> tit = resource.getAllContents(); tit.hasNext(); ) {
+			@SuppressWarnings("null")@NonNull EObject eObject = tit.next();
+			@SuppressWarnings("null")@NonNull EClass eClass = eObject.eClass();
+			eClasses.add(eClass);
+		}
+		return eClasses;
 	}
 
 	/**
@@ -347,24 +385,33 @@ public class ValidityModel
 	 * @param resources
 	 *            the resources
 	 */
-	protected void createResults(@NonNull Set<Resource> resources) {
-		for (Resource resource : resources) {
-			for (TreeIterator<EObject> iterator = resource.getAllContents(); iterator.hasNext(); ) {
-				@SuppressWarnings("null")@NonNull EObject eObject = iterator.next();
-				EClass eClass = eObject.eClass();
-				EAnnotation eAnnotation = eClass.getEAnnotation("http://www.eclipse.org/uml2/2.0.0/UML");
-				if ((eAnnotation != null) && (eAnnotation.getReferences().size() > 0)) { // Stereotype application
-					EObject umlClass = eAnnotation.getReferences().get(0);
-					if (umlClass != null) {
-						createResultNodes(eObject, getURI(umlClass));
+	protected void createResults(@NonNull Set<Resource> resources, @NonNull Monitor monitor, int worked) {
+		monitor.setTaskName("Create Results");
+		MonitorStep monitorStep = new MonitorStep(monitor, worked);
+		try {
+			int resourcesCount = resources.size();
+			for (Resource resource : resources) {
+				monitor.subTask("'" + resource.getURI() + "'");
+				for (TreeIterator<EObject> tit = resource.getAllContents(); tit.hasNext(); ) {
+					@SuppressWarnings("null")@NonNull EObject eObject = tit.next();
+					EClass eClass = eObject.eClass();
+					EAnnotation eAnnotation = eClass.getEAnnotation("http://www.eclipse.org/uml2/2.0.0/UML");
+					if ((eAnnotation != null) && (eAnnotation.getReferences().size() > 0)) { // Stereotype application
+						EObject umlClass = eAnnotation.getReferences().get(0);
+						if (umlClass != null) {
+							createResultNodes(eObject, getURI(umlClass));
+						}
+					}
+					else if (eClass != null) {
+						for (@SuppressWarnings("null")@NonNull URI aType : getTypeClosure(eClass)) {
+							createResultNodes(eObject, aType);
+						}
 					}
 				}
-				else if (eClass != null) {
-					for (@SuppressWarnings("null")@NonNull URI aType : getTypeClosure(eClass)) {
-						createResultNodes(eObject, aType);
-					}
-				}
+				monitorStep.workedFraction(resourcesCount);
 			}
+		} finally {
+			monitorStep.done();
 		}
 	}
 
@@ -636,16 +683,24 @@ public class ValidityModel
 	/**
 	 * Initialize the ValidityModel
 	 */
-	public void init() {
-		Map<EPackage,Set<Resource>> ePackage2resources = analyzeResources(resources);			//	Find all EClasses and EPackages in the source Resources
-		Map<EModelElement, Set<LeafConstrainingNode>> allConstraints = locateConstraints(ePackage2resources);
+	public void init(@NonNull Monitor monitor) {
+		Map<EPackage,Set<Resource>> ePackage2resources = analyzeResources(resources, monitor, WORK_FOR_ANALYZE_RESOURCES);			//	Find all EClasses and EPackages in the source Resources
+		Map<EModelElement, Set<LeafConstrainingNode>> allConstraints = locateConstraints(ePackage2resources, monitor, WORK_FOR_LOCATE_CONSTRAINTS);
 
 		if (allConstraints != null) {
 			createLeafConstrainingNodes(allConstraints);
 		}
-		createResults(resources);
-		sortNodes(rootNode.getConstrainingNodes());
-		sortNodes(rootNode.getValidatableNodes());
+		createResults(resources, monitor, WORK_FOR_CREATE_RESULTS);
+		if (!monitor.isCanceled()) {
+			monitor.setTaskName("Sorting Constraints");
+			sortNodes(rootNode.getConstrainingNodes());
+			monitor.worked(WORK_FOR_SORT_CONSTRAINING_NODES);
+		}
+		if (!monitor.isCanceled()) {
+			monitor.setTaskName("Sorting Model Elements");
+			sortNodes(rootNode.getValidatableNodes());
+			monitor.worked(WORK_FOR_SORT_VALIDATABLE_NODES);
+		}
 	}
 
 	/**
@@ -655,50 +710,61 @@ public class ValidityModel
 	 *            the map of all ePackages and their resources
 	 * @return all constraints for each EClass
 	 */
-	protected Map<EModelElement, Set<LeafConstrainingNode>> locateConstraints(@NonNull Map<EPackage,Set<Resource>> ePackage2resources) {
-		Map<EModelElement, Set<LeafConstrainingNode>> allConstraints = new HashMap<EModelElement, Set<LeafConstrainingNode>>();
-		for (@SuppressWarnings("null")@NonNull EPackage ePackage : ePackage2resources.keySet()) {
-			String nsURI = ePackage.getNsURI();
-			
-			if (nsURI !=null){
-				List<ConstraintLocator> list = ValidityManager.getConstraintLocators(nsURI);
-				if (list != null) {
-					@SuppressWarnings("null")@NonNull Set<Resource> ePackageResources = ePackage2resources.get(ePackage);
-					for (ConstraintLocator constraintLocator : list) {
-						try {
-							Map<EModelElement, List<LeafConstrainingNode>> availableConstraints = constraintLocator.getConstraints(this, ePackage, ePackageResources);
-							if (availableConstraints != null) {
-								assert !availableConstraints.containsKey(null);
-								for (EModelElement constrainedType : availableConstraints.keySet()) {
-									Set<LeafConstrainingNode> typeConstraints = allConstraints.get(constrainedType);
-									if (typeConstraints == null) {
-										typeConstraints = new HashSet<LeafConstrainingNode>();
-										allConstraints.put(constrainedType, typeConstraints);
+	protected Map<EModelElement, Set<LeafConstrainingNode>> locateConstraints(@NonNull Map<EPackage,Set<Resource>> ePackage2resources, @NonNull Monitor monitor, int worked) {
+		monitor.setTaskName("Locating Constraints");
+		MonitorStep monitorStep = new MonitorStep(monitor, worked);
+		try {
+			Map<EModelElement, Set<LeafConstrainingNode>> allConstraints = new HashMap<EModelElement, Set<LeafConstrainingNode>>();
+			Set<EPackage> ePackages = ePackage2resources.keySet();
+			int ePackagesCount = ePackages.size();
+			for (@SuppressWarnings("null")@NonNull EPackage ePackage : ePackages) {
+				String nsURI = ePackage.getNsURI();
+				
+				if (nsURI !=null){
+					monitor.subTask("'" + nsURI + "'");
+					List<ConstraintLocator> list = ValidityManager.getConstraintLocators(nsURI);
+					if (list != null) {
+						@SuppressWarnings("null")@NonNull Set<Resource> ePackageResources = ePackage2resources.get(ePackage);
+						for (ConstraintLocator constraintLocator : list) {
+							monitor.subTask("'" + nsURI + "' - " + constraintLocator.getName());
+							try {
+								Map<EModelElement, List<LeafConstrainingNode>> availableConstraints = constraintLocator.getConstraints(this, ePackage, ePackageResources);
+								if (availableConstraints != null) {
+									assert !availableConstraints.containsKey(null);
+									for (EModelElement constrainedType : availableConstraints.keySet()) {
+										Set<LeafConstrainingNode> typeConstraints = allConstraints.get(constrainedType);
+										if (typeConstraints == null) {
+											typeConstraints = new HashSet<LeafConstrainingNode>();
+											allConstraints.put(constrainedType, typeConstraints);
+										}
+										typeConstraints.addAll(availableConstraints.get(constrainedType));
 									}
-									typeConstraints.addAll(availableConstraints.get(constrainedType));
 								}
 							}
-						}
-						catch (Exception e) {
-							Set<ConstraintLocator> badConstraintLocators2 = badConstraintLocators;
-							if (badConstraintLocators2 == null) {
-								synchronized (this) {
-									badConstraintLocators = badConstraintLocators2 = new HashSet<ConstraintLocator>();
+							catch (Exception e) {
+								Set<ConstraintLocator> badConstraintLocators2 = badConstraintLocators;
+								if (badConstraintLocators2 == null) {
+									synchronized (this) {
+										badConstraintLocators = badConstraintLocators2 = new HashSet<ConstraintLocator>();
+									}
 								}
-							}
-							if (!badConstraintLocators2.contains(constraintLocator)) {
-								synchronized (badConstraintLocators2) {
-									if (badConstraintLocators2.add(constraintLocator)) {
-										logger.error("ConstraintLocator " + constraintLocator + " failed", e);
+								if (!badConstraintLocators2.contains(constraintLocator)) {
+									synchronized (badConstraintLocators2) {
+										if (badConstraintLocators2.add(constraintLocator)) {
+											logger.error("ConstraintLocator " + constraintLocator + " failed", e);
+										}
 									}
 								}
 							}
 						}
 					}
 				}
+				monitorStep.workedFraction(ePackagesCount);
 			}
+			return allConstraints;
+		} finally {
+			monitorStep.done();
 		}
-		return allConstraints;
 	}
 	
 	/**

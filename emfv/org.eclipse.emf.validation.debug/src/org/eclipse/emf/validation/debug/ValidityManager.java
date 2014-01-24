@@ -24,6 +24,8 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -243,6 +245,12 @@ public class ValidityManager
 	}
 
 	public void setInput(Object newInput) {
+		setInput(newInput, new BasicMonitor());
+	}
+
+	public void setInput(Object newInput, @NonNull Monitor monitor) {
+		monitor.beginTask("Selective Validation", ValidityModel.WORK_FOR_ALL_SET_INPUT);
+		monitor.setTaskName("Clean Up previous display");
 		ResourceSet selectedResourceSet = null;
 		Resource selectedResource = null;
 		EObject selectedObject = null;
@@ -296,8 +304,11 @@ public class ValidityManager
 			return;
 		}
 
+		monitor.worked(ValidityModel.WORK_FOR_CLEAN_UP);
+		monitor.setTaskName("Creating model");
 		ValidityModel model2 = model = createModel(newResources);
-		model2.init();
+		monitor.worked(ValidityModel.WORK_FOR_CREATE_MODEL);
+		model2.init(monitor);
 
 		oldResources.clear();
 		oldResources.addAll(newResources);
