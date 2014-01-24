@@ -226,7 +226,7 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 			if (specification == null) {
 				throw new ParserException("Failed to create pivot Specification");
 			}
-			ExpressionInOCL query = PivotUtil.getExpressionInOCL(pivotConstraint, specification);
+			ExpressionInOCL query = specification.getExpressionInOCL();
 			if (query == null) {
 				throw new ParserException("Failed to create pivot Query");
 			}
