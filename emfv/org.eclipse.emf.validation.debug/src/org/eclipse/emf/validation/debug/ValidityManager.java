@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
@@ -255,20 +256,35 @@ public class ValidityManager
 		
 		if (newInput instanceof ResourceSet) {
 			selectedResourceSet = (ResourceSet) newInput;
-			newResources.addAll(selectedResourceSet.getResources());
 		} else if (newInput instanceof Resource) {
 			selectedResource = (Resource) newInput;
 			selectedResourceSet = selectedResource.getResourceSet();
 			if (selectedResourceSet == null) {
+				List<EObject> eContents = selectedResource.getContents();
+				for (int j = 0; j < eContents.size(); j++) {		// Tolerate domain growth with a CME
+					EObject eObject = eContents.get(j);
+					EcoreUtil.resolveAll(eObject);
+				}
 				newResources.add(selectedResource);
 			}
 		} else if (newInput instanceof EObject) {
 			selectedObject = (EObject) newInput;
 			selectedResource = selectedObject.eResource();
-			selectedResourceSet = selectedResource != null ? selectedResource.getResourceSet() : null;
+			if (selectedResource != null) {
+				selectedResourceSet = selectedResource.getResourceSet();
+			}
 		}
 
 		if (selectedResourceSet != null) {
+			List<Resource> selectedResources = selectedResourceSet.getResources();
+			for (int i = 0; i < selectedResources.size(); i++) {		// Tolerate domain growth with a CME
+				Resource eResource = selectedResources.get(i);
+				List<EObject> eContents = eResource.getContents();
+				for (int j = 0; j < eContents.size(); j++) {		// Tolerate domain growth with a CME
+					EObject eObject = eContents.get(j);
+					EcoreUtil.resolveAll(eObject);
+				}
+			}
 			newResources.addAll(selectedResourceSet.getResources());
 		}
 		
