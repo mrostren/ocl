@@ -14,8 +14,8 @@
  */
 package org.eclipse.emf.validation.export;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.validity.RootNode;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -36,5 +36,5 @@ public interface IValidatorExport {
 	 * @param savePath
 	 *            the fullPath of the exportedFile
 	 */
-	void export(@NonNull IResource validatedResource, @NonNull RootNode rootNode, @NonNull IPath savePath);
+	void export(@NonNull Resource validatedResource, @NonNull RootNode rootNode, @NonNull IPath savePath);
 }

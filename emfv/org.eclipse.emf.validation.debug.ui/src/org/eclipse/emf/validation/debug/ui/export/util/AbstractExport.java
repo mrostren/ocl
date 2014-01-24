@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -33,6 +32,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
@@ -62,7 +62,7 @@ public abstract class AbstractExport implements IValidatorExport {
 
 	protected List<LeafConstrainingNode> validationSuccess = new ArrayList<LeafConstrainingNode>();
 
-	public void export(@NonNull IResource validatedResource, @NonNull RootNode rootNode, @NonNull IPath savePath) {
+	public void export(@NonNull Resource validatedResource, @NonNull RootNode rootNode, @NonNull IPath savePath) {
 		final IFile exportedFile = ResourcesPlugin.getWorkspace().getRoot().getFile(savePath);
 		
 		populateMaps(rootNode);
@@ -126,7 +126,7 @@ public abstract class AbstractExport implements IValidatorExport {
 	 * @return exported File contents to be given to new exported file resource
 	 *         instances
 	 */
-	protected abstract String createContents(@NonNull IResource validatedResource, RootNode rootNode, IFile exportedFile);
+	protected abstract String createContents(@NonNull Resource validatedResource, RootNode rootNode, IFile exportedFile);
 
 	private void populateMaps(RootNode rootNode) {
 		for (ValidatableNode validatableNode : rootNode.getValidatableNodes()) {

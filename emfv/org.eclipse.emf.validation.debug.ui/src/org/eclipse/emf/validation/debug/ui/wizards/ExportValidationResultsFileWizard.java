@@ -40,7 +40,7 @@ public class ExportValidationResultsFileWizard extends Wizard implements INewWiz
 	private ExportValidationResultsFileWizardPage wizardPage;
 
 	/** The selected Resource */
-	private IResource initialResource;
+	private Resource initialResource;
 	
 	/** The only export descriptor contributing to the wizard */
 	private final ExportResultsDescriptor exportDescriptor;
@@ -79,7 +79,7 @@ public class ExportValidationResultsFileWizard extends Wizard implements INewWiz
 	 */
 	@Override
 	public boolean performFinish() {
-		final IResource selectedResource2 = initialResource;
+		final Resource selectedResource2 = initialResource;
 		final RootNode rootNode2 = rootNode;
 		final IPath path = wizardPage.getNewExportedFilePath();
 		final IValidatorExport selectedExporter = exportDescriptor.getExportExtension();
@@ -95,15 +95,15 @@ public class ExportValidationResultsFileWizard extends Wizard implements INewWiz
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		IResource initialResource2 = null;
+		IResource initialIResource = null;
 		Object selected = selection.getFirstElement();
 		if (selected instanceof Resource) {
-			initialResource2 = getIResource((Resource) selected);
+			initialResource = (Resource) selected;
+			initialIResource = getIResource(initialResource);
 		}
 		String expectedExtension = exportDescriptor.getExtensionAttribute();
-		if (expectedExtension != null && initialResource2 != null) {
-			initialResource = initialResource2;
-			wizardPage = new ExportValidationResultsFileWizardPage(expectedExtension, initialResource2);
+		if (expectedExtension != null && initialIResource != null) {
+			wizardPage = new ExportValidationResultsFileWizardPage(expectedExtension, initialIResource);
 			addPage(wizardPage);
 		}
 	}

@@ -19,7 +19,6 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
@@ -40,7 +39,7 @@ public class HTMLExport extends AbstractExport {
 	 *         instances
 	 */
 	@Override
-	public String createContents(@NonNull IResource validatedResource, RootNode rootNode, IFile exportedFile) {
+	public String createContents(@NonNull Resource validatedResource, RootNode rootNode, IFile exportedFile) {
 		StringBuilder html = new StringBuilder();
 		html.append("<html>\n");
 		html.append("\t<head></head>\n");
@@ -68,7 +67,7 @@ public class HTMLExport extends AbstractExport {
 		html.append("\t\t\t<h2>2.1. Model checked</h2>\n");
 
 		html.append("\t\t\t<ul>\n");
-		html.append("\t\t\t\t<li>" + validatedResource.getName() + "</li>\n");
+		html.append("\t\t\t\t<li>" + validatedResource.getURI().lastSegment() + "</li>\n");
 
 		html.append("\t\t\t</ul>\n");
 
