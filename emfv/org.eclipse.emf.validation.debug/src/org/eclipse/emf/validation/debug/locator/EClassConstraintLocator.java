@@ -77,6 +77,10 @@ public class EClassConstraintLocator extends AbstractConstraintLocator
 		return ValidityPlugin.INSTANCE.getImage("EOperation.gif");
 	}
 
+	public @NonNull String getName() {
+		return "EClass invariants";
+	}
+
 	@Override
 	public void validate(@NonNull Result result, @NonNull ValidityManager validityManager) {
 		super.validate(result, validityManager);

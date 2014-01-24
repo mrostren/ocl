@@ -75,6 +75,10 @@ public class PivotConstraintLocator extends AbstractConstraintLocator
 		return map;
 	}
 
+	public @NonNull String getName() {
+		return "Complete OCL constraints";
+	}
+
 	@Override
 	public void validate(@NonNull Result result, @NonNull ValidityManager validityManager) {
 		Severity severity = Severity.UNKNOWN;

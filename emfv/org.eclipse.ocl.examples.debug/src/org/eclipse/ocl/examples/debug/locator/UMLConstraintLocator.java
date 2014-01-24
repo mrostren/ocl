@@ -164,6 +164,10 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 		}
 	}
 
+	public @NonNull String getName() {
+		return "UML Constraints";
+	}
+
 	@Override
 	public @Nullable URI getURI(@NonNull EObject eObject) {
 		EObject eContainer = eObject;

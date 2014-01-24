@@ -68,4 +68,8 @@ public class EClassifierConstraintLocator extends AbstractConstraintLocator
 		return constraints; */
 		return null;
 	}		
+
+	public @NonNull String getName() {
+		return "EClassifier invariants";
+	}
 }

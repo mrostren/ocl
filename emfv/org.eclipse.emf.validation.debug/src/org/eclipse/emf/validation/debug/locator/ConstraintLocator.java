@@ -72,6 +72,11 @@ public interface ConstraintLocator
 	 */
 	@NonNull String getLabel(@NonNull EModelElement eObject);
 
+	/**
+	 * Return a descriptive name for this kind of constraint.
+	 */
+	@NonNull String getName();
+
 	@Nullable URI getURI(@NonNull EObject eObject);
 	
 	/**

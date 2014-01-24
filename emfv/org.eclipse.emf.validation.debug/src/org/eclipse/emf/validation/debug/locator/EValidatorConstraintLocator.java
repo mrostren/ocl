@@ -125,6 +125,10 @@ public class EValidatorConstraintLocator extends AbstractConstraintLocator
 		return ValidityPlugin.INSTANCE.getImage("methpub_obj.gif");
 	}
 
+	public @NonNull String getName() {
+		return "Java validateXXXX methods";
+	}
+
 	protected @NonNull String print(@NonNull Map<EClassifier, List<LeafConstrainingNode>> map) {
 		StringBuilder s = new StringBuilder();
 		ArrayList<EClassifier> sortedList = new ArrayList<EClassifier>(map.keySet());
