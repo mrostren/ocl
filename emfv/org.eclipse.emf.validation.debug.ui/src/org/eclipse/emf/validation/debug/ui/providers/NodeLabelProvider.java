@@ -274,7 +274,7 @@ public class NodeLabelProvider extends ColumnLabelProvider
 	private String getLeafConstrainingNodeHoover(
 			LeafConstrainingNode leafConstrainingNode, boolean withDiagnosisMessage) {
 		StringBuilder s = new StringBuilder();
-		Resource resource = leafConstrainingNode.getConstraintDefinition().getResource();
+		Resource resource = leafConstrainingNode.getConstraintLocator().getSourceResource(leafConstrainingNode);
 		s.append("Location: ");
 		if (resource != null) {
 			s.append(resource.getURI().toString());
@@ -282,7 +282,7 @@ public class NodeLabelProvider extends ColumnLabelProvider
 			s.append(ValidationDebugMessages.ValidityView_Constraints_LabelProvider_UnexistingResource);
 		}
 		
-		String expression = leafConstrainingNode.getConstraintDefinition().getExpression();
+		String expression = leafConstrainingNode.getConstraintLocator().getSourceExpression(leafConstrainingNode);
 		s.append("\nExpression: ");
 		if (expression != null) {
 			s.append(expression);

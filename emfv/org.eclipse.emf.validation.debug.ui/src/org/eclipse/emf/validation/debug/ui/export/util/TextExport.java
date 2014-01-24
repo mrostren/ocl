@@ -105,7 +105,7 @@ public class TextExport extends AbstractExport {
 
 	private void appendLogFile(LeafConstrainingNode node, StringBuilder s,
 			String severity) {
-		Resource resource = node.getConstraintDefinition().getResource();
+		Resource resource = node.getConstraintLocator().getSourceResource(node);
 		if (resource != null) {
 			s.append("\t\t\t Resource: " + resource + "\n");
 		} else {
@@ -115,7 +115,7 @@ public class TextExport extends AbstractExport {
 		}
 		s.append("\t\t\t Invariant: " + node.getLabel() + "\n");
 		
-		String expression = node.getConstraintDefinition().getExpression();
+		String expression = node.getConstraintLocator().getSourceExpression(node);
 		if (expression != null) {
 			s.append("\t\t\t Expression: " + expression + "\n");
 		} else {

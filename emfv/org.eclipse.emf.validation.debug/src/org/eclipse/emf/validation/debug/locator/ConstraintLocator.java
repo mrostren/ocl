@@ -77,6 +77,16 @@ public interface ConstraintLocator
 	 */
 	@NonNull String getName();
 
+	/**
+	 * Return the source representation of the Constraint. Returns null if none available.
+	 */
+	@Nullable String getSourceExpression(@NonNull LeafConstrainingNode node);
+
+	/**
+	 * Return the Resource from which the Constraint was obtained. Returns null if none available.
+	 */
+	@Nullable Resource getSourceResource(@NonNull LeafConstrainingNode node);
+
 	@Nullable URI getURI(@NonNull EObject eObject);
 	
 	/**

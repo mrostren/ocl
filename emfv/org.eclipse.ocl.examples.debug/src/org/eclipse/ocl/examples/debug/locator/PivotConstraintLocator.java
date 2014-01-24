@@ -34,12 +34,15 @@ import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.ocl.examples.domain.utilities.DomainUtil;
 import org.eclipse.ocl.examples.pivot.Constraint;
 import org.eclipse.ocl.examples.pivot.Namespace;
 import org.eclipse.ocl.examples.pivot.manager.MetaModelManager;
 import org.eclipse.ocl.examples.pivot.utilities.BaseResource;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 import org.eclipse.ocl.examples.pivot.validation.PivotEObjectValidator.ValidationAdapter;
+import org.eclipse.ocl.examples.xtext.base.basecs.ModelElementCS;
+import org.eclipse.ocl.examples.xtext.base.utilities.ElementUtil;
 
 public class PivotConstraintLocator extends AbstractConstraintLocator
 {
@@ -77,6 +80,22 @@ public class PivotConstraintLocator extends AbstractConstraintLocator
 
 	public @NonNull String getName() {
 		return "Complete OCL constraints";
+	}
+
+	@Override
+	public @Nullable String getSourceExpression(@NonNull LeafConstrainingNode node) {
+		Constraint constrainingObject = (Constraint)node.getConstrainingObject();
+		System.out.println(DomainUtil.debugSimpleName(constrainingObject.getSpecification()));
+		ModelElementCS csElement = ElementUtil.getCsElement(constrainingObject.getSpecification());
+		return csElement != null ? ElementUtil.getText(csElement) : null;
+	}
+
+	@Override
+	public @Nullable Resource getSourceResource(@NonNull LeafConstrainingNode node) {
+		Constraint constrainingObject = (Constraint)node.getConstrainingObject();
+		System.out.println(DomainUtil.debugSimpleName(constrainingObject));
+		ModelElementCS csElement = ElementUtil.getCsElement(constrainingObject);
+		return csElement != null ? csElement.eResource() : null;
 	}
 
 	@Override

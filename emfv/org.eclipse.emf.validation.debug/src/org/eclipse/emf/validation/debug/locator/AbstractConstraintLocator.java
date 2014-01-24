@@ -112,6 +112,14 @@ public abstract class AbstractConstraintLocator implements ConstraintLocator, Co
 		assert severity != null;
 		return severity;
 	}
+	
+	public @Nullable String getSourceExpression(@NonNull LeafConstrainingNode node) {
+		return null;
+	}
+
+	public @Nullable Resource getSourceResource(@NonNull LeafConstrainingNode node) {
+		return null;
+	}
 
 	public @Nullable URI getURI(@NonNull EObject eObject) {
 		EObject eContainer = eObject;
