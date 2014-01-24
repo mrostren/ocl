@@ -86,9 +86,6 @@ public class ValidityModel
 	private final @NonNull Map<URI, ConstrainingNode> allConstrainingNodes = new HashMap<URI, ConstrainingNode>();
 	private final @NonNull Map<EObject, ValidatableNode> allValidatableNodes = new HashMap<EObject, ValidatableNode>();
 	
-	private final @NonNull Map<EObject, GoToModelElementMarker> allModelElementsMarkers = new HashMap<EObject, GoToModelElementMarker>();
-	private final @NonNull Map<ValidatableNode, GoToModelElementMarker>  allValidatableNodesMarkers = new HashMap<ValidatableNode, GoToModelElementMarker>();
-	
 	private final @NonNull Map<EModelElement, Set<URI>> typeClosures = new HashMap<EModelElement, Set<URI>>();
 	private final @NonNull Set<Resource> resources;
 	
@@ -372,16 +369,8 @@ public class ValidityModel
 	 */
 	protected void createResults(@NonNull Set<Resource> resources) {
 		for (Resource resource : resources) {
-			IFile containingFile = findFile(resource);
-			
-			for (TreeIterator<EObject> tit = resource.getAllContents(); tit.hasNext(); ) {
-				@SuppressWarnings("null")@NonNull EObject eObject = tit.next();
-				// create a go to Marker for a each eObject
-				if (containingFile != null) {
-					GoToModelElementMarker gotoMarker = new GoToModelElementMarker(containingFile, eObject);
-					allModelElementsMarkers.put(eObject, gotoMarker);
-				}
-				
+			for (TreeIterator<EObject> iterator = resource.getAllContents(); iterator.hasNext(); ) {
+				@SuppressWarnings("null")@NonNull EObject eObject = iterator.next();
 				EClass eClass = eObject.eClass();
 				EAnnotation eAnnotation = eClass.getEAnnotation("http://www.eclipse.org/uml2/2.0.0/UML");
 				if ((eAnnotation != null) && (eAnnotation.getReferences().size() > 0)) { // Stereotype application
@@ -593,7 +582,12 @@ public class ValidityModel
 	 * @return the GoToModelElementMarker of a ValidatableNode.
 	 */
 	public GoToModelElementMarker getModelElementMarker(@NonNull ValidatableNode validatableNode){
-		return allValidatableNodesMarkers.get(validatableNode);
+		IFile containingFile = findFile(validatableNode.getConstrainedObject().eResource());
+		// create a go to Marker for the selected eObject
+		if (containingFile != null) {
+			return new GoToModelElementMarker(containingFile, validatableNode.getConstrainedObject());
+		}
+		return null;
 	}
 	
 	/**
@@ -655,7 +649,6 @@ public class ValidityModel
 			validatable.setLabel(validityManager.getLabel(eObject));
 			validatable.setConstrainedObject(eObject);
 			allValidatableNodes.put(eObject, validatable);
-			allValidatableNodesMarkers.put(validatable, allModelElementsMarkers.get(eObject));
 		}
 		return validatable;
 	}
