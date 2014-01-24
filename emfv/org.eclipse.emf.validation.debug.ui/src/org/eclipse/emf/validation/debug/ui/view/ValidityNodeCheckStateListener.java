@@ -20,8 +20,6 @@ import java.util.List;
 
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.ResultValidatableNode;
 import org.eclipse.emf.validation.debug.validity.RootConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
@@ -50,7 +48,7 @@ public class ValidityNodeCheckStateListener implements ICheckStateListener {
 			abstractNode.setEnabled(checked);
 
 			//update Selected Element Results children check;
-			updateResultNodeState(abstractNode, checked);
+			updateChildrenNodesState(abstractNode, checked);
 
 			// update Selected Element parents checks/grayed
 			if (abstractNode instanceof RootValidatableNode || abstractNode instanceof RootConstrainingNode){
@@ -234,21 +232,17 @@ public class ValidityNodeCheckStateListener implements ICheckStateListener {
 	/**
 	 * Select/Deselect all results children nodes
 	 */
-	private void updateResultNodeState(AbstractNode abstractNode,
+	private void updateChildrenNodesState(AbstractNode abstractNode,
 			boolean checked) {
 		for (AbstractNode child : abstractNode.getChildren()) {
 			if (child instanceof ResultValidatableNode) {
 				child.setEnabled(checked);
 				validatableTree.setChecked(child, checked);
 				validatableTree.setGrayed(child, false);
-			} else if (child instanceof LeafConstrainingNode) {
+			} else if (child instanceof ConstrainingNode) {
 				child.setEnabled(checked);
 				constraintsTree.setChecked(child, checked);
-				updateResultNodeState(child, checked);
-			} else if (child instanceof ResultConstrainingNode) {
-				child.setEnabled(checked);
-				constraintsTree.setChecked(child, checked);
-				constraintsTree.setGrayed(child, false);
+				updateChildrenNodesState(child, checked);
 			}
 		}
 	}
