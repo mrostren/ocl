@@ -175,17 +175,19 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 				break;
 			}
 		}
+		String nsURI = null;
 		Stereotype appliedStereotype = ((Package)eContainer).getAppliedStereotype("Ecore::EPackage");
-		Object value = ((Package)eContainer).getValue(appliedStereotype, "nsURI");
-		String nsURI;
-		if (value != null) {
-			nsURI = value.toString();
-		}
-		else {
-			nsURI = ((Package)eContainer).getURI();
-			if (nsURI == null) {
-				return null;
+		if (appliedStereotype != null) {
+			Object value = ((Package)eContainer).getValue(appliedStereotype, "nsURI");
+			if (value != null) {
+				nsURI = value.toString();
 			}
+		}
+		if (nsURI == null) {
+			nsURI = ((Package)eContainer).getURI();
+		}
+		if (nsURI == null) {
+			return null;
 		}
 		Resource resource = eObject.eResource();
 		if (resource == null) {
