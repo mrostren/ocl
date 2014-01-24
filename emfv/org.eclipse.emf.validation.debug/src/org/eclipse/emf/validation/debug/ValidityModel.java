@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -242,41 +241,22 @@ public class ValidityModel
 	 *            the uri of the constrainingNode
 	 */
 	protected void createResultNodes(@NonNull EObject constrainedObject, @NonNull URI constrainingType) {
-		Set<ConstrainingNode> constrainingNodes = getConstrainedNodesForURI(constrainingType);
-		for (ConstrainingNode constrainingNode : constrainingNodes) {
-			if (constrainingNode != null){
-				List<ConstrainingNode> children = constrainingNode.getChildren();
-				if (children.size() > 0) {
-					ValidatableNode validatable = getValidatableNode(constrainedObject);
-					for (@SuppressWarnings("null")@NonNull ConstrainingNode leafConstrainingNode : children) {
-						ResultConstrainingNode resultConstrainingNode = createResultConstrainingNode();
-						ResultValidatableNode resultValidatableNode = createResultValidatableNode();
-						resultConstrainingNode.setResultValidatableNode(resultValidatableNode);
-						resultConstrainingNode.setLabel(validatable.getLabel());
-						resultValidatableNode.setLabel(leafConstrainingNode.getLabel());
-						leafConstrainingNode.getChildren().add(resultConstrainingNode);
-						validatable.getChildren().add(resultValidatableNode);
-					}
+		ConstrainingNode constrainingNode = allConstrainingNodes.get(constrainingType);
+		if (constrainingNode != null) {
+			List<ConstrainingNode> children = constrainingNode.getChildren();
+			if (children.size() > 0) {
+				ValidatableNode validatable = getValidatableNode(constrainedObject);
+				for (@SuppressWarnings("null")@NonNull ConstrainingNode leafConstrainingNode : children) {
+					ResultConstrainingNode resultConstrainingNode = createResultConstrainingNode();
+					ResultValidatableNode resultValidatableNode = createResultValidatableNode();
+					resultConstrainingNode.setResultValidatableNode(resultValidatableNode);
+					resultConstrainingNode.setLabel(validatable.getLabel());
+					resultValidatableNode.setLabel(leafConstrainingNode.getLabel());
+					leafConstrainingNode.getChildren().add(resultConstrainingNode);
+					validatable.getChildren().add(resultValidatableNode);
 				}
 			}
 		}
-	}
-
-	/**
-	 * Returns the set of corresponding constraining nodes.
-	 * 
-	 * @param constrainingType
-	 *            the uri of the constrainingNode
-	 * @return the set of corresponding constraining nodes
-	 */
-	private Set<ConstrainingNode> getConstrainedNodesForURI(@NonNull URI constrainingType) {
-		Set<ConstrainingNode> constrainingNodes = new LinkedHashSet<ConstrainingNode>();
-		for (Map.Entry<URI, ConstrainingNode> entry : allConstrainingNodes.entrySet()) {
-			if (entry.getKey().toString().startsWith(constrainingType.toString())) {
-				constrainingNodes.add(entry.getValue());
-			}
-		}
-		return constrainingNodes;
 	}
 
 	/**
