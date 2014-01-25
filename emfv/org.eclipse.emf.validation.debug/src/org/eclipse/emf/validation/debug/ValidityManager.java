@@ -39,6 +39,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
+import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
 import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
@@ -48,12 +49,15 @@ import org.eclipse.emf.validation.debug.validity.RootNode;
 import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.ocl.examples.common.utils.TracingOption;
 
 public class ValidityManager
 {	
 	private static final @NonNull Map<String, List<ConstraintLocator.Descriptor>> constraintLocatorDescriptors = new HashMap<String, List<ConstraintLocator.Descriptor>>();
 	private static final @NonNull Map<String, List<ConstraintLocator>> constraintLocators = new HashMap<String, List<ConstraintLocator>>();
 
+	public static final @NonNull TracingOption ANALYZE_RESOURCE = new TracingOption(ValidityPlugin.PLUGIN_ID, "analyze/resource");
+	public static final @NonNull TracingOption LOCATE_RESOURCE = new TracingOption(ValidityPlugin.PLUGIN_ID, "locate/resource");
 
 	private final @NonNull Set<Resource> newResources = new HashSet<Resource>();
 
@@ -250,14 +254,14 @@ public class ValidityManager
 
 	public void setInput(Object newInput, @NonNull Monitor monitor) {
 		monitor.beginTask("Selective Validation", ValidityModel.WORK_FOR_ALL_SET_INPUT);
-		monitor.setTaskName("Clean Up previous display");
+		monitor.setTaskName("Clean Up");
 		ResourceSet selectedResourceSet = null;
 		Resource selectedResource = null;
 		EObject selectedObject = null;
 		newResources.clear();
 		
-		if(newInput == null){
-			oldResources.removeAll(oldResources);
+		if (newInput == null) {
+			oldResources.clear();
 			model = null;
 			return;
 		}
@@ -269,7 +273,7 @@ public class ValidityManager
 			selectedResourceSet = selectedResource.getResourceSet();
 			if (selectedResourceSet == null) {
 				List<EObject> eContents = selectedResource.getContents();
-				for (int j = 0; j < eContents.size(); j++) {		// Tolerate domain growth with a CME
+				for (int j = 0; j < eContents.size(); j++) {		// Tolerate domain growth without a CME
 					EObject eObject = eContents.get(j);
 					EcoreUtil.resolveAll(eObject);
 				}
@@ -285,10 +289,10 @@ public class ValidityManager
 
 		if (selectedResourceSet != null) {
 			List<Resource> selectedResources = selectedResourceSet.getResources();
-			for (int i = 0; i < selectedResources.size(); i++) {		// Tolerate domain growth with a CME
+			for (int i = 0; i < selectedResources.size(); i++) {	// Tolerate domain growth without a CME
 				Resource eResource = selectedResources.get(i);
 				List<EObject> eContents = eResource.getContents();
-				for (int j = 0; j < eContents.size(); j++) {		// Tolerate domain growth with a CME
+				for (int j = 0; j < eContents.size(); j++) {		// Tolerate domain growth without a CME
 					EObject eObject = eContents.get(j);
 					EcoreUtil.resolveAll(eObject);
 				}
@@ -311,6 +315,8 @@ public class ValidityManager
 		model2.init(monitor);
 
 		oldResources.clear();
-		oldResources.addAll(newResources);
+		if (!monitor.isCanceled()) {
+			oldResources.addAll(newResources);
+		}
 	}
 }

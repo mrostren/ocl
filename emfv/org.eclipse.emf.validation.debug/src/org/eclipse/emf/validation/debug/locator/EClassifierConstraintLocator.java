@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -34,7 +35,8 @@ import org.eclipse.jdt.annotation.Nullable;
 
 public class EClassifierConstraintLocator extends AbstractConstraintLocator
 {
-	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources) {
+	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel,
+			@NonNull EPackage ePackage, @NonNull Set<Resource> resources, @NonNull Monitor monitor) {
 /*		EClassifier eClassifier = (EClassifier) eObject;
 		List<Constraint> constraints = null;
 		EAnnotation oclAnnotation = OCLCommon.getDelegateAnnotation(eClassifier);
@@ -42,6 +44,9 @@ public class EClassifierConstraintLocator extends AbstractConstraintLocator
 			EMap<String, String> oclAnnotationDetails = oclAnnotation.getDetails();
 			int iMax = oclAnnotationDetails.size();
 			for (int i = 0; i < iMax; i++) {
+				if (monitor.isCanceled()) {
+					return null;
+				}
 				Map.Entry<String,String> entry = oclAnnotationDetails.get(i);
 				String constraintName = entry.getKey();
 				if (constraintName == null) {

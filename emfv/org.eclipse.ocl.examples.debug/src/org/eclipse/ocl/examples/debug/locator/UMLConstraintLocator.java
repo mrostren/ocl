@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EModelElement;
@@ -90,9 +91,13 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 		}
 	}
 
-	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources) {
+	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel,
+		@NonNull EPackage ePackage, @NonNull Set<Resource> resources, @NonNull Monitor monitor) {
 			Map<EModelElement, List<LeafConstrainingNode>> map = null;
 			for (Resource resource : resources) {
+				if (monitor.isCanceled()) {
+					return null;
+				}
 				for (TreeIterator<EObject> tit = resource.getAllContents(); tit.hasNext(); ) {
 					EObject eObject = tit.next();
 					if (eObject instanceof Constraint) {
@@ -118,6 +123,9 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 	//						EClass eC = constrainedElement.eClass();
 							map = createLeafConstrainingNode(map, validityModel, contextElement, umlConstraint, label);
 						}
+					}
+					if (monitor.isCanceled()) {
+						return null;
 					}
 				}
 			}

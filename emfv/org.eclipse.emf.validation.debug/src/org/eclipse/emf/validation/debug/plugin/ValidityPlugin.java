@@ -20,15 +20,18 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.validation.export.ExportResultsListener;
 import org.eclipse.emf.validation.export.ExportResultsRegistry;
+import org.eclipse.jdt.annotation.NonNull;
 import org.osgi.framework.BundleContext;
 
-public class ValidityPlugin extends EMFPlugin {
-	public static final String CONSTRAINT_LOCATOR_PPID = "constraint_locator";
+public class ValidityPlugin extends EMFPlugin
+{
+	public static final @NonNull String PLUGIN_ID = "org.eclipse.ocl.examples.emf.validation.validity";
+	public static final @NonNull String CONSTRAINT_LOCATOR_PPID = "constraint_locator";
 
 	/**
 	 * The singleton instance of the plugin.
 	 */
-	public static final ValidityPlugin INSTANCE = new ValidityPlugin();
+	public static final @NonNull ValidityPlugin INSTANCE = new ValidityPlugin();
 
 	/**
 	 * Creates the singleton instance.

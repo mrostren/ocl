@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.ui.forms,
  org.eclipse.equinox.bidi,
  org.eclipse.xtext.ui,
- org.eclipse.ocl.examples.ui
+ org.eclipse.ocl.examples.ui,
+ org.eclipse.ocl.examples.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName

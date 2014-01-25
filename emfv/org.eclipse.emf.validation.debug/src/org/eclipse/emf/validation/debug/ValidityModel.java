@@ -132,7 +132,9 @@ public class ValidityModel
 			int allResourcesCount = allResources.size();
 			for (int i = 0; i < allResourcesCount; i++) {
 				Resource resource = allResources.get(i);
-				monitor.subTask("'" + resource.getURI() + "'");
+				@SuppressWarnings("null")@NonNull String uri = String.valueOf(resource.getURI());
+				monitor.subTask("'" + uri + "'");
+				ValidityManager.ANALYZE_RESOURCE.println(uri);
 				Set<EClass> eClasses;
 				ResourceSet resourceSet = resource.getResourceSet();
 				if (resourceSet != null) {
@@ -235,8 +237,11 @@ public class ValidityModel
 	 * @param allConstraints
 	 *            the map of all model elements and their LeafConstrainingNodes
 	 */
-	protected void createLeafConstrainingNodes(@NonNull Map<EModelElement, Set<LeafConstrainingNode>> allConstraints) {
+	protected void createLeafConstrainingNodes(@NonNull Map<EModelElement, Set<LeafConstrainingNode>> allConstraints, @NonNull Monitor monitor) {
 		for (@SuppressWarnings("null")@NonNull EModelElement constrainedType : allConstraints.keySet()) {
+			if (monitor.isCanceled()) {
+				break;
+			}
 			ConstrainingNode classConstrainingNode = getConstrainingNode(constrainedType);
 			List<ConstrainingNode> children = classConstrainingNode.getChildren();
 				Set<LeafConstrainingNode> someConstraints = allConstraints.get(constrainedType);
@@ -685,21 +690,28 @@ public class ValidityModel
 	public void init(@NonNull Monitor monitor) {
 		Map<EPackage,Set<Resource>> ePackage2resources = analyzeResources(resources, monitor, WORK_FOR_ANALYZE_RESOURCES);			//	Find all EClasses and EPackages in the source Resources
 		Map<EModelElement, Set<LeafConstrainingNode>> allConstraints = locateConstraints(ePackage2resources, monitor, WORK_FOR_LOCATE_CONSTRAINTS);
-
+		if (monitor.isCanceled()) {
+			return;
+		}
 		if (allConstraints != null) {
-			createLeafConstrainingNodes(allConstraints);
+			createLeafConstrainingNodes(allConstraints, monitor);
+		}
+		if (monitor.isCanceled()) {
+			return;
 		}
 		createResults(resources, monitor, WORK_FOR_CREATE_RESULTS);
-		if (!monitor.isCanceled()) {
-			monitor.setTaskName("Sorting Constraints");
-			sortNodes(rootNode.getConstrainingNodes());
-			monitor.worked(WORK_FOR_SORT_CONSTRAINING_NODES);
+		if (monitor.isCanceled()) {
+			return;
 		}
-		if (!monitor.isCanceled()) {
-			monitor.setTaskName("Sorting Model Elements");
-			sortNodes(rootNode.getValidatableNodes());
-			monitor.worked(WORK_FOR_SORT_VALIDATABLE_NODES);
+		monitor.setTaskName("Sorting Constraints");
+		sortNodes(rootNode.getConstrainingNodes());
+		monitor.worked(WORK_FOR_SORT_CONSTRAINING_NODES);
+		if (monitor.isCanceled()) {
+			return;
 		}
+		monitor.setTaskName("Sorting Model Elements");
+		sortNodes(rootNode.getValidatableNodes());
+		monitor.worked(WORK_FOR_SORT_VALIDATABLE_NODES);
 	}
 
 	/**
@@ -709,7 +721,7 @@ public class ValidityModel
 	 *            the map of all ePackages and their resources
 	 * @return all constraints for each EClass
 	 */
-	protected Map<EModelElement, Set<LeafConstrainingNode>> locateConstraints(@NonNull Map<EPackage,Set<Resource>> ePackage2resources, @NonNull Monitor monitor, int worked) {
+	protected @Nullable Map<EModelElement, Set<LeafConstrainingNode>> locateConstraints(@NonNull Map<EPackage,Set<Resource>> ePackage2resources, @NonNull Monitor monitor, int worked) {
 		monitor.setTaskName("Locating Constraints");
 		MonitorStep monitorStep = new MonitorStep(monitor, worked);
 		try {
@@ -717,17 +729,24 @@ public class ValidityModel
 			Set<EPackage> ePackages = ePackage2resources.keySet();
 			int ePackagesCount = ePackages.size();
 			for (@SuppressWarnings("null")@NonNull EPackage ePackage : ePackages) {
+				if (monitor.isCanceled()) {
+					return null;
+				}
 				String nsURI = ePackage.getNsURI();
-				
-				if (nsURI !=null){
+				if (nsURI != null) {
 					monitor.subTask("'" + nsURI + "'");
 					List<ConstraintLocator> list = ValidityManager.getConstraintLocators(nsURI);
 					if (list != null) {
 						@SuppressWarnings("null")@NonNull Set<Resource> ePackageResources = ePackage2resources.get(ePackage);
 						for (ConstraintLocator constraintLocator : list) {
-							monitor.subTask("'" + nsURI + "' - " + constraintLocator.getName());
+							if (monitor.isCanceled()) {
+								return null;
+							}
+							String subTaskName = "'" + nsURI + "' - " + constraintLocator.getName();
+							monitor.subTask(subTaskName);
+							ValidityManager.LOCATE_RESOURCE.println(subTaskName);
 							try {
-								Map<EModelElement, List<LeafConstrainingNode>> availableConstraints = constraintLocator.getConstraints(this, ePackage, ePackageResources);
+								Map<EModelElement, List<LeafConstrainingNode>> availableConstraints = constraintLocator.getConstraints(this, ePackage, ePackageResources, monitor);
 								if (availableConstraints != null) {
 									assert !availableConstraints.containsKey(null);
 									for (EModelElement constrainedType : availableConstraints.keySet()) {
@@ -736,7 +755,12 @@ public class ValidityModel
 											typeConstraints = new HashSet<LeafConstrainingNode>();
 											allConstraints.put(constrainedType, typeConstraints);
 										}
+										int oldSize = typeConstraints.size();
 										typeConstraints.addAll(availableConstraints.get(constrainedType));
+										int newSize = typeConstraints.size();
+										if (newSize > oldSize) {
+											ValidityManager.LOCATE_RESOURCE.println((newSize-oldSize) + " constraints for " + constrainedType);
+										}
 									}
 								}
 							}

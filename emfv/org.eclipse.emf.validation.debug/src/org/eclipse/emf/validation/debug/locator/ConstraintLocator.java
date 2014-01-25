@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
@@ -55,7 +56,8 @@ public interface ConstraintLocator
 	 * Return a constrainedType-to-constraint map for all types in the given resources that have an ePackage whose URI complies with
 	 * the registration of this ConstraintLocator. The validityModel is used to create the LeafConstrainingNodes for each constraint.
 	 */
-	@Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources);
+	@Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage,
+			@NonNull Set<Resource> resources, @NonNull Monitor monitor);
 
 	/**
 	 * Return an icon to identify this kind of ConstraintLocator.

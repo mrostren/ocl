@@ -24,6 +24,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
@@ -44,9 +45,13 @@ import org.eclipse.jdt.annotation.Nullable;
 
 public class EClassConstraintLocator extends AbstractConstraintLocator
 {
-	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources) {
+	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel,
+			@NonNull EPackage ePackage, @NonNull Set<Resource> resources, @NonNull Monitor monitor) {
 		Map<EModelElement, List<LeafConstrainingNode>> map = null;
 		for (@SuppressWarnings("null")@NonNull EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (monitor.isCanceled()) {
+				return null;
+			}
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
 				List<LeafConstrainingNode> constraints = null;

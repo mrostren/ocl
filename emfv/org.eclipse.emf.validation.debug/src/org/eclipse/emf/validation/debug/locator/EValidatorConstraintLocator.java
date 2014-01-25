@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
@@ -43,65 +44,25 @@ import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.ocl.examples.domain.utilities.ComposedEValidator;
 
 public class EValidatorConstraintLocator extends AbstractConstraintLocator
 {
-	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull Set<Resource> resources) {
+	public @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@NonNull ValidityModel validityModel,
+			@NonNull EPackage ePackage, @NonNull Set<Resource> resources, @NonNull Monitor monitor) {
 		Map<EModelElement, List<LeafConstrainingNode>> map = null;
 		Object object = EValidator.Registry.INSTANCE.get(ePackage);
 		if (object instanceof EValidator) {
-//			Map<String, EClassifier> name2eClassifier = new HashMap<String, EClassifier>();
-			Map<Class<?>, List<EClassifier>> javaClass2eClassifiers = new HashMap<Class<?>, List<EClassifier>>();
-			for (EClassifier eClassifier : ePackage.getEClassifiers()) {
-//				name2eClassifier.put(eClassifier.getName(), eClassifier);
-				Class<?> javaClass = eClassifier.getInstanceClass();
-				if (javaClass != null) {
-					List<EClassifier> eClassifiers = javaClass2eClassifiers.get(javaClass);
-					if (eClassifiers == null) {
-						eClassifiers = new ArrayList<EClassifier>();
-						javaClass2eClassifiers.put(javaClass, eClassifiers);
-					}
-					eClassifiers.add(eClassifier);
-				}
-			}
-			for (Method method : object.getClass().getDeclaredMethods()) {
-//				System.out.println(method);
-				Class<?>[] parameterTypes = method.getParameterTypes();
-				if (Modifier.isPublic(method.getModifiers())
-				 && (parameterTypes.length == 3)
-				 && (DiagnosticChain.class == parameterTypes[1])
-				 && (Map.class == parameterTypes[2])) {
-					String name = method.getName();
-					List<EClassifier> eClassifiers = javaClass2eClassifiers.get(parameterTypes[0]);
-					if (eClassifiers != null) {
-						for (EClassifier eClassifier : eClassifiers) {
-							String eClassifierName = eClassifier.getName();
-							int index = name.indexOf(eClassifierName);
-							if (index > 0) {
-								int nameLength = name.length();
-								int eClassifierNameLength = eClassifierName.length();
-								int separatorIndex = index + eClassifierNameLength;
-								String constraintName = null;
-								if ((separatorIndex + 1 < nameLength) && ('_' == name.charAt(separatorIndex))) {
-									constraintName = name.substring(separatorIndex + 1);
-								}
-								else if ((separatorIndex == nameLength) && !(eClassifier instanceof EClass))  {
-									constraintName = "<datatype>";
-								}
-								if (constraintName != null) {
-									map = createLeafConstrainingNode(map, validityModel, eClassifier, method, constraintName);
-								}
-							}
-						}
-					}
-				}
-			}
+			map = getConstraints(map, validityModel, ePackage, (EValidator) object, monitor);
 		}
-		if (map != null) {
+		if ((map != null) && !monitor.isCanceled()) {
 			//
 			//	Prune unnamed constraints that have named constraints to delegate to
 			//
 			for (EObject eClassifier : map.keySet()) {
+				if (monitor.isCanceled()) {
+					return null;
+				}
 				List<LeafConstrainingNode> oldList = map.get(eClassifier);
 				if (oldList.size() > 1) {
 					ArrayList<LeafConstrainingNode> newList = new ArrayList<LeafConstrainingNode>(oldList);
@@ -117,6 +78,69 @@ public class EValidatorConstraintLocator extends AbstractConstraintLocator
 //			String s = print(map);
 //			System.out.println("EValidator '" + ePackage.getNsURI() + "'\n" + s);
 //		}
+		return map;
+	}
+
+	protected @Nullable Map<EModelElement, List<LeafConstrainingNode>> getConstraints(@Nullable Map<EModelElement, List<LeafConstrainingNode>> map,
+			@NonNull ValidityModel validityModel, @NonNull EPackage ePackage, @NonNull EValidator eValidator, @NonNull Monitor monitor) {
+		if (eValidator instanceof ComposedEValidator) {
+			for (@SuppressWarnings("null")@NonNull EValidator child : ((ComposedEValidator) eValidator).getChildren()) {
+				map = getConstraints(map, validityModel, ePackage, child, monitor);
+			}
+			return map;
+		}
+//		Map<String, EClassifier> name2eClassifier = new HashMap<String, EClassifier>();
+		Map<Class<?>, List<EClassifier>> javaClass2eClassifiers = new HashMap<Class<?>, List<EClassifier>>();
+		for (EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (monitor.isCanceled()) {
+				return null;
+			}
+//			name2eClassifier.put(eClassifier.getName(), eClassifier);
+			Class<?> javaClass = eClassifier.getInstanceClass();
+			if (javaClass != null) {
+				List<EClassifier> eClassifiers = javaClass2eClassifiers.get(javaClass);
+				if (eClassifiers == null) {
+					eClassifiers = new ArrayList<EClassifier>();
+					javaClass2eClassifiers.put(javaClass, eClassifiers);
+				}
+				eClassifiers.add(eClassifier);
+			}
+		}
+		for (Method method : eValidator.getClass().getDeclaredMethods()) {
+			if (monitor.isCanceled()) {
+				return null;
+			}
+//			System.out.println(method);
+			Class<?>[] parameterTypes = method.getParameterTypes();
+			if (Modifier.isPublic(method.getModifiers())
+			 && (parameterTypes.length == 3)
+			 && (DiagnosticChain.class == parameterTypes[1])
+			 && (Map.class == parameterTypes[2])) {
+				String name = method.getName();
+				List<EClassifier> eClassifiers = javaClass2eClassifiers.get(parameterTypes[0]);
+				if (eClassifiers != null) {
+					for (EClassifier eClassifier : eClassifiers) {
+						String eClassifierName = eClassifier.getName();
+						int index = name.indexOf(eClassifierName);
+						if (index > 0) {
+							int nameLength = name.length();
+							int eClassifierNameLength = eClassifierName.length();
+							int separatorIndex = index + eClassifierNameLength;
+							String constraintName = null;
+							if ((separatorIndex + 1 < nameLength) && ('_' == name.charAt(separatorIndex))) {
+								constraintName = name.substring(separatorIndex + 1);
+							}
+							else if ((separatorIndex == nameLength) && !(eClassifier instanceof EClass))  {
+								constraintName = "<datatype>";
+							}
+							if (constraintName != null) {
+								map = createLeafConstrainingNode(map, validityModel, eClassifier, method, constraintName);
+							}
+						}
+					}
+				}
+			}
+		}
 		return map;
 	}
 

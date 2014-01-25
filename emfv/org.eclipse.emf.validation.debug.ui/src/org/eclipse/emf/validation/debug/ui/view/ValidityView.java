@@ -188,6 +188,68 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	private final NodesViewerFilter constrainingNodesFilterByKind = new NodesViewerFilter();
 	private final NodesViewerFilter validatableNodesFilterByKind = new NodesViewerFilter();
 
+	/**
+	 * The ChangeSelectionJob performs the work for a setSelection() without clogging up the UI. Multiple chnages are maintained
+	 * in a linked list so that the earlier jobs complete cancelation before another starts.
+	 */
+	protected class ChangeSelectionJob extends Job
+	{
+		private final @Nullable Notifier newSelection;
+		private @Nullable ChangeSelectionJob replacementJob = null;
+
+		protected ChangeSelectionJob(@Nullable Notifier newSelection) {
+			super("Validity View: Change Selection");
+			this.newSelection = newSelection;
+		}
+
+		public synchronized void cancelThenSchedule(@NonNull ChangeSelectionJob newJob) {
+			this.replacementJob = newJob;
+			cancel();
+		}
+
+		@Override
+		protected IStatus run(/*@NonNull*/ IProgressMonitor monitor) {
+			assert monitor != null;
+			try {
+				final @SuppressWarnings("null")@NonNull Monitor emfMonitor = BasicMonitor.toMonitor(monitor);
+				validityManager.setInput(newSelection, emfMonitor);
+				if (!monitor.isCanceled()) {
+					getForm().getDisplay().asyncExec(new Runnable()
+					{
+						@Override
+						public void run() {
+							RootNode rootNode = validityManager.getRootNode();
+							Object validatableNodesViewerInput = getValidatableNodesViewer().getInput();
+							if (validatableNodesViewerInput == null || !validatableNodesViewerInput.equals(rootNode)) {
+								if (!emfMonitor.isCanceled()) {
+									getValidatableNodesViewer().setInput(rootNode);
+								}
+								if (!emfMonitor.isCanceled()) {
+									getConstrainingNodesViewer().setInput(rootNode);
+								}
+								if (!emfMonitor.isCanceled()) {
+									filteredValidatableNodesTree.resetFilter();
+									filteredConstrainingNodesTree.resetFilter();								
+									validationRootChanged(rootNode);
+								}
+							}
+						}
+					});
+				}
+				return monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS;
+			}
+			finally {
+				monitor.done();
+				synchronized (this) {
+					ChangeSelectionJob replacementJob2 = replacementJob;
+					if (replacementJob2 != null) {
+						replacementJob2.schedule();
+					}
+				}
+			}
+		}
+	}
+
 	class DecoratingNodeLabelProvider extends DecoratingColumLabelProvider
 	{
 		public DecoratingNodeLabelProvider(@NonNull ILabelProvider nodeLabelProvider,
@@ -695,54 +757,19 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	}
 
 	private @Nullable Notifier selection = null;
-	private @Nullable Job setInputJob = null;
+	private @Nullable ChangeSelectionJob setInputJob = null;
 	
-	protected void setSelection(final Notifier newSelection) {
+	protected synchronized void setSelection(final Notifier newSelection) {
 		if (newSelection != selection) {
 			selection = newSelection;
-			Job setInputJob2 = setInputJob;
-			if (setInputJob2 != null) {
-				setInputJob2.cancel();
+			ChangeSelectionJob oldJob = setInputJob;
+			ChangeSelectionJob newJob = setInputJob = new ChangeSelectionJob(newSelection);
+			if (oldJob != null) {
+				oldJob.cancelThenSchedule(newJob);
 			}
-			setInputJob2 = setInputJob = new Job("Validity View: Change Selection")
-			{
-				@Override
-				protected IStatus run(/*@NonNull*/ IProgressMonitor monitor) {
-					assert monitor != null;
-					try {
-						final @SuppressWarnings("null")@NonNull Monitor emfMonitor = BasicMonitor.toMonitor(monitor);
-						validityManager.setInput(newSelection, emfMonitor);
-						if (!monitor.isCanceled()) {
-							getForm().getDisplay().asyncExec(new Runnable()
-							{
-								@Override
-								public void run() {
-									RootNode rootNode = validityManager.getRootNode();
-									Object validatableNodesViewerInput = getValidatableNodesViewer().getInput();
-									if (validatableNodesViewerInput == null || !validatableNodesViewerInput.equals(rootNode)) {
-										if (!emfMonitor.isCanceled()) {
-											getValidatableNodesViewer().setInput(rootNode);
-										}
-										if (!emfMonitor.isCanceled()) {
-											getConstrainingNodesViewer().setInput(rootNode);
-										}
-										if (!emfMonitor.isCanceled()) {
-											filteredValidatableNodesTree.resetFilter();
-											filteredConstrainingNodesTree.resetFilter();								
-											validationRootChanged(rootNode);
-										}
-									}
-								}
-							});
-						}
-						return monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS;
-					}
-					finally {
-						monitor.done();
-					}
-				}
-			};
-			setInputJob2.schedule();
+			else {
+				newJob.schedule();
+			}
 		}
 	}
 
