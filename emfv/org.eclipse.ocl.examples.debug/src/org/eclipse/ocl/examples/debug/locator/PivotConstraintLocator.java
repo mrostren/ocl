@@ -34,9 +34,9 @@ import org.eclipse.emf.validation.debug.validity.Result;
 import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.ocl.examples.domain.utilities.DomainUtil;
 import org.eclipse.ocl.examples.pivot.Constraint;
 import org.eclipse.ocl.examples.pivot.Namespace;
+import org.eclipse.ocl.examples.pivot.OpaqueExpression;
 import org.eclipse.ocl.examples.pivot.manager.MetaModelManager;
 import org.eclipse.ocl.examples.pivot.utilities.BaseResource;
 import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
@@ -66,8 +66,7 @@ public class PivotConstraintLocator extends AbstractConstraintLocator
 								EModelElement eTarget = metaModelManager.getEcoreOfPivot(EModelElement.class, constrainedElement);
 								if (eTarget != null) {
 									assert resource != null;
-									PivotConstraintDefinition definition = new PivotConstraintDefinition(pConstraint, resource);
-									map = createLeafConstrainingNode(map, validityModel, eTarget, pConstraint, definition, label);
+									map = createLeafConstrainingNode(map, validityModel, eTarget, pConstraint, label);
 								}
 							}
 						}
@@ -84,18 +83,32 @@ public class PivotConstraintLocator extends AbstractConstraintLocator
 
 	@Override
 	public @Nullable String getSourceExpression(@NonNull LeafConstrainingNode node) {
-		Constraint constrainingObject = (Constraint)node.getConstrainingObject();
-		System.out.println(DomainUtil.debugSimpleName(constrainingObject.getSpecification()));
-		ModelElementCS csElement = ElementUtil.getCsElement(constrainingObject.getSpecification());
-		return csElement != null ? ElementUtil.getText(csElement) : null;
+		Object constrainingObject = node.getConstrainingObject();
+		if (!(constrainingObject instanceof Constraint)) {
+			return null;
+		}
+		OpaqueExpression specification = ((Constraint)constrainingObject).getSpecification();
+		if (specification == null) {
+			return null;
+		}
+		ModelElementCS csElement = ElementUtil.getCsElement(specification);
+		if (csElement == null) {
+			return null;
+		}
+		return ElementUtil.getText(csElement);
 	}
 
 	@Override
 	public @Nullable Resource getSourceResource(@NonNull LeafConstrainingNode node) {
-		Constraint constrainingObject = (Constraint)node.getConstrainingObject();
-		System.out.println(DomainUtil.debugSimpleName(constrainingObject));
-		ModelElementCS csElement = ElementUtil.getCsElement(constrainingObject);
-		return csElement != null ? csElement.eResource() : null;
+		Object constrainingObject = node.getConstrainingObject();
+		if (!(constrainingObject instanceof Constraint)) {
+			return null;
+		}
+		ModelElementCS csElement = ElementUtil.getCsElement((Constraint)constrainingObject);
+		if (csElement == null) {
+			return null;
+		}
+		return csElement.eResource();
 	}
 
 	@Override

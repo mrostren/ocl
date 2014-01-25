@@ -40,7 +40,6 @@ import org.eclipse.ocl.examples.domain.evaluation.DomainModelManager;
 import org.eclipse.ocl.examples.pivot.Environment;
 import org.eclipse.ocl.examples.pivot.EnvironmentFactory;
 import org.eclipse.ocl.examples.pivot.ExpressionInOCL;
-import org.eclipse.ocl.examples.pivot.OpaqueExpression;
 import org.eclipse.ocl.examples.pivot.ParserException;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationEnvironment;
 import org.eclipse.ocl.examples.pivot.evaluation.EvaluationVisitor;
@@ -50,10 +49,12 @@ import org.eclipse.ocl.examples.pivot.utilities.PivotUtil;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageImport;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
+import org.eclipse.uml2.uml.ValueSpecification;
 
 public class UMLConstraintLocator extends AbstractConstraintLocator
 {
@@ -115,8 +116,7 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 						}
 						constraints.add(constraint); */
 	//						EClass eC = constrainedElement.eClass();
-							UMLConstraintDefinition definition = new UMLConstraintDefinition(umlConstraint, resource);
-							map = createLeafConstrainingNode(map, validityModel, contextElement, umlConstraint, definition, label);
+							map = createLeafConstrainingNode(map, validityModel, contextElement, umlConstraint, label);
 						}
 					}
 				}
@@ -166,6 +166,29 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 
 	public @NonNull String getName() {
 		return "UML Constraints";
+	}
+
+	@Override
+	public @Nullable String getSourceExpression(@NonNull LeafConstrainingNode node) {
+		Object constrainingObject = node.getConstrainingObject();
+		if (!(constrainingObject instanceof Constraint)) {
+			return null;
+		}
+		ValueSpecification specification = ((Constraint)constrainingObject).getSpecification();
+		if (!(specification instanceof OpaqueExpression)) {
+			return null;
+		}
+		List<String> bodies = ((OpaqueExpression)specification).getBodies();
+		return bodies.size() > 0 ? bodies.get(0) : null;
+	}
+
+	@Override
+	public @Nullable Resource getSourceResource(@NonNull LeafConstrainingNode node) {
+		Object constrainingObject = node.getConstrainingObject();
+		if (!(constrainingObject instanceof EObject)) {
+			return null;
+		}
+		return ((EObject)constrainingObject).eResource();
 	}
 
 	@Override
@@ -226,7 +249,7 @@ public class UMLConstraintLocator extends AbstractConstraintLocator
 			if (pivotConstraint == null) {
 				throw new ParserException("Failed to create pivot Constraint");
 			}
-			OpaqueExpression specification = pivotConstraint.getSpecification();
+			org.eclipse.ocl.examples.pivot.OpaqueExpression specification = pivotConstraint.getSpecification();
 			if (specification == null) {
 				throw new ParserException("Failed to create pivot Specification");
 			}

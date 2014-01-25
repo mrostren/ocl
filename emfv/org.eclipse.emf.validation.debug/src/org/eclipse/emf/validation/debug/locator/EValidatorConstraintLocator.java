@@ -89,8 +89,7 @@ public class EValidatorConstraintLocator extends AbstractConstraintLocator
 									constraintName = "<datatype>";
 								}
 								if (constraintName != null) {
-									MethodConstraintDefinition definition = new MethodConstraintDefinition(method);
-									map = createLeafConstrainingNode(map, validityModel, eClassifier, method, definition, constraintName);
+									map = createLeafConstrainingNode(map, validityModel, eClassifier, method, constraintName);
 								}
 							}
 						}
@@ -127,6 +126,15 @@ public class EValidatorConstraintLocator extends AbstractConstraintLocator
 
 	public @NonNull String getName() {
 		return "Java validateXXXX methods";
+	}
+
+	@Override
+	public @Nullable String getSourceExpression(@NonNull LeafConstrainingNode node) {
+		Object constrainingObject = node.getConstrainingObject();
+		if (!(constrainingObject instanceof Method)) {
+			return null;
+		}
+		return ((Method)constrainingObject).toString();
 	}
 
 	protected @NonNull String print(@NonNull Map<EClassifier, List<LeafConstrainingNode>> map) {

@@ -29,8 +29,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="LeafConstrainingNode" eSuperTypes="#//ConstrainingNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintLocator" lowerBound="1"
         eType="#//ConstraintLocator" transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintDefinition" lowerBound="1"
-        eType="#//ConstraintDefinition" transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintResource" eType="#//Resource"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintString" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Result">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resultSet" lowerBound="1"
@@ -93,10 +95,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="ConstraintLocator" instanceClassName="org.eclipse.emf.validation.debug.locator.ConstraintLocator"
       serializable="false"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="ConstraintDefinition" instanceClassName="org.eclipse.emf.validation.debug.locator.ConstraintDefinition"
-      serializable="false"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Exception" instanceClassName="java.lang.Exception"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Object" instanceClassName="java.lang.Object"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Resource" instanceClassName="org.eclipse.emf.ecore.resource.Resource"
       serializable="false"/>
   <eClassifiers xsi:type="ecore:EEnum" name="Severity">
     <eLiterals name="UNKNOWN"/>

@@ -14,7 +14,7 @@
  */
 package org.eclipse.emf.validation.debug.validity;
 
-import org.eclipse.emf.validation.debug.locator.ConstraintDefinition;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 
 /**
@@ -26,7 +26,8 @@ import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintLocator <em>Constraint Locator</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintDefinition <em>Constraint Definition</em>}</li>
+ *   <li>{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintResource <em>Constraint Resource</em>}</li>
+ *   <li>{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintString <em>Constraint String</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,28 +63,32 @@ public interface LeafConstrainingNode extends ConstrainingNode {
 	void setConstraintLocator(ConstraintLocator value);
 
 	/**
-	 * Returns the value of the '<em><b>Constraint Definition</b></em>' attribute.
+	 * Returns the value of the '<em><b>Constraint Resource</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Constraint Definition</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Constraint Resource</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Constraint Definition</em>' attribute.
-	 * @see #setConstraintDefinition(ConstraintDefinition)
-	 * @see org.eclipse.emf.validation.debug.validity.ValidityPackage#getLeafConstrainingNode_ConstraintDefinition()
-	 * @model dataType="org.eclipse.emf.validation.debug.validity.ConstraintDefinition" required="true" transient="true"
+	 * @return the value of the '<em>Constraint Resource</em>' attribute.
+	 * @see org.eclipse.emf.validation.debug.validity.ValidityPackage#getLeafConstrainingNode_ConstraintResource()
+	 * @model dataType="org.eclipse.emf.validation.debug.validity.Resource" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	ConstraintDefinition getConstraintDefinition();
+	Resource getConstraintResource();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.emf.validation.debug.validity.LeafConstrainingNode#getConstraintDefinition <em>Constraint Definition</em>}' attribute.
+	 * Returns the value of the '<em><b>Constraint String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Constraint String</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Constraint Definition</em>' attribute.
-	 * @see #getConstraintDefinition()
+	 * @return the value of the '<em>Constraint String</em>' attribute.
+	 * @see org.eclipse.emf.validation.debug.validity.ValidityPackage#getLeafConstrainingNode_ConstraintString()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	void setConstraintDefinition(ConstraintDefinition value);
+	String getConstraintString();
 } // LeafConstrainingNode

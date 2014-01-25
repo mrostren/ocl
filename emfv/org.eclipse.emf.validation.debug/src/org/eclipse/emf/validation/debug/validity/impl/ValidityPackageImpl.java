@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.validation.debug.locator.ConstraintDefinition;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
@@ -143,13 +143,6 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EDataType constraintDefinitionEDataType = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EDataType exceptionEDataType = null;
 
 	/**
@@ -158,6 +151,13 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 	 * @generated
 	 */
 	private EDataType objectEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType resourceEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -354,8 +354,17 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLeafConstrainingNode_ConstraintDefinition() {
+	public EAttribute getLeafConstrainingNode_ConstraintResource() {
 		return (EAttribute)leafConstrainingNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLeafConstrainingNode_ConstraintString() {
+		return (EAttribute)leafConstrainingNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -642,15 +651,6 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EDataType getConstraintDefinition() {
-		return constraintDefinitionEDataType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EDataType getException() {
 		return exceptionEDataType;
 	}
@@ -662,6 +662,15 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 	 */
 	public EDataType getObject() {
 		return objectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getResource() {
+		return resourceEDataType;
 	}
 
 	/**
@@ -708,7 +717,8 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 
 		leafConstrainingNodeEClass = createEClass(LEAF_CONSTRAINING_NODE);
 		createEAttribute(leafConstrainingNodeEClass, LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR);
-		createEAttribute(leafConstrainingNodeEClass, LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION);
+		createEAttribute(leafConstrainingNodeEClass, LEAF_CONSTRAINING_NODE__CONSTRAINT_RESOURCE);
+		createEAttribute(leafConstrainingNodeEClass, LEAF_CONSTRAINING_NODE__CONSTRAINT_STRING);
 
 		resultEClass = createEClass(RESULT);
 		createEReference(resultEClass, RESULT__RESULT_SET);
@@ -752,9 +762,9 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 
 		// Create data types
 		constraintLocatorEDataType = createEDataType(CONSTRAINT_LOCATOR);
-		constraintDefinitionEDataType = createEDataType(CONSTRAINT_DEFINITION);
 		exceptionEDataType = createEDataType(EXCEPTION);
 		objectEDataType = createEDataType(OBJECT);
+		resourceEDataType = createEDataType(RESOURCE);
 	}
 
 	/**
@@ -815,7 +825,8 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 
 		initEClass(leafConstrainingNodeEClass, LeafConstrainingNode.class, "LeafConstrainingNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLeafConstrainingNode_ConstraintLocator(), this.getConstraintLocator(), "constraintLocator", null, 1, 1, LeafConstrainingNode.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLeafConstrainingNode_ConstraintDefinition(), this.getConstraintDefinition(), "constraintDefinition", null, 1, 1, LeafConstrainingNode.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLeafConstrainingNode_ConstraintResource(), this.getResource(), "constraintResource", null, 0, 1, LeafConstrainingNode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLeafConstrainingNode_ConstraintString(), theEcorePackage.getEString(), "constraintString", null, 0, 1, LeafConstrainingNode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(resultEClass, Result.class, "Result", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getResult_ResultSet(), this.getResultSet(), this.getResultSet_Results(), "resultSet", null, 1, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -865,9 +876,9 @@ public class ValidityPackageImpl extends EPackageImpl implements ValidityPackage
 
 		// Initialize data types
 		initEDataType(constraintLocatorEDataType, ConstraintLocator.class, "ConstraintLocator", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(constraintDefinitionEDataType, ConstraintDefinition.class, "ConstraintDefinition", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(exceptionEDataType, Exception.class, "Exception", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(objectEDataType, Object.class, "Object", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(resourceEDataType, Resource.class, "Resource", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

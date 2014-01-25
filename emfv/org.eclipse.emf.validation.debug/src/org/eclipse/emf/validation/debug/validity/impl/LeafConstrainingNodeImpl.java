@@ -17,7 +17,7 @@ package org.eclipse.emf.validation.debug.validity.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.validation.debug.locator.ConstraintDefinition;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.ValidityPackage;
@@ -31,7 +31,8 @@ import org.eclipse.emf.validation.debug.validity.ValidityPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.emf.validation.debug.validity.impl.LeafConstrainingNodeImpl#getConstraintLocator <em>Constraint Locator</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.debug.validity.impl.LeafConstrainingNodeImpl#getConstraintDefinition <em>Constraint Definition</em>}</li>
+ *   <li>{@link org.eclipse.emf.validation.debug.validity.impl.LeafConstrainingNodeImpl#getConstraintResource <em>Constraint Resource</em>}</li>
+ *   <li>{@link org.eclipse.emf.validation.debug.validity.impl.LeafConstrainingNodeImpl#getConstraintString <em>Constraint String</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,24 +59,23 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 	protected ConstraintLocator constraintLocator = CONSTRAINT_LOCATOR_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getConstraintDefinition() <em>Constraint Definition</em>}' attribute.
+	 * The default value of the '{@link #getConstraintResource() <em>Constraint Resource</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConstraintDefinition()
+	 * @see #getConstraintResource()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ConstraintDefinition CONSTRAINT_DEFINITION_EDEFAULT = null;
+	protected static final Resource CONSTRAINT_RESOURCE_EDEFAULT = null;
 	/**
-	 * The cached value of the '{@link #getConstraintDefinition() <em>Constraint Definition</em>}' attribute.
+	 * The default value of the '{@link #getConstraintString() <em>Constraint String</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConstraintDefinition()
+	 * @see #getConstraintString()
 	 * @generated
 	 * @ordered
 	 */
-	protected ConstraintDefinition constraintDefinition = CONSTRAINT_DEFINITION_EDEFAULT;
-
+	protected static final String CONSTRAINT_STRING_EDEFAULT = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -121,34 +121,15 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConstraintDefinition getConstraintDefinition() {
-		return constraintDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setConstraintDefinition(ConstraintDefinition newConstraintDefinition) {
-		ConstraintDefinition oldConstraintDefinition = constraintDefinition;
-		constraintDefinition = newConstraintDefinition;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION, oldConstraintDefinition, constraintDefinition));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				return getConstraintLocator();
-			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
-				return getConstraintDefinition();
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_RESOURCE:
+				return getConstraintResource();
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_STRING:
+				return getConstraintString();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -163,9 +144,6 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 		switch (featureID) {
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				setConstraintLocator((ConstraintLocator)newValue);
-				return;
-			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
-				setConstraintDefinition((ConstraintDefinition)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,9 +160,6 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				setConstraintLocator(CONSTRAINT_LOCATOR_EDEFAULT);
 				return;
-			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
-				setConstraintDefinition(CONSTRAINT_DEFINITION_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -199,10 +174,30 @@ public class LeafConstrainingNodeImpl extends ConstrainingNodeImpl implements Le
 		switch (featureID) {
 			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_LOCATOR:
 				return CONSTRAINT_LOCATOR_EDEFAULT == null ? constraintLocator != null : !CONSTRAINT_LOCATOR_EDEFAULT.equals(constraintLocator);
-			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_DEFINITION:
-				return CONSTRAINT_DEFINITION_EDEFAULT == null ? constraintDefinition != null : !CONSTRAINT_DEFINITION_EDEFAULT.equals(constraintDefinition);
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_RESOURCE:
+				return CONSTRAINT_RESOURCE_EDEFAULT == null ? getConstraintResource() != null : !CONSTRAINT_RESOURCE_EDEFAULT.equals(getConstraintResource());
+			case ValidityPackage.LEAF_CONSTRAINING_NODE__CONSTRAINT_STRING:
+				return CONSTRAINT_STRING_EDEFAULT == null ? getConstraintString() != null : !CONSTRAINT_STRING_EDEFAULT.equals(getConstraintString());
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getConstraintString() {
+		return constraintLocator.getSourceExpression(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Resource getConstraintResource() {
+		return constraintLocator.getSourceResource(this);
 	}
 
 	/**

@@ -182,7 +182,7 @@ public class HTMLExport extends AbstractExport {
 
 	private void appendLogFile(LeafConstrainingNode node, StringBuilder s, String severity) {
 		s.append("\t\t\t<tr>\n");
-		Resource resource = node.getConstraintLocator().getSourceResource(node);
+		Resource resource = node.getConstraintResource();
 		if (resource != null) {
 			s.append("\t\t\t<td> Resource: " + resource.getURI().lastSegment() + "</td>\n");
 		} else {
@@ -192,7 +192,7 @@ public class HTMLExport extends AbstractExport {
 		}
 		s.append("\t\t\t\t<td>" + node.getLabel() + "</td>\n");
 
-		String expression = node.getConstraintLocator().getSourceExpression(node);
+		String expression = node.getConstraintString();
 		if (expression != null) {
 			s.append("\t\t\t\t<td>" + expression + "</td>\n");
 		} else {

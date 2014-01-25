@@ -42,12 +42,11 @@ import org.eclipse.jdt.annotation.Nullable;
 public abstract class AbstractConstraintLocator implements ConstraintLocator, ConstraintLocator.Descriptor
 {
 	protected @NonNull Map<EModelElement, List<LeafConstrainingNode>> createLeafConstrainingNode(@Nullable Map<EModelElement, List<LeafConstrainingNode>> map,
-			@NonNull ValidityModel validityModel, @NonNull EModelElement constrainingType, @NonNull Object constrainingObject, @NonNull ConstraintDefinition definition, @NonNull String label) {
+			@NonNull ValidityModel validityModel, @NonNull EModelElement constrainingType, @NonNull Object constrainingObject, @NonNull String label) {
 		LeafConstrainingNode constraint = validityModel.createLeafConstrainingNode();
 		constraint.setConstraintLocator(this);
 		constraint.setLabel(label);
 		constraint.setConstrainingObject(constrainingObject);
-		constraint.setConstraintDefinition(definition);
 		if (map == null) {
 			map = new HashMap<EModelElement, List<LeafConstrainingNode>>();
 		}

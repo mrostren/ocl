@@ -625,8 +625,7 @@ public class ValidityModel
 	 * @return the GoToModelElementMarker of a LeafConstrainingNode.
 	 */
 	public GoToConstrainingMarker getLeafConstrainingNodeMarker(@NonNull LeafConstrainingNode leafConstrainingNode){
-		Resource resource = leafConstrainingNode.getConstraintLocator().getSourceResource(leafConstrainingNode);
-		
+		Resource resource = leafConstrainingNode.getConstraintResource();		
 		if (resource != null) {
 			IFile file = findFile(resource);
 			if (file != null) {
