@@ -9,29 +9,22 @@
  *
  * Contributors:
  *   Obeo - initial API and implementation
+ *   E.D.Willink (CEA LIST) - 425799 Validity View Integration
  *
  * </copyright>
  */
 package org.eclipse.ocl.examples.validity.test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.ocl.examples.emf.validation.validity.Result;
-import org.eclipse.ocl.examples.emf.validation.validity.ResultSet;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
-import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsDescriptor;
-import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsRegistry;
-import org.eclipse.ocl.examples.emf.validation.validity.export.IValidatorExport;
-import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
-import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
-import org.eclipse.ocl.examples.validity.test.utils.TestTool;
+import org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.TextExport;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,51 +32,39 @@ import org.junit.Test;
 /**
  * Class testing the TextExport class.
  */
-public class TextExportOCLValidationResultTests extends AbstractExportOCLValidationResultTests {
+public class TextExportOCLValidationResultTests extends AbstractExportOCLValidationResultTests
+{
 	private static final int WARNING_NUMBER_XPATH_LOCATION = 15;
 	private static final int INFO_NUMBER_XPATH_LOCATION = 14;
 	private static final int ERROR_NUMBER_XPATH_LOCATION = 16;
 	private static final int FAILURE_NUMBER_XPATH_LOCATION = 17;
 	private static final int SUCCESS_NUMBER_XPATH_LOCATION = 13;
 
-	private static final String TEXT_EXPORT_CLASS_NAME = "org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.TextExport"; //$NON-NLS-1$
 	private static final String EXPORTED_FILE_NAME = "testText.txt"; //$NON-NLS-1$
 
-	private ValidityModel validityModel = null;
-	private EList<Result> results = null;
-	private IFile exportedFile = null;
-	private IValidatorExport exporter = null;
+	protected void assertLineContains(int lineNumber, String expression) throws CoreException, IOException {
+		InputStream contents = exportedFile.getContents();
+		InputStream stream = contents;
+
+		Scanner sc = new Scanner(stream);
+		String line = null;
+		int i = 1;
+		while (i <= lineNumber) {
+			line = sc.nextLine();
+			i++;
+		}
+		if (line != null) {
+			assertTrue(line.contains(expression));
+		}
+		sc.close();
+		contents.close();
+	}
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		validityModel = getValidityManager().getModel();
-		ResultSet resultSet = validityModel
-				.createResultSet(new NullProgressMonitor());
-		results = resultSet.getResults();
-
-		exportedFile = getProject().getFile(EXPORTED_FILE_NAME);
-		exporter = getExporter();
-		assertNotNull(exporter);
-	}
-
-	private ValidityManager getValidityManager() {
-		return super.validityManager;
-	}
-
-	private IProject getProject() {
-		return super.project;
-	}
-
-	private IValidatorExport getExporter() {
-		for (ExportResultsDescriptor descriptor : ExportResultsRegistry
-				.getRegisteredExtensions()) {
-			if (TEXT_EXPORT_CLASS_NAME.equals(descriptor
-					.getExtensionClassName())) {
-				return descriptor.getExportExtension();
-			}
-		}
-		return null;
+		initExporter(TextExport.class);
+		initProject(EXPORTED_FILE_NAME);
 	}
 
 	@After
@@ -104,7 +85,7 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	public void testTEXTExport_LoggingMetricsWithNoSeverity()
 			throws IOException, XPathExpressionException, CoreException {
 		// initiate the test case
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute5 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.OK);
 
@@ -113,11 +94,11 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
 		// test the exporteFile content
-		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
-		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
-		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
-		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
+		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
+		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
+		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
 	}
 
 	/**
@@ -131,10 +112,10 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	@Test
 	public void testTEXTExport_LoggingMetricsWithInformationSeverity()
 			throws IOException, XPathExpressionException, CoreException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute5 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.OK);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
 
@@ -142,11 +123,11 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		assertFalse(exportedFile.exists());
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
-		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
-		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
-		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
+		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
+		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
 	}
 
 	/**
@@ -161,13 +142,13 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	public void testTEXTExport_LoggingMetricsWithWarningSeverity()
 			throws IOException, InterruptedException, XPathExpressionException,
 			CoreException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute5 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.OK);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute1 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.WARNING);
 
@@ -175,11 +156,11 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		assertFalse(exportedFile.exists());
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
-		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
-		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
+		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
 	}
 
 	/**
@@ -194,16 +175,16 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	public void testTEXTExport_LoggingMetricsWithErrorSeverity()
 			throws IOException, InterruptedException, XPathExpressionException,
 			CoreException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute5 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.OK);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute1 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.WARNING);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute2 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.ERROR);
 
@@ -211,11 +192,11 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		assertFalse(exportedFile.exists());
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
-		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "0"); //$NON-NLS-1$
 	}
 
 	/**
@@ -230,19 +211,19 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	public void testTEXTExport_LoggingMetricsWithFailureSeverity()
 			throws IOException, InterruptedException, XPathExpressionException,
 			CoreException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute5 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.OK);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute1 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.WARNING);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute2 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.ERROR);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute4 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.FATAL);
 
@@ -250,11 +231,11 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		assertFalse(exportedFile.exists());
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
-		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
-		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "1", exportedFile); //$NON-NLS-1$
+		assertLineContains(SUCCESS_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(INFO_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(WARNING_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(ERROR_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
+		assertLineContains(FAILURE_NUMBER_XPATH_LOCATION, "1"); //$NON-NLS-1$
 	}
 
 	/**
@@ -267,7 +248,7 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	 */
 	public void testTEXTExport_LogNullDiagnosticMessage()
 			throws XPathExpressionException, CoreException, IOException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
 
@@ -275,7 +256,7 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		assertFalse(exportedFile.exists());
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
-		assertLineContains(26, "null diagnostic message", exportedFile); //$NON-NLS-1$
+		assertLineContains(26, "null diagnostic message"); //$NON-NLS-1$
 	}
 
 	/**
@@ -289,11 +270,15 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 	@Test
 	public void testTEXTExport_LogInfoDiagnosticMessage() throws IOException,
 			InterruptedException, XPathExpressionException, CoreException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
+//		exporter.export(TestTool.getIResource(ecoreResource), rootNode, GENERATED_FILE_PATH);
+//		assertLineContains(26, "null diagnostic message"); //$NON-NLS-1$
+
+//		clearGeneratedReport();
 		String diagnostic = "Diag INFO"; //$NON-NLS-1$
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setDiagnostic(diagnostic);
 
@@ -301,22 +286,22 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		assertFalse(exportedFile.exists());
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
-		assertLineContains(26, diagnostic, exportedFile);
+		assertLineContains(26, diagnostic);
 	}
 
 	@Test
 	public void testTEXTExport_ProducesAllLogHeadings() throws IOException,
 			CoreException {
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eclass1_constraint", "Eclass1 e1Att1").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.ERROR);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint epackage_constraint", "ecoreTest").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.FATAL);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.WARNING);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eclass2_constraint", "EClass2").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.INFO);
 
@@ -325,25 +310,25 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
 		// test tables headings
-		assertLineContains(22, "ecoreTest.ocl", exportedFile); //$NON-NLS-1$
-		assertLineContains(23, "Constraint eclass2_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(24, "eclass2_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(25, "INFO", exportedFile); //$NON-NLS-1$
+		assertLineContains(22, "ecoreTest.ocl"); //$NON-NLS-1$
+		assertLineContains(23, "Constraint eclass2_constraint"); //$NON-NLS-1$
+		assertLineContains(24, "eclass2_constraint"); //$NON-NLS-1$
+		assertLineContains(25, "INFO"); //$NON-NLS-1$
 
-		assertLineContains(29, "ecore.ocl", exportedFile); //$NON-NLS-1$
-		assertLineContains(30, "Constraint eattribute_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(31, "eattribute_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(32, "WARNING", exportedFile); //$NON-NLS-1$
+		assertLineContains(29, "ecore.ocl"); //$NON-NLS-1$
+		assertLineContains(30, "Constraint eattribute_constraint"); //$NON-NLS-1$
+		assertLineContains(31, "eattribute_constraint"); //$NON-NLS-1$
+		assertLineContains(32, "WARNING"); //$NON-NLS-1$
 
-		assertLineContains(36, "ecoreTest.ocl", exportedFile); //$NON-NLS-1$
-		assertLineContains(37, "Constraint eclass1_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(38, "eclass1_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(39, "ERROR", exportedFile); //$NON-NLS-1$
+		assertLineContains(36, "ecoreTest.ocl"); //$NON-NLS-1$
+		assertLineContains(37, "Constraint eclass1_constraint"); //$NON-NLS-1$
+		assertLineContains(38, "eclass1_constraint"); //$NON-NLS-1$
+		assertLineContains(39, "ERROR"); //$NON-NLS-1$
 
-		assertLineContains(43, "ecore.ocl", exportedFile); //$NON-NLS-1$
-		assertLineContains(44, "Constraint epackage_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(45, "epackage_constraint", exportedFile); //$NON-NLS-1$
-		assertLineContains(46, "FATAL", exportedFile); //$NON-NLS-1$
+		assertLineContains(43, "ecore.ocl"); //$NON-NLS-1$
+		assertLineContains(44, "Constraint epackage_constraint"); //$NON-NLS-1$
+		assertLineContains(45, "epackage_constraint"); //$NON-NLS-1$
+		assertLineContains(46, "FATAL"); //$NON-NLS-1$
 	}
 
 	@Test
@@ -352,28 +337,28 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 			result.setSeverity(Severity.OK);
 		}
 
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eclass1_constraint", "Eclass1 e1Att1").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.ERROR);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint epackage_constraint_2", "ecoreTest").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.ERROR);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint epackage_constraint", "ecoreTest").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.FATAL);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eclass_constraint", "EClass3 -> Eclass5") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.FATAL);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute3 : EShort") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.WARNING);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eclass2_constraint", "EClass2").setSeverity( //$NON-NLS-1$ //$NON-NLS-2$
 				Severity.INFO);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute5 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.INFO);
-		TestTool.getResultOfValidatableNodeFromLabel(results,
+		getResultOfValidatableNodeFromLabel(results,
 				"Constraint eattribute_constraint", "eAttribute1 : EString") //$NON-NLS-1$ //$NON-NLS-2$
 				.setSeverity(Severity.WARNING);
 
@@ -383,22 +368,22 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 
 		// tests validation results
 		// Total number
-		assertLineContains(12, "16", exportedFile); //$NON-NLS-1$
+		assertLineContains(12, "16"); //$NON-NLS-1$
 
 		// Success
-		assertLineContains(13, "8", exportedFile); //$NON-NLS-1$
+		assertLineContains(13, "8"); //$NON-NLS-1$
 
 		// Infos
-		assertLineContains(14, "2", exportedFile); //$NON-NLS-1$
+		assertLineContains(14, "2"); //$NON-NLS-1$
 
 		// Warning
-		assertLineContains(15, "2", exportedFile); //$NON-NLS-1$
+		assertLineContains(15, "2"); //$NON-NLS-1$
 
 		// Errors
-		assertLineContains(16, "2", exportedFile); //$NON-NLS-1$
+		assertLineContains(16, "2"); //$NON-NLS-1$
 
 		// Failures
-		assertLineContains(17, "2", exportedFile); //$NON-NLS-1$
+		assertLineContains(17, "2"); //$NON-NLS-1$
 	}
 
 	@Test
@@ -409,34 +394,32 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 		exporter.export(ecoreResource, rootNode, exportedFile.getFullPath());
 
 		// test output file name
-		assertLineContains(2, exportedFile.getName(), exportedFile);
+		assertLineContains(2, exportedFile.getName());
 
 		// test resource validated
-		assertLineContains(8, "ecoreTest.ecore", exportedFile); //$NON-NLS-1$
+		assertLineContains(8, "ecoreTest.ecore"); //$NON-NLS-1$
 
 		// tests validation results
 		// Total number
-		assertLineContains(12, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(12, "0"); //$NON-NLS-1$
 
 		// Success
-		assertLineContains(13, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(13, "0"); //$NON-NLS-1$
 
 		// Infos
-		assertLineContains(14, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(14, "0"); //$NON-NLS-1$
 
 		// Warning
-		assertLineContains(15, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(15, "0"); //$NON-NLS-1$
 
 		// Errors
-		assertLineContains(16, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(16, "0"); //$NON-NLS-1$
 
 		// Failures
-		assertLineContains(17, "0", exportedFile); //$NON-NLS-1$
+		assertLineContains(17, "0"); //$NON-NLS-1$
 
 		// test logs results
-		assertLineContains(
-				21,
-				"No log to display: models has been successfully validated.", exportedFile); //$NON-NLS-1$
+		assertLineContains(21, "No log to display: models has been successfully validated."); //$NON-NLS-1$
 	}
 
 }

@@ -39,7 +39,6 @@ public class AllValidityTests
 		String testSuiteName = System.getProperty("testSuiteName", "Validity View Tests");
 		TestSuite result = new TestSuite(testSuiteName);			
 		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
-			result.addTestSuite(AbstractExportOCLValidationResultTests.class);
 			result.addTestSuite(HTMLExportOCLValidationResultTests.class);
 			result.addTestSuite(TextExportOCLValidationResultTests.class);
 			result.addTestSuite(ValidityManagerTests.class);
