@@ -37,10 +37,10 @@ public abstract class SideBySideImageDecorator extends LabelProvider implements 
 			return ExtendedImageRegistry.INSTANCE.getImage(image2);
 		} else {
 			List<Object> images = new ArrayList<Object>(2);
-			images.add(image2);
 			images.add(image);
+			images.add(image2);
 			ComposedImage composedImage = new ComposedImage(images) {
-				@Override
+/*				@Override
 				public List<Point> getDrawPoints(Size size) {
 					List<Point> result = new ArrayList<Point>();
 					result.add(new Point());
@@ -61,7 +61,7 @@ public abstract class SideBySideImageDecorator extends LabelProvider implements 
 				      result.height = Math.max(result.height, size.height);
 				    }
 				    return result;
-				}
+				} */
 			};
 			return ExtendedImageRegistry.INSTANCE.getImage(composedImage);
 		}

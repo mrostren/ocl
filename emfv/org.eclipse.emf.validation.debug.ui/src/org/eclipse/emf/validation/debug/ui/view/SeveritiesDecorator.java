@@ -34,13 +34,13 @@ public class SeveritiesDecorator extends SideBySideImageDecorator
 		Result worstResult = ((AbstractNode)element).getWorstResult();
 		Severity worst = worstResult != null ? worstResult.getSeverity() : Severity.UNKNOWN;
 		switch (worst) {
-			case UNKNOWN: imageName = "disabled.gif"; break;
-			case OK: imageName = "success.gif"; break;
-			case INFO: imageName = "info.gif"; break;
-			case WARNING: imageName = "warning.gif"; break;
-			case ERROR: imageName = "error.gif"; break;
-			case FATAL: imageName = "failed.gif"; break;
-			default: imageName = "unknown.gif"; break;
+			case UNKNOWN: imageName = "disabled_ovr.gif"; break;
+			case OK: imageName = "success_ovr.gif"; break;
+			case INFO: imageName = "info_ovr.gif"; break;
+			case WARNING: imageName = "warning_ovr.gif"; break;
+			case ERROR: imageName = "error_ovr.gif"; break;
+			case FATAL: imageName = "failed_ovr.gif"; break;
+			default: imageName = "unknown_ovr.gif"; break;
 		}
 		Object image2 = ValidityUIPlugin.INSTANCE.getImage(imageName);
 		return image2;
@@ -49,7 +49,7 @@ public class SeveritiesDecorator extends SideBySideImageDecorator
 	protected final @NonNull IDEValidityManager validityManager;
 	
 	public SeveritiesDecorator(@NonNull IDEValidityManager validityManager) {
-		super(2);
+		super(16);
 		this.validityManager = validityManager;
 	}
 
