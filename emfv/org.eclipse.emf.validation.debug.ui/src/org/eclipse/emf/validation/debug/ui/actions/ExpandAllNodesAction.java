@@ -20,10 +20,10 @@ import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
 import org.eclipse.emf.validation.debug.ui.view.ValidityView;
-import org.eclipse.emf.validation.debug.validity.RootNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 
 public final class ExpandAllNodesAction extends Action {
 

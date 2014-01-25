@@ -19,12 +19,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
-import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.Result;
-import org.eclipse.emf.validation.debug.validity.Severity;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Result;
+import org.eclipse.ocl.examples.emf.validation.validity.Severity;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.swt.graphics.Image;
 
 public class SeveritiesDecorator extends SideBySideImageDecorator

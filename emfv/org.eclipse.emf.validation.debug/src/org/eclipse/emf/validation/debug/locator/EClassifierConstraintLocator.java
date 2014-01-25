@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ValidityModel;
-import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 //import org.eclipse.ocl.common.OCLCommon;
@@ -32,6 +31,7 @@ import org.eclipse.jdt.annotation.Nullable;
 //import org.eclipse.ocl.examples.pivot.PivotFactory;
 //import org.eclipse.ocl.examples.pivot.UMLReflection;
 //import org.eclipse.ocl.examples.pivot.manager.MetaModelManager;
+import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
 
 public class EClassifierConstraintLocator extends AbstractConstraintLocator
 {

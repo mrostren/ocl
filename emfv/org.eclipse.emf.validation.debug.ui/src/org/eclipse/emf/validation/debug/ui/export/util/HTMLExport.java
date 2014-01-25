@@ -21,10 +21,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
-import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.RootNode;
-import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 
 /**
  * Exports ocl validation results as an html file.

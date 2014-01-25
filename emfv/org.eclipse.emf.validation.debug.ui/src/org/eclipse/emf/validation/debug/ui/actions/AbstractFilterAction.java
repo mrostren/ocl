@@ -18,11 +18,11 @@ import java.net.URL;
 
 import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
 
 public abstract class AbstractFilterAction extends Action {
 	protected final @NonNull ValidityManager validityManager;

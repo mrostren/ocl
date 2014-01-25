@@ -16,8 +16,8 @@ package org.eclipse.emf.validation.export;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.validity.RootNode;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 
 /**
  * This interface defines the general contract of the ocl export mechanism.

@@ -26,13 +26,13 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.Result;
-import org.eclipse.emf.validation.debug.validity.RootConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.ocl.examples.domain.utilities.DomainUtil;
 import org.eclipse.ocl.examples.domain.utilities.ProjectMap;
+import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Result;
+import org.eclipse.ocl.examples.emf.validation.validity.RootConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.ocl.examples.xtext.completeocl.CompleteOCLStandaloneSetup;
 import org.eclipse.ocl.examples.xtext.completeocl.utilities.CompleteOCLCSResource;
 

@@ -20,7 +20,6 @@ import java.text.MessageFormat;
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
 import org.eclipse.emf.validation.debug.ui.view.ValidityView;
-import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -28,6 +27,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 

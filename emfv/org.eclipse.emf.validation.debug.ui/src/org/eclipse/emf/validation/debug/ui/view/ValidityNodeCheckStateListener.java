@@ -18,15 +18,15 @@ package org.eclipse.emf.validation.debug.ui.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
-import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.ResultValidatableNode;
-import org.eclipse.emf.validation.debug.validity.RootConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 
 public class ValidityNodeCheckStateListener implements ICheckStateListener {
 	private final CheckboxTreeViewer validatableTree;

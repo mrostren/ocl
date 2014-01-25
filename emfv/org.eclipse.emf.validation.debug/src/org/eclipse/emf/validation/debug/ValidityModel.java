@@ -48,23 +48,23 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
-import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.Result;
-import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.ResultSet;
-import org.eclipse.emf.validation.debug.validity.ResultValidatableNode;
-import org.eclipse.emf.validation.debug.validity.RootConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.RootNode;
-import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
-import org.eclipse.emf.validation.debug.validity.Severity;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
-import org.eclipse.emf.validation.debug.validity.ValidityFactory;
 import org.eclipse.emf.validation.debug.validity.markers.GoToConstrainingMarker;
 import org.eclipse.emf.validation.debug.validity.markers.GoToModelElementMarker;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Result;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultSet;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Severity;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidityFactory;
 
 public class ValidityModel
 {

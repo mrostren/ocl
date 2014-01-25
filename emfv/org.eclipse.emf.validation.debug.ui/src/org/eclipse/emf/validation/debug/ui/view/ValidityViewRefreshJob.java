@@ -21,9 +21,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
 
 /**
  * The ValidationViewRefreshJob provides a delayed refresh of the Validation View trees

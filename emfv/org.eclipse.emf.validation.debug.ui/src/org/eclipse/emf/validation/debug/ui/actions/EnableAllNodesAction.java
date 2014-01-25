@@ -17,9 +17,9 @@ package org.eclipse.emf.validation.debug.ui.actions;
 import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.emf.validation.debug.ui.filters.AlwaysTrueViewerFilter;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
-import org.eclipse.emf.validation.debug.validity.RootNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 
 public final class EnableAllNodesAction extends AbstractFilterAction {
 	private AlwaysTrueViewerFilter filter = new AlwaysTrueViewerFilter();

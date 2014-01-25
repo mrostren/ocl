@@ -14,8 +14,8 @@
  */
 package org.eclipse.emf.validation.debug.ui.providers;
 
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.jface.viewers.ICheckStateProvider;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
 
 public class NodeCheckStateProvider implements ICheckStateProvider
 {

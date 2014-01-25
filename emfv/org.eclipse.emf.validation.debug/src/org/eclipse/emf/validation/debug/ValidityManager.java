@@ -40,16 +40,16 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
-import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.Result;
-import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.ResultSet;
-import org.eclipse.emf.validation.debug.validity.ResultValidatableNode;
-import org.eclipse.emf.validation.debug.validity.RootNode;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.common.utils.TracingOption;
+import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Result;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultSet;
+import org.eclipse.ocl.examples.emf.validation.validity.ResultValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 
 public class ValidityManager
 {	

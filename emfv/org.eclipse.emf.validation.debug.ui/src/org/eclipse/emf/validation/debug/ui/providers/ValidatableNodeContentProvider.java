@@ -17,13 +17,13 @@ package org.eclipse.emf.validation.debug.ui.providers;
 import java.util.List;
 
 import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.validity.RootNode;
-import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
-import org.eclipse.emf.validation.debug.validity.ValidatableNode;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 
 public class ValidatableNodeContentProvider implements ITreeContentProvider
 {

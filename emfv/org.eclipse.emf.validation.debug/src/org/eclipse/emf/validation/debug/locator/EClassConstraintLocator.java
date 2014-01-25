@@ -36,12 +36,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.emf.validation.debug.ValidityModel;
 import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
-import org.eclipse.emf.validation.debug.validity.LeafConstrainingNode;
-import org.eclipse.emf.validation.debug.validity.Result;
-import org.eclipse.emf.validation.debug.validity.Severity;
-import org.eclipse.emf.validation.debug.validity.ValidityFactory;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Result;
+import org.eclipse.ocl.examples.emf.validation.validity.Severity;
+import org.eclipse.ocl.examples.emf.validation.validity.ValidityFactory;
 
 public class EClassConstraintLocator extends AbstractConstraintLocator
 {

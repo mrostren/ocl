@@ -14,11 +14,11 @@
  */
 package org.eclipse.emf.validation.debug.ui.filters;
 
-import org.eclipse.emf.validation.debug.validity.AbstractNode;
-import org.eclipse.emf.validation.debug.validity.Result;
-import org.eclipse.emf.validation.debug.validity.Severity;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
+import org.eclipse.ocl.examples.emf.validation.validity.Result;
+import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 
 
 public class HideUnusedNodesViewerFilter

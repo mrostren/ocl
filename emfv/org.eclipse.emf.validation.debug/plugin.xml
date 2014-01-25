@@ -21,7 +21,7 @@
       <!-- @generated Validation -->
       <package
             uri="http://www.eclipse.org/emf/validation/2013/Validity"
-            class="org.eclipse.emf.validation.debug.validity.ValidityPackage"
+            class="org.eclipse.ocl.examples.emf.validation.validity.ValidityPackage"
             genModel="model/Validity.genmodel"/>
    </extension>
  
