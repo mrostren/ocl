@@ -22,6 +22,8 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.Monitor;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -229,7 +231,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 								}
 								if (!emfMonitor.isCanceled()) {
 									filteredValidatableNodesTree.resetFilter();
-									filteredConstrainingNodesTree.resetFilter();								
+									filteredConstrainingNodesTree.resetFilter();
 									validationRootChanged(rootNode);
 								}
 							}
@@ -241,6 +243,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 			finally {
 				monitor.done();
 				synchronized (this) {
+					setInputJob = null;
 					ChangeSelectionJob replacementJob2 = replacementJob;
 					if (replacementJob2 != null) {
 						replacementJob2.schedule();
@@ -752,6 +755,18 @@ public class ValidityView extends ViewPart implements ISelectionListener
 		}
 		if (part instanceof EditorPart){
 			Notifier input = SelectionUtil.getNotifierSelection(selection, part);
+			if (input instanceof EObject) {
+				Resource resource = ((EObject)input).eResource();
+				if (resource != null) {
+					input = resource;
+				}
+			}
+			if (input instanceof Resource) {
+				ResourceSet resourceSet = ((Resource)input).getResourceSet();
+				if (resourceSet != null) {
+					input = resourceSet;
+				}
+			}
 			setSelection(input);
 		}
 	}
