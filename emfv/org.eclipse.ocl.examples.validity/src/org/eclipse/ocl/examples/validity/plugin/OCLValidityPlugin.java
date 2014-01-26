@@ -12,7 +12,7 @@
  *
  * </copyright>
  */
-package org.eclipse.ocl.examples.debug.plugin;
+package org.eclipse.ocl.examples.validity.plugin;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
@@ -22,18 +22,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class OCLDebugPlugin extends Plugin
+public class OCLValidityPlugin extends Plugin
 {
-	public static final String PLUGIN_ID = "org.eclipse.ocl.examples.debug"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.ocl.examples.validity"; //$NON-NLS-1$
 	
 	// The shared instance
-	private static OCLDebugPlugin plugin;
+	private static OCLValidityPlugin plugin;
 	
 
 	/**
 	 * The constructor
 	 */
-	public OCLDebugPlugin() {
+	public OCLValidityPlugin() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public class OCLDebugPlugin extends Plugin
 	 *
 	 * @return the shared instance
 	 */
-	public static OCLDebugPlugin getDefault() {
+	public static OCLValidityPlugin getDefault() {
 		return plugin;
 	}
 	
@@ -80,7 +80,7 @@ public class OCLDebugPlugin extends Plugin
 	
 
     public static void log(IStatus status) {
-    	OCLDebugPlugin debugPlugin = getDefault();
+    	OCLValidityPlugin debugPlugin = getDefault();
 		if(debugPlugin != null) {
     		debugPlugin.getLog().log(status);
     	}

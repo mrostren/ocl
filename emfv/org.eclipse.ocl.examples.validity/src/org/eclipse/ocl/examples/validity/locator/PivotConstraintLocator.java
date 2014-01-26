@@ -13,7 +13,7 @@
  *
  * </copyright>
  */
-package org.eclipse.ocl.examples.debug.locator;
+package org.eclipse.ocl.examples.validity.locator;
 
 import java.util.List;
 import java.util.Map;
