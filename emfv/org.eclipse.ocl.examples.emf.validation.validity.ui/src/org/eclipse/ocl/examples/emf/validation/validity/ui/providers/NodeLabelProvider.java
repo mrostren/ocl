@@ -168,7 +168,8 @@ public class NodeLabelProvider extends ColumnLabelProvider
 		if (element instanceof ResultValidatableNode) {
 			ConstrainingNode constrainingNode = ((ResultValidatableNode)element).getResultConstrainingNode().getParent();
 			if (constrainingNode instanceof LeafConstrainingNode) {
-				return labelProvider.getImage(((LeafConstrainingNode)constrainingNode).getConstraintLocator().getImage());
+				Object image = ((LeafConstrainingNode)constrainingNode).getConstraintLocator().getImage();
+				return ExtendedImageRegistry.INSTANCE.getImage(image);
 			}
 			else {
 				return labelProvider.getImage(constrainingNode.getConstrainingObject());
@@ -177,7 +178,8 @@ public class NodeLabelProvider extends ColumnLabelProvider
 		else if (element instanceof ResultConstrainingNode) {
 			ConstrainingNode constrainingNode = (ConstrainingNode) ((ResultConstrainingNode)element).getParent();
 			if (constrainingNode instanceof LeafConstrainingNode) {
-				return labelProvider.getImage(((LeafConstrainingNode)constrainingNode).getConstraintLocator().getImage());
+				Object image = ((LeafConstrainingNode)constrainingNode).getConstraintLocator().getImage();
+				return ExtendedImageRegistry.INSTANCE.getImage(image);
 			}
 			else {
 				return labelProvider.getImage(constrainingNode.getConstrainingObject());

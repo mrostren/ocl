@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2013 CEA LIST and others.
+ * Copyright (c) 2013, 2014 CEA LIST and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,19 +15,24 @@
  */
 package org.eclipse.ocl.examples.emf.validation.validity.ui.view;
 
+import java.lang.reflect.Method;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.Action;
@@ -80,6 +85,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -189,6 +195,30 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	
 	private final NodesViewerFilter constrainingNodesFilterByKind = new NodesViewerFilter();
 	private final NodesViewerFilter validatableNodesFilterByKind = new NodesViewerFilter();
+
+	/**
+	 * ValidityViewLabelProvider extends the standard AdapterFactoryLabelProvider to provide icons for
+	 * non-standard Java objects such as Method.
+	 */
+	public static class ValidityViewLabelProvider extends AdapterFactoryLabelProvider
+	{
+		public ValidityViewLabelProvider(AdapterFactory adapterFactory) {
+			super(adapterFactory);
+		}
+
+		@Override
+		protected Image getDefaultImage(Object object) {
+			Object image = null;
+			if (object instanceof Method) {
+				image = EcoreEditPlugin.INSTANCE.getImage("full/obj16/EOperation");
+			}
+			if (image != null) {
+				return ExtendedImageRegistry.INSTANCE.getImage(image);
+			} else {
+				return super.getDefaultImage(object);
+			}
+		}
+	}
 
 	/**
 	 * The ChangeSelectionJob performs the work for a setSelection() without clogging up the UI. Multiple chnages are maintained
@@ -350,7 +380,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 
 		Color blackColor = parent.getDisplay().getSystemColor(SWT.COLOR_BLACK);
 		Color blueColor = parent.getDisplay().getSystemColor(SWT.COLOR_BLUE);
-	    ILabelProvider labelProvider = new AdapterFactoryLabelProvider(validityManager.getAdapterFactory());
+	    ILabelProvider labelProvider = new ValidityViewLabelProvider(validityManager.getAdapterFactory());
 		ILabelProvider nodeLabelProvider = new NodeLabelProvider(labelProvider, blackColor, blueColor);
 		IContentProvider validatableContentProvider = new ValidatableNodeContentProvider(validityManager, nodeLabelProvider);
 		IContentProvider constrainingNodeContentProvider = new ConstrainingNodeContentProvider(validityManager, nodeLabelProvider);

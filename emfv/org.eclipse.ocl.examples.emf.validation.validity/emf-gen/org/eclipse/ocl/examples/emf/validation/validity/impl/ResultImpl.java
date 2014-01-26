@@ -485,14 +485,16 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (severity: ");
+		StringBuffer result = new StringBuffer();
+		result.append(getLeafConstrainingNode());
+		result.append(": ");
+		result.append(getValidatableNode());
+		result.append(" => ");
 		result.append(severity);
-		result.append(", diagnostic: ");
+		result.append(" : ");
 		result.append(diagnostic);
-		result.append(", exception: ");
+		result.append(" : ");
 		result.append(exception);
-		result.append(')');
 		return result.toString();
 	}
 
