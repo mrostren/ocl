@@ -8,7 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.validation.debug,
+ org.eclipse.ocl.examples.emf.validation.validity,
  org.eclipse.emf.validation.debug.ui,
  org.junit,
  org.eclipse.emf.common,
