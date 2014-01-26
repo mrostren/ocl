@@ -33,7 +33,7 @@ import org.osgi.framework.BundleContext;
  */
 public final class ValidityUIPlugin extends EMFPlugin
 {
-	public static final String PLUGIN_ID = "org.eclipse.emf.validation.debug.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.ocl.examples.emf.validation.validity.ui"; //$NON-NLS-1$
 	/**
 	 * The singleton instance of the plugin.
 	 */

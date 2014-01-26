@@ -109,7 +109,7 @@ public class ValidityView extends ViewPart implements ISelectionListener
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final @NonNull String ID = "org.eclipse.emf.validation.debug.ui.validity";//$NON-NLS-1$
+	public static final @NonNull String ID = "org.eclipse.ocl.examples.emf.validation.validity.ui.validity";//$NON-NLS-1$
 
 	@SuppressWarnings("unused")
 	private static org.eclipse.ocl.examples.ui.OCLPropertyTester ensureViewsIdIsreferenced = null;

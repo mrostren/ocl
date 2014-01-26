@@ -3,7 +3,7 @@
 <plugin>
 
    <extension point="org.eclipse.ui.views">
-      <view id="org.eclipse.emf.validation.debug.ui.validity"
+      <view id="org.eclipse.ocl.examples.emf.validation.validity.ui.validity"
             name="ValidityView"
             icon="icons/validation.gif"
             category="org.eclipse.ocl.examples.ui.views"

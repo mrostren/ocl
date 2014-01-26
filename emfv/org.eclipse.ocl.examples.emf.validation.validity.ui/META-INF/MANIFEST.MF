@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.emf.validation.debug.ui;singleton:=true
+Bundle-SymbolicName: org.eclipse.ocl.examples.emf.validation.validity.ui;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.eclipse.ocl.examples.emf.validation.validity.ui.plugin.ValidityUIPlugin$Implementation
 Require-Bundle: org.eclipse.core.resources,
