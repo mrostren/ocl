@@ -12,7 +12,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.export;
+package org.eclipse.ocl.examples.emf.validation.validity.export;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;

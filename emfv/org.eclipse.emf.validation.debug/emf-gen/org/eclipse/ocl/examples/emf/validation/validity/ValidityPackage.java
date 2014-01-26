@@ -1275,7 +1275,7 @@ public interface ValidityPackage extends EPackage {
 	 * The meta object id for the '<em>Constraint Locator</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.emf.validation.debug.locator.ConstraintLocator
+	 * @see org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator
 	 * @see org.eclipse.ocl.examples.emf.validation.validity.impl.ValidityPackageImpl#getConstraintLocator()
 	 * @generated
 	 */
@@ -1804,11 +1804,11 @@ public interface ValidityPackage extends EPackage {
 	EEnum getSeverity();
 
 	/**
-	 * Returns the meta object for data type '{@link org.eclipse.emf.validation.debug.locator.ConstraintLocator <em>Constraint Locator</em>}'.
+	 * Returns the meta object for data type '{@link org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator <em>Constraint Locator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Constraint Locator</em>'.
-	 * @see org.eclipse.emf.validation.debug.locator.ConstraintLocator
+	 * @see org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator
 	 * @model instanceClass="org.eclipse.emf.validation.debug.locator.ConstraintLocator" serializeable="false"
 	 * @generated
 	 */
@@ -2266,7 +2266,7 @@ public interface ValidityPackage extends EPackage {
 		 * The meta object literal for the '<em>Constraint Locator</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.emf.validation.debug.locator.ConstraintLocator
+		 * @see org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator
 		 * @see org.eclipse.ocl.examples.emf.validation.validity.impl.ValidityPackageImpl#getConstraintLocator()
 		 * @generated
 		 */

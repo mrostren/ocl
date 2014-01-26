@@ -26,9 +26,6 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.ValidityModel;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
@@ -42,6 +39,9 @@ import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidityPackage;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
 
 public class IDEValidityManager extends ValidityManager
 {

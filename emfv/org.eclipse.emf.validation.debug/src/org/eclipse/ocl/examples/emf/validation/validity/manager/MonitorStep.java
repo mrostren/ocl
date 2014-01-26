@@ -11,7 +11,7 @@
  *	E.D.Willink (CEA LIST) - initial API and implementation
  * </copyright>
  */
-package org.eclipse.emf.validation.debug;
+package org.eclipse.ocl.examples.emf.validation.validity.manager;
 
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.jdt.annotation.NonNull;

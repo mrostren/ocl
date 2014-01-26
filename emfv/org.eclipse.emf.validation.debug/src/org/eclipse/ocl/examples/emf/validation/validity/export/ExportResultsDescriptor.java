@@ -12,11 +12,11 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.export;
+package org.eclipse.ocl.examples.emf.validation.validity.export;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
+import org.eclipse.ocl.examples.emf.validation.validity.plugin.ValidityPlugin;
 
 /**
  * Describes an extension as contributed to the validity-exporter extension point.

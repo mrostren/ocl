@@ -12,7 +12,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.locator;
+package org.eclipse.ocl.examples.emf.validation.validity.locator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,13 +31,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.ValidityModel;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Result;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
 
 public abstract class AbstractConstraintLocator implements ConstraintLocator, ConstraintLocator.Descriptor
 {

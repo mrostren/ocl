@@ -22,4 +22,5 @@ Export-Package: org.eclipse.emf.validation.debug.ui,
  org.eclipse.emf.validation.debug.ui.actions,
  org.eclipse.emf.validation.debug.ui.export.util,
  org.eclipse.emf.validation.debug.ui.utils,
- org.eclipse.emf.validation.debug.ui.view
+ org.eclipse.emf.validation.debug.ui.view,
+ org.eclipse.emf.validation.debug.validity.markers

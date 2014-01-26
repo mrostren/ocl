@@ -10,11 +10,11 @@
    <extension-point id="validity_exporter" name="Validity Results Exporter" schema="schema/validity_exporter.exsd"/>
    <extension point="org.eclipse.emf.validation.debug.constraint_locator">
    		<locator metaclass="http://www.eclipse.org/emf/2002/Ecore"
-   			class="org.eclipse.emf.validation.debug.locator.EClassConstraintLocator"/>
+   			class="org.eclipse.ocl.examples.emf.validation.validity.locator.EClassConstraintLocator"/>
    		<locator metaclass="http://www.eclipse.org/emf/2002/Ecore"
-   			 class="org.eclipse.emf.validation.debug.locator.EClassifierConstraintLocator"/>
+   			 class="org.eclipse.ocl.examples.emf.validation.validity.locator.EClassifierConstraintLocator"/>
    		<locator metaclass="http://www.eclipse.org/emf/2002/Ecore"
-   			 class="org.eclipse.emf.validation.debug.locator.EValidatorConstraintLocator"/>
+   			 class="org.eclipse.ocl.examples.emf.validation.validity.locator.EValidatorConstraintLocator"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">

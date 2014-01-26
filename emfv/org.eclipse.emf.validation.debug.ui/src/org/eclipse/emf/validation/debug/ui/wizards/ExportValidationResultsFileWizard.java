@@ -22,12 +22,12 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
-import org.eclipse.emf.validation.export.ExportResultsDescriptor;
-import org.eclipse.emf.validation.export.IValidatorExport;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
+import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsDescriptor;
+import org.eclipse.ocl.examples.emf.validation.validity.export.IValidatorExport;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 

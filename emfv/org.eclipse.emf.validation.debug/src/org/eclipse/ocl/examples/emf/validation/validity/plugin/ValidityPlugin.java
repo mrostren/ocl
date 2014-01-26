@@ -12,15 +12,15 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.plugin;
+package org.eclipse.ocl.examples.emf.validation.validity.plugin;
 
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.validation.export.ExportResultsListener;
-import org.eclipse.emf.validation.export.ExportResultsRegistry;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsListener;
+import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsRegistry;
 import org.osgi.framework.BundleContext;
 
 public class ValidityPlugin extends EMFPlugin

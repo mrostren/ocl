@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
@@ -39,6 +38,7 @@ import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidityFactory;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidityPackage;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
 
 /**
  * <!-- begin-user-doc -->

@@ -12,7 +12,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.locator;
+package org.eclipse.ocl.examples.emf.validation.validity.locator;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,6 @@ import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.ValidityModel;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 //import org.eclipse.ocl.common.OCLCommon;
@@ -32,6 +31,7 @@ import org.eclipse.jdt.annotation.Nullable;
 //import org.eclipse.ocl.examples.pivot.UMLReflection;
 //import org.eclipse.ocl.examples.pivot.manager.MetaModelManager;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
 
 public class EClassifierConstraintLocator extends AbstractConstraintLocator
 {

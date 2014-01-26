@@ -12,7 +12,7 @@
  *  Obeo - Optimize View Input Refresh
  * </copyright>
  */
-package org.eclipse.emf.validation.debug;
+package org.eclipse.ocl.examples.emf.validation.validity.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,8 +38,6 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
-import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.common.utils.TracingOption;
@@ -50,6 +48,8 @@ import org.eclipse.ocl.examples.emf.validation.validity.ResultSet;
 import org.eclipse.ocl.examples.emf.validation.validity.ResultValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
+import org.eclipse.ocl.examples.emf.validation.validity.plugin.ValidityPlugin;
 
 public class ValidityManager
 {	

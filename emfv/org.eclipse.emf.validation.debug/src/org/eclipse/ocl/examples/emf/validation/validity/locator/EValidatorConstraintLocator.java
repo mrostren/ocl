@@ -13,7 +13,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.locator;
+package org.eclipse.ocl.examples.emf.validation.validity.locator;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -36,15 +36,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.ValidityModel;
-import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.domain.utilities.ComposedEValidator;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Result;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
+import org.eclipse.ocl.examples.emf.validation.validity.plugin.ValidityPlugin;
 
 public class EValidatorConstraintLocator extends AbstractConstraintLocator
 {

@@ -15,7 +15,7 @@
 package org.eclipse.ocl.examples.emf.validation.validity;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
 
 /**
  * <!-- begin-user-doc -->

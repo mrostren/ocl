@@ -35,7 +35,6 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.debug.ui.ValidityUIPlugin;
 import org.eclipse.emf.validation.debug.ui.messages.ValidationDebugMessages;
-import org.eclipse.emf.validation.export.IValidatorExport;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -45,6 +44,7 @@ import org.eclipse.ocl.examples.emf.validation.validity.ResultValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.export.IValidatorExport;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.PlatformUI;
 

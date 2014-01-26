@@ -18,9 +18,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidityPackage;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
 
 
 /**

@@ -16,7 +16,6 @@ package org.eclipse.emf.validation.debug.ui.providers;
 
 import java.util.List;
 
-import org.eclipse.emf.validation.debug.ValidityManager;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -24,6 +23,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.RootConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
 
 public class ConstrainingNodeContentProvider implements ITreeContentProvider
 {

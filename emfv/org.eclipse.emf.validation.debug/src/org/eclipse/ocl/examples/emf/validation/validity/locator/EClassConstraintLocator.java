@@ -12,7 +12,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.locator;
+package org.eclipse.ocl.examples.emf.validation.validity.locator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -33,15 +33,15 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.ValidityModel;
-import org.eclipse.emf.validation.debug.plugin.ValidityPlugin;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Result;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidityFactory;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
+import org.eclipse.ocl.examples.emf.validation.validity.plugin.ValidityPlugin;
 
 public class EClassConstraintLocator extends AbstractConstraintLocator
 {

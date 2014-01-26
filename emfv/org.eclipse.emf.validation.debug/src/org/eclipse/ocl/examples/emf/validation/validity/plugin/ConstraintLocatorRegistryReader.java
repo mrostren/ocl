@@ -12,14 +12,14 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug.plugin;
+package org.eclipse.ocl.examples.emf.validation.validity.plugin;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.emf.ecore.plugin.RegistryReader;
-import org.eclipse.emf.validation.debug.ValidityManager;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
+import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
 
 /**
  * A plugin extension reader that populates the

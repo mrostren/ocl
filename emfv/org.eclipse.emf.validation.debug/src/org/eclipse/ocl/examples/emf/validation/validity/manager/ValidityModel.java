@@ -13,7 +13,7 @@
  *
  * </copyright>
  */
-package org.eclipse.emf.validation.debug;
+package org.eclipse.ocl.examples.emf.validation.validity.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,12 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -47,9 +42,6 @@ import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.validation.debug.locator.ConstraintLocator;
-import org.eclipse.emf.validation.debug.validity.markers.GoToConstrainingMarker;
-import org.eclipse.emf.validation.debug.validity.markers.GoToModelElementMarker;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.emf.validation.validity.AbstractNode;
@@ -65,6 +57,7 @@ import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Severity;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidityFactory;
+import org.eclipse.ocl.examples.emf.validation.validity.locator.ConstraintLocator;
 
 public class ValidityModel
 {
@@ -421,37 +414,6 @@ public class ValidityModel
 	}
 
 	/**
-	 * Returns the {@link IFile} in which the provided {@link Resource} can be
-	 * found, if any.
-	 * 
-	 * @param resource
-	 *            the {@link Resource} for which we search the enclosing file
-	 * @return the corresponding {@link IFile} or <code>null</code> if one of the following occurs:
-	 *         <ul>
-	 *         <li>the given resource is null </li>
-	 *         <li>the resource {@link URI} cannot be determined</li>
-	 *         <li>the resource {@link URI} is not platform oriented</li>
-	 *         <li>the project supposed to contain the resource does not actually exist</li>
-	 *         <li>the project containing the resource is closed</li>
-	 *         </ul>
-	 * 
-	 */
-	private static @Nullable IFile findFile(Resource resource) {
-		if (resource == null || resource.getURI() == null || !resource.getURI().isPlatform()) {
-			return null;
-		}
-		
-		IPath resourcePath = new Path(resource.getURI().toPlatformString(true));
-		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(resourcePath);
-
-		IProject iProject = iFile.getProject();
-		if (!iProject.isAccessible() || !iFile.exists()) {
-			return null;
-		}
-		return iFile;
-	}
-
-	/**
 	 * @return the created RootConstrainingNode
 	 */
 	@SuppressWarnings("null")
@@ -606,41 +568,6 @@ public class ValidityModel
 		return uri;
 	}
 
-	/**
-	 * Return the GoToModelElementMarker of a ValidatableNode.
-	 * 
-	 * @param validatableNode
-	 *            the selected ValidatableNode
-	 * @return the GoToModelElementMarker of a ValidatableNode.
-	 */
-	public GoToModelElementMarker getModelElementMarker(@NonNull ValidatableNode validatableNode){
-		IFile containingFile = findFile(validatableNode.getConstrainedObject().eResource());
-		// create a go to Marker for the selected eObject
-		if (containingFile != null) {
-			return new GoToModelElementMarker(containingFile, validatableNode.getConstrainedObject());
-		}
-		return null;
-	}
-	
-	/**
-	 * Return the GoToModelElementMarker of a LeafConstrainingNode.
-	 * 
-	 * @param leafConstrainingNode
-	 *            the selected leafConstrainingNode
-	 * @return the GoToModelElementMarker of a LeafConstrainingNode.
-	 */
-	public GoToConstrainingMarker getLeafConstrainingNodeMarker(@NonNull LeafConstrainingNode leafConstrainingNode){
-		Resource resource = leafConstrainingNode.getConstraintResource();		
-		if (resource != null) {
-			IFile file = findFile(resource);
-			if (file != null) {
-				return new GoToConstrainingMarker(file);
-			}
-		}
-		return null;
-	}
-	
-	
 	/**
 	 * Return the ValidatableNode node for EObject creating any ValidatableNodes
 	 * that are required to ensure that the returned ValidatableNode is
