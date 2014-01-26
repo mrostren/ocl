@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.emf.validation.debug.ui;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.emf.validation.debug.ui.ValidityUIPlugin$Implementation
+Bundle-Activator: org.eclipse.ocl.examples.emf.validation.validity.ui.plugin.ValidityUIPlugin$Implementation
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.ocl.examples.emf.validation.validity,
@@ -18,9 +18,9 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Import-Package: org.apache.commons.lang
-Export-Package: org.eclipse.emf.validation.debug.ui,
- org.eclipse.emf.validation.debug.ui.actions,
- org.eclipse.emf.validation.debug.ui.export.util,
- org.eclipse.emf.validation.debug.ui.utils,
- org.eclipse.emf.validation.debug.ui.view,
- org.eclipse.emf.validation.debug.validity.markers
+Export-Package: org.eclipse.ocl.examples.emf.validation.validity.ui.actions,
+ org.eclipse.ocl.examples.emf.validation.validity.ui.export.util,
+ org.eclipse.ocl.examples.emf.validation.validity.ui.markers,
+ org.eclipse.ocl.examples.emf.validation.validity.ui.plugin,
+ org.eclipse.ocl.examples.emf.validation.validity.ui.utils,
+ org.eclipse.ocl.examples.emf.validation.validity.ui.view

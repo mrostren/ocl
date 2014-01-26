@@ -21,8 +21,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.validation.debug.test.utils.TestTool;
-import org.eclipse.emf.validation.debug.ui.view.IDEValidityManager;
-import org.eclipse.emf.validation.debug.ui.view.ValidityViewRefreshJob;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ocl.examples.domain.utilities.DomainUtil;
@@ -30,6 +28,8 @@ import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsDescriptor;
 import org.eclipse.ocl.examples.emf.validation.validity.export.ExportResultsRegistry;
 import org.eclipse.ocl.examples.emf.validation.validity.export.IValidatorExport;
+import org.eclipse.ocl.examples.emf.validation.validity.ui.view.IDEValidityManager;
+import org.eclipse.ocl.examples.emf.validation.validity.ui.view.ValidityViewRefreshJob;
 import org.eclipse.ocl.examples.pivot.delegate.OCLDelegateDomain;
 import org.eclipse.ocl.examples.pivot.validation.PivotEObjectValidator.ValidationAdapter;
 import org.eclipse.ocl.examples.xtext.completeocl.ui.commands.LoadCompleteOCLResourceHandler.Helper;
@@ -110,7 +110,7 @@ public class AbstractExportOCLValidationResultTests extends TestCase {
 	
 	/**
 	 * Tests the
-	 * {@link org.eclipse.emf.validation.debug.ui.export.util.AbstractExport#export(Resource, RootNode, org.eclipse.core.runtime.IPath)}
+	 * {@link org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.AbstractExport#export(Resource, RootNode, org.eclipse.core.runtime.IPath)}
 	 * method this test ensures that the export method invocation produces an
 	 * exported file at the expected place.
 	 * 
@@ -118,7 +118,7 @@ public class AbstractExportOCLValidationResultTests extends TestCase {
 	 */
 	@Test
 	public void testGetFileFullPath() throws CoreException {
-		String htmlExportClassName = "org.eclipse.emf.validation.debug.ui.export.util.HTMLExport"; //$NON-NLS-1$
+		String htmlExportClassName = "org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.HTMLExport"; //$NON-NLS-1$
 		String exportedFileName = "testHtml.html"; //$NON-NLS-1$
 		
 		IValidatorExport exporter = null;

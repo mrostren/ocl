@@ -7,13 +7,13 @@
             name="ValidityView"
             icon="icons/validation.gif"
             category="org.eclipse.ocl.examples.ui.views"
-            class="org.eclipse.emf.validation.debug.ui.view.ValidityView"/>
+            class="org.eclipse.ocl.examples.emf.validation.validity.ui.view.ValidityView"/>
    	</extension>
    	
 	<!-- Show Validity View -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler commandId="org.eclipse.emf.validation.ShowValidityViewAction"
-			class="org.eclipse.emf.validation.debug.ui.actions.ShowValidityViewHandler"/>
+			class="org.eclipse.ocl.examples.emf.validation.validity.ui.actions.ShowValidityViewHandler"/>
 	</extension>
 	<extension point="org.eclipse.ui.commands">
 		<command id="org.eclipse.emf.validation.ShowValidityViewAction"
@@ -35,14 +35,14 @@
 	</extension>
        <extension point="org.eclipse.ocl.examples.emf.validation.validity.validity_exporter">
        <exporter
-             class="org.eclipse.emf.validation.debug.ui.export.util.HTMLExport"
+             class="org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.HTMLExport"
              extension="html"
              name="HTMLExport">
        </exporter>
     </extension>
     <extension point="org.eclipse.ocl.examples.emf.validation.validity.validity_exporter">
        <exporter
-             class="org.eclipse.emf.validation.debug.ui.export.util.TextExport"
+             class="org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.TextExport"
              extension="txt"
              name="TextExport">
        </exporter>

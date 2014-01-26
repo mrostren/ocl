@@ -49,7 +49,7 @@ public class HTMLExportOCLValidationResultTests extends AbstractExportOCLValidat
 	private static final String FAILURE_NUMBER_XPATH_LOCATION = "//table[2]/tr[6]/td[2]"; //$NON-NLS-1$
 	private static final String SUCCESS_NUMBER_XPATH_LOCATION = "//table[2]/tr[2]/td[2]"; //$NON-NLS-1$
 
-	private static final String HTML_EXPORT_CLASS_NAME = "org.eclipse.emf.validation.debug.ui.export.util.HTMLExport"; //$NON-NLS-1$
+	private static final String HTML_EXPORT_CLASS_NAME = "org.eclipse.ocl.examples.emf.validation.validity.ui.export.util.HTMLExport"; //$NON-NLS-1$
 	private static final String EXPORTED_FILE_NAME = "testHtml.html"; //$NON-NLS-1$
 
 	private ValidityModel validityModel = null;
