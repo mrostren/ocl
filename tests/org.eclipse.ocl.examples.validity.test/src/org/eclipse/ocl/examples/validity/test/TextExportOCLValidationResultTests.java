@@ -54,7 +54,7 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 			i++;
 		}
 		if (line != null) {
-			assertTrue(line.contains(expression));
+			assertTrue("Expected \"" + line + "\" to contain \"" + expression + "\"", line.contains(expression));
 		}
 		sc.close();
 		contents.close();
@@ -368,22 +368,22 @@ public class TextExportOCLValidationResultTests extends AbstractExportOCLValidat
 
 		// tests validation results
 		// Total number
-		assertLineContains(12, "16"); //$NON-NLS-1$
+		assertLineContains(12, EXPECTED_RESULTS.toString()); //$NON-NLS-1$
 
 		// Success
-		assertLineContains(13, "8"); //$NON-NLS-1$
+		assertLineContains(13, EXPECTED_SUCCESSES.toString()); //$NON-NLS-1$
 
 		// Infos
-		assertLineContains(14, "2"); //$NON-NLS-1$
+		assertLineContains(14, EXPECTED_INFOS.toString()); //$NON-NLS-1$
 
 		// Warning
-		assertLineContains(15, "2"); //$NON-NLS-1$
+		assertLineContains(15, EXPECTED_WARNINGS.toString()); //$NON-NLS-1$
 
 		// Errors
-		assertLineContains(16, "2"); //$NON-NLS-1$
+		assertLineContains(16, EXPECTED_ERRORS.toString()); //$NON-NLS-1$
 
 		// Failures
-		assertLineContains(17, "2"); //$NON-NLS-1$
+		assertLineContains(17, EXPECTED_FAILURES.toString()); //$NON-NLS-1$
 	}
 
 	@Test

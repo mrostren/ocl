@@ -55,8 +55,8 @@ public class HTMLExportOCLValidationResultTests extends AbstractExportOCLValidat
 
 		InputSource stream = new InputSource(contents);
 		xPathEngine.compile(expression);
-		assertTrue((Boolean) xPathEngine.evaluate(expression, stream,
-				XPathConstants.BOOLEAN));
+		Object xPathResult = xPathEngine.evaluate(expression, stream, XPathConstants.BOOLEAN);
+		assertTrue("Expected \"" + expression + "\" to be true", (Boolean) xPathResult);
 		contents.close();
 	}
 
@@ -518,22 +518,22 @@ public class HTMLExportOCLValidationResultTests extends AbstractExportOCLValidat
 
 		// tests validation results
 		// Total number
-		assertXPathTrue("//body/table[2]/tr/td[2]=16");
+		assertXPathTrue("//body/table[2]/tr/td[2]=" + EXPECTED_RESULTS);
 
 		// Success
-		assertXPathTrue(SUCCESS_NUMBER_XPATH_LOCATION + "=8");
+		assertXPathTrue(SUCCESS_NUMBER_XPATH_LOCATION + "=" + EXPECTED_SUCCESSES);
 
 		// Infos
-		assertXPathTrue(INFO_NUMBER_XPATH_LOCATION + "=2");
+		assertXPathTrue(INFO_NUMBER_XPATH_LOCATION + "=" + EXPECTED_INFOS);
 
 		// Warning
-		assertXPathTrue(WARNING_NUMBER_XPATH_LOCATION + "=2");
+		assertXPathTrue(WARNING_NUMBER_XPATH_LOCATION + "=" + EXPECTED_WARNINGS);
 
 		// Errors
-		assertXPathTrue(ERROR_NUMBER_XPATH_LOCATION + "=2");
+		assertXPathTrue(ERROR_NUMBER_XPATH_LOCATION + "=" + EXPECTED_ERRORS);
 
 		// Failures
-		assertXPathTrue(FAILURE_NUMBER_XPATH_LOCATION + "=2");
+		assertXPathTrue(FAILURE_NUMBER_XPATH_LOCATION + "=" + EXPECTED_FAILURES);
 	}
 
 	@Test

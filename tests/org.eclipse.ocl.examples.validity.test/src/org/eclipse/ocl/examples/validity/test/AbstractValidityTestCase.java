@@ -15,15 +15,12 @@
  */
 package org.eclipse.ocl.examples.validity.test;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.EMFPlugin;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -35,9 +32,7 @@ import org.eclipse.ocl.examples.domain.utilities.ProjectMap;
 import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Result;
 import org.eclipse.ocl.examples.emf.validation.validity.ResultSet;
-import org.eclipse.ocl.examples.emf.validation.validity.RootConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
-import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityManager;
 import org.eclipse.ocl.examples.emf.validation.validity.manager.ValidityModel;
@@ -62,32 +57,32 @@ public abstract class AbstractValidityTestCase extends TestCase
 	protected static final @NonNull String ECORE_MODEL_NAME2 = "model/validityModelTest.ecoretest";
 	protected static final @NonNull String ECORE_MODEL_NAME3 = "model/ecoreTest2.ecore";
 	
+	protected static final Integer EXPECTED_SUCCESSES = 145;
+	protected static final Integer EXPECTED_INFOS = 2;
+	protected static final Integer EXPECTED_WARNINGS = 2;
+	protected static final Integer EXPECTED_ERRORS = 2;
+	protected static final Integer EXPECTED_FAILURES = 2;
+	protected static final Integer EXPECTED_RESULTS = EXPECTED_SUCCESSES + EXPECTED_INFOS + EXPECTED_WARNINGS + EXPECTED_ERRORS + EXPECTED_FAILURES;
+	
 	private static ProjectMap projectMap = null;
 
-	public static ConstrainingNode getConstrainingNodeByLabel(
-			EList<ConstrainingNode> rootNodeChildren, String label) {
-		ConstrainingNode result = null;
-		Iterator<ConstrainingNode> iterator = rootNodeChildren.iterator();
-		while (iterator.hasNext() && result == null) {
-			ConstrainingNode constrainingNode = iterator.next();
-			if (label.equals(constrainingNode.getLabel())) {
-				result = constrainingNode;
+	public static ConstrainingNode getConstrainingNodeByLabel(@NonNull Iterable<? extends ConstrainingNode> rootNodeChildren, @NonNull String label) {
+		boolean matchPrefix = label.endsWith(" -> ");		// Too much effort to specify superclass/instance class detail
+		String labelSpace = label + " ";
+		for (ConstrainingNode constrainingNode : rootNodeChildren) {
+			String nodeLabel = constrainingNode.getLabel();
+			if (matchPrefix) {
+				if (nodeLabel.startsWith(labelSpace)) {
+					return constrainingNode;
+				}
+			}
+			else {
+				if (label.equals(nodeLabel)) {
+					return constrainingNode;
+				}
 			}
 		}
-		return result;
-	}
-
-	public static ConstrainingNode getConstrainingNodeFromRootByLabel(
-			EList<RootConstrainingNode> rootNodeChildren, String label) {
-		ConstrainingNode result = null;
-		Iterator<RootConstrainingNode> iterator = rootNodeChildren.iterator();
-		while (iterator.hasNext() && result == null) {
-			ConstrainingNode constrainingNode = iterator.next();
-			if (label.equals(constrainingNode.getLabel())) {
-				result = constrainingNode;
-			}
-		}
-		return result;
+		return null;
 	}
 
 	public static ProjectMap getProjectMap() {
@@ -97,64 +92,38 @@ public abstract class AbstractValidityTestCase extends TestCase
 		return projectMap;
 	}
 
-	public static Result getResultFromResultValidatableNode(
-			List<Result> validatableNodeResults, String label) {
-		Result result = null;
-		Iterator<Result> iterator = validatableNodeResults.iterator();
-		while (iterator.hasNext() && result == null) {
-			Result resultIterated = iterator.next();
-			if (label.equals(resultIterated.getResultValidatableNode()
-				.getLabel())) {
-				result = resultIterated;
+	public static Result getResultFromResultValidatableNode(@NonNull Iterable<Result> validatableNodeResults, @NonNull String label) {
+		for (Result resultIterated : validatableNodeResults) {
+			if (label.equals(resultIterated.getResultValidatableNode().getLabel())) {
+				return resultIterated;
 			}
 		}
-		return result;
+		return null;
 	}
 	
-	public static Result getResultOfValidatableNodeFromLabel(EList<Result> results, 
-			String labelValidatableNode, String labelResultConstrainingNode) {
-		Result result = null;
-		Iterator<Result> iterator = results.iterator();
-		while (iterator.hasNext() && result == null) {
-			Result resultIter = iterator.next();
+	public static Result getResultOfValidatableNodeFromLabel(@NonNull Iterable<Result> results, @NonNull String labelValidatableNode, @NonNull String labelResultConstrainingNode) {
+		for (Result resultIter : results) {
 			if (labelValidatableNode.equals(resultIter.getResultValidatableNode().getLabel())
-					&& labelResultConstrainingNode.equals(resultIter.getResultConstrainingNode().getLabel())) {
-				result = resultIter;
+			 && labelResultConstrainingNode.equals(resultIter.getResultConstrainingNode().getLabel())) {
+				return resultIter;
 			}
 		}
-		return result;
+		return null;
 	}
 
-	public static URI getTestModelURI(String localFileName) {
+	public static @NonNull URI getTestModelURI(@NonNull String localFileName) {
 		ProjectMap projectMap = getProjectMap();
 		String urlString = projectMap.getLocation(PLUGIN_ID).toString();
 		return DomainUtil.nonNullEMF(URI.createURI(urlString + localFileName));
 	}
 	
-	public static ValidatableNode getValidatableNodeByLabel(
-			EList<ValidatableNode> validatableNodes, String label) {
-		ValidatableNode result = null;
-		Iterator<ValidatableNode> iterator = validatableNodes.iterator();
-		while (iterator.hasNext() && result == null) {
-			ValidatableNode constrainingNode = iterator.next();
+	public static ValidatableNode getValidatableNodeByLabel(@NonNull Iterable<? extends ValidatableNode> validatableNodes, @NonNull String label) {
+		for (ValidatableNode constrainingNode : validatableNodes) {
 			if (label.equals(constrainingNode.getLabel())) {
-				result = constrainingNode;
+				return constrainingNode;
 			}
 		}
-		return result;
-	}
-
-	public static ValidatableNode getValidatableNodeFromRootByLabel(
-			EList<RootValidatableNode> validatableNodes, String label) {
-		ValidatableNode result = null;
-		Iterator<RootValidatableNode> iterator = validatableNodes.iterator();
-		while (iterator.hasNext() && result == null) {
-			RootValidatableNode constrainingNode = iterator.next();
-			if (label.equals(constrainingNode.getLabel())) {
-				result = constrainingNode;
-			}
-		}
-		return result;
+		return null;
 	}
 
 	public static boolean isCompleteOCLCSResourcePresent(@NonNull Set<Resource> resources) {

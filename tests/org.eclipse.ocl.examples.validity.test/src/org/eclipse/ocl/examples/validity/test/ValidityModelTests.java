@@ -15,21 +15,21 @@
  */
 package org.eclipse.ocl.examples.validity.test;
 
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.ocl.examples.emf.validation.validity.ConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.LeafConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.Result;
 import org.eclipse.ocl.examples.emf.validation.validity.ResultConstrainingNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ResultSet;
 import org.eclipse.ocl.examples.emf.validation.validity.ResultValidatableNode;
-import org.eclipse.ocl.examples.emf.validation.validity.RootConstrainingNode;
-import org.eclipse.ocl.examples.emf.validation.validity.RootValidatableNode;
+import org.eclipse.ocl.examples.emf.validation.validity.RootNode;
 import org.eclipse.ocl.examples.emf.validation.validity.ValidatableNode;
 import org.eclipse.ocl.examples.pivot.Constraint;
 import org.eclipse.ocl.examples.validity.test.ecoreTest.EClass2;
@@ -43,7 +43,79 @@ import org.junit.Test;
  */
 public class ValidityModelTests extends AbstractValidityTestCase
 {
-	private static final String PREFIX_CONSTRAINT_LABEL = "Constraint "; //$NON-NLS-1$
+	private static final String PREFIX_CONSTRAINT_LABEL = "Constraint ";
+
+	protected @NonNull ConstrainingNode assertHasConstrainingNodeByLabel(@NonNull ConstrainingNode constrainingNode, @NonNull String label, @NonNull Class<?> constrainingClass) {
+		ConstrainingNode containedConstrainingNode = getConstrainingNodeByLabel(constrainingNode.getChildren(), label);
+		assertNotNull(containedConstrainingNode);
+		assertTrue(constrainingClass.isAssignableFrom(containedConstrainingNode.getConstrainingObject().getClass()));
+		return containedConstrainingNode;
+	}
+
+	protected @NonNull ConstrainingNode assertHasConstrainingNodeByLabel(@NonNull RootNode rootNode, @NonNull String label, @NonNull Class<?> constrainingClass) {
+		ConstrainingNode containedConstrainingNode = getConstrainingNodeByLabel(rootNode.getConstrainingNodes(), label);
+		assertNotNull(containedConstrainingNode);
+		assertTrue(constrainingClass.isAssignableFrom(containedConstrainingNode.getConstrainingObject().getClass()));
+		return containedConstrainingNode;
+	}
+
+	protected @NonNull List<? extends ConstrainingNode> assertHasConstrainingNodes(@NonNull ConstrainingNode constrainingNode, int expectedChildCount) {
+		List<ConstrainingNode> children = constrainingNode.getChildren();
+		assertEquals("Expected child count for " + constrainingNode, expectedChildCount, children.size());
+		return children;
+	}
+
+	protected @NonNull List<? extends ConstrainingNode> assertHasConstrainingNodes(@NonNull RootNode rootNode, int expectedChildCount) {
+		List<? extends ConstrainingNode> children = rootNode.getConstrainingNodes();
+		assertEquals("Expected child count for " + rootNode, expectedChildCount, children.size());
+		return children;
+	}
+
+	protected @NonNull LeafConstrainingNode assertHasLeafConstrainingNodeByPrefixedLabel(@NonNull ConstrainingNode constrainingNode, @NonNull String label) {
+		ConstrainingNode containedConstrainingNode = getConstrainingNodeByLabel(constrainingNode.getChildren(), PREFIX_CONSTRAINT_LABEL + label);
+		assertTrue(containedConstrainingNode instanceof LeafConstrainingNode);
+		return (LeafConstrainingNode) containedConstrainingNode;
+	}
+
+	protected @NonNull ResultConstrainingNode assertHasResultConstrainingNodeByLabel(@NonNull ConstrainingNode constrainingNode, @NonNull String label) {
+		ConstrainingNode containedConstrainingNode = getConstrainingNodeByLabel(constrainingNode.getChildren(), label);
+		assertTrue(containedConstrainingNode instanceof ResultConstrainingNode);
+		assertTrue(containedConstrainingNode.getConstrainingObject() == null);
+		return (ResultConstrainingNode) containedConstrainingNode;
+	}
+
+	protected @NonNull List<? extends ValidatableNode> assertHasValidatableNodes(@NonNull RootNode rootNode, int expectedChildCount) {
+		List<? extends ValidatableNode> children = rootNode.getValidatableNodes();
+		assertEquals("Expected child count for " + rootNode, expectedChildCount, children.size());
+		return children;
+	}
+
+	protected @NonNull List<? extends ValidatableNode> assertHasValidatableNodes(@NonNull ValidatableNode validatableNode, int expectedChildCount) {
+		List<? extends ValidatableNode> children = validatableNode.getChildren();
+		assertEquals("Expected child count for " + validatableNode, expectedChildCount, children.size());
+		return children;
+	}
+
+	protected @NonNull ValidatableNode assertHasValidatableNodeByLabel(@NonNull RootNode rootNode, @NonNull String label, @NonNull Class<?> constrainingClass) {
+		ValidatableNode containedValidatableNode = getValidatableNodeByLabel(rootNode.getValidatableNodes(), label);
+		assertNotNull(containedValidatableNode);
+		assertTrue(constrainingClass.isAssignableFrom(containedValidatableNode.getConstrainedObject().getClass()));
+		return containedValidatableNode;
+	}
+
+	protected @NonNull ValidatableNode assertHasValidatableNodeByLabel(@NonNull ValidatableNode validatableNode, @NonNull String label, @NonNull Class<?> constrainingClass) {
+		ValidatableNode containedValidatableNode = getValidatableNodeByLabel(validatableNode.getChildren(), label);
+		assertNotNull(containedValidatableNode);
+		assertTrue(constrainingClass.isAssignableFrom(containedValidatableNode.getConstrainedObject().getClass()));
+		return containedValidatableNode;
+	}
+
+	protected @NonNull ResultValidatableNode assertHasResultValidatableNodeByPrefixedLabel(@NonNull ValidatableNode validatableNode, @NonNull String label) {
+		ValidatableNode containedValidatableNode = getValidatableNodeByLabel(validatableNode.getChildren(), PREFIX_CONSTRAINT_LABEL + label);
+		assertTrue(containedValidatableNode instanceof ResultValidatableNode);
+		assertNull(containedValidatableNode.getConstrainedObject());
+		return (ResultValidatableNode) containedValidatableNode;
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -68,141 +140,59 @@ public class ValidityModelTests extends AbstractValidityTestCase
 
 	@Test
 	public void testValidityModelInitialization_RootValidatableNodesArePresent() {
-		EList<RootValidatableNode> validatableNodes = rootNode
-				.getValidatableNodes();
-		assertEquals((Integer) 3, (Integer) validatableNodes.size());
-		ValidatableNode rootChildValidatableNode = getValidatableNodeFromRootByLabel(validatableNodes,
-						"Eclass1 e1Att1"); //$NON-NLS-1$
-		assertTrue(rootChildValidatableNode.getConstrainedObject() instanceof Eclass1Impl);
-		EList<ValidatableNode> rootValidatableNodeChildren = rootChildValidatableNode
-				.getChildren();
-		assertEquals((Integer) 3, (Integer) rootValidatableNodeChildren.size());
-		ValidatableNode eclass1_constraint_ValidatableNode = getValidatableNodeByLabel(rootValidatableNodeChildren,
-						PREFIX_CONSTRAINT_LABEL + "eclass1_constraint"); //$NON-NLS-1$
-		assertNotNull(eclass1_constraint_ValidatableNode);
-		assertTrue(eclass1_constraint_ValidatableNode.getConstrainedObject() == null);
+		final ValidatableNode _e1Att1 = assertHasValidatableNodeByLabel(rootNode, "Eclass1 e1Att1", Eclass1Impl.class);
+		assertHasValidatableNodes(_e1Att1, 3);
+		assertHasResultValidatableNodeByPrefixedLabel(_e1Att1, "eclass1_constraint");
 
-		ValidatableNode containedValidatableNode = getValidatableNodeByLabel(rootValidatableNodeChildren,
-						"EClass2"); //$NON-NLS-1$
-		assertNotNull(containedValidatableNode);
-		assertTrue(containedValidatableNode.getConstrainedObject() instanceof EClass2);
-		EList<ValidatableNode> containedValidatableNodes = containedValidatableNode
-				.getChildren();
-		assertEquals((Integer) 1, (Integer) containedValidatableNodes.size());
-		ValidatableNode constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						PREFIX_CONSTRAINT_LABEL + "eclass2_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-		assertTrue(constraintOfcontainedValidatableNode.getConstrainedObject() == null);
+		final ValidatableNode _e1Att1__EClass2 = assertHasValidatableNodeByLabel(_e1Att1, "EClass2", EClass2.class);
+		assertHasValidatableNodes(_e1Att1__EClass2, 1);
+		assertHasResultValidatableNodeByPrefixedLabel(_e1Att1__EClass2, "eclass2_constraint");
 
-		containedValidatableNode = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, "EClass2"); //$NON-NLS-1$
-		assertNotNull(containedValidatableNode);
-		containedValidatableNodes = containedValidatableNode.getChildren();
-		assertEquals((Integer) 1, (Integer) containedValidatableNodes.size());
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						PREFIX_CONSTRAINT_LABEL + "eclass2_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
+		final ValidatableNode containedValidatableNode2 = assertHasValidatableNodeByLabel(_e1Att1, "EClass2", null);		// FIXME Duplicate
+		assertHasValidatableNodes(containedValidatableNode2, 1);
+		assertHasResultValidatableNodeByPrefixedLabel(containedValidatableNode2, "eclass2_constraint");
 
-		rootChildValidatableNode = getValidatableNodeFromRootByLabel(
-				validatableNodes, "ecoreTest2"); //$NON-NLS-1$
-		rootValidatableNodeChildren = rootChildValidatableNode.getChildren();
-		assertEquals((Integer) 3, (Integer) rootValidatableNodeChildren.size());
-		eclass1_constraint_ValidatableNode = getValidatableNodeByLabel(rootValidatableNodeChildren,
-						PREFIX_CONSTRAINT_LABEL + "epackage_constraint_2"); //$NON-NLS-1$
-		assertNotNull(eclass1_constraint_ValidatableNode);
-		eclass1_constraint_ValidatableNode = getValidatableNodeByLabel(rootValidatableNodeChildren,
-						PREFIX_CONSTRAINT_LABEL + "epackage_constraint"); //$NON-NLS-1$
-		assertNotNull(eclass1_constraint_ValidatableNode);
+		final ValidatableNode _ecoreTest2 = assertHasValidatableNodeByLabel(rootNode, "ecoreTest2", null);
+		assertHasValidatableNodes(_ecoreTest2, 9/*3*/);
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2, "epackage_constraint_2");
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2, "epackage_constraint");
 
-		containedValidatableNode = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, "Eclass5"); //$NON-NLS-1$
-		assertNotNull(containedValidatableNode);
-		containedValidatableNodes = containedValidatableNode.getChildren();
-		assertEquals((Integer) 2, (Integer) containedValidatableNodes.size());
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						PREFIX_CONSTRAINT_LABEL + "eclass_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						"eAttribute5 : EString"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-		EList<ValidatableNode> containedValidatableNodes2 = constraintOfcontainedValidatableNode
-				.getChildren();
-		assertEquals((Integer) 1, (Integer) containedValidatableNodes2.size());
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes2,
-						PREFIX_CONSTRAINT_LABEL + "eattribute_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
+		final ValidatableNode _ecoreTest2__Eclass5 = assertHasValidatableNodeByLabel(_ecoreTest2, "Eclass5", null);
+		assertHasValidatableNodes(_ecoreTest2__Eclass5, 13/*2*/);
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2__Eclass5, "eclass_constraint");
+
+		final ValidatableNode _ecoreTest2__Eclass5__eAttribute5 = assertHasValidatableNodeByLabel(_ecoreTest2__Eclass5, "eAttribute5 : EString", null);
+		assertHasValidatableNodes(_ecoreTest2__Eclass5__eAttribute5, 9/*1*/);
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2__Eclass5__eAttribute5, "eattribute_constraint");
 
 	}
 
 	@Test
 	public void testValidityModelInitializationModelElements() {
-		EList<RootValidatableNode> validatableNodes = rootNode
-				.getValidatableNodes();
-		assertEquals((Integer) 3, (Integer) validatableNodes.size());
-		ValidatableNode rootValidatableNode = getValidatableNodeFromRootByLabel(validatableNodes,
-						"Eclass1 e1Att1"); //$NON-NLS-1$
-		assertTrue(rootValidatableNode.getConstrainedObject() instanceof Eclass1Impl);
-		EList<ValidatableNode> rootValidatableNodeChildren = rootValidatableNode
-				.getChildren();
-		assertEquals((Integer) 3, (Integer) rootValidatableNodeChildren.size());
-		ValidatableNode constraint1 = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, PREFIX_CONSTRAINT_LABEL
-						+ "eclass1_constraint"); //$NON-NLS-1$
-		assertNotNull(constraint1);
-		assertTrue(constraint1.getConstrainedObject() == null);
+		final ValidatableNode _e1Att1 = assertHasValidatableNodeByLabel(rootNode, "Eclass1 e1Att1", Eclass1Impl.class);
+		assertHasValidatableNodes(_e1Att1, 3);
+		assertHasResultValidatableNodeByPrefixedLabel(_e1Att1, "eclass1_constraint");
 
-		ValidatableNode containedValidatableNode = getValidatableNodeByLabel(rootValidatableNodeChildren,
-						"EClass2"); //$NON-NLS-1$
-		assertNotNull(containedValidatableNode);
-		assertTrue(containedValidatableNode.getConstrainedObject() instanceof EClass2);
-		EList<ValidatableNode> containedValidatableNodes = containedValidatableNode
-				.getChildren();
-		assertEquals((Integer) 1, (Integer) containedValidatableNodes.size());
-		ValidatableNode constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						PREFIX_CONSTRAINT_LABEL + "eclass2_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-		assertTrue(constraintOfcontainedValidatableNode.getConstrainedObject() == null);
+		final ValidatableNode _e1Att1__EClass2 = assertHasValidatableNodeByLabel(_e1Att1, "EClass2", EClass2.class);		// FIXME Duplicate
+		assertTrue(_e1Att1__EClass2.getConstrainedObject() instanceof EClass2);
+		assertHasValidatableNodes(_e1Att1__EClass2, 1);
+		assertHasResultValidatableNodeByPrefixedLabel(_e1Att1__EClass2, "eclass2_constraint");
 
-		containedValidatableNode = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, "EClass2"); //$NON-NLS-1$
-		assertNotNull(containedValidatableNode);
-		containedValidatableNodes = containedValidatableNode.getChildren();
-		assertEquals((Integer) 1, (Integer) containedValidatableNodes.size());
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						PREFIX_CONSTRAINT_LABEL + "eclass2_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
+		final ValidatableNode containedValidatableNode2 = assertHasValidatableNodeByLabel(_e1Att1, "EClass2", null);
+		assertHasValidatableNodes(containedValidatableNode2, 1);
+		assertHasResultValidatableNodeByPrefixedLabel(containedValidatableNode2, "eclass2_constraint");
 
-		rootValidatableNode = getValidatableNodeFromRootByLabel(
-				validatableNodes, "ecoreTest2"); //$NON-NLS-1$
-		rootValidatableNodeChildren = rootValidatableNode.getChildren();
-		assertEquals((Integer) 3, (Integer) rootValidatableNodeChildren.size());
-		constraint1 = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, PREFIX_CONSTRAINT_LABEL
-						+ "epackage_constraint_2"); //$NON-NLS-1$
-		assertNotNull(constraint1);
-		constraint1 = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, PREFIX_CONSTRAINT_LABEL
-						+ "epackage_constraint"); //$NON-NLS-1$
-		assertNotNull(constraint1);
+		final ValidatableNode _ecoreTest2 = assertHasValidatableNodeByLabel(rootNode, "ecoreTest2", null);
+		assertHasValidatableNodes(_ecoreTest2, 9/*3*/);
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2, "epackage_constraint_2");
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2, "epackage_constraint");
 
-		containedValidatableNode = getValidatableNodeByLabel(
-				rootValidatableNodeChildren, "Eclass5"); //$NON-NLS-1$
-		assertNotNull(containedValidatableNode);
-		containedValidatableNodes = containedValidatableNode.getChildren();
-		assertEquals((Integer) 2, (Integer) containedValidatableNodes.size());
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						PREFIX_CONSTRAINT_LABEL + "eclass_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes,
-						"eAttribute5 : EString"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-		EList<ValidatableNode> containedValidatableNodes2 = constraintOfcontainedValidatableNode
-				.getChildren();
-		assertEquals((Integer) 1, (Integer) containedValidatableNodes2.size());
-		constraintOfcontainedValidatableNode = getValidatableNodeByLabel(containedValidatableNodes2,
-						PREFIX_CONSTRAINT_LABEL + "eattribute_constraint"); //$NON-NLS-1$
-		assertNotNull(constraintOfcontainedValidatableNode);
-
+		final ValidatableNode _ecoreTest2__Eclass5 = assertHasValidatableNodeByLabel(_ecoreTest2, "Eclass5", null);
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2__Eclass5, "eclass_constraint");
+		
+		final ValidatableNode _ecoreTest2__Eclass5__eAttribute5 = assertHasValidatableNodeByLabel(_ecoreTest2__Eclass5, "eAttribute5 : EString", null);
+		assertHasValidatableNodes(_ecoreTest2__Eclass5__eAttribute5, 9/*1*/);
+		assertHasResultValidatableNodeByPrefixedLabel(_ecoreTest2__Eclass5__eAttribute5, "eattribute_constraint");
 	}
 
 	@Test
@@ -215,163 +205,69 @@ public class ValidityModelTests extends AbstractValidityTestCase
 		assertTrue(resources.contains(ecoreResource3));
 		assertTrue(isCompleteOCLCSResourcePresent(resources));
 
-		EList<RootConstrainingNode> constrainingNodes = rootNode
-				.getConstrainingNodes();
 		// Tests that we have all the RootConstrainingNode ecoreTest and ecore.
-		assertEquals((Integer) 2, (Integer) constrainingNodes.size());
-		ConstrainingNode rootConstrainingNode = getConstrainingNodeFromRootByLabel(constrainingNodes, "ecore"); //$NON-NLS-1$
-		assertNotNull(rootConstrainingNode);
-		assertTrue(rootConstrainingNode.getConstrainingObject() instanceof EPackage);
-		EList<ConstrainingNode> contextsConstrained = rootConstrainingNode
-				.getChildren();
-		assertEquals((Integer) 3, (Integer) contextsConstrained.size());
-		ConstrainingNode eClassContextConstrained = getConstrainingNodeByLabel(contextsConstrained, "EClass"); //$NON-NLS-1$
-		assertTrue(eClassContextConstrained.getConstrainingObject() instanceof EClass);
-		EList<ConstrainingNode> constraintsOfContext = eClassContextConstrained
-				.getChildren();
-		assertEquals((Integer) 1, (Integer) constraintsOfContext.size());
-		ConstrainingNode constraintOfContext = getConstrainingNodeByLabel(constraintsOfContext,
-						PREFIX_CONSTRAINT_LABEL + "eclass_constraint"); //$NON-NLS-1$
-		assertTrue(constraintOfContext instanceof LeafConstrainingNode);
-		assertTrue(constraintOfContext.getConstrainingObject() instanceof Constraint);
-		EList<ConstrainingNode> elementsInvolvedByConstraint = constraintOfContext
-				.getChildren();
-		assertEquals((Integer) 4, (Integer) elementsInvolvedByConstraint.size());
-		ConstrainingNode resultConstrainingNode = getConstrainingNodeByLabel(elementsInvolvedByConstraint,
-						"Eclass1"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode.getConstrainingObject() == null);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "Eclass5"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "EClass2"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "EClass3 -> Eclass5"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
+		assertHasConstrainingNodes(rootNode, 2);
+		final ConstrainingNode _ecore = assertHasConstrainingNodeByLabel(rootNode, "ecore", EPackage.class);
+		assertHasConstrainingNodes(_ecore, 45/*3*/);
+		final ConstrainingNode _ecore__EClass = assertHasConstrainingNodeByLabel(_ecore, "EClass", EClass.class);
+		assertHasConstrainingNodes(_ecore__EClass, 9/*1*/);
+		final ConstrainingNode _ecore__EClass__eclass_constraint = assertHasLeafConstrainingNodeByPrefixedLabel(_ecore__EClass, "eclass_constraint");
+		assertTrue(_ecore__EClass__eclass_constraint.getConstrainingObject() instanceof Constraint);
+		assertHasConstrainingNodes(_ecore__EClass__eclass_constraint, 4);
+		assertHasResultConstrainingNodeByLabel(_ecore__EClass__eclass_constraint, "Eclass1");
+		assertHasResultConstrainingNodeByLabel(_ecore__EClass__eclass_constraint, "Eclass5");
+		assertHasResultConstrainingNodeByLabel(_ecore__EClass__eclass_constraint, "EClass2");
+		assertHasResultConstrainingNodeByLabel(_ecore__EClass__eclass_constraint, "EClass3 -> Eclass5");
 
-		eClassContextConstrained = getConstrainingNodeByLabel(
-				contextsConstrained, "EPackage"); //$NON-NLS-1$
-		constraintsOfContext = eClassContextConstrained.getChildren();
-		assertEquals((Integer) 2, (Integer) constraintsOfContext.size());
-		constraintOfContext = getConstrainingNodeByLabel(
-				constraintsOfContext, PREFIX_CONSTRAINT_LABEL
-						+ "epackage_constraint"); //$NON-NLS-1$
-		assertTrue(constraintOfContext instanceof LeafConstrainingNode);
-		elementsInvolvedByConstraint = constraintOfContext.getChildren();
-		assertEquals((Integer) 2, (Integer) elementsInvolvedByConstraint.size());
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "ecoreTest2"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "ecoreTest"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
+		final ConstrainingNode _ecore__EPackage = assertHasConstrainingNodeByLabel(_ecore, "EPackage", EClass.class);
+		assertHasConstrainingNodes(_ecore__EPackage, 7/*2*/);
+		final ConstrainingNode _ecore__EPackage__epackage_constraint = assertHasLeafConstrainingNodeByPrefixedLabel(_ecore__EPackage, "epackage_constraint");
+		assertHasConstrainingNodes(_ecore__EPackage__epackage_constraint, 2);
+		assertHasResultConstrainingNodeByLabel(_ecore__EPackage__epackage_constraint, "ecoreTest2");
+		assertHasResultConstrainingNodeByLabel(_ecore__EPackage__epackage_constraint, "ecoreTest");
 
-		constraintOfContext = getConstrainingNodeByLabel(
-				constraintsOfContext, PREFIX_CONSTRAINT_LABEL
-						+ "epackage_constraint_2"); //$NON-NLS-1$
-		assertTrue(constraintOfContext instanceof LeafConstrainingNode);
-		elementsInvolvedByConstraint = constraintOfContext.getChildren();
-		assertEquals((Integer) 2, (Integer) elementsInvolvedByConstraint.size());
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "ecoreTest2"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "ecoreTest"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
+		final ConstrainingNode _ecore__EPackage__epackage_constraint_2 = assertHasLeafConstrainingNodeByPrefixedLabel(_ecore__EPackage, "epackage_constraint_2");
+		assertHasConstrainingNodes(_ecore__EPackage__epackage_constraint_2, 2);
+		assertHasResultConstrainingNodeByLabel(_ecore__EPackage__epackage_constraint_2, "ecoreTest2");
+		assertHasResultConstrainingNodeByLabel(_ecore__EPackage__epackage_constraint_2, "ecoreTest");
 
-		eClassContextConstrained = getConstrainingNodeByLabel(
-				contextsConstrained, "EAttribute"); //$NON-NLS-1$
-		constraintsOfContext = eClassContextConstrained.getChildren();
-		assertEquals((Integer) 1, (Integer) constraintsOfContext.size());
-		constraintOfContext = getConstrainingNodeByLabel(
-				constraintsOfContext, PREFIX_CONSTRAINT_LABEL
-						+ "eattribute_constraint"); //$NON-NLS-1$
-		assertTrue(constraintOfContext instanceof LeafConstrainingNode);
-		elementsInvolvedByConstraint = constraintOfContext.getChildren();
-		assertEquals((Integer) 5, (Integer) elementsInvolvedByConstraint.size());
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "eAttribute1 : EString"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "eAttribute2 : EString"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "eAttribute3 : EShort"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "eAttribute5 : EString"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
+		final ConstrainingNode _ecore__EAttribute = assertHasConstrainingNodeByLabel(_ecore, "EAttribute", EClass.class);
+		assertHasConstrainingNodes(_ecore__EAttribute, 2/*1*/);
+		final ConstrainingNode _ecore__EAttribute__eattribute_constraint = assertHasLeafConstrainingNodeByPrefixedLabel(_ecore__EAttribute, "eattribute_constraint");
+		assertHasConstrainingNodes(_ecore__EAttribute__eattribute_constraint, 5);
+		assertHasResultConstrainingNodeByLabel(_ecore__EAttribute__eattribute_constraint, "eAttribute1 : EString");
+		assertHasResultConstrainingNodeByLabel(_ecore__EAttribute__eattribute_constraint, "eAttribute2 : EString");
+		assertHasResultConstrainingNodeByLabel(_ecore__EAttribute__eattribute_constraint, "eAttribute3 : EShort");
+		assertHasResultConstrainingNodeByLabel(_ecore__EAttribute__eattribute_constraint, "eAttribute5 : EString");
 
-		rootConstrainingNode = getConstrainingNodeFromRootByLabel(
-				constrainingNodes, "ecoreTest"); //$NON-NLS-1$
-		assertNotNull(rootConstrainingNode);
+		final ConstrainingNode _ecoreTest = assertHasConstrainingNodeByLabel(rootNode, "ecoreTest", EPackage.class);
+		assertHasConstrainingNodes(_ecoreTest, 2);
 
-		contextsConstrained = rootConstrainingNode.getChildren();
-		assertEquals((Integer) 2, (Integer) contextsConstrained.size());
+		final ConstrainingNode _ecoreTest__Eclass1 = assertHasConstrainingNodeByLabel(_ecoreTest, "Eclass1", EClass.class);
+		assertHasConstrainingNodes(_ecoreTest__Eclass1, 1);
+		final ConstrainingNode _ecoreTest__Eclass1__eclass1_constraint = assertHasLeafConstrainingNodeByPrefixedLabel(_ecoreTest__Eclass1, "eclass1_constraint");
+		assertHasConstrainingNodes(_ecoreTest__Eclass1__eclass1_constraint, 1);
+		assertHasResultConstrainingNodeByLabel(_ecoreTest__Eclass1__eclass1_constraint, "Eclass1 e1Att1");
 
-		eClassContextConstrained = getConstrainingNodeByLabel(
-				contextsConstrained, "Eclass1"); //$NON-NLS-1$
-		constraintsOfContext = eClassContextConstrained.getChildren();
-		assertEquals((Integer) 1, (Integer) constraintsOfContext.size());
-		constraintOfContext = getConstrainingNodeByLabel(
-				constraintsOfContext, PREFIX_CONSTRAINT_LABEL
-						+ "eclass1_constraint"); //$NON-NLS-1$
-		assertTrue(constraintOfContext instanceof LeafConstrainingNode);
-		elementsInvolvedByConstraint = constraintOfContext.getChildren();
-		assertEquals((Integer) 1, (Integer) elementsInvolvedByConstraint.size());
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "Eclass1 e1Att1"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-
-		eClassContextConstrained = getConstrainingNodeByLabel(
-				contextsConstrained, "EClass2"); //$NON-NLS-1$
-		constraintsOfContext = eClassContextConstrained.getChildren();
-		assertEquals((Integer) 1, (Integer) constraintsOfContext.size());
-		constraintOfContext = getConstrainingNodeByLabel(
-				constraintsOfContext, PREFIX_CONSTRAINT_LABEL
-						+ "eclass2_constraint"); //$NON-NLS-1$
-		assertTrue(constraintOfContext instanceof LeafConstrainingNode);
-		elementsInvolvedByConstraint = constraintOfContext.getChildren();
-		assertEquals((Integer) 2, (Integer) elementsInvolvedByConstraint.size());
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "EClass2"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
-		resultConstrainingNode = getConstrainingNodeByLabel(
-				elementsInvolvedByConstraint, "EClass2"); //$NON-NLS-1$
-		assertNotNull(resultConstrainingNode);
-		assertTrue(resultConstrainingNode instanceof ResultConstrainingNode);
+		final ConstrainingNode _ecoreTest__EClass2 = assertHasConstrainingNodeByLabel(_ecoreTest, "EClass2", EClass.class);
+		assertHasConstrainingNodes(_ecoreTest__EClass2, 1);
+		final ConstrainingNode _ecoreTest__EClass2__eclass2_constraint = assertHasLeafConstrainingNodeByPrefixedLabel(_ecoreTest__EClass2, "eclass2_constraint");
+		assertHasConstrainingNodes(_ecoreTest__EClass2__eclass2_constraint, 2);
+		assertHasResultConstrainingNodeByLabel(_ecoreTest__EClass2__eclass2_constraint, "EClass2");
+		assertHasResultConstrainingNodeByLabel(_ecoreTest__EClass2__eclass2_constraint, "EClass2");		// FIXME Duplicate
 	}
 
 	@Test
 	public void testValidityModelCreateResultSet() {
-		ResultSet resultSet = validityManager
-				.createResultSet(new NullProgressMonitor());
-		EList<Result> results = resultSet.getResults();
+		ResultSet resultSet = validityManager.createResultSet(new NullProgressMonitor());
+		List<Result> results = resultSet.getResults();
 		for (Result result : results) {
-			ResultValidatableNode resultValidatableNode = result
-					.getResultValidatableNode();
+			ResultValidatableNode resultValidatableNode = result.getResultValidatableNode();
 			assertNotNull(resultValidatableNode);
-			assertNotNull(resultValidatableNode.getResultConstrainingNode());
-			assertEquals(resultValidatableNode, resultValidatableNode
-					.getResultConstrainingNode().getResultValidatableNode());
+			ResultConstrainingNode resultConstrainingNode = resultValidatableNode.getResultConstrainingNode();
+			assertNotNull(resultConstrainingNode);
+			assertEquals(resultValidatableNode, resultConstrainingNode.getResultValidatableNode());
 		}
-
-		assertEquals((Integer) 16, (Integer) results.size());
+		assertEquals(EXPECTED_RESULTS, (Integer) results.size());
 	}
 }
