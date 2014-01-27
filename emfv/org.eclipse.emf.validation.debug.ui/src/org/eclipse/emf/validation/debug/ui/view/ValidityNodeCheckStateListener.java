@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.eclipse.emf.validation.debug.validity.AbstractNode;
 import org.eclipse.emf.validation.debug.validity.ConstrainingNode;
+import org.eclipse.emf.validation.debug.validity.ResultConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.ResultValidatableNode;
 import org.eclipse.emf.validation.debug.validity.RootConstrainingNode;
 import org.eclipse.emf.validation.debug.validity.RootValidatableNode;
@@ -47,7 +48,7 @@ public class ValidityNodeCheckStateListener implements ICheckStateListener {
 			// update Selected Element check
 			abstractNode.setEnabled(checked);
 
-			//update Selected Element Results children check;
+			// update Selected Element Results children check
 			updateChildrenNodesState(abstractNode, checked);
 
 			// update Selected Element parents checks/grayed
@@ -60,6 +61,9 @@ public class ValidityNodeCheckStateListener implements ICheckStateListener {
 				ValidatableNode validatableNode = (ValidatableNode) abstractNode;
 				updateValidatableNodeAncestors(validatableNode, checked);
 			}
+
+			// update corresponding element in the adjacent tree
+			propagateToAdjacentTree(abstractNode, checked);
 		} else {
 			// DO NOTHING
 		}
@@ -244,6 +248,34 @@ public class ValidityNodeCheckStateListener implements ICheckStateListener {
 				constraintsTree.setChecked(child, checked);
 				updateChildrenNodesState(child, checked);
 			}
+
+			propagateToAdjacentTree(child, checked);
+		}
+	}
+
+	/**
+	 * Propagates results selection to the adjacent tree. The propagation is ascendant since the
+	 * ResultValidatableNode and ResultConstrainingNode have no children to
+	 * uptade.
+	 */
+	private void propagateToAdjacentTree(AbstractNode abstractNode,
+			boolean checked) {
+		if (abstractNode instanceof ResultValidatableNode) {
+			ResultConstrainingNode resultConstrainingNode = ((ResultValidatableNode) abstractNode)
+					.getResultConstrainingNode();
+			resultConstrainingNode.setEnabled(checked);
+			constraintsTree.setChecked(resultConstrainingNode, checked);
+
+			// update Element parents checks/grayed
+			updateConstrainingNodeAncestors(resultConstrainingNode, checked);
+		} else if (abstractNode instanceof ResultConstrainingNode) {
+			ResultValidatableNode resultValidatableNode = ((ResultConstrainingNode) abstractNode)
+					.getResultValidatableNode();
+			resultValidatableNode.setEnabled(checked);
+			validatableTree.setChecked(resultValidatableNode, checked);
+
+			// update Element parents checks/grayed
+			updateValidatableNodeAncestors(resultValidatableNode, checked);
 		}
 	}
 }
